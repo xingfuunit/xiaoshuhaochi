@@ -1,0 +1,94 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       <div class="editcontent">
+       	
+       	
+       	
+       	
+       	<div class="clearfix menu_title" style="margin-top:10px;">
+         
+<form action="<{ofunc type=url link="/shopcenter/ordertotal"}>" method="post">            <div class="filter">
+                
+                <p class="fl order_date">
+                    选择日期： <input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />  
+			   		 	  到<input class="Wdate datefmt" type="text" name="endtime" id="endtime" value="<{$endtime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />  
+                    <input type="submit" value="查询">
+                    
+                </p>
+                    
+                    
+                    
+                    
+                    
+            </div>
+</form>    </div>
+       	
+       	
+       	
+       	<div class="br4 st_box">
+        <div class="st_title">
+            <p>
+                <{$starttime}> 00:00:00 - <{$endtime}> 23:59:59 统计结果</p>
+        </div>
+        <div class="st_body">
+            <table cellpadding="0" cellspacing="0" width="95%">
+            	
+            	<thead style="background:#eee;">
+		                <tr>
+		                  <th style="width:30%">统计内容</th>
+		                  <th style="width:30%;">订单数量</th>
+		                  <th >订单统计金额</th>
+		                   <th >配送费</th>
+		                </tr>
+		                
+		              </thead>
+		              <tbody>
+		              	<{if empty($totaltongji)}>
+		              	  <tr>
+		              	  	<td colspan="3">此时间段暂无数据
+		              	  	</td>
+		              	  </tr>
+		                <{/if}>
+		              	<{foreach from=$totaltongji item=items}>
+		              	<{if $items['status'] > 0 && $items['status'] < 4}> 
+		                <tr>
+		                	<td><{$buyerstatus[$items['status']]}> </td>
+		                	<td><{$items['shuliang']}> </td>
+		                	<td><{$items['cost']}></td>
+		                	<td><{$items['sendcost']}></td>
+		                </tr>
+		              <{/if}> 
+		                <{/foreach}>
+		              </tbody> 
+            	
+                </table>
+        </div>
+    </div>
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       </div>
+</div>
+
+
+
+
+
+<{include file="<{$tempdir}>/public/shopfooter.html"}> 

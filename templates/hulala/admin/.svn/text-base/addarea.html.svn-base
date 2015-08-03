@@ -1,0 +1,122 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname"><{if !empty($info)}>编辑配送区域<{else}>添加配送区域<{/if}></div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+          
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/admin/savearea"}>">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">区域名称</td>
+                      <td><input type="text" name="name" id="name" value="<{$info['name']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">上级区域</td>
+                      <td><select name="parent_id" id="parent_id" onchange="addimg();">
+                      	<option value="0">一级目录</option>
+                      	<{$option}>
+                      </select>
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">首字母拼音</td>
+                      <td><input type="text" name="pin" id="pin" value="<{$info['pin']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">排序ID</td>
+                      <td><input type="text" name="orderid" id="orderid" value="<{$info['orderid']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="imgdo" <{if  $info['parent_id'] !=0}> style="display:none;"<{/if}>>
+                      <td class="left" valign="top">地址图标</td>
+                      <td>
+                      	<img src="<{$info['imgurl']}>" width=203px height=124px id="imgshow" <{if  empty($info['imgurl'])}> style="display:none;"<{/if}>>
+                      	<input type="hidden" name="imgurl" id="imgurl" value="<{$info['imgurl']}>" class="skey" style="width:150px;" >
+                      	<span onclick="uploads();">上传图片</span>
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">百度lng坐标,</td>
+                      <td><input type="text" name="lng" id="lng" value="<{$info['lng']}>" class="skey" style="width:150px;" ><a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank">百度坐标拾取地址</a>说明,前面1个是lng后边一个是lat</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">百度lat坐标</td>
+                      <td><input type="text" name="lat" id="lat" value="<{$info['lat']}>" class="skey" style="width:150px;" ></td>
+                    </tr>
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;"> 
+                  </tbody> 
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    
+    
+    
+  </div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	 function addimg()
+	 {
+	 	 var panduan = $("#parent_id  option:selected").val(); 
+	 	 if(panduan == 0)
+	 	 {
+	 	 	showupload();
+	 	 }else{
+	 	 	hideupload();
+	  	} 
+	 }
+	 function showupload()
+	 {
+	 	  $('#imgdo').show();
+	 }
+	 function hideupload()
+	 {
+	 	  $('#imgdo').hide();
+	 }
+	 var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/admin/upload"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(linkurl){
+ 	dialogs.close(); 
+ 	$('#imgurl').val(linkurl);
+ 	$('#imgshow').attr('src',linkurl);
+ 	$('#imgshow').show(); 
+}
+function uploaderror(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+</script>
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

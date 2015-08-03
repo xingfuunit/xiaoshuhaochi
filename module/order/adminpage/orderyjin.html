@@ -1,0 +1,137 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>商家结算<{/block}>
+ <{block name=bodylist}>
+      <div style="width:100%;margin-top:-10px;"> 
+      	
+      	<div class="search"> 
+            <div class="search_content">
+            	 
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/order/module/orderyjin"}>">
+            	  <label>商家店铺名：</label>
+            	  <input type="text" name="searchvalue" value="<{$searchvalue}>"> 
+            	   从<input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />  
+			   		 	  到<input class="Wdate datefmt" type="text" name="endtime" id="endtime" value="<{$endtime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />                  
+
+            	  
+            	    <input type="submit" value="提交查询" class="button">  
+            	    自送(包含订台)
+            	 </form>
+            </div>
+        
+      	</div>
+      	
+      	
+      	
+           <div class="tags">
+
+      	 	 
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+                <{if empty($list)}>
+                暂无数据
+                <{else}>
+                <table border="0" cellspacing="0" cellpadding="0" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">商家列表</th>  
+                        <th align="center">配送方式</th> 
+                         <th align="center">订单数量</th>  
+                          <th align="center">在线付款</th>
+                        <th align="center">线下支付</th>
+                        <th align="center">使用优惠券</th>
+                        <th align="center">店铺优惠</th> 
+                         <th align="center">使用积分 </th>
+                         <th align="center">打包费 </th>
+                         <th align="center">配送费 </th>
+                         <th align="center">商品总价</th>
+                         <th align="center">佣金</th>
+                        <th align="center">导出</th>
+                    
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" > 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td> 
+                        <td align="center" style="color:#666;font-weight:bold;"  ><{$items['shopname']}></td>   
+                        <td align="center" style="color:#666;font-weight:bold;"> <{$items['sendtype']|default:0}>  </td>  
+                        
+                          <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['orderNum']|default:0}>  </td>  
+                           <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['online']|default:0}>  </td>  
+                             <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['unline']|default:0}>  </td>  
+                               <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['yhjcost']|default:0}>  </td>  
+                                 <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['cxcost']|default:0}>  </td>  
+                         <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['score']|default:0}>  </td>  
+                          <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['bagcost']|default:0}>  </td>  
+                           <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['pscost']|default:0}>  </td>   
+                           <td align="center" style="font-weight:bold;font-size: 16px;"> <{$items['goodscost']|default:0}>  </td>   
+                                  
+                            <td align="center" style="font-weight:bold;font-size: 16px;color:red;"> <{$items['yje']|default:0}>  </td>    
+                        <td align="center"><a href="<{$items['outdetail']}>" target="_blank">导出</a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+                <{/if}>
+               
+		          
+		          
+
+                <div class="blank20"></div> 
+
+                </form>
+
+                <div class="page_newc">
+                 	     <div class="select_page">
+                 	     	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a> 
+                 	     <a  onclick="outchoice(this);" href="#"  data="<{$outlinkch}>" class="delurl">导出选择项</a>
+                 	     <a  href="<{$outlink}>" target="_blank" class="delurl">导出查询结果</a></div>
+                 	     	</div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  <div id="print_area" style="display:none;"></div>
+ </div>
+ 
+<script type="text/javascript">
+   function colorred(obj){
+   	$(obj).css('background','#eee'); 
+   }
+   function tcolorred(obj){
+   	$(obj).css('background','');
+   }
+    
+ </script>
+
+<{/block}>

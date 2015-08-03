@@ -1,0 +1,94 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.main-b { 
+display: inline-block;
+width: 100%;
+}
+
+.main{
+	width: 1081px;
+margin: 10px auto 0;
+background-color:#E6E6E6;
+}
+ 
+.sub_lf{
+width: 207px;
+float: left;
+background: #F4F2F3;
+}
+.sub_lf h1 {
+background: #FA8131;
+border-left:5px solid #f60;
+height: 40px;
+line-height: 40px;
+padding-left: 50px;
+font-size: 14px;
+color: #FFFFFF;
+font-weight: bold;
+}
+.sub_lf ul.ul1 {
+padding-left: 58px;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.sub_lf ul.ul1 li {
+font-size: 12px;
+font-weight: bold;
+line-height: 30px;
+height: 30px;
+}
+.sub_lf ul.ul1 li a {
+color: #383838;
+}
+.sub_lf ul.ul1 li a:hover,.sub_lf ul.ul1 li a.current {
+color: #f60;
+} 
+.lFloat {
+float: left;
+}
+.mainContent {
+width: 840px;
+padding:15px; 
+float: right;
+color: #666465; 
+min-height: 819px;
+_height: 819px;
+} 
+.navTips {
+ 
+}
+.navTips em {
+border-bottom: 2px solid #ff7800;
+font-style: normal;
+font-size: 18px;
+line-height: 30px;
+font-weight: bold;
+color: #ff7800;
+display: inline-block;
+}
+.textContent {
+padding:20px;
+font-size: 14px;
+color: #808080;
+line-height: 28px;
+background:#F4F2F3;
+}
+.leftMenu li.line {
+margin: 0px 8px 0px 12px;
+padding: 0;
+height: 1px;
+line-height: 0;
+font-size: 0;
+overflow: hidden;
+background: #ddd;
+}
+.navTips  h1.ti {
+font-size: 18px;
+font-weight: bold;
+color: #515151;
+margin-bottom: 8px;
+}
+div, span, h1, h2, h3, h4, h5, h6, ul, li, img, p, strong, b, textarea, input, button, select, form, a, table, tr, td, dl, dt, dd {
+margin: 0;
+padding: 0;
+}

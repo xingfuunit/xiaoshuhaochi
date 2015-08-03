@@ -1,0 +1,153 @@
+
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>留言列表<{/block}>
+ <{block name=bodylist}>
+ <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+
+      	<div class="search">
+
+
+            <div class="search_content">
+
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/ask/module/asklist"}>">
+
+            	  <label>会员名：</label>
+            	   <input type="text" name="searchvalue" value="<{$searchvalue}>">
+
+
+            	   <select name="typeid">
+            	   	  <option value="0">选择留言类型</option>
+            	   	  <{foreach from=$typelist key=myid item=items}>
+            	         <option value="<{$myid}>" <{if $typeid == $myid}>selected<{/if}>><{$items}></option>
+            	     <{/foreach}>
+            	    <input type="submit" value="确认查询" class="button">
+            	 </form>
+            </div>
+
+      	</div>
+
+
+
+           <div class="tags">
+
+
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">留言人</th>
+                         <th width="200px" align="center">内容</th>
+                        <th align="center">留言时间</th>
+
+                        <th align="center">留言类型</th>
+                        <th width="200px" align="center">留言回复</th>
+
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+
+                      <{load_data assign="list" table="ask" showpage="true" where="<{$where}>" orderby="id desc"}>
+                      <{foreach from=$list['list'] item=items}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td>
+                        <td align="center"><{if empty($items['uid'])}>游客
+                        	<{else}>
+                        	<{load_data assign="userinfo" table="member" type="one" where="uid='<{$items['uid']}>'" fileds="username" }>
+                              	<{$userinfo['username']|default:''}><{/if}>
+                        </td>
+                        <td width="200px" align="center"> <{$items['content']}> </td>
+                        <td align="center"><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+                        <td align="center"><{$typelist[$items['typeid']]}></td>
+                         <td width="200px" align="center"><{$items['replycontent']}></td>
+                        <td align="center"><{if empty($items['replycontent'])}><a href="#" onclick="reask('<{$items['id']}>',this);">回复</a><{/if}>
+                        	  <a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/ask/module/delask/id/<{$items['id']}>/datatype/json"}>">删除</a></td>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+               <div class="page_newc">
+                 	     <div class="select_page">
+                 	     	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a>
+                 	     <a onclick="return remindall(this);" href="<{ofunc type=url link="/adminpage/ask/module/delask/datatype/json"}>" class="delurl">删除</a>
+                 	     	</div>
+                       <div class="show_page"><ul><{$list['pagecontent']}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+  </div>
+ <div id="askback" style="display:none;">
+
+               <div>
+                <table border="0" cellspacing="1" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+
+                      <td><textarea name="askback" style="height:70px;width:200px"></textarea></td>
+                    </tr>
+
+                    </table>
+                </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="askbackid" id="askbackid" value="" class="skey" style="width:150px;">
+               <input type="submit" value="确认提交" class="button">
+
+  </div>
+ <script>
+	var dialogs ;
+ function reask(ids,obj){
+ 	 var formurl = '<{ofunc type=url link="/adminpage/ask/module/backask/datatype/json"}>';
+ 	 $('#askbackid').val(ids);
+ 	 var showcontent = '<form method="post" name="form1" action="'+formurl+'" onsubmit="return subform(\'<{ofunc type=url link="/adminpage/ask/module/asklist"}>\',this);">'
+
+      showcontent += $('#askback').html();
+      showcontent +='</form>';
+   var dialog =  art.dialog({
+    title:'留言回复',
+    id:'ask',
+    content: showcontent
+  });
+ }
+
+</script>
+</div>
+<{/block}>

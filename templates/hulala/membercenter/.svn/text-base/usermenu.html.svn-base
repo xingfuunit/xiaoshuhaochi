@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/base.css"> 
+<div class="title">
+		<span class="colortip"></span><span class="title_name"><b><a href="<{ofunc type=url link="/membercenter"}>">我的账户</a></b></span>
+ </div>
+<div class="content"><!-- 左侧菜单 -->
+		<ul class="navLeft1">
+			<{$i=1}>
+				<{foreach from=$menu key=myid item=items}> 
+				<li class="light">
+					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span><{$myid}></span><span class="arrow_bottom" id="cate-a<{$i}>"></span></a>
+				  <div class="navLeft2" id="a1" >
+				  	<{foreach from=$items key=newkty item=itm}> 
+				  	     <a class="gray_w" href="<{ofunc type=url link="/<{$itm}>"}>" id="cateId1"><p <{if $urlshort == $itm}>class="navLeft1_cur"<{/if}>><{$newkty}></p></a>
+				  	<{/foreach}> 
+				  </div>
+				</li>	
+				<{/foreach}>  	
+				
+				 
+			</ul>
+</div>
+
+
+
+
+
+
+
+
+
+ 

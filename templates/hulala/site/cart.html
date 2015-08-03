@@ -1,0 +1,375 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+<form id="cart_form" method="post" action="<{ofunc type=url link="/site/order"}>">
+<div class="ordersel">
+<div class="shopinfoHidden"></div>
+<div class="selectedShop"> 
+</div>
+<div class="hc_order_liucheng">
+	<div class="hc_order_liucheng1"></div>
+	<div class="hc_order_liucheng2"></div>
+	<div class="hc_order_liucheng3"></div>
+	<div class="clear"></div>
+</div>
+<div class="sel-top"></div> 
+		<div class="hc_order_foods_head">我的美食篮子</div>
+		 
+    <div class="bordered-box">
+		<div class="hc_order_foods_table">
+		 
+			<{foreach from = $carinfo['goods']['shopdata'] key=mykey item=value}>
+			 
+			<div id="sel_notice" class="sel-notice" style="background-color: rgb(251, 214, 113);">	
+				<p class="selNotice" id="selNoticeP_<{$value['shopinfo']['id']}>"><{$value['shopinfo']['shopname']}>，起送价为<{$value['shopinfo']['limitcost']}>元，
+					<{if  $value['sum'] > $value['shopinfo']['limitcost']}>已达到。
+					<{else}>未满足配送最低价格,
+					<a href="<{ofunc type=url link="/shop/index/shopid/<{$cominfo['id']}>"}>">继续购买</a> 
+					<{/if}>
+					<span style="float:right;padding"> 配送费<font color=red><{$shoptosend[$value['shopinfo']['id']]}></font>元,小计：<a href="#" style="color:red;font-weight:bold;" id="shop_sum<{$value['shopinfo']['id']}>"><{$value['sum']}></a>&nbsp;元&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					
+					</p></div>
+			<table border="0" cellspacing="0" cellpadding="0" class="table" style="margin-bottom: 0px; width: 1001px;" align="center">
+              <tbody>
+              	<tr style="height: 40px; border-bottom: 1px dashed #ddd; font-size: 16px; color: #777;" id="item-tables-mark" class="xian1">
+					<td style="width: 577px;border-right:1px solid #ddd;"><span style="padding-left:10px;" class="selList-span"><b>美食篮子</b></span></td>
+					<td style="width:107px ;border-right:1px solid #ddd; text-align:center; "><b>单价</b></td>
+					<td style="width: 165px; border-right:1px solid #ddd;"><span style="text-align:center; height:24px; display: block;"><b>数量</b><span></span></span></td>
+					<td style="width:125px;"><span style="text-align:center; height:24px; display: block;"><b>清空</b></span></td>
+                </tr>
+         <{foreach from=$value['list'] item=val}>
+				  <tr shop_id="<{$carinfo['goods']['data'][$val]['shopid']}>" id="xian2_<{$carinfo['goods']['data'][$val]['shopid']}>" class="xian2" style="display: table-row;">
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle;"><span class="selList-span" style="padding-left:10px;"><{$carinfo['goods']['data'][$val]['name']}><{if $carinfo['goods']['data'][$val]['store_num'] < $carinfo['goods']['data'][$val]['count']}><font color=red>库存不足</font><{/if}></span></td>
+				  	<td style="text-align: center; border-right:1px solid #ddd; vertical-align: middle;">￥<{$carinfo['goods']['data'][$val]['cost']}></td>
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle; text-align:center;" class="quantity">
+				  		<a class="addBtn" onclick="reduce(this,'goods');" href="#" shopid="<{$carinfo['goods']['data'][$val]['shopid']}>" food_id="<{$carinfo['goods']['data'][$val]['goods_id']}>" cost="<{$carinfo['goods']['data'][$val]['cost']}>"></a>
+				  		<input style="width:40px;float: left;" readonly shopid="<{$carinfo['goods']['data'][$val]['shopid']}>" food_id="<{$carinfo['goods']['data'][$val]['goods_id']}>" cost="<{$carinfo['goods']['data'][$val]['cost']}>" class="order-item" type="text" id="cartfood_id_<{$carinfo['goods']['data'][$val]['goods_id']}>" value="<{$carinfo['goods']['data'][$val]['count']}>" autocomplete="off">
+				  		<a class="reduceBtn" onclick="upadd(this,'goods');" href="#" shopid="<{$carinfo['goods']['data'][$val]['shopid']}>" food_id="<{$carinfo['goods']['data'][$val]['goods_id']}>" cost="<{$carinfo['goods']['data'][$val]['cost']}>" ></a></td>
+				  	<td style=" text-align:center; vertical-align: middle;">
+				  		<a onmouseover="deleteBtn_huaguo(this);" onmouseout="deleteBtn_moren(this);" class="deleteBtn deleteBtn_moren" onclick="delcart(<{$carinfo['goods']['data'][$val]['goods_id']}>,'goods');" href="javascript:void(0);"></a>
+				  	</td>
+				  </tr>
+				  
+				  <{/foreach}>
+          
+			  </tbody>
+			 </table> 
+			 <{/foreach}> 
+			 
+			 <{if is_array($carinfo['market']['data']) && count($carinfo['market']['data']) > 0}> 
+			 <{foreach from = $carinfo['market']['shopdata'] key=mykey item=value}>
+			 <div id="sel_notice" class="sel-notice" style="background-color: rgb(251, 214, 113);">	
+				<p class="selNotice" id="selNoticeP_<{$value['shopinfo']['id']}>"><{$value['shopinfo']['shopname']}>，起订价为<{$value['shopinfo']['limitcost']}>元，
+					<{if $value['sum'] >= $value['shopinfo']['limitcost']}>已达到。
+					<{else}>未满足最低起订价格,
+					<a href="<{ofunc type=url link="/shop/index/shopid/<{$cominfo['id']}>"}>">继续购买</a> 
+					<{/if}>
+					 
+					<span style="float:right;padding"> 订台费<font color=red><{$shoptosend[$value['shopinfo']['id']]}></font>元,小计：<a href="#" style="color:red;font-weight:bold;" id="shop_sum<{$value['shopinfo']['id']}>"><{$value['sum']}></a>&nbsp;元&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					
+					</p></div>
+			<table border="0" cellspacing="0" cellpadding="0" class="table" style="margin-bottom: 0px; width: 1001px;" align="center">
+              <tbody>
+              	<tr style="height: 40px; border-bottom: 1px dashed #ddd; font-size: 16px; color: #777;" id="item-tables-mark" class="xian1">
+					<td style="width: 577px;border-right:1px solid #ddd;"><span style="padding-left:10px;" class="selList-span"><b>美食篮子</b></span></td>
+					<td style="width:107px ;border-right:1px solid #ddd; text-align:center; "><b>单价</b></td>
+					<td style="width: 165px; border-right:1px solid #ddd;"><span style="text-align:center; height:24px; display: block;"><b>数量</b><span></span></span></td>
+					<td style="width:125px;"><span style="text-align:center; height:24px; display: block;"><b>清空</b></span></td>
+                </tr>
+         <{foreach from=$value['list'] item=val}>
+				  <tr shop_id="<{$carinfo['market']['data'][$val]['shopid']}>" id="xian2_<{$carinfo['market']['data'][$val]['shopid']}>" class="xian2" style="display: table-row;">
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle;"><span class="selList-span" style="padding-left:10px;"><{$carinfo['market']['data'][$val]['name']}><{if $carinfo['market']['data'][$val]['store_num'] < $carinfo['market']['data'][$val]['count']}><font color=red>库存不足</font><{/if}></span></td>
+				  	<td style="text-align: center; border-right:1px solid #ddd; vertical-align: middle;">￥<{$carinfo['market']['data'][$val]['cost']}></td>
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle; text-align:center;" class="quantity">
+				  		<a class="addBtn" onclick="reduce(this,'market');" href="#" shopid="<{$carinfo['market']['data'][$val]['shopid']}>" food_id="<{$carinfo['market']['data'][$val]['goods_id']}>" cost="<{$carinfo['market']['data'][$val]['cost']}>"></a>
+				  		<input style="width:40px;float: left;" readonly shopid="<{$carinfo['market']['data'][$val]['shopid']}>" food_id="<{$carinfo['market']['data'][$val]['goods_id']}>" cost="<{$carinfo['market']['data'][$val]['cost']}>" class="order-item" type="text" id="cartfood_id_<{$carinfo['market']['data'][$val]['goods_id']}>" value="<{$carinfo['market']['data'][$val]['count']}>" autocomplete="off">
+				  		<a class="reduceBtn" onclick="upadd(this,'market');" href="#" shopid="<{$carinfo['market']['data'][$val]['shopid']}>" food_id="<{$carinfo['market']['data'][$val]['goods_id']}>" cost="<{$carinfo['market']['data'][$val]['cost']}>" ></a></td>
+				  	<td style=" text-align:center; vertical-align: middle;">
+				  		<a onmouseover="deleteBtn_huaguo(this);" onmouseout="deleteBtn_moren(this);" class="deleteBtn deleteBtn_moren" onclick="delcart(<{$carinfo['market']['data'][$val]['goods_id']}>,'market');" href="javascript:void(0);"></a>
+				  	</td>
+				  </tr>
+				  
+				  <{/foreach}>
+          
+			  </tbody>
+			 </table>  
+			 <{/foreach}> 
+	    <{/if}>
+	    
+			 
+			 
+			 
+			 
+			 
+			 
+	  </div>
+			<div class="hc_order_foods_shop">
+				<div class="shopNameStr hc_order_foods_shop_name">
+					<a id="shopname_<{$cominfo['id']}>" class="shopName" href="javascript:changeCartShow(<{$cominfo['id']}>);">
+						<{$cominfo['shopname']}>
+						
+						</a>
+					<div class="clear"></div>
+				</div>
+				<div class="hc_order_foods_shop_count">
+					<div class="text">
+					         <a style="margin-right:10px;" href="javascript:clearcart();">清空</a>
+	                共 <strong id="total_quantity_2" class="total-quantity"><{$carinfo['count']}></strong>  
+	                 份美食 | 合计 
+	                <strong id="total_price_2" class="total-price"><{$carinfo['sum']}></strong>
+	                 元
+	        </div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			
+			<div class="hc_order_addr">
+        	<div class="hc_order_foods_head">优惠信息</div>
+        	<div class="hc_order_address">
+        			<ul style="margin-left:20px;" id="yhxx">
+        				 <{if $userid > 0}>
+        				   <li>我有优惠劵,请<a href="<{ofunc type=url link="/membercenter/juan"}>">点击绑定优惠劵</a><li>
+        				   	<{foreach from=$juanlist item=itemm}>
+        				       <li><input type="radio" name="buyjuan" disabled value="<{$itemm['id']}>" data="<{$itemm['cost']}>" data2="<{$itemm['limitcost']}>"><{$itemm['name']}>(说明：优惠<{$itemm['cost']}>元),注意：订单最低金额<{$itemm['limitcost']}>元,截止时间:<{$itemm['endtime']|date_format:"%Y-%m-%d"}><li>  
+        				   	<{/foreach}> 
+        				  <{else}>
+        				  <li>假如你有优惠劵,请先登录在使用优惠劵<a href="<{ofunc type=url link="/member/login"}>">点击登录</a><li>
+        				  <{/if}>
+        				   <li style="color:red;margin-top:20px;" id="cxinfo">  
+        				   </li> 
+        		  </ul> 
+        	</div>
+           
+       </div> 
+       <div  class="sel-notice" style="background-color: rgb(251, 214, 113);text-align:right;"> 
+		           	<p class="selNotice" style="color:#08c;margin-right:30px;">优惠后订单总价:<span id=surecost style="font-weight:bold;color:red;">0</span>元（不包含配送费用）</p> 
+		</div>
+       
+       
+            <div class="hc_order_addr">
+        		<div class="hc_order_foods_head">配送信息</div>
+			<div class="hc_order_address">
+				<div style="height: 10px;"></div>
+            	             <{if !empty($addresslist)}>            
+                   <div class="hc_order_lists">
+							     <span class="hc_order_lists_tibiao">详细地址</span>
+							     <{foreach from=$addresslist item=items}> 
+                     <div class="myaddr" style="margin-left: 15px;margin-top: 5px;" title="<{$items['address']}>，<{$items['contactname']}>，<{$items['phone']}><{$items['otherphone']}>">
+                        	<input type="radio" <{if $items['default'] == 1}>checked="checked"<{/if}> style="margin:0px 2px 0px 0px; width: 20px;" id="send_addr_<{$items['id']}>" name="addr_id" value="<{$items['id']}>">
+                        	<{$items['address']}>，<{$items['contactname']}>，<{$items['phone']}>，<{$items['otherphone']}>                      
+                      </div> 
+                   <{/foreach}> 
+                  
+                  
+                 
+                   
+                   <div class="clear"></div>
+                        
+                  </div>	
+                   <{/if}>
+                  <{if empty($addresslist)}> 
+                  
+            <div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao">详细地址：</span>
+							<input type="text" class="hc_order_input_box" id="addrestemp" name="addrestemp" size="15" value="<{$areainfo}>" > <input id="address" class="hc_order_input_box" type="text" value="" size="10" name="address" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+							<span class="hc_order_lists_span_color"> * </span>
+							<span class="hc_order_lists_span">请填详细一点</span>
+						</div>
+					
+						<div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao">联系电话：</span>
+							<input id="phone" class="hc_order_input_box" type="text" value="" size="30" name="phone">
+							<span class="hc_order_lists_span_color"> * </span>
+							<span class="hc_order_lists_span">外卖到时将以该电话通知您</span>
+						</div>
+						<div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao"> 联 系 人 ：</span>
+							<input id="recieve_name" class="hc_order_input_box" type="text" value="" size="30" name="recieve_name">
+							<span class="hc_order_lists_span_color"> * </span>
+							<span></span>
+						</div>
+
+						<div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao">备选电话：</span>
+							 <input id="bak-phone" class="hc_order_input_box" type="text" value="" size="30" name="phone-bk">
+							<span class="hc_order_lists_span">为方便送餐员联系，请再留一个备用电话</span>
+						</div> 
+						                <{/if}>      
+                                           
+     
+				
+				
+				
+				
+              <div style="margin: 10px 19px;"><a href="<{ofunc type=url link="/membercenter/address"}>">管理我的地址</a></div>
+              <div class="hc_order_lists" id="sendFoodTime">
+							<div class="hc_order_select">
+								<span class="hc_order_lists_tibiao">送餐时间：</span>
+								<input id="send_time" class="hc_order_input_box" type="hidden" value="尽快送出" size="30" name="send_time">
+								<{if $shopopeninfo['opentype'] == 2 }>  
+								   <select id="exampleTime" onchange="addSend_time(this);" style="width: 232px;margin:0px; height:30px; border-radius: 4px 4px 4px 4px;">
+								   	 <option value="0">尽快送出</option>
+								   <{section name=loop loop=40}>  
+								     <{if $shownow < $shopopeninfo['endtime']}> 
+								     <option value="<{$shownow|date_format:"%H:%M"}>"><{$shownow|date_format:"%H:%M"}></option>
+								     <{/if}>  
+								     <{$shownow = $shownow+900}>  
+                   <{/section}>  
+								  </select> 
+							  <{elseif $shopopeninfo['opentype'] == 3}>  
+								
+								      <select id="exampleTime" onchange="addSend_time(this);" style="width: 232px;margin:0px; height:30px; border-radius: 4px 4px 4px 4px;"> 
+								   <{assign var=shownow value=$shopopeninfo['startoktime']}>   
+								   <{section name=loop loop=40}>  
+								    <{if $shownow < $shopopeninfo['startendtime']}> 
+								             <option value="<{$shownow|date_format:"%H:%M"}>"><{$shownow|date_format:"%H:%M"}></option>
+								      <{/if}>  
+								      <{$shownow = $shownow+900}> 
+								   <{/section}> 
+								 
+								       </select> 
+								<{else}> 
+								 
+								   停止营业
+								<{/if}> 
+								
+								
+								
+								<span class="hc_order_lists_span_color"> * </span>
+							</div>
+							<div class="hc_order_lists">
+							    <span class="hc_order_lists_tibiao"><{if isset($carinfo['market']['data'])}>订台费用：<{else}>配送费用 ：<{/if}></span>
+							              <{$allsendcost}>元
+							            <span class="hc_order_lists_span_color">   </span>
+							           <span></span>
+						    </div>
+						   <div class="hc_order_lists">
+						   	<span class="hc_order_lists_tibiao">支付方式 ：</span>
+							              <input type="radio" name="paytype" value="outpay" checked>货到支付
+							              <{if $open_acout == 1 && !empty($member)}>
+							              <input type="radio" name="paytype" value="open_acout" >账户余额支付(我的余额<{$member['cost']}>元)
+							              <{/if}>
+							              <{foreach from=$paylist item=items}>  
+							              <input type="radio" name="paytype" value="<{$items['loginname']}>"><img src="<{$items['logourl']}>"> 
+							              <{/foreach}>
+							            <span class="hc_order_lists_span_color">   </span>
+							           <span></span>
+						   	</div>
+						  </div>
+						   <{if $scoretocost > 0 && !empty($member)}>
+						    <{assign var=ddc value=$member['score']/$scoretocost}>  
+						    <{if $ddc >=1}>
+                  <div class="hc_order_lists">
+							    <span class="hc_order_lists_tibiao">积分抵扣 ：</span>
+							    
+							           <{assign var=ddcc value=$ddc+1}>  
+							           <{if $carinfo['sum'] < $ddcc}>
+							           <{$ddcc = $carinfo['sum']}>
+							           <{/if}>
+							           <select name="scoredown" style="height:30px;">
+							           	     <option value="0">选择积分抵扣金额</option>
+							            <{section name=foo start=1 loop=$ddcc step=1}>
+							                 <option value="<{$smarty.section.foo.index}>">使用<{($smarty.section.foo.index)*$scoretocost}>积分抵扣<{$smarty.section.foo.index}>元</option>
+                          <{/section}>
+                        </select>
+							            <span class="hc_order_lists_span_color"> 抵扣比例：<{$scoretocost}>积分抵扣1元  </span>
+							           <span></span>
+						    </div>
+						      <{/if}>
+						    <{/if}>
+						
+						
+						                                            
+                    	
+				</div>
+				
+			  
+            
+			<div class="hc_order_foods_select">
+				<div class="hc_order_foods_head">订单备注（选填）</div>
+				<div class="text-box hc_order_foods_select_ul">
+					<ul>
+						 <{foreach from=$bzlist item=itv}>
+						  <{if !empty($itv)}>
+						<li><span class="hc_order_foods_select_li_span"><{$itv}></span></li>
+						 <{/if}>
+						<{/foreach}> 																
+						<div class="clear"></div>
+					</ul>
+
+				</div>
+				<div class="hc_order_foods_select_textarea">
+					<textarea id="remark" name="remark" type="text" style="margin: 0px 0px 9px; height: 120px; width: 940px; border:1px solid #ddd;"></textarea>
+				</div>
+				<div class="hc_orderBoxDiv_btn_div_a_div" <{if $shopopeninfo['opentype'] != 2 && $shopopeninfo['opentype'] != 3}>  style="display:none;" <{/if}>>
+					<a id="order_submit_tj_g" class="hc_orderBoxDiv_btn_div cart_a" style="margin-top:10px;margin-left:20px;" href="javascript:submit_form()">提交订单</a>
+				</div>
+
+			</div>
+			<div class="clear"></div> 
+	</div>
+  <div class="clear"></div>
+  
+</div>
+
+</div>
+</form>
+ 
+<script type="text/javascript"> 
+	var cartshopid = '<{$cominfo['id']}>';
+$(function(){ 
+	    freshcxinfo();
+});
+function addSend_time(obj)
+{
+	$('#send_time').val($(obj).val());
+}
+
+function submit_form() {
+
+	if($("#total_quantity_2").html() == 0){
+		alert('您的美食篮子还是空的，请继续购物！');
+		return;
+	}
+
+	
+	if($("#address").val() == "") {
+		alert('请填写您的地址！');
+		return;
+	}
+
+	if($("#phone").val() == "") {
+		alert('请填写您的联系电话！');
+		return;
+	}
+
+	if($('#recieve_name').val() == "")
+	{
+		alert('请填写您的姓名！');
+		return;
+	}
+
+	if($('#isCha').val()!=1)
+	{
+		$('#order_submit_tj_g').hide();
+		$('.hc_orderBoxDiv_btn_div_a_div').text('订单提交中...');
+		$('#cart_form').submit();
+	}
+	else
+	{
+		alert('起送价未达到，请继续购物，谢谢合作！');
+		return false;
+	}
+}
+
+$('.text-box span').click(function(){
+	var value = $('#remark').val()+$(this).text() + ',';
+	$('#remark').val(value);
+})
+</script>
+ 
+
+</div> 
+<{include file="<{$tempdir}>/public/foot.html"}>

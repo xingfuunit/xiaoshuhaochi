@@ -1,0 +1,8 @@
+document.write('<div style="height:<{$height}>px;width:<{$width}>px">')
+	document.write('<ul id="Lun_bo_ul" style="height:<{$height}>px;width:<{$width}>px">')
+<{foreach from=$list  item=items}>
+document.write('<li><a href="<{$items['linkurl']}>" target="_blank"><{$items['title']}></a></li>')
+<{/foreach}>  
+document.write('</ul>')
+ 
+document.write('</div>') 

@@ -1,0 +1,150 @@
+  <{extends file="<{$tempdir}>/public/admin.html"}> 
+ <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>水印设置<{/block}>
+ <{block name=bodylist}> 
+	 <div style="width:auto;overflow-x:hidden;overflow-y:auto;">   
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/system/module/savesitebk/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    
+                    
+                     
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" valign="top">网站默认背景</td>
+                      <td height=200px>
+                      	<input type="hidden" name="userlogo" id="userlogo" value="<{$sitebk}>" class="skey" style="width:100px;">
+                      	<img src="<{$sitebk}>" width=200px height=200px id="imgshow" <{if  empty($sitebk)}> style="display:none;"<{/if}>> 
+                      	<span onclick="uploads();">上传图片</span> 
+                      </td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" valign="top">网站水印</td>
+                      <td >
+                      	<input type="checkbox" value="1" name="is_water" onchange="waterdet();" <{if $is_water == 1}> checked<{/if}>>启用 
+                      </td>
+                    </tr>
+                    <tr class="waterdet" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" valign="top">水印位置：</td>
+                      <td>
+                      	<select name="water_pos">
+                      		  <option value="0">随机位置</option>
+                      		  <option value="1" <{if $water_pos==1}>selected<{/if}>>顶端居左</option>
+                      		   <option value="2" <{if $water_pos==2}>selected<{/if}>>顶端居中</option>
+                      		    <option value="3" <{if $water_pos==3}>selected<{/if}>>顶端居右</option>
+                      		     <option value="4" <{if $water_pos==4}>selected<{/if}>>中部居左</option>
+                      		      <option value="5" <{if $water_pos==5}>selected<{/if}>>中部居中</option>
+                      		       <option value="6" <{if $water_pos==6}>selected<{/if}>>中部居右</option>
+                      		        <option value="7" <{if $water_pos==7}>selected<{/if}>>底端居左</option>
+                      		         <option value="8" <{if $water_pos==8}>selected<{/if}>>底端居中</option>
+                      		          <option value="9" <{if $water_pos==9}>selected<{/if}>>底端居右</option> 
+                        </select>
+                       
+                      </td>
+                    </tr>
+                     <tr class="waterdet" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">水印图片</td>
+                      <td>
+                      	<input type="hidden" name="logo_water" id="logo_water" value="<{$logo_water}>" class="skey" style="width:100px;"> 
+                      	<img src="<{$logo_water}>" width=50px height=50px id="imgshows" <{if  empty($logo_water)}> style="display:none;"<{/if}>> 
+                      	<span onclick="uploadm();">上传图片</span> 
+                      </td>
+                    </tr>
+                    <tr class="waterdet" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" valign="top">文字水印：</td>
+                      <td> 
+                      	<div><input name="text_water" value="<{$text_water}>">非中文字符</div> 
+                      </td>
+                    </tr>
+                    <tr class="waterdet" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" valign="top">水印文字大小：</td>
+                      <td> 
+                      	 <div><select name="size_water">
+                      		<{section name=foo start=10 loop=20 step=2}>
+                      		<option value="<{$smarty.section.foo.index}>" <{if $smarty.section.foo.index == $size_water}>selected<{/if}>> <{$smarty.section.foo.index}></option>
+                         <{/section}>
+                         </select>
+                        </div> 
+                      </td>
+                    </tr>
+                    <tr class="waterdet" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" valign="top">水印文字颜色：</td>
+                      <td> 
+                      	 <div><select name="color_water"> 
+                      		<option value="#FF0000" <{if $color_water == '#FF0000'}>selected<{/if}>> 红色</option>
+                          <option value="#FFFFFF" <{if $color_water == '#FFFFFF'}>selected<{/if}>> 白色</option>
+                          <option value="#000000" <{if $color_water == '#000000'}>selected<{/if}>> 黑色</option>
+                        </select>
+                        </div> 
+                      </td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+         
+           
+         </div>
+      
+    
+
+          </div> 
+<script>
+	$(function(){ 
+		$("input[name='is_water']").trigger("change"); 
+		 
+	});
+	var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucess"}>');
+ 	  dialogs.title('上传图片'); 
+ } 
+ function uploadsucess(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+			dialogs.close();
+		uploads();
+ 	 }else{ 
+ 		dialogs.close();
+ 	  $('#userlogo').val(linkurl);
+ 	  $('#imgshow').attr('src',linkurl);
+ 	  $('#imgshow').show(); 
+   }
+ }  
+ function uploadm(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucessm"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucessm(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+			dialogs.close();
+		uploadm();
+ 	 }else{ 
+ 		dialogs.close();
+ 	  $('#logo_water').val(linkurl);
+ 	  $('#imgshows').attr('src',linkurl);
+ 	  $('#imgshows').show(); 
+   }
+ }  
+  
+ 
+function waterdet(){
+	var is_water = $("input[name='is_water']:checked").val();
+	if(is_water == 1){
+	   $('.waterdet').show();
+	}else{
+		$('.waterdet').hide();
+	} 
+}
+</script>    
+ <{/block}>

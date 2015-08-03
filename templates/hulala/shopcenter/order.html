@@ -1,0 +1,253 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+          
+       	
+       	
+       <div id="orderList">
+           <div class="clearfix menu_title">
+               
+              <form action="<{ofunc type=url link="/shopcenter/order"}>" method="post">            
+              	<div class="filter">
+                              <p class="fl order_type">
+                              	  订单类型： 
+                              	   <label><input type="radio" value="0" name="orderSource" checked="checked">全部</label>
+                              	  <{foreach from=$ordertypelist key=myid item=items}>  
+                              	  <label><input type="radio" value="<{$myid}>" name="orderSource" <{if $orderSource==$myid}>checked<{/if}>><{$items}></label>
+                              	<{/foreach}>
+                              	            
+                              	             
+                              </p>
+                              
+                               
+                              
+                              <p class="fl order_date">
+                                   选择日期：<input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+                                  <input type="submit" value="查询"> 
+                              </p> 	
+                              <p class="fl"><a  class="button mybct" onclick="print_all_area();" style="line-height: 15px;margin-top:10px;padding-top:3px;">打印所有结果</a></p> 
+                          </div>
+              </form>    
+           </div>
+           <!--end of menu_title-->
+           <p> 共计<span class="num"><{$tongji['shuliang']}></span>张订单，成功订单金额<span class="num"><{$tongji['allcost']}></span>元 <span id="showztai" style="color:#666;"  data="20"></span> </p>
+           
+         <div id="all_area">
+           <{foreach from=$list key=myid item=items}>  
+           <div class="ol_item" id="order_area_<{$items['id']}>">
+               <div class="oli_head">
+                   <span class="process_num"><{$items['daycode']}></span><span class="item_title invalid"></span>
+                   <span class="item_title">订单号:</span><span class="item_content"><{$items['dno']}><{if $items['isbefore'] == 1}><font color=red>[订台]</font><{/if}></span>
+                   <span class="item_title">下单时间:</span><span class="item_content"><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></span>
+     
+               </div>
+               <!--end of   javascript:; oli_head-->
+               <div class="oli_content">
+                 <table class="order_meta" width="100%">
+                    <tbody>
+                    	<tr> 
+                    		 <td class="item_name">                        
+                    		 	   <span class="info_name">支付方式:</span><span><{$paytypelist[$items['paytype']]}>(<{if $items['paystatus'] == 1}>已付<{else}>未付<{/if}>) </span>
+                            <span class="info_name ml20">订单状态:</span><span><{$buyerstatus[$items['status']]}></span>
+                            <span class="info_name ml20"><{if $items['isbefore']=='1'}>订台时间<{else}>配送时间<{/if}>:</span><span><{$items['posttime']|date_format:"%Y-%m-%d %H:%M:%S"}></span> 
+                         </td>
+                     </tr>
+                    	<tr> 
+                    		 <td class="item_name">                        
+                    		 	   <span class="info_name">顾客电话:</span><span><{$items['buyerphone']}> &nbsp; </span>
+                            <span class="info_name ml20">顾客地址:</span><span><{$items['buyeraddress']}></span>
+                            <span class="info_name ml20">联系人:</span><span><{$items['buyername']}></span>
+                            <a class="button  more_user_info ml20" href="#129773" style="display:none;">顾客订单记录</a> 
+                         </td>
+                     </tr>
+                     <tr class="odd">
+                           <td class="item_quantity"><span class="info_name">订单备注:</span><span><{$items['content']}></span></td>
+                      </tr>
+                      <tr class="odd">
+                           <td class="item_quantity">买家其他信息  <{if empty($items['buyeruid'])}>游客<{else}>成交次数:<{$items['maijiagoumaishu']}><{/if}> 下单IP：<{$items['ipaddress']}></td>
+                      </tr>
+                   </tbody>
+                 </table>
+                   <!--end of order_meta-->
+                   <hr>
+                   <table class="item_table" width="100%">
+                       <tbody>
+                       	<tr>
+                           <th>美食篮子</th>
+                           <th>单价</th>
+                           <th> 数量</th>
+                           <th>总价</th>
+                         </tr>
+                         <{foreach from=$items['detlist'] item=value}>  
+                          
+                           <tr>
+                               <td class="item_name"><span class="dishname"><{$value['goodsname']}><{if $value['is_send'] == 1}><font color=red>[赠品]</font><{/if}><{if $value['shopid'] == 0}><font color=blue>[商城]</font><{/if}></span></td>
+                               <td class="item_price"><{$value['goodscost']}></td>
+                               <td class="item_quantity"><{$value['goodscount']}></td>
+                               <td class="item_total_price"><{$value['goodscount']*$value['goodscost']}></td>
+                           </tr>
+                            
+                          <{/foreach}>  
+                           <tr>
+                               <th colspan="4">
+                               		<{if $items['scoredown'] > 0}> <span class="info_name">积分：<font color=red><{$items['scoredown']}></font>个</span><{/if}>
+                               	  <span class="info_name">配送费：<font color=red><{$items['shopps']+$items['marketps']}></font>元</span> 
+                               	 <{if $items['yhjcost']> 0}><span class="info_name ml20">优惠券金额：<font color=red><{$items['yhjcost']}></font>元</span><{/if}>
+                               	<{if $items['cxcost']> 0}> <span class="info_name ml20">促销优惠：<font color=red><{$items['cxcost']}></font>元</span><{/if}>
+                               	 <{if $items['bagcost']> 0}><span class="info_name ml20">打包费：<font color=red><{$items['bagcost']}></font>元</span><{/if}>
+                               	 <span class="info_name ml20">应收金额：<font color=red><{$items['allcost']}></font>元</span>
+                               	
+                               	</th>
+                               
+                           </tr>
+       
+                        </tbody>
+                   </table>
+                   <!--end of item_table-->
+               </div>
+               <!--end of oli_content-->
+               <div class="button_container" id="<{$items['id']}>"> 
+                          <{if $items['status'] == 0}>
+       		              	<a href="#<{$items['id']}>" class="button unorder" onclick="unorder(<{$items['id']}>,<{$items['dno']}>);">取消订单</a>	 
+       		              	<a href="#<{$items['id']}>" class="button shenhe" onclick="shenhe(<{$items['id']}>);">通过审核</a>	
+       		              	<{/if}>
+       		              	<{if $items['status'] == 1}>
+       		              	<a href="#<{$items['id']}>" class="button sendorder" onclick="sendorder(<{$items['id']}>);">配送发货</a>	
+       		              	<{/if}>
+       		              	<{if $items['status'] == 4 || $items['status'] == 5 }>
+       		              	<a href="#<{$items['id']}>" class="button sendorder" onclick="delorder(<{$items['id']}>);">删除订单</a>
+       		              	<{/if}>
+       		              	<a href="#<{$items['id']}>" class="green button print" onclick="printorder(<{$items['id']}>);">打印订单</a>	 
+               </div>
+           </div> 
+           <{/foreach}>
+         </div>
+              	
+              	
+       </div>
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+</div>
+
+
+
+
+<div id="print_area" style="display:none;"></div>
+<script type="text/javascript">
+	 function unorder(orderid,dno)
+	 {
+	 	   var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:'取消订单'+dno,
+           content: '<div>关闭订单理由</div><div><textarea name="reason" id="reason" style="height:40px;"></textarea></div><div class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" style="width:65px;float:left;" onclick="sureclose('+orderid+');">提交关闭</div>'
+        });
+	 }
+	 function sureclose(orderid)
+	 {
+	 	  var reasons = $('#reason').val();
+	 	  if(reasons == undefined || reasons == '')
+	 	  {
+	 	  	alert('关闭理由不能为空');
+	 	  }else{ 
+	 	    myajax('<{ofunc type=url link="/shopcenter/unorder"}>',{'orderid':orderid,'reason':reasons}); 
+	 	 }
+	 }
+	 function sendorder(orderid)
+	{
+		if(confirm('订单已审核通过，确认发货吗？')){
+		   myajax('<{ofunc type=url link="/shopcenter/sendorder"}>',{'orderid':orderid});
+		}
+	}
+	function shenhe(orderid)
+	{
+		if(confirm('通过审核，此订单将生效吗？')){
+		   myajax('<{ofunc type=url link="/shopcenter/shenhe"}>',{'orderid':orderid});
+		}
+	}
+	function delorder(orderid)
+	{
+		if(confirm('彻底删除订单吗？')){
+		   myajax('<{ofunc type=url link="/shopcenter/delorder"}>',{'orderid':orderid});
+		}
+	}
+	function printorder(orderid)
+	{
+		$('#print_area').html('');
+	 $('#order_area_'+orderid).clone().appendTo($('#print_area'));
+	 $("#print_area").find('.button_container').remove();
+	  $("#print_area").printArea();
+	//	$('#print_area').html($('#order_area_'+orderid).html());
+    //	 $("#print_area").find('.print_noshow').remove();
+  }
+  function print_all_area()
+  {
+  	$('#print_area').html($('#all_area').html());
+	  $("#print_area").find('.button_container').remove();
+	  $("#print_area").printArea();
+  }
+</script>
+<script>
+	/*
+$(function(){
+	setTimeout("get_status()",1000); 		
+});*/
+function get_status(){//<span id="timeshow" data="20" style="color:#666;"></div>
+	//alert('xxx');
+	var timeaction =  $('#showztai').attr('data');
+	if(timeaction == 0){
+	$('#showztai').text('检测订单..'); 
+	 var url = siteurl+'/index.php?controller=shopcenter&action=ajaxcheckorder&random=@random@';
+	 $.ajax({
+       type: 'POST',
+       async:false,
+       url: url.replace('@random@', 1+Math.round(Math.random()*1000)),
+       data: {},
+      dataType: 'json',success: function(content) { 
+      	if(content.error == true)
+      	{
+      		$('#showztai').text('未获取到新订单');
+      		$('#showztai').attr('data','20');
+ 	       
+      		setTimeout("get_status()",1000); 	
+      	}else if(content.error == false)
+      	{
+      		 location.reload();  
+      	}else{
+      	   alert(content);
+      	}
+      	
+		  },
+      error: function(content) { 
+      	alert(content);
+	   }
+   }); 
+ }else{
+ 	var nowtime = Number(timeaction)-1;
+ 	$('#showztai').attr('data',nowtime);
+ 	$('#showztai').text(',刷新倒计时'+nowtime+'秒');
+ 	setTimeout("get_status()",1000); 	
+ 	
+ }
+}
+</script>
+<{include file="<{$tempdir}>/public/shopfooter.html"}>
+
+	
+	
+
+

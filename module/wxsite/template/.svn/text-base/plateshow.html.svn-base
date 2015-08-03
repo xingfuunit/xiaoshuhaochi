@@ -1,0 +1,373 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=sitetitle}><{$shopinfo['shopname']}><{/block}>
+<{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/platshow.css">
+<{/block}>
+<{block name=extendjs}> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/plateshop.js"></script> 
+<script>
+     var shopid = '<{$shopinfo['id']}>';
+     $(function(){
+            $(".member_center").on("click",function(){
+           
+                  window.location.href = siteurl+'/index.php?controller=wxsite&action=login&shopid='+shopid;
+                         
+          })
+         $(".myorder").on("click",function(){
+              window.location.href = siteurl+'/index.php?controller=wxsite&action=order';
+          })
+          $(".right_l_btn_right").on("click",function(){
+               addonedish($(this).attr('data-id'),$(this).attr('data-shopid'),1,this);
+          })
+          $(".right_l_btn_left").on("click",function(){
+               removeonedish($(this).attr('data-id'),$(this).attr('data-shopid'),1,this);
+          })
+     })
+   
+         
+</script>
+<{/block}>
+<{block name=shopmenu}>
+ <div class="top1_shop">
+ 	 <div style="width:50px;float:left;"><a href="#"><img  class="lazy"  src="<{$siteurl}>/upload/shop/grey.gif" data-original="<{$shopinfo['shoplogo']|default:$shoplogo}>" width="50px" height="50px"></a></div>
+ 	 <div style="padding-left:30px;float:left;height:50px;">
+ 	 	  <div class="topshopname">  <{$shopinfo['shopname']}></div>
+ 	 	  <div>
+ 	 	  	   <div class="MIL2Left" style="height:20px;line-height:20px;width:110px;">      
+ 	 	  	   	 <span class="Star_g " original-title="<{$shopinfo['point']}>" style="margin:0px 0px 0px 0px;">
+                             <span class="Star_y" style="width:<{$shopinfo['point']*20}>%;"></span>
+             </span>
+             <a href="javascript:;" style="line-height:15px;font-weight:normal;padding:0 2px;"><{$shopinfo['point']}>.0</a>
+             40
+            </div>
+            <{if $shopopeninfo['opentype'] ==2 || $shopopeninfo['opentype']==3}> <span class="yingye">营业中</span><{else}><span class="xiuxi">休息中</span><{/if}>
+           
+      </div>
+  	</div>
+ 	</div>
+ <div class="top1_shopmenu">
+	 	  <div class="Menubox_01">
+                    <ul>
+                        <li class="hover"><a href="javascript:;">菜单</a></li> 
+                        <li><a href="javascript:;" >餐后点评</a></li>
+                        <li><a href="javascript:;" >用户留言</a></li>
+                        <li id="one4" class="" original-title="暂未开放，敬请期待！"><a href="javascript:;">店铺介绍</a></li>
+                    </ul>
+          </div>
+ </div>
+<{/block}>
+<{block name=shophide}><{/block}>
+<{block name=bodylist}>  
+<div class="hc_content">
+
+	<div style="display:none;" class="basicinfo">
+    <div class="b-img ">
+             <img width="198" height="150" src="<{$shopinfo['shoplogo']|default:$shoplogo}>" alt="<{$shopinfo['shopname']}>">
+   </div>
+<div class="b-info "  >
+<h2><{$shopinfo['shopname']}></h2>
+<dl>
+<dt>	<{foreach from=$mainattr item=itat}>
+									  <{if $itat['id']=='51'}> 
+									   
+									      <{foreach from=$itat['det'] item=itdd}>
+									          <{foreach from=$shopattr item=itaa}>
+									            <{if $itdd['id'] == $itaa['attrid']}> 
+									            <{$itdd['name']}>,
+									            <{/if}>
+									          <{/foreach}> 
+									      <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}> 
+									
+									<span class="rate">
+<span class="">
+
+<div class="hc_xinxin_div" > <span class="Star_g " original-title="<{$shopinfo['point']*20}>" style="margin:0px 0px 0px 0px;"> <span class="Star_y" style="width:<{$shopinfo['point']*20}>%;"></span> </span> </div>
+
+</span>
+</span>
+<{$shopinfo['point']}>.0分
+									</dt>
+									
+									<dd class="rate-con">
+</dd>
+
+<dd class="rate-con">
+<span class="rate">
+<span class="rate-inner" style="width:0px"></span>
+</span>
+</dd>
+</dl>
+<dl style="margin-top:15px;">
+<dt><i class="icon icon-time"></i>营业时间:&nbsp;</dt>
+<dd>
+<{$shopinfo['starttime']}>
+ 
+	<{if $shopopeninfo['opentype']==3}> 				                  
+	<strong class="doing">接受预订</strong>
+	<{else if  $shopopeninfo['opentype'] ==2 }>
+	<strong class="doing">[营业中]</strong>
+	<{else}>
+	<strong class="doing">已打烊</strong>
+	<{/if}>
+
+</dd>
+</dl>
+<dl>
+<dt><i class="icon icon-address"></i>商户地址:&nbsp;</dt>
+<dd>
+<{$shopinfo['address']}>
+</dd>
+</dl>
+
+
+</div>
+
+
+
+</div>
+<div style="clear:both;"></div>
+ 
+
+
+	 
+<div class="shopshow_content">
+ <div class="goods_div">
+	 <div style="display:none;" class="goodsh1"> 菜单<div class="changelisttype"><span class="wordli">&nbsp;&nbsp;</span><span class="imglion">&nbsp;&nbsp;</span></div>
+	  </div>
+<div class="pageheader">
+	<ul>
+		<li><a onclick="dolink('<{ofunc type=url link="/wxsite/shopshow/id/<{$shopinfo['id']}>"}>');">外卖</a></li>
+		<li><a onclick="dolink('<{ofunc type=url link="/wxsite/plateshow/id/<{$shopinfo['id']}>"}>');">订位</a></li>
+	</ul>
+</div>
+    
+<div class="move_up">
+     
+</div>
+  <ul class="goodsnav">
+		  	   <!--<a href="#" class="on">所有</a>-->
+    <{foreach from=$goodstype  item=items}>  
+   
+  
+       <li onclick="scollto('#typeid_<{$items.id}>')"><i></i><{$items.name}></li>
+     
+   <{/foreach}>  
+  </ul>
+  <ul class="goodslistimgtype" id="goodslist">
+  	 <{foreach from=$goodstype key=cid item=items}> 
+  	  <li>
+	  	   <h3 class="goodstypetitle" id="typeid_<{$items['id']}>"><{$items['name']}></h3>
+  	   <div class="goodstypelist">
+  	   	  <ul>
+  	   	  		<{foreach from=$items['det'] key=mykey item=value}>
+                            
+		 <li id="gidli_<{$value['id']}>" class="<{if $mykey%3==1}>middle<{/if}>">
+		 <dl>
+ 	  <dt class="goodsimg">
+ 	     <img class="lazy" src="<{$siteurl}>/upload/shop/grey.gif" data-original="<{$value['img']|default:$shoplogo}>">
+      </dt>
+      <dd>
+    <div class="goodsname"><{$value['name']}></div>
+    <div class="goodscost"><{$value['cost']}>元/份</div>
+    <div style="display:none;" class="goodsbiaotian">&nbsp;
+    	  <{assign var=goodssignlist value=","|explode:$value['signid']}>  
+<{foreach from=$goodssignlist key=mytestid item=goodssi}>
+<{if $mytestid < 5 && !empty($goodssi) && isset($goodsattr[$goodssi])}> 
+<img src="<{$goodsattr[$goodssi]}>"/>
+<{/if}> 
+<{/foreach}> 
+
+	  	    </div>
+	  	    <div style="display:none;" class="goodsscore">
+<span class="Star_g " original-title="<{$value['point']}>分">
+<{if $value['point'] != 0}> 
+<{assign var=long value=$value['point']*20}>
+<{else}> 
+<{assign var=long value="100"}>
+<{/if}> 
+<span class="Star_y" style="width:<{$long}>%;"></span>
+            </span>
+                       
+</div>
+   
+<div style="display:none;" class="goodstj">
+售<font class="fontbold"><{$value['sellcount']}></font>份,<font class="fontbold"><{$value['point']}></font>点评
+</div>
+<ul class="goodsbtn righ_l_b_btn_moren" id="gid_<{$value['id']}>">
+     <{if $value['count'] < 1}>
+     <li class="sellout">已售完</li>
+     <{else}>
+     <li class="onsell" shopid="<{$value['shopid']}>" goodsid="<{$value['id']}>">+</li>
+     <{/if}>
+</ul>
+ <ul class="righ_l_b_btn_hover" style="display:none;">
+    <li class="right_l_btn_left"   data-id="<{$value['id']}>" data-shopid="<{$value['shopid']}>">-</li>
+    <li class="right_l_btn_nub" id="gshu_<{$value['id']}>">0</li>
+    <li class="right_l_btn_right"  id="gid_<{$value['id']}>" data-price="<{$value['cost']}>" typeid="<{$value['typeid']}>" data-id="<{$value['id']}>" data-shopid="<{$value['shopid']}>">+</li>
+  </ul>
+</dd>
+</dl>
+</li>
+	   	  	 	<{/foreach}>
+	   	  	 	 
+	   	  	</ul>
+  	  	   </div>
+		 	  	  	   <div style="clear:both;"></div> 
+		 	  </li>	  
+		 	  	  <{/foreach}>  
+		 	  	  
+		 	  </ul>
+		 </div> 
+		<div class="goods_div" style="display:none;" >
+		    <div class="pingjialist" id="det_commm">
+		    </div>
+	   </div>
+		 <div class="goods_div" style="display:none;"  >
+			     <div class="Message">
+                                <form action="" id="mform" name="mform" method="POST">
+                                <input type="hidden" name="msid" id="msid" value="40">
+						                      	<ul>
+                                	<li>
+                                    	<div class="MInput">
+                                        	<div class="MITop"><textarea id="MContent" name="mcon" onclick="InFocus(this);" onblur="outF(this);" style="color:rgb(92, 91, 91);" data="您的留言对其他会员都是很重要的参考">您的留言对其他会员都是很重要的参考</textarea></div>
+                                            <div class="MIBottom"><a href="javascript:;" onclick="AddMessage()" id="msgbtn">提交留言</a> <span class="ImpNum">最多200个字符</span></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                </form>
+                            </div>
+            <div id="showaskid">
+            	
+            </div>
+            <div style="clear:both;"></div>
+	   </div>
+	   <div class="goods_div" style="display:none;">
+	   	  <div class="showshop_instr">
+	   		<{$shopinfo['intr_info']|htmlspecialchars_decode}>&nbsp;
+	   	 </div>
+	   </div>
+<!--到店付款-->
+<div class="pay_inshop">
+    <div id="pay_prince"></div>
+    <div id="hide_block" style="display:none">
+        <input type="text" name="order_price" placeholder="请输入金额" id="order_price"/>
+        <input type="button" value="去付款"/>
+    </div>
+    <ul id="pay_cover">
+      <li><h3>请选择支付方式:</h3><span class="delete"></span></li>
+      <li>
+        <label>
+        	<input type=radio name="order_way" checked="checked" value="wechat"/><span>微信支付</span>
+        </label>
+      </li>
+      <li>
+        <label>
+        	<input type=radio name="order_way" value="alipay"/><span>支付宝</span>
+        </label>
+      </li><!--
+      <li><span>请输入金额:</span><input type="text" name="order_price" id="order_price"/></li>-->
+      <li><button id="go_to_pay"  onclick="pay_prince();">确认付款</button></li>
+    </ul>
+</div>
+		 <!--  购物车-->
+   	 <div style="display:none;" class="shopshow_cart">
+   	 	    <div class="cart_title"><i></i>我的菜篮子</div>
+   	 	    <div class="cartgoodslist">
+   	 	    	 <ul>
+   	 	    	 	<li>
+   	 	    	 	  <div class="cart_one"><div class="cart_goodsname">商品名称范德萨减肥的了撒娇范德萨</div><i></i></div>
+   	 	    	 	  <div class="cart_tow">
+   	 	    	 	      <span class="cp_pre">-</span>
+   	 	    	 	      <input type="text" readonly="readonly" class="cinput" value="4">
+   	 	    	 	      <span class="cp_next">+</span>
+   	 	    	 	      <span class="cp_much">￥255</span>
+   	 	    	 	  </div>	
+   	 	    	 	</li>
+   	 	    	 	 
+   	 	    	</ul>
+   	 	    </div>
+   	 	    <div class="cart_bottom">
+   	 	    	  <div class="cart_tj">
+   	 	    	  	 <div class="cart_sum"><label>商品总价</label><span>100.00元</span></div>
+   	 	    	  	
+   	 	    	  	</div>
+   	 	    	   <input type="button" class="next bg" value="下一步" onclick="outdiv_cart()">
+   	 	    </div>
+	   </div>
+	  <!--购物车-->
+	  <div style="clear:both;"></div> 
+	</div>
+	
+<div class="mealList_foot footer1" id="footer">
+	
+	 <!--   <a href="#" onclick="delshopcart()" class="b">清空</a> -->
+	 <div>
+	   <a class="member_center" shop_id="<{$shopinfo['id']}>"><i class="nav_icon-user"></i>个人中心</a>
+	   <a class="myorder" ><i class="nav_icon-menu"></i>我的订单</a>
+	   <a class='a' onclick="dolink('<{ofunc type=url link="/wxsite/platecart/id/<{$id}>"}>');"><i class="nav_icon-shopingcar"></i>购物车
+	    <span class="total_count">0</span>
+	   </a> 
+	 </div> 
+	 <div>
+	   <span><i class="nav_icon-shopingcar"></i><big class="total_count"> 0 </big>
+	   <a href="#" onclick="delshopcart()" class="b">清空</a>
+	    </span>
+	   <span>共计: ￥ <big id="total_money">0</big>元</span>
+	   <span id="showlimit"></span>
+	   <span onclick="dolink('<{ofunc type=url link="/wxsite/platecart/id/<{$id}>"}>');">选好了</span>
+	</div>    
+</div>
+	
+	
+	
+	 <div style="clear:both;"></div>
+	
+	
+	
+	
+</div> 
+<script>
+	
+	var cartouthtml = '';
+	cartouthtml +='<form id="dosubmit"><div class="position_top"><span class="title">点单预订</span><i class="close" onclick="close_pop(\'goosshow\')"></i></div>';
+	cartouthtml +='<div class="goodsshow" ></div>';
+  cartouthtml +='<div class="position_middel">';
+	cartouthtml +='<div class="line_class"><label>消费时间:</label><select name="senddate" onchange="maketimenenu();">';
+	<{if $shopinfo['befortime'] > 0}>
+								   	    <{assign var=shownow value=time()}>   
+								   	    <{section name=loop loop=$shopinfo['befortime']}>   
+						cartouthtml +='<option value="<{$shownow|date_format:"%Y-%m-%d"}>"><{$shownow|date_format:"%Y-%m-%d"}></option>'; 
+								            <{$shownow = $shownow+86400}>  
+                          <{/section}>  
+								   	 <{else}>
+						cartouthtml +='<option value="<{time()|date_format:"%Y-%m-%d"}>"><{time()|date_format:"%Y-%m-%d"}></option>';
+								   	  <{/if}> 
+  var tempcontent = '';
+  for(var i=1;i<11;i++){
+  	tempcontent += '<option value="'+i+'">'+i+'人</option>';
+  }
+	cartouthtml+='</select><select id="orderTime" name="orderTime"></select></div>';
+	cartouthtml +='<div class="line_class"><label>消费人数:</label><select name="personcount">'+tempcontent+'</select> </div>';
+	cartouthtml +='<div class="line_class"><label>联系人:</label><input type="text" name="contactname" value="" placeholder="联系人姓名"> </div>';
+	cartouthtml +='<div class="line_class"><label>联系电话:</label><input type="text" name="phone" id="phone" value="" ><span class="hc_order_lists_span" id="uphone" ></span> </div>';
+  cartouthtml +='<div class="line_class" id="paytypeshow"><label>支付方式:</label><input type="radio" name="paytype" value="outpay" checked><span style="display:block;float:left;width:60px;">货到支付</span><input type="radio" name="paytype" value="weixin" ><span style="display:block;float:left;width:60px;">微信支付</span><input type="radio" name="paytype" value="alipy" ><span style="display:block;float:left;width:60px;">支付宝</span><span class="hc_order_lists_span" ></span> </div>';
+	cartouthtml +='<div class="mutile_class"><label>备注</label><textarea name="content" placeholder="备注"></textarea></div>';
+	cartouthtml +='<div class="line_class">  <input type="hidden" name="shopid" value="<{$shopinfo['id']}>"><input type="hidden" name="subtype" value=""><input type="button" class="next bg" value="确认预订" id="cfbtn" onclick="onGo()"></div>';
+	cartouthtml +='</div> </form>';
+  		 var starttime = '<{$shopinfo['starttime']}>'; 
+	 var is_orderbefore=<{$shopinfo['is_orderbefore']}>;
+	 var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+	 var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+	 	var submithtml = '<{ofunc type=url link="/wxsite/plateorder/datatype/json/random/@random@"}>';
+	  var orderhtml = '<{ofunc type=url link="/wxsite/waitpay/orderid/@orderid@"}>';
+	  <{$yanchitime = time()+$shopinfo['maketime']*60}> 
+	  var maketime = '<{$yanchitime|date_format:"%Y-%m-%d %H:%M:%S"}>';
+	   	var submithtml = '<{ofunc type=url link="/wxsite/plateorder/datatype/json/random/@random@"}>';
+	  var orderhtml = '<{ofunc type=url link="/wxsite/waitpay/orderid/@orderid@"}>';
+
+
+	</script>
+ 
+ 	
+<{/block}>

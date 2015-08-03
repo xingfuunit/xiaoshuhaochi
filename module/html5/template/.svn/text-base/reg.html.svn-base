@@ -1,0 +1,49 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/member.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+ 
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+<div id="hallist"> 
+  	<header><div class="return"></div>用户注册</header> 
+  <div class="container" style="padding-top:0px;background:none;margin-top:0px;">
+
+  	 
+
+	    <section class="muli" style="display: block" id="first">
+
+	    	<div class="w300">
+
+	    		<input type="text" class="inputInp" placeholder="用户名（必填）" id="uname" name="uname" required="required">
+
+	    		<input type="text" class="inputInp" placeholder="输邮箱地址（必填）" id="email" name="email"> 
+	    			<input type="password" class="inputInp" placeholder="登陆密码" id="pwd" name="pwd" required="required">
+
+	    	 	<input type="password" class="inputInp" placeholder="确认登陆密码" id="spwd" name="spwd" required="required">
+
+	    		
+
+	      </div><div class="btnAdd"><input type="BUTTON" class="inputBtn" value="提交注册" id="regSubmit" onclick="savepwd();"></div></section>
+
+  	 
+<script> 
+	function savepwd(){  
+		   $('#loading').show();
+      var info = {'tname':$('#uname').val(),'email':$('#email').val(),'pwd':$('#pwd').val(),'pwd2':$('#spwd').val(),'checklogin':'html5'};
+		  var url = '<{ofunc type=url link="/member/saveregester/random/@random@/datatype/json"}>'; 
+		  var backdata = ajaxback(url,info); 
+		  if(backdata.flag == false){ 
+		      window.location.href = siteurl+'/index.php?controller=html5&action=member';
+		  }else{
+		  	$('#loading').hide();
+		     Tmsg(backdata.content);
+		  }
+		  
+	}
+</script>
+
+<{/block}>

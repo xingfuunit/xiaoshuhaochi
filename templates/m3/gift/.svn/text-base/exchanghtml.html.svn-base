@@ -1,0 +1,59 @@
+ 
+<{load_data assign="info" table="gift" type="one" where="id='<{$id}>'" fileds="*" }> 
+			<div style="width:641px;" class="modal hide fade" id="Modal_col" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  	<div class="modal-header">
+			  		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			    	<h3 id="myModalLabel">礼品兑换</h3>
+			  	</div>
+			  	<form id="add_col_form" name="add_col_form" action="<{ofunc type=url link="/gift/exchang/datatype/json"}>" method="post">
+			  	<input type="hidden" name="lipin_id" value="<{$info['id']}>"> 
+			  	<div class="modal-body" id="modal_body">
+			  		<table class="table table-striped table-bordered table-condensed atb">
+			  			<tbody><tr>
+			  				<{load_data assign="addresslist" table="address"    fileds="*"  limit="10" where="userid='<{$member['uid']}>'"}> 
+			  				<td colspan="2">
+			  					<{foreach from=$addresslist['list'] item=items}> 
+			  						 <div class="myaddr" title="<{$items['address']}>">
+                        	<input type="radio" <{if $items['default'] == 1}>checked="checked"<{/if}>   style="margin:0px 2px 0px 0px;"   name="moren_addr" value="<{$items['id']}>">
+                        	 <{$items['address']}>，<{$items['contactname']}>，<{$items['phone']}>，<{$items['otherphone']}>   	&nbsp;&nbsp;<{if $items['default'] == 1}><a href="<{ofunc type=url link="/area/address"}>">更换默认地址</a><{/if}>
+                    </div>
+                   <{/foreach}>     
+                           <input type="hidden" id="address_id" name="address_id" value=""></td>
+                    
+                        
+              </td>
+			  			</tr>
+			  			<{if empty($addresslist['list'])}>
+			  			<tr class="newAddr_tr">
+			  				<th>地址</th><td><input type="text" id="address" name="address"></td>
+			  			</tr>
+			  			<tr class="newAddr_tr">
+			  				<th>联系人</th><td><input type="text" id="aboutname" name="aboutname"></td>
+			  			</tr>
+			  			<tr class="newAddr_tr">
+			  				<th>联系电话</th><td><input type="text" id="aboutphone" name="aboutphone"></td>
+			  			</tr>
+			  			<{/if}>
+			  		</tbody></table>
+			  	</div>
+			  	</form>
+			  	<div class="modal-footer">
+			  		您的现有积分是<font color="red" id="myscore"><{$member['score']|default:'0'}></font>，兑换此礼品需要<font color="red" id="needscore"><{$info['score']}></font>积分，确定兑换吗？
+			    	<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+			    	<button class="btn btn-primary" id="cfm_addArea">确认</button>
+			  	</div>
+			</div>
+			
+<script type="text/javascript">
+			   
+			 
+			$('#cfm_addArea').click(function(){
+				 var myscore = $('#myscore').val();
+				 var needscore = $('#needscore').val();
+				 $('#address_id').val($('[name="moren_addr"]:checked').val())
+				 subform('',$('#add_col_form'));
+				 
+			})
+</script>
+ 
+ 

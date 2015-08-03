@@ -1,0 +1,25 @@
+.widCen {
+width: 93.75%;
+margin: 0px auto;
+}
+.login_r {
+height: 57px;
+line-height: 57px;
+}
+.login_r a:first-child {
+display: inline-table;
+background: #6bb4b0;
+height: 19px;
+line-height: 19px;
+border-radius: 24px;
+padding-left: 5px;
+padding-right: 5px;
+color: #fff;
+}
+.login_r a:last-child {
+color: #ea5413;
+float: right;
+}
+.colfff {
+background: whitesmoke;
+}

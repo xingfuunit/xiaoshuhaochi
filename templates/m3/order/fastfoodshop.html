@@ -1,0 +1,186 @@
+<div class="menu fl">
+            	<div class="menuTitle">
+                	<span>快速订餐-CART</span>
+                </div>
+              
+                    <div class="goodshow" style="height: 442px;">
+                    
+                        <div class="goodli">
+                            <div class="xh"> 
+                                <span>数量</span>
+                            </div>
+                            <div class="cm">
+                                 <span>菜名</span>
+                            </div>
+                            <div class="dj">
+                                 <span>单价</span>
+                            </div>
+                            <div class="je">
+                                 <span>金额</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cl"></div>
+                    	<div class="menugoodlist" id="cartshow" style="height: 360px;">
+                    		
+                    		
+                    		
+                    		<!---
+                       		 <div class="goodlist">
+                            <div class="goodnum">
+                               <div class="btniput">
+                               <span class="right_l_btn_left" data-id="109" data-shopid="30"></span>
+                               <span class="right_l_btn_nub" id="gshu_109">1</span>
+                               <span class="right_l_btn_right" id="gid_109" data-price="5.00" typeid="34" data-id="109" data-shopid="30"></span>	
+                               </div> 
+                            </div>
+                            <div class="goodname">
+                                 <span>揽锅菜</span>
+                            </div>
+                            <div class="goodcost">
+                                 <span>15</span>
+                            </div>
+                            <div class="goodallcost">
+                                 <span>15</span>
+                            </div>
+                        </div>
+                        --->
+                        
+                     
+                        
+                        
+                        
+                        </div>
+                        <div class="cl"></div>
+                        
+                        <div class="cdjs">
+                        	<span class="span1">打包费:<font color="#ec7501" size="2" style="font-weight:bold;">¥<font id="bagcost">0</font></font></span>
+                            <span class="span2">小计：<font color="#ec7501" size="2" style="font-weight:bold;">¥<font id="sumcost">0</font></font></span>
+                        </div>
+                    </div>
+               
+                
+                
+                <div class="xxqq" style="height:250px;">
+                	<form>
+                    	<div class="xiangqing" id="contactname">
+                        	<div class="xingming fl">姓名</div>
+                            <div class="inputtext fl"><input type="text" name="contactname" value="" /></div>
+                        </div>
+                        <div class="xiangqing" id="phone">
+                        	<div class="xingming fl">电话</div>
+                            <div class="inputtext fl"><input type="text" name="phone" value="" /></div>
+                        </div>
+                        <input type="hidden" name="areaid" value=""/>
+                        <div class="xiangqing" id="address">
+                        	<div class="xingming fl">区域</div>
+                            <div class="inputtext fl"><input type="text" name="area" value="" /></div>
+                        </div>
+                        <div class="xiangqing" id="address">
+                        	<div class="xingming fl">地址</div>
+                            <div class="inputtext fl"><input type="text" name="address" value="" /></div>
+                        </div>
+                        <div class="xiangqing" id="address">
+                        	<div class="xingming fl">时间：</div>
+ 
+	                      <{$yanchitime = time()+$shopdet['maketime']*60}>
+	 
+                            <div class="inputtext fl"><input type="text" name="senddate" value="" nowdate="<{time()|date_format:"%Y-%m-%d"}>" nowtime="<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>" starttime="<{$shop['starttime']}>" orderbefore="<{$shopdet['is_orderbefore']}>" befortime="<{$shopdet['befortime']}>" maketime="<{$yanchitime|date_format:"%Y-%m-%d %H:%M:%S"}>"/></div>
+                        </div>
+                         <div class="xiangqing"  >
+                        	<div class="xingming fl">备注</div>
+                            <div class="inputtext fl"><input type="text" name="remark" value="" /></div>
+                        </div>
+                        
+                        
+                        
+                    </form>
+                    
+                </div>
+                <div class="leftBot">
+                <div class="fl curbtn" onclick="dayindata();">
+                	 
+                 </div>
+                  <div class="fr curbtn" onclick="makeorder();">
+                    <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/xiadan.png" />
+                    
+                  </div>
+                  <div class="cl"></div>
+                </div>
+                
+            </div>
+             <!---账单明细 end---> 
+             
+             
+             <!---账单列表 start---> 
+        	<div class="conList fl">
+            	<div class="listTitle">
+                	<ul>
+                    
+                       <li  class="cur curbtn" data="a"><{$shop['shopname']}>点餐</li> 
+                       <li style="font-size:12px;height: 40px;overflow: hidden;">营业时间:<{$shop['starttime']}> 电话<{$shop['phone']}></li>
+                       
+                    </ul>
+                  
+                </div>
+                
+                <div class="fenlei">
+                	 
+                    <div class="new_caidan" id="caidanlist">
+                    	<ul>
+                    		<li class="on" onclick="showtype(0,this);">全部</li>
+                    		  <{foreach $goodstype item=items}>
+                        	<li onclick="showtype('<{$items['id']}>',this);"><{$items['name']}></li>
+                        	<{/foreach}>
+                            
+                        </ul>
+                        <div class="cl"> </div>
+                    </div>
+                    <div class="cl"> </div>
+                </div>
+                
+                <div class="caidanList">
+                	<div class="mealsList" id="goodslist">
+                    	<ul>
+                    		    <{foreach $goods item=items}>
+                        	<li <{if $items['count'] < 1}>style=" background:#b5b4b4;"<{else}> onclick="addtocart('<{$items['id']}>','<{$items['cost']}>','<{$items['bagcost']}>','<{$items['name']}>');" <{/if}>class="litype<{$items['typeid']}>" id="goodsdet_<{$items['id']}>">
+                            	<p class="danjia">¥<span><{$items['cost']}></span></p>
+                                <p class="caidanName"><{$items['name']}></p>
+                                <div class="mealsok"></div> 
+                                <div class="unok"></div>
+                            </li>
+                         <{/foreach}>    
+                        </ul>
+                  <script>
+				  
+                    $(function(){
+						//菜单列表自动适应的最小高度
+						var num = $('.fenlei li').length ;						
+						var fenleiHeight = Math.ceil(num/7)*43+10;
+						
+						//菜单列表背景自动适应的高度
+						var caidanListHeight = 830 - 42 - fenleiHeight - 50;
+						$(".caidanList").css('min-height',Number(caidanListHeight));
+						
+											
+						
+						//菜单列表超出最小的高度后自动适应的高度
+						var cou = $('.caidanList li').length ;
+						var caidanHeight = Math.ceil(cou/7)*97;
+						$(".caidanList").css('height',Number(caidanHeight));
+						
+						
+						//右边内容自动适应的高度
+						var conRightHeight = caidanHeight + fenleiHeight +50 +42 ;
+						$(".conRight").css('height',Number(conRightHeight));
+					
+					
+				});
+                </script>
+                        <div class="cl"></div>
+                    </div>
+                </div>
+                
+            </div>
+             <!---账单列表 end---> 
+              <div class="cl"></div> 

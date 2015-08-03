@@ -1,0 +1,104 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>第三方登陆接口<{/block}>
+ <{block name=bodylist}>
+ <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+
+           <div class="tags">
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+
+
+
+                         <th align="center">文件夹名称</th>
+                        <th align="center">接口描述</th>
+
+                        <th align="center">接口名称</th>
+                         <th align="center">返回地址</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+
+                      <{foreach from=$apilist item=items}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+
+                        <td align="center"><{$items['filename']}></td>
+                        <td align="center"  width="300px"> <{$items['data']['name']}> </td>
+                        <td align="center"><{$items['data']['apiname']}></td>
+                        <td align="center"><{if in_array($items['data']['name'],$installlist)}>
+                        	<input type="text" value="<{ofunc type=url link="/member/otherlogin/logintype/<{$items['data']['apiname']}>"}>" style="width:200px;">
+                        	<{else}>
+                        	未安装
+                        <{/if}></td>
+
+                        <td align="center">
+                        	<{if in_array($items['data']['name'],$installlist)}>
+                            	<a onclick="installlogin('<{$items['data']['apiname']}>','<{$items['data']['name']}>编辑');"  href="#"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                          	  <a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/other/module/dellogin/idtype/<{$items['data']['apiname']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td>
+                          <{else}>
+                        		  <a onclick="installlogin('<{$items['data']['apiname']}>','<{$items['data']['name']}>安装');"  href="#">安装</a>
+                          <{/if}>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+
+
+                </form>
+
+
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+  </div>
+
+</div>
+<script>
+	 var dialogs ;
+	 function installlogin(taskid,apidname)
+	 {
+	 	 dialogs = art.dialog.open('<{$siteurl}>/index.php?controller=adminpage&action=other&module=installlogin&idtype='+taskid);
+	 	 dialogs.title(apidname);
+	 }
+	 function uploadsucess(msg){
+
+    	dialogs.close();
+       window.location.reload();
+  }
+
+</script>
+<!--newmain 结束-->
+<{/block}>

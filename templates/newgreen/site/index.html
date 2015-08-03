@@ -1,0 +1,1226 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shouye.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/food_menu.css"> 
+ 
+
+<{/block}>
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/slides.jquery.js"> </script>
+ <script>
+     
+     var shopid = "<{$shopinfo['id']}>"; 
+     
+     function cartInOut(){
+        $('.new_cart_logo').addClass('new_cart_logo_active');//购物车图标弹出
+     	//2s后购物车详情弹出  Begin
+     	setTimeout(function(){
+     		$('.new_cart_up').addClass('new_cart_transition');
+     	},700);
+     	setTimeout(function(){
+     		$('.new_cart_logo  ul li:last-of-type i').addClass('active');
+     	},1500);
+     	//2s后购物车详情弹出  End
+     }; 
+     function cartIn(){
+     	$('.new_cart').addClass('new_cart_logo_active');
+     };
+     function cartOut(){
+     	$('.new_cart').removeClass('new_cart_logo_active');
+     };
+
+	$(function(){
+$('.new_cart_pic').on(
+	'mouseover',function(){
+		cartIn();
+});
+$('.new_cart').on('mouseleave',function(){
+	cartOut();
+});
+//鼠标放在购物车图标上时，购物车弹出或弹入 End
+
+//点击商品图片弹出商品详情页  Begin
+$('.MILPic').click(function() {
+	$('.views_main_detail').fadeIn();
+	$('#cover').fadeIn();
+});
+//点击商品图片弹出商品详情页  End
+
+//鼠标移过商品图片时，显现下阴影效果 Begin
+     $('.MealsTitle ul li').click(function(){
+     	$(this).addClass('active').siblings().removeClass('active');
+     });
+//鼠标移过商品图片时，显现下阴影效果 End
+
+		//$('.left_cat_cls').('title','删除');
+			$('#bannerBox').slides({
+				preload: true,
+				preloadImage: '/upload/images/shop/loading.gif',
+				play: 5000,
+				pause: 2500,
+				hoverPause: true,
+				generatePagination:true,
+				paginationClass:'mypagination'
+			});
+		});
+                var locationfalse = false;
+                function  synchro_cart() {
+                    
+                }
+                
+                function getdetail (goodsid) {    
+                var submitData={
+                goodsid:goodsid
+                 }
+              var url= siteurl+'/index.php?controller=site&action=goodsDetail';
+                $.post(url,submitData,function(data){
+                    if (data) {
+                          var detail = data.msg;
+                         $(".detail_supplier").html(detail.shopname);
+                         $("#detail_supplier_address").html(detail.address);
+		         $("#detail_good_desc").html(detail.img);
+                         $("#detail_price").html(detail.cost);
+                    //     $("#detail_img1").attr("src", );
+                    }
+                    
+                },"json")
+                }
+</script>
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ 						 <!-- 头部 End -->
+<div class="views_main_header">
+    <ul>
+      <li class="waimairenPic-logo" onclick="location.href='/main/index'"></li>
+      <li class="person_content">
+         <span></span>
+         <span class="waimairenPic-deteile_rihjt"></span>
+         <span class="person_info">
+          <ol style="display:none;">
+            <li class="person_name"><span></span></li>
+            <li>基本信息</li>
+            <li>配送地址</li>
+            <li>密码管理</li>
+            <li>我的订单</li>
+            <li>优惠券</li>
+            <li>我的账户</li>
+            <li>积分</li>
+            <li>退出</li>
+          </ol>
+      </span>
+      </li>
+      
+      <li>
+        <ol>
+          <li><span class="mainPic-chose"></span>选择用餐时间与品类</li>
+          <li id='this_week' class="this_week"><span></span><span>本周 </span><span> <?php echo $weeks_contorl[0][0]."-".$weeks_contorl[0][1];?></span></li>
+          <li id='next_week' class="next_week"><span></span><span>下周 </span><span> <?php echo $weeks_contorl[1][0]."-".$weeks_contorl[1][1];?></span></li>
+          <li><span class="mainPic-rice" title="午餐"></span><span class="mainPic-drink" title="饮品"></span><span class="mainPic-fruit" title="水果"></span><span class="mainPic-bun" title="甜点"></span></li>
+        </ol>
+      </li>
+      <li>
+        <ol>
+          <li><span class="waimairenPic-order_icon"></span>点餐</li>
+          <li><span class="waimairenPic-seat_icon"></span>订餐位</li>
+          <li><span class="waimairenPic-dinner_icon"></span>约饭</li>
+          <li><span class="waimairenPic-about_icon"></span>关于</li>
+        </ol>
+      </li>
+      <li><span class="waimairenPic-weiChat"></span><span class="waimairenPic-weiBo"></span><span class="waimairenPic-code"></span></li>
+     </ul>
+ </div>
+ <!-- 遮罩 Begin -->
+  <!-- <div id="cover"></div>-->
+ <!-- 遮罩 End -->
+ <!-- 注册登录 Begin -->
+<div class="views_main_login_sign_wrap">
+ <div class="views_main_login_sign_one">
+   <span class="delete">
+      
+   </span>
+   <div class="views_main_login">
+    <h3>登录</h3>
+    <!--<form method="post" enctype="multipart/form-data" action=http://dev.xiaoshuhaochi.com/main/user_login>-->
+     <ul>
+       <li><input id="login_cell" type="text" placeholder="手机号码"/></li>
+       <li><input id="login_password" type="password" placeholder="密码"/></li>
+       <li>
+         <label>
+           <input id="remember_password" type="checkbox" checked="checked" /> 记住密码
+         </label>
+         <a id="fogot_password">忘记密码 ？</a>
+       </li>
+       <li><button id="login_btn" onclick="login_btn();">立即登录</button></li>
+       <!--<li>你也可以通过以下方式登录</li>
+       <li><span></span><span></span></li>-->
+     </ul>
+   <!--  </form>-->
+   </div>
+   <div class="views_main_sign">
+     <h3 id="reg">注册</h3>
+     <p id="show_login_btn">我已有<a>小树好吃</a>账号</p>
+     <p>登录后，享受会员专属待遇</p>
+     <button id="sign_now" >立即注册</button>
+   </div>
+ </div>
+
+ <div class="views_main_login_sign_two">
+   <span class="delete">
+      
+   </span>
+   
+   <div class="views_main_login">
+    <h3>注册</h3>
+
+     <ul>
+       <li><input type="text" id="phone" class="mobile_email_reg" placeholder="手机号码"/></li>
+       <li>
+          <input type="text" class="code" placeholder="验证码" />
+          <input type="button" id="send_code" class="cursor_pointer send_code" onclick="clickyanzheng(regestercode=0);" value="发送验证码"/>
+           <span class="cursor_pointer send_div" style="display:none;"></span>
+       </li>
+       <li><input type="password" class="password_reg"  placeholder="密码"/></li>
+       <li><input type="password" class="repassword_reg" placeholder="重复密码"/></li>
+       <li>
+         <input type="checkbox" checked>
+         我已阅读并同意<a href="javascript:;">用户协议</a>
+       </li>
+       <li><button class="userRister" onclick="savepwd();">立即注册</button></li>
+     </ul>
+
+   </div>
+   <div class="views_main_sign">
+     <h3>登录</h3>
+     <p>我已有<a>小树好吃</a>账号</p>
+     <p>登录后，享受会员专属待遇</p>
+     <ul>
+         <li><button id="login_now">立即登录</button></li>
+       <!--<li>你也可以通过以下方式登录</li>
+       <li><span></span><span></span></li>-->
+     </ul>
+   </div>
+ </div>
+
+ <div class="views_main_login_sign_three">
+   <span class="delete">
+      
+   </span>
+   <div class="views_main_login">
+    <h3>忘记密码</h3>
+     <ul>
+         <li><input type="text" id="phone" placeholder="手机号码"/></li>
+       <li>
+          <input type="text" id="code" placeholder="验证码">
+
+          <input type="button" id="send_code" class="send_sms" onclick="clickyanzheng(regestercode=3);" value="发送验证码"/>
+          <span id="send_div" class="cursor_pointer" style="display:none;"></span>
+       </li>
+       <li><input type="password" id="password" placeholder="密码"/></li>
+       <li><input type="password" id="repassword" placeholder="重复密码"/></li>
+       <li><button id="changpass" onclick="changepwd();">确认修改</button></li>
+     </ul>
+   </div>
+   <div class="views_main_sign">
+     <h3>注册</h3>
+     <p>我已有<a>小树好吃</a>账号</p>
+     <p>登录后，享受会员专属待遇</p>
+     <button class="sign_now">立即注册</button>
+   </div>
+ </div>
+ </div>
+
+ <!-- 注册登录 End -->
+                                          <!-- 头部 End -->
+ 
+<div id="content">
+	<div class="hc_content">   
+		
+  <div class="hc_advertising">
+     <div id="bannerBox">
+					 <div  class="slides_container" style="height:175px;">
+					 	 <{load_data assign="lunbo" table="adv"    fileds="*"  limit="5" where="advtype='lunbo' and module='<{$sitetemp}>'"}>  
+							<{foreach from=$lunbo['list'] item=items}>
+			        	   <a href="<{$items['linkurl']}>" target="_blank"><img src="<{$items['img']}>" width="1100" height="175"></a> 
+				      <{/foreach}> 
+				    </div>
+       
+					 
+		 </div> 
+	</div>
+            <!--小树好吃-->
+<div class="MealsTitle">
+	<ul>
+		<li class="active">全部<i></i></li>
+		<li>饮品<i></i></li>
+		<li>水果沙拉<i></i></li>
+		<li>甜点<i></i></li>
+		<li>午餐</li>
+	</ul>
+	<div class="clear"></div>
+</div>
+<div class="MealsImgList" >
+<ul>
+	<{foreach from=$index_goods item=value}>
+  
+	<{if !empty($value['img'])}> 
+    <li>
+        <div class="MILPic" onclick="getdetail(<{$value['id']}>);"><img src="<{$value['img']}>"></div>
+<div class="MIL_wrap">
+        <div class="MIL1">
+            <div class="MIL1Left" id="goodsname_<{$value['id']}>"><{$value['name']}></div>
+            <div class="MIL1Right"><big class="prime_big"><{$value['cost']}> </big>元
+            <del class="prime_cost"><{if $value['prime_cost']!=='0.00'}>
+                原价
+                <{$value['prime_cost']}>   
+               <{/if}></del>
+               <span class="prime_count">
+               剩余
+                <{$value['count']}>
+                份</span>
+            </div>
+             <div class="MIL3Right">
+	<{if $value['count'] < 1}>
+	<!--	<div class="DishesOrderout"> -->
+			<a class="AddOrders"  href="javascript:;">售完</a>
+	<!--	</div>  -->
+		<{else}>
+ <!--    <div class="DishesOrder">   -->
+	<a  class="AddOrder" onclick="addonedish(<{$value['id']}>,<{$value['shopid']}>,1,this);"  href="javascript:void(0);"><span>+</span>点餐</a>
+<!--  </div>  -->
+	<{/if}>
+                                            </div>
+        </div>
+<div class="MIL2">
+        <div class="MIL2Left"> 
+            <span class="Star_g tips" original-title="<{$value['point']}>分">
+                        	<{if $value['point'] != 0}> 
+                        	<{assign var=long value=$value['point']*20}>
+                        	<{else}> 
+                        	<{assign var=long value="100"}>
+                        	<{/if}> 
+                            <span class="Star_y" style="width:<{$long}>%;"></span>
+            </span>
+            <a href="javascript:;"><{$value['point']}>点评</a>
+        </div>
+        <div class="MIL2Right">售<{$value['sellcount']}>份</div>
+</div>
+            <div class="MIL3">
+                <div class="MIL3Left">
+                    <div class="DishesStatus">
+                           <{assign var=goodssignlist value=","|explode:$value['signid']}>  
+                    </div>
+                </div>
+
+                                        </div>
+                                     </div>
+                                    </li>
+                                    <{/if}>
+                
+                
+                                    
+                                    <{/foreach}>  
+                                    <div style="clear:both;"></div>
+                                   
+                                </ul>
+                            </div>
+  
+            <!--小树好吃-->
+
+
+ <div class="new_shoplist">
+     <div class="new_list_l">店铺筛选</div>
+    <div class="new_list_m">
+       	<ul>
+			<li>
+				<div id="all" class="hc_changes_menu_div_active hc_changes_menu_div_active_hover">
+
+					<span class="hc_changes_menu_div_active_span">全部</span>
+				</div>
+			</li> 
+		    <{foreach from=$attrinfo[0]['det']  item=items}> 
+	       <li>
+		       <div class="menu-xuanze-img hc_changes_menu_div_active" style_id="<{$items['id']}>">
+			       <span class="hc_changes_menu_div_active_span"><{$items['name']}></span>
+		       </div>
+	       </li>
+	       <{/foreach}>		 
+	    </ul>
+		 <div class="clear"></div>
+    </div>
+    <div class="new_list_r">
+		 <div id="qisongjia" qisongjia_val="4" class="hc_shop_frist">起送价</div>
+			<div class="hc_shop_scale">
+					<div class="hc_shop_scale_span" style="margin-left:0px;">
+					<div qisongjia_val="4" class="qisongjia_click hc_shop_scale_price hc_shop_scale_img_margin hc_shop_scale_price_hover">全</div>
+					<div qisongjia_val="10" class="qisongjia_click hc_shop_scale_price hc_shop_scale_img_margin">10</div>
+					<div qisongjia_val="20" class="qisongjia_click hc_shop_scale_price hc_shop_scale_img_margin">20</div>
+					<div qisongjia_val="30" class="qisongjia_click hc_shop_scale_price">30</div>
+					<div class="clear"></div>
+				</div>
+				<div class="hc_shop_scale_up">
+					<div qisongjia_val="4" class="qisongjia_click hc_shop_scale_img hc_shop_scale_img_margin hc_shop_scale_images"></div>
+					<div qisongjia_val="10" class="qisongjia_click hc_shop_scale_img hc_shop_scale_img_margin"></div>
+					<div qisongjia_val="20" class="qisongjia_click hc_shop_scale_img hc_shop_scale_img_margin"></div>
+					<div qisongjia_val="30" class="qisongjia_click hc_shop_scale_img"></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+	</div>
+	<div class="clear"></div>
+ </div>
+ 
+ <div class="hc_shop_list">
+			<div class="hc_shop_list_div">
+				<ul id="shopList">
+					
+						<{foreach from=$shoplist  item=items}>  
+						 
+						   <{if $items['opentype'] == 2 }>      
+						 
+					 <li  qisongjia="<{$items['limitcost']}>" fengwei_id="<{$items['servertype']}>" isyingye="<{$items['is_open']}>" id="menu-list-box_<{$items['id']}>" shop_id="<{$items['id']}>" class="menu-list-box hc_collection_div_border_right_bottom">
+						<div class="hc_shop_list_box">
+							<div class="hc_shop_list_box_left">
+                            
+                  <!--  <{if $items['opentype'] == 2 || $items['opentype'] == 3}>   -->       
+                            
+                            <a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><div style="background-image: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/zaixiandingdan.png);"></div></a>
+                 <!--     <{else}> 
+                     
+                     
+                            <a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><div style="position: absolute; background-image: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/order_masker_closed.png); height: 83px; width: 99px; z-index:999; right:7px;top:7px;"></div></a>
+                            
+                  <{/if}>  -->
+                            
+                            
+								<div class="hc_shop_list_box_img">
+								  <div class="hc_shop_list_box_img_div" shop_id="<{$items['id']}>" >
+									   <a target="_blank" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><img atl="<{$items['shopname']}>" src="<{$items['shoplogo']|default:$shoplogo}>"></a>
+								  </div>
+								</div>
+								<a target="_blank" class="a1" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><!--<div class="hc_shop_list_box_span">
+									<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='input'}>
+									     <{foreach from=$itat['det'] item=itcc}>
+									       
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itcc['parent_id'] == $itaa['firstattr']}>
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}>
+									     <{/foreach}>
+									  <{/if}>     
+									<{/foreach}> 
+                                    
+									</div>--></a>
+							</div>
+                            
+                            <div class="hc_shop_list_box_right">
+								<div class="hc_list_box_head" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><{$items['shopname']}></a>
+								</div>
+                                
+                                <div class="hc_list_box_add" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>">
+									
+									
+									<{$items['limitcost']|default:0}>元起送
+									
+									<{if $items['pscost'] == 0}>
+										免配送费
+									<{else}>
+										<{$items['pscost']}>元配送费
+									<{/if}>
+									</a>
+								</div>
+								
+								 <div class="hc_list_box_add" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>">
+									
+									<div class="hc_action">
+              	<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='img'}> 
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}> 
+									                 <img alt="<{$itat['name']}>" class="hc_action_img" src="<{$itaa['value']}>" title="<{$itat['instro']}>">  
+									             <{/if}>
+									          <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}>
+              </div> 
+									</a>
+								</div>
+								
+								<!--<a target="_blank" class="a1" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"> 
+							  <div class="hc_xinxin">
+								  <div class="hc_xinxin_div"> 
+									   <{section name=loop loop=$items['point']}> 
+                  	 <div class="hc_xinxin_div_float"><img alt="star" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png"></div>
+                     <{/section}> 
+                     <div class="clear"></div>
+								  </div>
+								<div class="hc_comment"> 
+									<div class="hc_xinxin_div_float"><img alt="评论" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/comment.png"></div>
+									<div class="hc_xinxin_div_float"><span style="margin-left:3px;"><{$items['pointcount']}></span></div> 
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							
+							
+              <div class="hc_action">
+              	<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='img'}> 
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}> 
+									                 <img alt="<{$itat['name']}>" class="hc_action_img" src="<{$itaa['value']}>" title="<{$itat['instro']}>">  
+									             <{/if}>
+									          <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}>
+              </div> 
+               
+              <div class="hc_order"> 
+              <{if $items['opentype'] == 1}>
+                    <span class="gray_font" title="店铺已过营业时间，打烊中">已打烊</span>
+              <{elseif $items['opentype'] == 2}>
+               <span class="hc_order_box" title="接受预定中。">营业中</span>
+                <span class="">
+              	<{foreach from=$mainattr key=mykey item=itat}>
+              
+									   <{if $itat['type'] == 'checkbox'}>
+									   <{assign var=ckey value="0"}>   
+									          <{foreach from=$items['attrdet'] key=ckey item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr'] &&$ckey < 1}> 
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}> 
+									    <{/if}>     
+									<{/foreach}>
+						     </span>
+              <{elseif $items['opentype'] == 3}>
+                        <span class="hc_order_box" title="接受预定中。">接受预定</span>
+              	         <span class="hc_order_span"><{$items['newstartime']}>开送</span>
+              <{elseif $items['opentype'] == 4}>
+                 <span class="gray_font" title="店铺已过营业时间，打烊中">停止营业</span>
+              <{else}>
+                   <span class="gray_font" title="店铺已过营业时间，打烊中">已打烊</span>
+              <{/if}> 
+              
+              	 
+              </div>					 </a>-->
+							<div class="fav_font_div" style="display: none;"> </div>
+					
+					</div>
+                            
+				  <div class="clear"></div>
+				 
+				  </div>
+		  </li> 
+				 <{/if}>
+				 
+			  
+					<div class="shopview_div" id="shopview_div_<{$items['id']}>" style="display: none;">
+                 		<div class="loading"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/loading43.gif" width="38" height="38"></div>
+          	</div> 
+        
+           
+          	<{/foreach}>
+          
+					<{foreach from=$shoplist  item=items}>  
+				 
+				  <{if $items['opentype'] == 3 }>      
+						 
+					 <li  qisongjia="<{$items['limitcost']}>" fengwei_id="<{$items['servertype']}>" isyingye="<{$items['is_open']}>" id="menu-list-box_<{$items['id']}>" shop_id="<{$items['id']}>" class="menu-list-box hc_collection_div_border_right_bottom">
+						<div class="hc_shop_list_box">
+							
+							
+							
+							<div class="hc_shop_list_box_left">
+                            
+                            
+                            
+                            <a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><div style="position: absolute; background-image: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/zaixianyuding.png); height: 83px; width: 99px; z-index:999; right:7px;top:7px;"></div></a>
+                  
+                            
+                            
+								<div class="hc_shop_list_box_img">
+								  <div class="hc_shop_list_box_img_div" shop_id="<{$items['id']}>" >
+									   <a target="_blank" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><img style="margin-right:6px;" width="205" height="159" atl="<{$items['shopname']}>" src="<{$items['shoplogo']|default:$shoplogo}>"></a>
+								  </div>
+								</div>
+								<a target="_blank" class="a1" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"></a>
+							</div>
+                            
+                            <div class="hc_shop_list_box_right">
+								<div class="hc_list_box_head" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><{$items['shopname']}><{$items['opentype']}></a>
+								</div>
+                                
+                                <div class="hc_list_box_add" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>">
+									
+									
+									<{$items['limitcost']|default:0}>元起送
+									
+									<{if $items['pscost'] == 0}>
+										免配送费
+									<{else}>
+										<{$items['pscost']}>元配送费
+									<{/if}>
+									</a>
+								</div>
+								
+								 <div class="hc_list_box_add" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>">
+									
+									<div class="hc_action">
+              	<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='img'}> 
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}> 
+									                 <img width="20" height="20" alt="<{$itat['name']}>" class="hc_action_img" src="<{$itaa['value']}>" title="<{$itat['instro']}>">  
+									             <{/if}>
+									          <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}>
+              </div> 
+									
+									
+									</a>
+								</div>
+							
+							<div class="fav_font_div" style="display: none;"> </div>
+					
+					</div>
+                            
+				  <div class="clear"></div>
+				 
+				  </div>
+		  </li> 
+				 <{/if}>
+				 
+				 
+				
+				 <{/foreach}>
+
+						<{foreach from=$shoplist  item=items}>  
+				 
+				  <{if $items['opentype'] != 2 && $items['opentype'] != 3 }>      
+						 
+					 <li  qisongjia="<{$items['limitcost']}>" fengwei_id="<{$items['servertype']}>" isyingye="<{$items['is_open']}>" id="menu-list-box_<{$items['id']}>" shop_id="<{$items['id']}>" class="menu-list-box hc_collection_div_border_right_bottom">
+						<div class="hc_shop_list_box">
+							
+							
+							
+							<div class="hc_shop_list_box_left">
+                            
+                            <a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><div style="position: absolute; background-image: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/order_masker_closed.png); height: 83px; width: 99px; z-index:999; right:7px;top:7px;"></div></a>
+               
+                            
+								<div class="hc_shop_list_box_img">
+								  <div class="hc_shop_list_box_img_div" shop_id="<{$items['id']}>" >
+									   <a target="_blank" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><img style="margin-right:6px;" width="205" height="159" atl="<{$items['shopname']}>" src="<{$items['shoplogo']|default:$shoplogo}>"></a>
+								  </div>
+								</div>
+								<a target="_blank" class="a1" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"></a>
+							</div>
+                            
+                            <div class="hc_shop_list_box_right">
+								<div class="hc_list_box_head" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><{$items['shopname']}><{$items['opentype']}></a>
+								</div>
+                                
+                                <div class="hc_list_box_add" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>">
+									
+									
+									<{$items['limitcost']|default:0}>元起送
+									
+									<{if $items['pscost'] == 0}>
+										免配送费
+									<{else}>
+										<{$items['pscost']}>元配送费
+									<{/if}>
+									</a>
+								</div>
+								
+								 <div class="hc_list_box_add" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>">
+									
+									<div class="hc_action">
+              	<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='img'}> 
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}> 
+									                 <img width="20" height="20" alt="<{$itat['name']}>" class="hc_action_img" src="<{$itaa['value']}>" title="<{$itat['instro']}>">  
+									             <{/if}>
+									          <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}>
+              </div> 
+									
+									
+									</a>
+								</div>
+							
+							<div class="fav_font_div" style="display: none;"> </div>
+					
+					</div>
+                            
+				  <div class="clear"></div>
+				 
+				  </div>
+		  </li> 
+				 <{/if}>
+				 
+				 
+				
+				 <{/foreach}>
+				<div class="clear"></div> 
+				 </ul>
+ 
+			</div>
+</div>
+
+<div class="new_cart" id="newcart"></div>
+<div class="new_cart_pic">
+     <span class="cart_sum">0</span>
+</div>
+       
+              
+<div class="hc_app">
+	<ul>
+		
+	 <{load_data assign="advlist" table="adv"    fileds="*"  where="advtype='other1' and module='<{$sitetemp}>'" limit="5"}>  
+	 <{if count($advlist['list']) > 0}>
+	   <{foreach from=$advlist['list'] item=items}>
+		  <li style="height:330px;width:220px">
+		     <a href="<{$items['linkurl']}>" target="_blank"><img src="<{$items['img']}>" width="220px" height="330px"></a>
+	    </li>
+	  <{/foreach}>
+		<{/if}>
+		
+		
+	</ul>
+	<div class="clear"></div>
+</div>
+
+<div id="hc_shop_list2" class="hc_shop_list" style="display:none;">
+			<div class="hc_shop_head">
+				<div class="hc_shop_head_left">
+					<div class="hc_shop_h">更多店铺</div>
+					<div class="clear"></div>
+				</div>
+				<div class="hc_shop_head_right"></div>
+				<div class="clear"></div>
+				<div class="hc_changes_menu_div">
+				</div>
+			</div>
+
+			<div class="hc_shop_list_div">
+				<ul id="shopList2">
+					 
+				</ul>
+			</div>
+
+</div> 
+	
+                                        <!-- 详情 Begin 
+   <div class="views_main_detail">
+     <span class="delete"><img src="<?=$static_url?>/icon/delete.png" alt="" /></span>
+     <dl>
+        <dt>
+          <ul>
+              <li><img id="detail_img1" src="" alt="主菜"></li>
+              
+            <li><h3></h3><span id="detail_name"></span></li>
+            <li>
+                        <img class="detail_img_pd" id="detail_img1_1"  alt="" style="display:none"/>
+			<img class="detail_img_pd"  id="detail_img2"   alt="" style="display:none"/>
+			<img class="detail_img_pd" id="detail_img3"   alt="" style="display:none"/>
+			<img class="detail_img_pd" id="detail_img4"  alt="" style="display:none"/>
+			<img class="detail_img_pd" id="detail_img5"   alt="" style="display:none"/>
+			
+            </li>
+          </ul>
+        </dt>
+        <dd>
+        <ul>
+          <li>
+             <h3 class="name_of_cai"></h3>
+          </li>
+          <li>
+            <ol>
+              <li><span>餐厅: </span><span class="detail_supplier"></span></li>
+              <!--
+			  <li>
+                  <span>用餐时间:</span>
+                  <span class="views_main_content_week" id="detail_server_week"></span>
+                  <span class="views_main_content_date" id="detail_server_day">4/5/2015</span>
+              </li>
+			  
+
+            </ol>
+          </li>
+          <li>
+             <span id="detail_good_desc" class="detail_desc"></span>
+          </li>
+          <li>
+            <span><small>¥</small ><a id="detail_price"></a></span>
+            <button class="views_main_plus_button plus_good_main AddOrder" onclick="addonedish(<{$value['id']}>,<{$value['shopid']}>,1,this);">点餐</button>
+          </li>
+        </ul>
+       </dd>
+      </dl>
+      <div>
+        <img id="detail_image" src="../images/index_menu02.png"  alt="餐厅图片" />
+        <div>
+          <h5 class="detail_supplier"></h5>
+          <span id="detail_supplier_address"></span>
+		      <p id="descr" class="p"></p>
+        </div>
+
+      </div>
+   </div>
+    详情 End -->
+
+   <!-- notice Begin 
+   
+   <?php if (!$notice) {?>
+<div class="general_notice">
+     <span class="delete"><img src="<?=$static_url?>/icon/delete.png" alt="" /></span>
+     <ul>
+       <li>为了您能准时收到您订购的美味，<br/>请您在需要的用餐日期前或当天<big>10:00</big>前进行预订。</li>
+       <li>我们的配送时间为：<big>11:00AM</big> - <big>12:00AM</big>!</li>
+       <li>您可以提前预订本周和下周的美食!</li>
+     </ul>
+   </div>
+   <?php }?>
+
+    notice End -->	
+		
+<script type="text/javascript">
+ $(function(){
+
+ 	var top = Math.ceil($('.new_cart_pic').offset().top);
+ 	var left = Math.ceil($('.new_cart_pic').offset().left);
+ 	var value = <{$value['id']}>;
+ 	var value_shop = <{$value['shopid']}>;
+ 	value = top;
+ 	value_shop = left; 
+ 	//alert(value_shop);
+ 	//alert(left);
+ 	//<{$value['id']}>.replace(['id'],top);
+ 	//alert(value);
+ // alert(Math.ceil($('.new_cart_logo').offset().top));
+ //	alert(<{$value['id']}>);
+		var myaddressid = '<{$myaddress}>';
+		if(myaddressid == null|| myaddressid==''){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+
+
+	});
+$(document).ready(function(){
+	var newCell = $('#shopList').html();
+	$('#shopList2').append($(newCell));
+	$('#shopList2 .menu-list-box').mouseenter(function(){
+		$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+		$(this).find('.fav_font_div').show();
+		$(".cuSelBox2").removeClass("cuSelBox2");
+		$(this).addClass("cuSelBox2");
+		$(this).find('.hc_shop_list_box .hcl_collection_btn').find('.hcl_collection_btn').addClass('hcl_collection_btn_hover');
+		var item = $(this);
+		setTimeout(function(){show_shop_view2(item);},500);
+	});
+	$('#shopList2 .menu-list-box').mouseleave(function(){	
+		$(this).removeClass("cuSelBox2");	
+		$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+		$(this).find('.fav_font_div').hide();
+		$(this).find('.hc_shop_list_box .hcl_collection_btn').find('.hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+		hide_shop_view2($(this));
+	});
+
+	//shopheight();
+})
+/*function shopheight(){
+	var numshopli = $('#shopList li').length;
+	var numa = Math.ceil(numshopli/4); 
+	$('#shopList').css('height',Number(numa)*262);
+	numshopli = $('#shopList2 li').length;
+	 numa = Math.ceil(numshopli/4);
+	$('#shopList2').css('height',Number(numa)*262);
+}*/
+/*
+$('#shopList .menu-list-box').mouseenter(function(){
+	$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+	$(this).find('.fav_font_div').show();
+	$(this).find('.hc_shop_list_box .hcl_collection_btn').addClass('hcl_collection_btn_hover');
+	$(".cuSelBox").removeClass("cuSelBox");
+	$(this).addClass("cuSelBox");
+	var item = $(this);
+	setTimeout(function(){show_shop_view1(item);},500);
+});
+
+
+$('#shopList .menu-list-box').mouseleave(function(){
+	$(this).removeClass("cuSelBox");
+	$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+	$(this).find('.fav_font_div').hide();
+	$(this).find('.hc_shop_list_box .hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+	hide_shop_view1($(this));
+});
+*/
+$('#shopList .menu-list-box .hc_shop_list_box_img_div').mouseenter(function(){ 
+	var doobj = $('#menu-list-box_'+$(this).attr('shop_id'));
+	/*$(doobj).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');*/
+	$(doobj).find('.fav_font_div').show();
+	$(doobj).find('.hc_shop_list_box .hcl_collection_btn').addClass('hcl_collection_btn_hover');
+	$(".cuSelBox").removeClass("cuSelBox");
+	$(doobj).addClass("cuSelBox");
+	var item=$(this);
+		setTimeout(function(){show_shop_view1(item);},500);
+});
+$('#shopList .menu-list-box .hc_shop_list_box_img_div').mouseleave(function(){
+		var doobj = $('#menu-list-box_'+$(this).attr('shop_id'));
+	$(doobj).removeClass("cuSelBox");
+	$(doobj).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+	$(doobj).find('.fav_font_div').hide();
+	$(doobj).find('.hc_shop_list_box .hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+	hide_shop_view1($(doobj));
+});
+$('#shopList .hc_shop_list_div').mouseleave(function(){
+	$('#shopList .hc_shop_list_div .shopview_div').hide();
+});
+
+$('#shopList2 .hc_shop_list_div').mouseleave(function(){
+	$('#shopList2 .hc_shop_list_div .shopview_div').hide();
+});
+function show_shop_view1(obj) {	
+	var shop_id = $(obj).attr('shop_id');
+	var cur_shop_id = $(".cuSelBox").attr('shop_id'); 
+	if (shop_id != cur_shop_id) {
+		return;
+	}
+	 
+	var offset = $(obj).offset();
+	//$(obj).addClass('blurborder');
+	var windowWidth = $(window).width();
+	var windowHeight = $(window).height();
+
+	var shopviewHeight = $('#shopList #shopview_div_'+shop_id).height();
+
+	 $('#shopList .shopview_div').hide();
+	 $('#shopList .shopview_div .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_left').removeClass('hc_popups_sanjiao_right').addClass('hc_popups_sanjiao_top'); 
+	 if(windowWidth-offset.left > 600)
+	 {
+		 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_left');
+		 $('#shopList #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left+210);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList #shopview_div_'+shop_id).css('top',offset.bottom - shopviewHeight + 0 );
+		 }
+	 }
+	 else
+	 {
+		 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_right');
+		 $('#shopList #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left-350);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList #shopview_div_'+shop_id).css('top',offset.bottom - shopviewHeight + 0);
+		 }
+	 } 
+
+	 $('#shopList #shopview_div_'+shop_id).show();
+	
+	if($('#shopList #ShopView_'+shop_id).length == 0) {
+	 
+		 var url = '<{ofunc type=url link="/site/ajaxshopinfo"}>'; 
+		 $('#shopList .loading').show();
+		 $.post(url, {shop_id:shop_id},function (data, textStatus){ 
+			 if($('#shopList #ShopView_'+shop_id).length == 0) {
+				 $('#shopList .loading').hide();
+			 	 $('#shopList #shopview_div_'+shop_id).append(data);
+			 	show_shop_view1(obj);
+			 }
+			}, 'html');
+			 
+	}
+}
+
+function hide_shop_view1(obj) {
+	$('#shopList .shopview_div').hide();
+	var shop_id = $(obj).attr('shopid');
+	$('#shopList #shopview_div_'+shop_id).hide();
+}
+
+$('.menu-xuanze-img').click(function(){
+	fenweiChange($(this));
+});
+
+function fenweiChange(obj){
+	$('.menu-xuanze-img').removeClass('hc_changes_menu_div_active_hover');
+
+	$(obj).addClass('hc_changes_menu_div_active_hover');
+
+	updateFengwei();
+}
+
+function updateFengwei()
+{
+	$('#all').removeClass('hc_changes_menu_div_active_hover');
+	
+	$('#shopList .menu-list-box').each(function(i){
+		$(this).hide();
+	});
+
+	var qisongjia = $('#qisongjia').attr('qisongjia_val');
+	
+	var bool = false;
+
+	var selected_style_id = '';
+
+	$('.menu-xuanze-img').each(function(i){
+		var style_id = $(this).attr('style_id');
+		
+		if($(this).hasClass('hc_changes_menu_div_active_hover'))
+		{
+			selected_style_id = style_id;
+			bool = true;
+			
+			$('#shopList .menu-list-box').each(function(j){
+				var fengwei_id = $(this).attr('fengwei_id').split(',');
+				var my_qisongjia = $(this).attr('qisongjia');
+				
+				if(in_array(style_id,fengwei_id))
+				{
+					if(qisongjia == 4){
+						$(this).show();
+					}
+					else
+					{
+						if(parseInt(my_qisongjia)<=qisongjia)
+						{
+							$(this).show();
+						}
+						else
+						{
+							$(this).hide();
+						}
+					}
+				}
+			})
+		}
+		else
+		{
+			$('#shopList .menu-list-box').each(function(j){
+				var fengwei_id = $(this).attr('fengwei_id').split(',');
+				if(!in_array(selected_style_id,fengwei_id))
+				{
+					$(this).hide();
+				}
+			})
+		}
+	})
+	if(bool==false)
+	{
+		allChange($("#all"));
+	}
+	showOtherArea();
+}
+
+function in_array(e,arr)
+{
+	for(i=0;i<arr.length;i++)
+	{
+		if(arr[i] == e)
+		return true;
+	}
+	return false;
+}
+
+function showOtherArea()
+{
+	var ids = new Array();
+	 
+	$('#shopList .menu-list-box').each(function(i){
+		if($(this).is(":hidden")){
+			ids.push($(this).attr('id'));
+		}
+	});
+	/*var allnum = $('#shopList li').length;//总数量
+	var downnum = ids.length;//下移数量
+	var numshopli = Number(allnum) - Number(downnum);
+	var numa = Math.ceil(numshopli/4); 
+	$('#shopList').css('height',Number(numa)*262); 
+	 numa = Math.ceil(downnum/4);
+	$('#shopList2').css('height',Number(numa)*262);
+	*/ 
+	if(ids.length > 0)
+	{
+		$('#hc_shop_list2').hide();
+		$('#shopList2 .menu-list-box').hide();
+		for(var j=0;j<ids.length;j++){
+			$('#shopList2 #'+ids[j]).show();
+		}
+	}
+	else
+	{
+		$('#hc_shop_list2').hide();
+	}
+	/***自动计算高度***/
+}
+
+$("#all").click(function(){
+	allChange($(this));
+});
+
+function allChange(obj)
+{
+	if(!$(obj).hasClass('hc_changes_menu_div_active_hover'))
+	{
+		$(obj).addClass('hc_changes_menu_div_active_hover');
+	}
+	$(".menu-xuanze-img").removeClass('hc_changes_menu_div_active_hover');
+		
+		var qisongjia = $('#qisongjia').attr('qisongjia_val');
+		$('#shopList .menu-list-box').each(function(i){
+			var my_qisongjia = $(this).attr('qisongjia');
+			
+			if(qisongjia == 4){
+				$(this).show();
+			}
+			else
+			{
+				if(parseInt(my_qisongjia)<=qisongjia)
+				{
+					$(this).show();
+				}
+				else
+				{
+					$(this).hide();
+				}
+			}
+				
+		});
+	showOtherArea();
+}
+
+function getNowData()
+{
+	if($('#all').hasClass('hc_changes_menu_div_active_hover'))
+	{
+		return '2';
+	}
+	else
+	{
+		return '3';
+	}
+}
+
+$('.qisongjia_click').click(function(){
+	var qisongjia = $(this).attr('qisongjia_val');
+	$('#qisongjia').attr('qisongjia_val',qisongjia);
+	
+	$('.hc_shop_scale_img').removeClass('hc_shop_scale_images');
+	$('.hc_shop_scale_price').removeClass('hc_shop_scale_price_hover');
+
+	$('.hc_shop_scale_img').each(function(){
+		if($(this).attr('qisongjia_val')==qisongjia)
+		{
+			$(this).addClass('hc_shop_scale_images');
+		}
+	})
+	$('.hc_shop_scale_price').each(function(){
+		if($(this).attr('qisongjia_val')==qisongjia)
+		{
+			$(this).addClass('hc_shop_scale_price_hover');
+		}
+	})
+
+	var type = getNowData();
+	if(type=='2')
+	{
+		allChange($('#all'));
+	}
+	else
+	{
+		updateFengwei();
+	}
+})
+
+function show_shop_view2(obj) {
+	var shop_id = $(obj).attr('shop_id');
+	var cur_shop_id = $(".cuSelBox2").attr('shop_id');
+	if (shop_id != cur_shop_id) {
+		return;
+	}
+	var offset = $('#shopList2 #menu-list-box_'+shop_id).offset();
+	var windowWidth = $(window).width();
+	var windowHeight = $(window).height();
+
+	var shopviewHeight = $('#shopList2 #shopview_div_'+shop_id).height();
+
+	 $('#shopList2 .shopview_div').hide();
+	 $('#shopList2 .shopview_div .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_left').removeClass('hc_popups_sanjiao_right').addClass('hc_popups_sanjiao_top');
+
+	 if(windowWidth-offset.left > 600)
+	 {
+		 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_left');
+		 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left+$('#shopList2 #menu-list-box_'+shop_id).width());
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+	 else
+	 {
+		 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_right');
+		 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left-350);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+
+	 $('#shopList2 #shopview_div_'+shop_id).show();
+	
+	if($('#shopList2 #ShopView_'+shop_id).length == 0) {
+		 var url = '<{ofunc type=url link="/site/ajaxshopinfo"}>';  
+		 $('#shopList2 .loading').show();
+		 $.post(url, {shop_id:shop_id},function (data, textStatus){
+			 if($('#shopList2 #ShopView_'+shop_id).length == 0) {
+				 $('#shopList2 .loading').hide();
+			 	 $('#shopList2 #shopview_div_'+shop_id).append(data);
+			 	show_shop_view2(obj);
+			 }
+			}, 'html');
+	}
+}
+
+function hide_shop_view2(obj) {
+	$('#shopList2 .shopview_div').hide();
+	var shop_id = $(obj).attr('shopid');
+	$('#shopList2 #shopview_div_'+shop_id).hide();
+} 
+</script>
+
+
+
+
+</div>
+	
+</div>
+</div>
+</div>
+<{/block}>

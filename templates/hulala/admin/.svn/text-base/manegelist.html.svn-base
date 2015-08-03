@@ -1,0 +1,118 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">管理员列表</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+   	        	 	
+   	        	 	
+   	        	 	
+   	        	 	
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+           <div class="tags">
+
+      	 	<div id="tagstitle"></div>
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall(this.form, 'id')"></th>
+
+                        <th align="center">用户名称</th>
+
+                        <th align="center">登陆时间</th> 
+
+                        <th align="center">创建时间</th> 
+                        <th align="center">登陆IP</th>
+
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['uid']}>"></td> 
+                        <td align="center"><{$items['username']}></td> 
+                        <td align="center"> <{$items['logintime']|date_format:"%Y-%m-%d %H:%M:%S"}> </td> 
+                        <td align="center"><{$items['time']|date_format:"%Y-%m-%d %H:%M:%S"}></td>  
+                        <td align="center"><{$items['loginip']}></td> 
+                        <td align="center">
+                        	<a href="<{ofunc type=url link="/admin/editmanege/id/<{$items['uid']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delmanege/id/<{$items['uid']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a>
+                        	
+                        	</td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                <div class="page_newc">
+                 	      <div class="select_page">
+                 	      	 
+                 	     </div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+
+
+
+
+
+
+
+  </div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

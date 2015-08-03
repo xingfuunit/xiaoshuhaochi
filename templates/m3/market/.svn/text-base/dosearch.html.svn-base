@@ -1,0 +1,395 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market.css"> 
+
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/newmarket.css">  
+  <link rel="stylesheet" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/ladda-themeless.min.css?v=20141030">
+<{/block}>
+<{block name=extendjs}> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js" type="text/javascript" language="javascript"></script>
+<script>
+		var shopid = "<{$shopinfo['id']}>"; 
+			var locationfalse = false;
+			var findtype = '<{$findtype}>';
+		
+		if(findtype == 1){
+			alert('你选择的区域范围内无小卖铺');
+			window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+		
+		
+		
+</script>
+<{/block}>
+   <{block name=bgshow}><div class="mmbg" style="background:url(../upload/shop/page_bg.png)"></div>
+   <{/block}> 
+   <{block name=shophide}><{/block}>
+<{block name=sitetitle}>超市-搜索-<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+<div id="top" style="height:72px;">
+
+   <!--  <div id="topbar">
+
+        <div class="webMainModel">
+
+            <div id="nowAddrBar" class="fa"><i class="nowAddrBarIcon"></i>当前位置：<a href="/?a=change">[修改地址]</a></div>
+
+                <div class="topLogin">
+
+                    <span class="login-reg"></span>
+
+                    <script type="text/javascript">                        $('.login-reg').load('/Partial/Login');</script>
+
+                </div>
+
+                <div class="clear"></div>
+
+        </div>
+
+    </div>
+ -->
+    <div class="clear"></div>
+
+    
+
+
+
+    <div id="header-menu">
+
+        <div class="webMainModel">
+
+            <div class="navBox">
+
+                <div class="wmTypeSel">
+
+
+
+                            <h4>快速导航</h4>
+
+                </div>
+
+            </div>
+
+           <div class="myCart" id="TopCartInfo">
+<div class="icon_cart " style="left: -75px;"><i></i><span class="mini-cate J_CartNum">0</span></div>
+<div class="cartListBox" style="width: 219px;">
+    <a href="/Order/SubmitOrder" class="titleBar mini-cart-count1">我的菜篮子</a>
+
+        <div class="cartItemList" id="cartinfodet" style="display:none;">
+         
+        </div>
+</div>
+
+
+</div>
+   <script type="text/javascript">
+
+                   
+
+                    $(document).ready(function () {
+
+
+
+
+
+                        if (location.hash.length > 0) {
+
+                            var proId = location.hash.replace("#", "");
+
+                            $(".superListItem_List li[pid='" + proId + "']").addClass("itemactive");
+
+                            var proItemOffset = $(".superListItem_List li[pid='" + proId + "']").offset().top - 300;
+
+                            $('html, body').animate({
+
+                                scrollTop: proItemOffset
+
+                            }, 400, "swing", null);
+
+                        }
+
+
+
+
+
+                        $("#superSearchBtn").die('click').live('click', function () {
+
+                            var searchText = $("#superSearchText").val();
+
+                            if (searchText.length > 0) {
+
+                                window.location.href = "/Supermarket/Search/" + searchText;
+
+                            } else {
+
+                                layer.tips('请填写要搜索的商品名称哦！', $("#superSearchText"), {
+
+                                    style: ['background-color:#f48f0b; color:#fff; padding:7px 10px;', '#f48f0b'],
+
+                                    maxWidth: 190,
+
+                                    time: 2
+
+                                });
+
+                             }
+
+                        });
+
+
+
+                        $('.leftSupNavBox li').hover(function () {
+
+                            $(this).addClass("curr");
+
+                        }, function () {
+
+                            $(this).removeClass("curr");
+
+                        });
+
+
+
+                    });
+
+
+
+                </script>
+
+
+
+
+
+
+<script type="text/javascript">
+
+    var topIsFixed = false;
+
+    $(document).ready(function () {
+
+        $(window).scroll(function () {
+
+            if ($(document).scrollTop() > 190) {
+
+                if (!topIsFixed) {
+
+                    $("#header-menu").removeAttr("style");
+
+                    $("#top").addClass("top-fixed");
+
+                    $("#header-menu").animate({ top: '0px' }, 200);
+
+                    topIsFixed = true;
+
+                }
+
+
+
+            } else {
+
+                $("#header-menu").removeAttr("style");
+
+                if (topIsFixed) {
+
+                    $("#top").removeClass("top-fixed");
+
+                    topIsFixed = false;
+
+                }
+
+            }
+
+        });
+
+    });
+
+
+
+</script>
+
+		  
+		  
+<script>
+
+
+$("#TopCartInfo").mouseover(function(){
+
+	$(".icon_cart").css("left","-156px");
+	$(".cartListBox").css("width","300px");
+	$("#cartinfodet").css("width","300px");
+	$("#cartinfodet").show();
+	
+});
+$("#TopCartInfo").mouseout(function(){
+
+	$(".icon_cart").css("left","-75px");
+	$(".cartListBox").css("width","219px");
+	$("#cartinfodet").css("width","219px");
+	$("#cartinfodet").hide();
+	
+});
+</script>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<div class="warp">
+
+    <div class="superListBox">
+        <div class="leftSupNavBox">
+               
+
+
+
+    <ul>
+      	
+	<{foreach from=$catlist item=items}>
+
+       <li class="">
+
+            <b class="itemwarp"></b><i class="i1"></i><h3><a href="<{ofunc type=url link="/market/cat/id/<{$items['id']}>"}>"><{$items['name']}></a></h3>
+
+            <div class="subitem">
+
+                <h5><{$items['name']}></h5>
+
+                           
+
+
+<dl class="third-class">
+<{foreach from=$items['det'] item=itv}>
+            <dd><a href="<{ofunc type=url link="/market/cat/id/<{$itv['id']}>"}>" title="<{$itv['name']}>" ><{$itv['name']}></a>|</dd>
+
+    <{/foreach}>         
+    </dl>
+
+
+
+
+
+
+            </div>
+
+        </li>
+<{/foreach}> 
+     
+    
+    </ul>
+
+ 
+            <a href="<{ofunc type=url link="/market"}>" class="superBackBtn"> &lt; 返回超市首页</a>
+        </div>
+		
+		
+<script>
+
+$(".leftSupNavBox li i").eq(0).addClass("i1");
+						$(".leftSupNavBox li i").eq(1).addClass("i2");
+						$(".leftSupNavBox li i").eq(2).addClass("i3");
+						$(".leftSupNavBox li i").eq(3).addClass("i4");
+						$(".leftSupNavBox li i").eq(4).addClass("i5");
+						$(".leftSupNavBox li i").eq(5).addClass("i6");
+						$(".leftSupNavBox li i").eq(6).addClass("i7");
+						$(".leftSupNavBox li i").eq(7).addClass("i8");
+</script>
+
+        <div class="suppSearchInfo">
+            共找到 <b>1</b> 个关于“<b><{$searchname}></b>”商品
+        </div>
+<form method="post" action="<{ofunc type=url link="/market/dosearch"}>" id="marketform">
+        <div class="suppListSearch">
+            <h2>搜索结果</h2>
+            <div class="suppListsearchBar">
+			<input type="hidden" name="searchshopid" value="<{$shopinfo['id']}>">
+                 <input type="text" name="search_inputdo" id="search_inputdo" value="" placeholder="请输入你要找的商品" />
+
+            <button class="btn btn-waring ladda-button" id="markectbtn" data-style="zoom-out"><span class="ladda-label">搜索</span></button>
+
+            </div>
+        </div>
+ </form>
+		 <script>
+		 
+		  $('#markectbtn').click(function(){
+		  
+		
+
+			if($('#search_inputdo').val() ==  ''){
+
+			  alert('请录入查询条件');
+
+			}else{
+
+			  $('#marketform').submit();
+
+			}
+	 });
+		 </script>
+
+
+        <div class="suppTypeListFood">
+                    <ul>
+					
+					 <{load_data assign="list" table="goods" showpage="true"  fileds="*"  where="<{$where}>" pagesize="20" }>
+
+    	 <{foreach from=$list['list'] item=items}>
+                        <li class="buy_a" pid="10464">
+                            <div  onclick="addonedish('<{$items['id']}>','<{$items['shopid']}>',1,this);"  class="pimg"><img class="lazy"  src="<{$siteurl}>/upload/shop/grey.gif" data-original="<{$items['img']}>"   alt="<{$items['name']}>" style="display: inline;" width="148" height="148"></div>
+                            <div class="pinfo"><p><a style="color:#333;"   target="_blank" href="<{ofunc type=url link="/market/showgoods/id/<{$items['id']}>"}>"><{$items['name']}></a></p><p class="pprice">￥<span><{$items['cost']}></span></p></div>
+                        </li>
+						<{/foreach}>
+                    </ul>
+            <div class="clear"></div>
+        </div>
+
+<div class="suppTypeListPage">
+
+ <div class="show_page" style="clear:both;">
+
+       	<ul>
+
+       	   <{$list['pagecontent']}>
+
+       	 </ul>
+
+       </div>
+</div>
+
+
+                                    
+        <div class="clear"></div>
+    </div>
+    
+</div>
+
+
+
+ <script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+
+
+
+
+  
+  <div style="clear:both;"></div>
+   <script>
+  $('.box').hover(function(){
+  	 $(this).css('background-color','rgb(241, 241, 241)');
+  });
+  $('.box').mouseleave(function(){
+  	 $(this).css('background-color','');
+  });
+  	</script>
+<{/block}>

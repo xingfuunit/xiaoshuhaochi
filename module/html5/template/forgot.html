@@ -1,0 +1,55 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/member.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+ 
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist"> 
+  	<header><div class="return"></div>忘记密码</header>
+
+  
+
+    
+
+  
+
+  <div class="container" style="padding-top:0px;background:none;margin-top:0px;">
+
+  	 
+
+	    <section class="muli" style="display: block" id="first">
+
+	    	<div class="w300">
+
+	    		<input type="text" class="inputInp" placeholder="请录入邮箱地址（必填）" id="email" name="email">
+
+	    	 
+
+	      </div>
+
+	      <div class="btnAdd"><input type="BUTTON" class="inputBtn" value="确认提交" id="regSubmit" onclick="savepwd();"></div></section>
+
+  	 
+<script> 
+	function savepwd(){  
+		   $('#loading').show();
+      var info = {'uname':$('#email').val()};
+		  var url = '<{ofunc type=url link="/member/savefind/random/@random@/datatype/json"}>'; 
+		  var backdata = ajaxback(url,info); 
+		  if(backdata.flag == false){ 
+		  	$('#loading').hide();
+		  	Tmsg('找回密码成功，请登陆您的邮箱找回密码');
+		    //  window.location.href = siteurl+'/index.php?controller=html5&action=index';
+		  }else{
+		  	$('#loading').hide();
+		     Tmsg(backdata.content);
+		  }
+		  
+	}
+</script>
+
+<{/block}>

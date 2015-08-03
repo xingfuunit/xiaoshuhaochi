@@ -1,0 +1,267 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>
+<{block name=extendcss}>
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/shopshow.css">
+<{/block}>
+ <{block name=extendjs}>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/wxshop.js"></script>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/template.min.js"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/plateshop.js"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/regestercode.js"></script>
+
+<script>
+    
+    var starttime = "<{$shoptime['starttime']}>";
+     var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+   var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+   var regestercode = 4;
+    var shopid = <{$id}>;
+    var cartbagcost =0;
+    var cartpscost = 0;
+    var  cartsum = 0;
+    var cxcost = 0;
+    var surecost = 0;
+    var juanlist = <{$juanlist|json_encode}>;
+    var checknext = false;
+    $(function(){
+        getTimemenenu();
+        $("#change_time").change(function(){
+            
+            getTimemenenu();
+        })
+       
+            $(".back").click(function (){
+           history.back();
+    })
+   
+           if ("<{$gustinfo}>") {
+            $(".save_button").hide();
+            $("#username").attr("disabled", "disabled");
+            $("#mobile").attr("disabled", "disabled");
+            $("#addressdet").attr("disabled", "disabled");
+        }
+        $(".order_addnew").click(function(){
+             $(".save_button").toggle();
+             if ($(".save_button").is(":hidden")) {
+            $("#username").attr("disabled", "disabled");
+            $("#mobile").attr("disabled", "disabled");
+            $("#addressdet").attr("disabled", "disabled");
+             } else {
+                    $("#username").attr("disabled", "");
+            $("#mobile").attr("disabled", "");
+            $("#addressdet").attr("disabled", "");
+             }
+        })
+       freshcart();
+
+    });
+    function myyanchi(){
+
+        checknext = false;
+    }
+     
+
+ </script>
+  <script id="cartlist" type="text/html">
+             <li>
+           <img src="<^%=list.img%^>" class="order_img">
+           <h4><^%=list.name%^></h4>
+           <p class="order_jiage">¥<lable><^%=list.cost%^></lable></p>
+           <div class="order_btn">   <span class="order_btn_left"   data-id="<^%=list.id%^>" data-shopid="<^%=list.shopid%^>"></span> <span class="order_btn_nub"><^%=list.count%^></span><span class="order_btn_right"   data-id="<^%=list.id%^>" data-shopid="<^%=list.shopid%^>"></span> </div><div class="clear"></div></li>
+ </script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=myScrolljs}>
+<script>
+
+
+/*  var myScroll;
+function loaded() {
+  myScroll = new iScroll('wrapper', {
+    useTransform: false,
+    bounce:false,
+    onBeforeScrollStart: function (e) {
+      var target = e.target;
+      while (target.nodeType != 1) target = target.parentNode;
+
+      if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA')
+        e.preventDefault();
+    }
+  });
+}*/
+//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+//document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+<{/block}>
+<{block name=blockcontent}>
+
+
+<section style="display:none;" class="cartchangetop" id="header">
+        <ul class="box_inline">
+          <li class="liwd50 redli" onclick="delbackshop('<{ofunc type=url link="/wxsite/shopshow/id/<{$id}>"}>');">
+             重新点餐
+          </li>
+          <li class="liwd50" onclick="dolink('<{ofunc type=url link="/wxsite/shopshow/id/<{$id}>"}>');">
+             再加点
+          </li>
+        </ul>
+ </section>
+ <ul class="order_top">
+   <li class="back"><span></span>返回</li>
+   <li>提交订单</li>
+ </ul>
+
+   <div id="wrapper">
+  <div id="scroller">
+
+  <!--菜品列表-->
+  <div class="order">
+  <h3 class="order_header">
+      <span class="header_1"></span>我的订单
+      <a href="#" onclick="delshopcart()" class="b">清空购物车</a>
+   <!-- <select name="DeliveryTime" id="DeliveryTime" class="mFlex1">
+          <option value="0">选择用餐时间</option>
+            <{foreach from=$timelist item=items}>
+            <option value="<{$items}>"><{$items}></option>
+            <{/foreach}>
+    </select> -->
+
+  </h3>
+
+  <ul class="order_list" id="shocart">
+    <!--
+     <li id="2302">
+           <img src="http://www.weitaotong.cn/Content/piclibrary/UserImg_916/840120140611170732040.jpg" class="order_img">
+           <h4>胡萝卜</h4>
+           <p class="order_jiage">¥<lable>1.5(3份起送)</lable></p>
+           <div class="order_btn">   <span class="order_btn_left"></span> <span class="order_btn_nub">1</span><span class="order_btn_right"></span> </div><div class="clear"></div></li>    -->
+  </ul>
+  <ul class="order_list" id="promotion">
+  </ul>
+          <p class="order_text">
+            共 <label><big id="cart_count">0</big></label> 份，
+            原价: ¥ <label><big id="cart_total">0</big>元</label>
+            <!--,打包：￥<font id="bagcost">0</font>--><br/> 
+            <span id="reel_cost_show" style="display:none;"> 优惠: ¥ <big id="cxcost">0</big>元 ，
+            </span><!--运费: ¥ <big id="carriage">0</big>元，-->  
+            应付: ¥ <big id="realcost">0</big>元
+          </p>
+  </div>
+  <!--菜品结束-->
+  <!--用户录入信息-->
+
+  <div class="order_gap"></div>
+  <div class="order">
+     <h3 class="order_header"><span class="header_2_2"></span>用餐信息</h3>
+     <ul class="dinerinfo">
+       <li>
+       请选择用餐时间:
+        <select id="change_time" name="senddate">
+                <{if $shoptime['befortime_inshop'] > 0}>
+                <{assign var=shownow value=time()}>
+                <{section name=loop loop=$shoptime['befortime_inshop']}>
+                <option value="<{$now_time|date_format:"%Y-%m-%d"}>"><{$now_time|date_format:"%Y-%m-%d"}></option>
+
+                      <{$now_time = $now_time+86400}>
+                    <{/section}>
+               <{else}>
+
+                <option value="<{$now_time|date_format:"%Y-%m-%d"}>"><{$now_time|date_format:"%Y-%m-%d"}></option>
+
+
+                <{/if}>
+        </select>
+             <!-- <span id="orderTime" data="11:30:00">11:30-12:00</span>-->
+              <select id="ordertime">                      
+                <{foreach from=$restime item=items}>
+          <option style="display:none;" value="<{$items}>"><{$items}></option>
+          <{/foreach}>   
+                </select>
+         </li>
+         <li>请填写用餐人数:<input id='personcount' type="text" required="required">(最多可预定<{$shopinfo['personcount']}>人)</li>
+     </ul>
+  </div>
+    
+    <div class="order_gap"></div>
+    <div class="order">
+       <h3 class="order_header"><span class="header_2_3"></span>联系人信息</h3>
+       <ul class="userinfo">
+         <li>
+           <input type="text" id='contactname' placeholder="请输入您的姓名" required="required">
+           <input type="tel" id="phone" placeholder="请输入您的手机号码" required="required">
+         </li>
+         <li>
+            <input type="text" id="mobile_code" placeholder="请输入验证码" required="required">
+            <input id="send_code" type="button" value="获取验证码" onclick="clickyanzheng(regestercode);"></li>
+       </ul>
+           
+    </div>
+    <div class="order_gap"></div>
+    <div class="order">
+       <h3 class="order_header"><span class="header_3"></span>支付方式</h3>
+       <ul class="order_pay">
+  <!--     <li style="display:none;">
+       <input style="display:none;" name="paytype" type="radio" value="outpay"></li>  -->
+
+        <li>
+          <label>
+            <input name="paytype" type="radio" value="weixin" checked='checked'>微信支付
+          </label>
+        </li>
+
+        <li>
+          <label>
+            <input name="paytype" type="radio" value="alipay">支付宝
+          </label>
+        </li>
+        <!--<li>
+          <label>
+            <input name="paytype" type="radio" value="open_acout">账户余额支付
+          </label>
+        </li>-->
+     <li>
+        <{if $is_open== 1}>
+         <input class="next_btn" onclick="orderSubmit();" type="submit" value="立即定位" />
+         <{else}>
+         <input class="next_btn" type="submit" value="定位失败" />
+          <{/if}>
+     </li>
+   <!--    <li style="display:none;">
+        <select name="DeliveryTime" id="DeliveryTime" class="mFlex1">
+          <option value="0">选择送货时间</option>
+            <{foreach from=$timelist item=items}>
+            <option value="<{$items}>"><{$items}></option>
+            <{/foreach}>
+            </select>
+      </li>  -->
+    </ul>
+  </div>
+</div>
+</div>
+   <!--用户录入信息结束-->
+
+
+
+ <!--
+ <div id="mask1">
+    </div>
+    <div id="popup1" class="popup1">
+       <div class="popu1top"><div style="margin-right:5px;text-align:right;"><span onclick="closeout();">×关闭</span></div></div>
+       <div class="popcontent" id="popcontent">
+
+
+
+       </div>
+    </div>
+
+ </div>
+</div>
+<!--区域信息--
+
+ <div id="footer" class="box_inline">
+      <div class="home " onclick="dolink('<{ofunc type=url link="/wxsite/shoplist"}>');" href="#"><p>首页</p></div><div class="recommend " onclick="dolink('<{ofunc type=url link="/wxsite/index"}>');" href="#"><p>区域</p></div><div class="mine "  onclick="dolink('<{ofunc type=url link="/wxsite/member/id/<{$id}>"}>');" href="#"><p>我的</p></div>
+</div>
+
+ -->
+
+<{/block}>

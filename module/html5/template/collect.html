@@ -1,0 +1,56 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/shoplist.css">
+<{/block}>
+ <{block name=extendjs}> 
+ <script>
+ $(function(){
+ 	 $('.clkitm').bind("click", function() {   
+
+	var gid = $(this).attr('data-supplierid');
+
+	 window.location.href=siteurl+'/index.php?controller=html5&action=shop&id='+gid;
+
+}); 
+});
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist"> 
+  	<header><div class="return"></div>我的收藏<div class="ico"></div></header> 
+  
+
+  <div class="container" style="padding-top:0px;background:none;">
+
+  	<section>
+
+  		<ul id="supplierlist" class="branch-list">  
+      <{foreach  from=$list item=items}>
+      <li class="clkitm" data-supplierid="<{$items['id']}>"> 
+        <img class="scrollLoading"  src="<{$items['shoplogo']}>" alt="">
+        <h3><strong><{$items['shopname']}></strong></h3>
+        <div>
+            服务：
+             <{if isset($items['attrdet']['img'])&&is_array($items['attrdet']['img'])}>
+               <{foreach from=$items['attrdet']['img'] item=itc}>
+                   <a style="background:url(<{$itc}>) no-repeat;background-size: 13px;height: 13px;width: 13px;display: inline-block;"></a>   
+               <{/foreach}>
+              <{/if}>
+        </div>
+        <div class="address">人均：<a class="colred fontbold"><{$items['limitcost']}>元</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        菜品：
+        <{if is_array($items['attrdet']['checkbox'])}>
+        <{foreach from=$items['attrdet']['checkbox'] item=itc}>
+          <{$itc}>
+        <{/foreach}>
+        <{/if}>
+       
+        </div> 
+    </li> 
+   <{/foreach}> 
+      </ul>
+
+   </section>
+
+<{/block}>

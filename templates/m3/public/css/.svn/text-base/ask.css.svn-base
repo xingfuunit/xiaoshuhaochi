@@ -1,0 +1,272 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.Announce {
+font-size: 14px;
+width: 960px;
+height: 34px;
+line-height: 34px;
+border-radius: 2px;
+background: #fff;
+margin: 0 auto;
+margin-bottom: 10px;
+padding: 0px 10px;
+color: #F39C12;
+margin-top: 15px;
+} 
+.message_i {
+width: 1001px;
+min-height: 600px;
+margin: 20px auto;
+padding: 15px;
+background-color: white;
+border: 1px solid #EFEFEF;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.MsgFrm {
+width: 1200px;
+margin: 0 auto;
+margin-top: 20px;
+}
+
+.MsgLeftFrm {
+width: 250px;
+float: left;
+}
+.NewJoinFrm {
+background: #fff;
+padding: 10px;
+padding-right: 0px;
+padding-bottom: 0px;
+}
+.SubTitle {
+height: 30px;
+line-height: 30px;
+border-bottom: 1px dashed #e1e1e1;
+color: #222;
+font-family: "微软雅黑";
+font-size: 14px;
+font-weight: bold;
+margin-right: 10px;
+}
+.JoinList {
+height: 100%;
+margin-top: 10px;
+}
+.JoinList ul li {
+float: left;
+width: 60px;
+height: 80px;
+overflow: hidden;
+vertical-align: middle;
+}
+.JoinList ul li a.JoinHead {
+display: block;
+width: 50px;
+height: 50px;
+}
+.JoinList ul li a.JoinHead img {
+width: 50px;
+height: 50px;
+}
+.JoinName {
+height: 30px;
+line-height: 30px;
+text-align: center;
+width: 50px;
+overflow: hidden;
+}
+.JoinName a {
+color: #3b639f;
+}
+.MsgRightFrm {
+	/*
+width: 710px;
+float: right;
+*/
+1200px;
+margin:0px auto;
+}
+.MsgTitle {
+height: 50px;
+padding: 10px;
+background: url(../images/MsgTitleBg.jpg) no-repeat 10px 10px #fff;
+border-bottom: 1px solid #dcdcdc;
+font-size: 30px;
+color: #ec5051;
+padding-left: 80px;
+font-weight: bold;
+line-height: 50px;
+}
+.MsgLeaveForm {
+padding: 10px;
+background: #fff;
+border-bottom: 1px solid #dcdcdc;
+}
+.MsgLeaveHead {
+width: 50px;
+height: 50px;
+float: left;
+}
+.MsgForm {
+width: 1115px;
+float: right;
+}
+.MsgTxt {
+display: block;
+border: 1px solid #ccc;
+height: 108px;
+min-height: 38px;
+line-height: 19px;
+width: 483px;
+min-width: 483px;
+max-width: 483px;
+font-size: 14px;
+color: #000;
+padding: 5px;
+float: left;
+font-family: '微软雅黑';
+}
+a.BtnSubMsg {
+display: block; 
+width: 130px;
+height: 50px;
+background: url(../images/MsgSubBtn.jpg) no-repeat;
+}
+.MsgList {
+padding: 0px 10px 10px 10px;
+background: #fff;
+}
+.MsgList ul li {
+padding: 15px 0px;
+border-bottom: 1px dashed #e1e1e1;
+}
+.UserHead {
+width: 50px;
+height: 50px;
+float: left;
+}
+.UserHead a {
+width: 50px;
+height: 50px;
+display: block;
+}
+.UserHead a img {
+width: 50px;
+height: 50px;
+}
+.MsgInfo {
+width: 1110px;
+float: right;
+}
+.MITitle {
+height: 20px;
+line-height: 20px;
+font-size: 12px;
+color: #d1d1d1;
+}
+.Name {
+color: #ec5051;
+}
+.Levels {
+width: 38px;
+height: 14px;
+background: url(../images/Levels.gif) no-repeat left top;
+display: inline-block;
+vertical-align: middle;
+}
+
+.MsgInfo .Levels {
+margin: -5px 0px 0px 0px;
+}
+.Levels.l01 {
+background-position: 0px -14px !important;
+}
+.Levels.l02 {
+background-position: 0px -28px !important;
+}
+.Levels.l03 {
+background-position: 0px -42px !important;
+}
+.Levels.l04 {
+background-position: 0px -56px !important;
+}
+.Levels.l05 {
+background-position: 0px -60px !important;
+}
+.Levels.l06 {
+background-position: 0px -84px !important;
+}
+.Levels.l07 {
+background-position: 0px -98px !important;
+}
+.Levels.l08 {
+background-position: 0px -112px !important;
+}
+.Levels.l09 {
+background-position: 0px -126px !important;
+}
+.MILeave {
+line-height: 30px;
+color: #333;
+width: 615px;
+word-wrap: break-word;
+word-break: normal;
+}
+.MsgReply {
+width: 610px;
+line-height: 30px;
+background: #f1f1f1;
+color: #333;
+padding: 10px;
+margin: 10px 0px 0px 0px;
+position: relative;
+word-wrap: break-word;
+word-break: normal;
+}
+.MsgCustomerService {
+color: #c00;
+}
+.MsgReplyIcon {
+display: inline-block;
+width: 10px;
+height: 10px;
+background: url(../images/MsgReply.gif) no-repeat left top;
+position: absolute;
+left: 20px;
+top: -10px;
+}
+.show_page{
+ padding-top:10px;
+	text-align:center;
+	float:right; 
+}
+ .show_page ul{
+border-bottom:none;
+height: 25px;
+line-height: 25px;
+}
+ 
+.show_page li{
+	background:#d1cfd6;
+	margin-right: 0px;
+	padding-left:10px;
+	padding-right:10px;
+	float:left;
+/*	width:25px; */
+	 
+}
+.show_page li.current{
+	background:#00306c;
+}
+ .show_page li.current a{
+color:#fff;
+}
+show_page li a{
+	padding-left:10px;
+	padding-right:10px;
+}
+.show_page li a.current{ 
+ color:#fff; 
+} 

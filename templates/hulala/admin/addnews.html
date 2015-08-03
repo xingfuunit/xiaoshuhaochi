@@ -1,0 +1,139 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname"><{if !empty($info)}>编辑新闻<{else}>添加新闻<{/if}></div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+ <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+       <div style="width:98%;overflow-y:auto;white-space:nowrap;height:660px;">  
+      	
+          <div class="tags">
+           
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/admin/savenews"}>">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	 
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="selecttrstart">
+                      <td class="left">新闻标题</td>
+                      <td><input type="text" name="title" id="title" value="<{$info['title']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                   
+                    
+                    
+                    
+                      
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="selecttrend"> 
+                      <td class="left">发布时间</td> 
+                      <td> 
+                       <input class="Wdate datefmt" type="text" name="addtime" id="addtime" value="<{$info['addtime']|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />                    
+
+                        </td> 
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="selecttrstart">
+                      <td class="left">排序</td>
+                      <td><input type="text" name="orderid" id="orderid" value="<{$info['orderid']}>" class="skey" style="width:50px;" ></td>
+                    </tr> 
+
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                      <td class="left">新闻详细内容</td> 
+                      <td>  
+                      <div class='nop'><script>KE.show({id:'content',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/admin/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/admin/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="content" id="content" style='width:550px; height:260px;'><{$info['content']}></textarea></div>                      </td>
+
+                    </tr>
+
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;">
+                    <input type="hidden" name="typeid" id="typeid" value="<{$info['typeid']}>" class="skey" style="width:150px;">
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script id="trgoodlist" type="text/html"> 
+ <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="trtypeid<^%=typeid%^>">
+     <td class="left"><^%=typeid%^>级分类</td>
+     <td>
+       <select name="typeid<^%=parent_id%^>" data="<^%=parent_id%^>" typeid="<^%=typeid%^>" onchange="onchangeselect(this);">
+       <^%for(i = 0; i < list.length; i ++) {%^>
+		      <^%if(list[i].parent_id == parent_id){%^>
+                   <option value="<^%=list[i].id%^>" data="<^%=list[i].id%^>" pdata="<^%=list[i].parent_id%^>" ddata="<^%=list[i].type%^>"
+                   
+                    
+                    <^%for(k = 0; k < selectid.length; k ++) {%^>
+                    	<^%if(list[i].id  == selectid[k]){%^>
+                    		selected
+                    		<^%}%^>
+                    <^%}%^>  
+                    >
+                          <^%=list[i].name%^> 
+                   </option>
+          <^%}%^>
+          
+       <^%}%^>   
+       </select>
+    </td>
+</tr> 
+</script>
+<!--newmain 结束-->
+<script>
+	var typelist = <{$typlist|@json_encode}>;//所有分类信息
+	var allids = <{$allids|@json_encode}>;
+	$(function(){   
+		       makehtml(0,allids,1); 
+	});
+	//selecttrend  selecttrstart
+	function makehtml(parent_id,selectid,typeid){//构造一级分类 
+		  var vac = {list:typelist,parent_id:parent_id,selectid:selectid,typeid:typeid};
+		  var htmls = template.render('trgoodlist', vac);
+		  $('#selecttrend').before(htmls); 
+		  $("select[name='typeid"+parent_id+"']").find("option:selected").trigger('change'); 
+		  //typeid<^%=parent_id%^>
+	}
+	function onchangeselect(obj){
+		//构造下级typeid 
+		var typeid = Number($(obj).attr('typeid'))+1; 
+		removetr(typeid);//移除 已存在的tr
+		//判断是否构造下级select
+		var c = $(obj).find("option:selected").attr('ddata');
+		if(c == 2){
+			//$("#sel").attr("value",'-sel3');
+			makehtml($(obj).find("option:selected").val(),allids,typeid); 
+		}else{
+			//设置默认值
+			$('#typeid').val($(obj).val()); 
+		} 
+	}
+	function removetr(typeid){
+		if($('#trtypeid'+typeid).html() != undefined){
+			 var c = Number(typeid)+1;
+			  $('#trtypeid'+typeid).remove();
+			 removetr(c); 
+		}
+	} 
+</script>
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

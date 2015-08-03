@@ -1,0 +1,34 @@
+ 
+<{include file="<{$tempdir}>/public/top.html"}>
+<div id="content">
+	<form id="loginForm" method="post">
+<div class="hc_content">
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span"><{$sitetitle}></span></div>
+			<div class="hc_login_content">
+					<div class="findPassWordDiv">
+						<div style="float:left;margin-right: 10px;">
+							<span class="hc_login_div_span">操作提示：</span>
+						    <{$msg}><br>
+							<p class="tip" style="margin-left:100px;"><a href="<{$link}>">跳转页面</a>  <span style="margin-left:100px;"><a href="<{$siteurl}>">返回首页</a></span></p>
+						</div>
+						 
+						<div class="clear"></div>
+					</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</form>
+
+<script type="text/javascript">
+$('.login-button').click(function(){
+	$('#loginForm').submit();
+})
+
+</script></div> 
+ <{include file="<{$tempdir}>/public/foot.html"}>

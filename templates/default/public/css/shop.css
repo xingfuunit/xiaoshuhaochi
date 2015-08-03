@@ -1,0 +1,876 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.Restaurant {
+width: 980px;
+height: 100%;
+margin: 0 auto;
+font-family: '微软雅黑',Arial;
+font: 12px/1.75 "微软雅黑","Arial",sans-serif;
+}
+.RestaurantTop {
+width: 940px;
+height: 160px;
+padding: 20px;
+background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0 !important;
+filter: Alpha(opacity=30);
+background: #000;
+overflow: hidden;
+border-radius: 4px 4px 0px 0px;
+}
+
+.RTLeft {
+width: 150px;
+height: 150px;
+float: left;
+border: 5px solid #fff;
+background: #e5e5e5;
+position: relative;
+}
+
+
+.RTCenter {
+width: 470px;
+height: 160px;
+float: left;
+margin-left: 20px;
+display: inline;
+position: relative;
+padding-right: 20px;
+}
+
+.RName {
+line-height: 32px;
+font-size: 18px;
+color: #fff;
+font-weight: bold;
+}
+.RName a{
+	color:#fff;
+}	
+.Jrsc {
+display: inline-block;
+height: 24px;
+line-height: 24px;
+padding: 0px 10px;
+background: #f90;
+color: #fff;
+float: right;
+font-size: 12px;
+border-radius: 2px;
+font-weight: normal;
+font-family: '宋体',Arial;
+}
+.Ysc {
+display: inline-block;
+height: 24px;
+line-height: 24px;
+padding: 0px 10px;
+background: #fff;
+color: #888;
+float: right;
+font-size: 12px;
+border-radius: 2px;
+font-weight: normal;
+font-family: '宋体',Arial;
+}
+.RClass a {
+color: #fff;
+text-decoration: underline;
+padding: 0px 2px;
+}
+.RClass a:hover {
+background: #f90;
+color: #fff;
+}
+.RClass {
+height: 24px;
+line-height: 24px;
+color: #fff;
+margin-top: 10px;
+}
+.RPrice {
+height: 24px;
+line-height: 24px;
+color: #fff;
+}
+.RAddress {
+height: 24px;
+line-height: 24px;
+color: #fff;
+}
+.RTime {
+height: 24px;
+line-height: 24px;
+color: #fff;
+}
+.RIntro {
+height: 24px;
+line-height: 24px;
+color: #fff;
+}
+
+
+
+
+.RTRight {
+width: 268px;
+height: 160px;
+float: right;
+position: relative;
+}
+.RTRInfo {
+width: 278px;
+height: 158px;
+overflow-y: auto;
+}
+.RTRInfo ul li {
+line-height: 24px;
+vertical-align: middle;
+clear: both;
+color: #fff;
+font-size: 13px;
+font-weight: bold;
+}
+.SOServiceIcon {
+width: 15px;
+height: 15px;
+float: left;
+margin: 4px 4px 0px 0px;
+display: inline;
+}
+
+
+#Tab1_01 {
+height: 100%;
+}
+
+
+.RNav {
+height: 35px;
+line-height: 35px;
+background: #f90;
+} 
+
+.Menubox_01 {
+width: 100%;
+height: 35px;
+}
+.Menubox_01 li {
+float: left;
+display: block;
+cursor: pointer;
+height: 35px;
+line-height: 35px;
+text-align: center;
+color: #fff;
+font-weight: bold;
+font-size: 14px;
+}
+.Menubox_01 li.hover {
+color: #f90;
+height: 35px;
+line-height: 35px;
+padding: 0px 20px;
+background: #fff;
+font-weight: bold;
+}
+.Menubox_01 li a {
+display: inline-block;
+height: 35px;
+line-height: 35px;
+padding: 0px 20px;
+color: #fff;
+}
+
+
+
+
+.RMenu {
+height: 100%;
+background: #fff;
+position: relative;
+}
+
+.RMLeft {
+width: 690px;
+height: 100%;
+min-height: 800px;
+float: left;
+border-right: 1px solid #e6e6e6;
+}
+.MealsNav {
+border-bottom: 1px solid #e1e1e1;
+/*margin: 10px 0px 0px 0px;*/
+padding: 10px 20px;
+}
+.DishesClass {
+line-height: 24px;
+padding: 5px 0;
+}
+.DishesClass a {
+color: #f90;
+display: inline-block;
+line-height: 24px;
+padding: 0 10px;
+border-radius: 2px;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+}
+.DChover {
+background: #f90;
+color: #fff !important;
+text-decoration: none;
+}
+.MealsList ul li {
+height: 64px;
+border-bottom: 1px dashed #e1e1e1;
+padding: 0px 20px 0px 20px;
+color: #888;
+vertical-align: middle;
+}
+.MealsList ul li:hover {
+background: #f1f1f1;
+border-bottom: 1px solid #e1e1e1;
+}
+.DishesOrder a:hover {
+background: url(../images/shop/DishesOrder.gif) no-repeat center top;
+}
+.MLTop {
+height: 20px;
+line-height: 20px;
+position: relative;
+}
+.MLMiddle {
+height: 24px;
+line-height: 20px;
+}
+.DishesName {
+width: 180px;
+height: 24px;
+float: left;
+color: #333;
+}
+.DishesName a {
+color: #000;
+padding: 0px 10px 0px 0px;
+}
+.DishesStatus {
+height: 15px;
+margin: 2px 0px 0px 0px;
+}
+.DishesStatus span {
+display: inline-block;
+height: 15px;
+line-height: 15px;
+color: #fff;
+margin: 0px 4px 0px 0px;
+padding: 2px 4px;
+border-radius: 2px;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+}
+.xin {
+background: #739e21;
+}
+.zhaopai {
+background: #ffb900;
+}
+
+.DishesService {
+width: 100px;
+height: 24px;
+float: left;
+}
+.DishesPrice {
+width: 120px;
+height: 24px;
+line-height: 24px;
+float: left;
+text-align: center;
+color: #aaa;
+}
+.DishesPrice span {
+font-size: 16px;
+font-family: Arial;
+font-weight: bold;
+color: #ec5051;
+}
+.DishesOrder a {
+display: block;
+width: 70px;
+height: 24px;
+background: url(../images/shop/DishesOrder.gif) no-repeat left top;
+}
+.DishesOrderout {
+width: 70px;
+height: 24px;
+text-align: center;
+float: left;
+padding: 0px 15px 0px 15px;
+color: #888;
+position: relative;
+}
+.DishesOrderout a {
+display: block;
+width: 70px;
+height: 24px;
+background: url(../images/shop/sellout.png) no-repeat left top;
+}
+
+
+
+
+.DishesOrder {
+width: 70px;
+height: 24px;
+text-align: center;
+float: left;
+padding: 0px 15px 0px 15px;
+color: #888;
+position: relative;
+}
+.DishesSales {
+width: 80px;
+height: 24px;
+float: left;
+text-align: center;
+}
+.DishesScore {
+width: 60px;
+height: 24px;
+float: left;
+padding: 0px 0px 0px 10px;
+}
+
+.Star_g {
+background: url("../images/shop/Star_g.gif") repeat-x scroll 0 0 transparent;
+display: inline-block;
+font-size: 1%;
+height: 12px;
+line-height: 12px !important;
+margin: 3px 0 0;
+width: 60px;
+}
+.DishesScore .Star_g {
+margin: 2px 0px 0px 0px;
+}
+.Star_y {
+background: url("../images/shop/Star_y.gif") repeat-x scroll 0 0 transparent;
+display: inline-block;
+height: 12px;
+}
+.MLBottom {
+height: 16px;
+margin: 0px 0px 4px 0px;
+}
+.MLIntro {
+width: 550px;
+height: 16px;
+line-height: 16px;
+color: #888;
+float: left;
+}
+.MLReviews {
+width: 100px;
+height: 16px;
+line-height: 16px;
+float: left;
+text-align: right;
+color: #3b639f;
+}
+
+.MealsCategory {
+height: 30px;
+line-height: 30px;
+background: #f1f1f1;
+border-bottom: 1px solid #e1e1e1;
+font-size: 14px;
+color: #d5393a;
+padding: 0px 20px 0px 20px;
+font-weight: bold;
+}
+
+.RMRight {
+width: 289px;
+height: 100%;
+background: #fff;
+float: right;
+position: absolute;
+right: 0px;
+top: 0px;
+}
+
+.SCOTop {
+width: 289px;
+}
+.ShopCart {
+width: 289px;
+z-index: 1;
+}
+.CartTop {
+height: 54px;
+line-height: 54px;
+background: #fff;
+color: #f90;
+font-size: 14px;
+font-weight: bold;
+padding: 0px 10px 0px 10px;
+border-bottom: 1px solid #e1e1e1;
+}
+.CartTop span {
+float: right;
+font-weight: normal;
+color: #f90;
+}
+.SCBottom {
+height: 100%;
+}
+.SCTitle {
+height: 30px;
+line-height: 30px;
+background: #f1f1f1;
+color: #000;
+border-bottom: 1px solid #e1e1e1;
+}
+.SCName {
+width: 170px;
+height: 30px;
+line-height: 30px;
+float: left;
+margin: 0px 0px 0px 10px;
+display: inline;
+overflow: hidden;
+}
+.SCTitle .SCName {
+height: 30px;
+line-height: 30px;
+}
+.showshopname{
+	padding-top:5px;
+	padding-left:10px;
+	background-color:#f1f1f1; 
+	color:#08c;
+	font-weight:bold;
+}
+.showshoptj{
+ text-align:right;
+ padding-right:20px;
+ color:red;
+}
+.SCInfo {
+padding: 0px 0px;
+}
+.SCNum {
+width: 30px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+float: left;
+}
+.SCTitle .SCNum {
+height: 30px;
+line-height: 30px;
+}
+.SCSubtotal {
+width: 30px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+float: left;
+}
+.SCTitle .SCSubtotal {
+height: 30px;
+line-height: 30px;
+}
+.SCOperate {
+width: 30px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+float: left;
+}
+.SCTitle .SCOperate {
+height: 30px;
+line-height: 30px;
+}
+.SCInfo ul li {
+height: 30px;
+vertical-align: middle;
+}
+.SCNum span {
+display: block;
+width: 28px;
+height: 20px;
+text-align: center;
+border: 1px solid #ccc;
+background: #f3f3f3;
+margin: 4px 0px 0px 0px;
+}
+.SCNum span input {
+width: 28px;
+height: 20px;
+line-height: 20px;
+outline: none;
+border: none;
+background: #fff;
+text-align: center;
+}
+.SCNum .cart_num{
+	padding:0 0 0 0;
+}	
+.SCOperate a {
+display: block;
+width: 14px;
+height: 14px;
+background: url(../images/shop/SCOperate.gif) no-repeat left top;
+margin: 0 auto;
+margin-top: 8px;
+}
+
+.SCOBottom {
+width: 289px;
+position: fixed;
+bottom: 0;
+background: #fff;
+z-index: 2;
+}
+.TotalPrice i {
+color: #888;
+}
+.TotalPrice span {
+color: #c00;
+font-size: 14px;
+font-weight: bold;
+}
+.EmptyDishes {
+text-decoration: underline;
+color: #3b639f;
+}
+
+.OrderWay {
+height: 50px;
+padding: 10px;
+}
+.Waimai {
+display: inline-block;
+width: 124px;
+height: 34px;
+line-height: 14px;
+color: #fffed3;
+font-size: 12px;
+float: left;
+text-align: center;
+padding: 8px 5px;
+background: url(../images/shop/OrderWay.gif) no-repeat left top;
+}
+.Waimai:hover {
+background: url(../images/shop/OrderWay.gif) no-repeat left -50px;
+color: #fff;
+text-decoration: none;
+}
+.Waimai {
+line-height: 14px;
+color: #fffed3;
+font-size: 12px;
+text-align: center;
+}
+.OWBtn p {
+display: block;
+height: 20px;
+line-height: 16px;
+font-size: 14px;
+font-weight: bold;
+color: #fff;
+text-decoration: underline;
+margin:0;
+padding:0;
+}
+.OWBtn a{
+color:#fff;
+}
+.NotAvailable {
+display: inline-block;
+width: 114px;
+height: 34px;
+line-height: 14px;
+color: #000;
+font-size: 14px;
+float: right;
+text-align: center;
+padding: 8px 10px;
+background: #f1f1f1;
+}
+.NotAvailable p {
+color: #888;
+line-height: 16px;
+text-decoration: none;
+}
+.DTips {
+line-height: 30px;
+padding: 0px 10px;
+border-top: 1px solid #e1e1e1;
+color: #888;
+}
+
+.DContact {
+line-height: 30px;
+padding: 0px 10px;
+border-top: 1px solid #e1e1e1;
+color: #888;
+}
+.DContact span {
+font-size: 14px;
+color: #000;
+font-weight: bold;
+}
+.Contentbox_01 {
+height: 100%;
+}
+
+.SelectedState {
+display: block;
+width: 64px;
+height: 64px;
+background: url(../images/shop/SelectedState.gif) no-repeat left top;
+position: absolute;
+left: 200px;
+top: 500px;
+z-index: 1;
+}
+.Ysc {
+display: inline-block;
+height: 24px;
+line-height: 24px;
+padding: 0px 10px;
+background: #fff;
+color: #888;
+float: right;
+font-size: 12px;
+border-radius: 2px;
+font-weight: normal;
+font-family: '宋体',Arial;
+}
+
+
+
+.CommentOn {
+padding: 20px;
+}
+.COBottom ul li {
+height: 100%;
+}
+.COBLeft {
+width: 50px;
+height: 50px;
+float: left;
+}
+.COBRight {
+width: 580px;
+float: right;
+padding: 0px 0px 5px 0px;
+}
+.COTitle {
+height: 30px;
+line-height: 30px;
+background: #f3f3f3;
+padding: 0px 10px;
+}
+.COLevel {
+height: 14px;
+line-height: 14px;
+color: #000;
+padding: 8px 10px;
+}
+.COInfo {
+line-height: 24px;
+color: #000;
+padding: 10px;
+}
+.COTitle a {
+color: #cd3132;
+}
+.COLevel span {
+display: inline-block;
+margin: 0px 10px 0px 0px;
+vertical-align: middle;
+}
+.COLevel i {
+color: #c00;
+font-style: normal;
+font-family: Arial;
+} 
+.COLevel em {
+color: #999;
+font-style: normal;
+margin: 0px 10px 0px 0px;
+}
+.Menubox_01 li.hover a{
+color: #f90; 
+}
+
+
+.Message {
+padding: 20px;
+padding-top: 0px;
+}
+.Message ul li {
+padding: 15px 0px;
+border-bottom: 1px solid #e1e1e1;
+}
+.MITop {
+border: 1px solid #c1c1c1;
+background: url(../images/shop/MITop.gif) repeat-x left top #fbfbfb;
+padding: 10px;
+border-radius: 4px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+}
+.MIBottom {
+height: 32px;
+line-height: 32px;
+margin-top: 10px;
+color: #888;
+}
+.MITop textarea {
+outline: none;
+border: none;
+background: none;
+width: 100%;
+min-width: 100%;
+max-width: 100%;
+height: 64px;
+min-height: 64px;
+max-height: 64px;
+line-height: 22px;
+font-size: 13px;
+color: #333;
+padding:0;
+margin:0;
+}
+.MIBottom a {
+display: inline-block;
+width: 84px;
+height: 32px;
+background: url(../images/shop/ProductsDevelopment.gif) no-repeat left top;
+text-align: center;
+color: #a83d04;
+float: right;
+}
+.MIBottom span {
+color: #f30;
+}
+.Message ul li {
+padding: 15px 0px;
+border-bottom: 1px solid #e1e1e1;
+}
+.MTop {
+height: 30px;
+line-height: 30px;
+color: #ccc;
+}
+.MTop a,.MTName {
+color: #3b639f;
+text-decoration: underline;
+}
+.MMid a,.MMid {
+line-height: 30px;
+color: #404040;
+}
+
+
+.MealsImgList ul li {
+width: 188px;
+height: 230px;
+padding: 20px;
+float: left;
+border-bottom: 1px solid #ddd;
+border-left: 1px solid #fff;
+border-right: 1px solid #ddd;
+}
+.MILPic {
+height: 148px;
+background: #f5f5f5;
+}
+.MIL1 {
+height: 30px;
+color: #333;
+}
+.MIL2 {
+height: 30px;
+color: #333;
+}
+.MIL3 {
+height: 30px;
+}
+.MILPic img {
+border: 4px solid #fff;
+}
+.MIL1Left {
+width: 110px;
+height: 30px;
+line-height: 30px;
+float: left;
+overflow: hidden;
+}
+.MIL1Right {
+width: 78px;
+height: 30px;
+line-height: 30px;
+float: right;
+text-align: right;
+}
+.MIL2Left {
+width: 110px;
+height: 30px;
+line-height: 30px;
+float: left;
+}
+.MIL2Right {
+width: 78px;
+height: 30px;
+line-height: 30px;
+float: right;
+text-align: right;
+}
+.MIL2Left .Star_g {
+margin: 9px 0px 0px 0px;
+}
+.MIL2Left a {
+color: #aaa;
+padding: 0px 5px;
+}
+.MIL3Left {
+width: 118px;
+height: 30px;
+line-height: 30px;
+float: left;
+color: #08c;
+}
+.MIL3Right {
+width: 70px;
+height: 30px;
+line-height: 30px;
+float: right;
+text-align: right;
+color: #888;
+position: relative;
+}
+.DishesStatus span {
+display: inline-block;
+height: 15px;
+line-height: 15px;
+color: #fff;
+margin: 0px 4px 0px 0px;
+padding: 2px 4px;
+border-radius: 2px;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+}
+.ajaxpage{width:905px;height:25px;float:left;}
+.ajaxpage ul li{float:left;border:1px solid #CCCCCC;margin-right:2px;padding: 0 5px 0 5px;}
+.ajaxpage li.a{color:#f60;text-decoration:none;}
+.ajaxpage li.disabled{background-color:#ccc;padding: 0 5px 0 5px;}
+.ajaxpage li.disabled a{color:#666;}
+.ajaxpage li.active{background-color:#f60;color:#fff;padding: 0 5px 0 5px;}
+.ajaxpage li.active a{color:#fff;}
+ 

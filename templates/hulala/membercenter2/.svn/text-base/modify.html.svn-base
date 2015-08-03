@@ -1,0 +1,56 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+
+<div id="content">
+	<form id="loginForm" method="post" action="<{ofunc type=url link="/membercenter/savemodify"}>" >
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+						<div class="hc_userinfo_content_div_box">
+							<div style="height:50px;"></div>
+							<div class="hc_login_div">
+								<input id="username" name="username" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="hidden" value="<{$member['username']}>">
+							</div>
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">&nbsp;&nbsp;*</span>原密码：</span>
+								<input id="userpwd" name="pwd" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="password">
+							</div>
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">&nbsp;&nbsp;*</span>新密码：</span>
+								<input id="new_userpwd" name="newpwd" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="password">
+							</div>
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">*</span>确认密码：</span>
+								<input id="new_userpwd2" name="newpwd2" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="password">
+							</div>													
+			
+							<div class="hc_login_btn">
+								<div class="hc_login_btn_div hc_UserInfoChangepwd">提交</div>
+					 
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div> 
+			</div>
+			<div class="clear"></div>
+	</div>
+
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$('.hc_login_btn_div').click(function(){
+		subform('<{ofunc type=url link="/member/loginout"}>',$('#loginForm'));
+	})
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>
+
+
+
+
+
+
+
+ 

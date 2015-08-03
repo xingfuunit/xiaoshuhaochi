@@ -1,0 +1,1066 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> 选择区域-<{$sitename}></title>
+<meta name="Keywords" content="<{$keywords}>" />
+<meta name="description" content="<{$description}>" /> 
+<link rel="shortcut icon" href="<{$siteurl}>/images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/login_index.css" />
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/bootstrap.min.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script>
+ 
+ 
+ 
+ <script>
+ 	var siteurl = '<{$siteurl}>';
+ 	</script>
+ 	<!--[if lte IE 6]>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/DD_belatedPNG_0.0.8a.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('div, ul, img, li, input , a'); 
+    </script>
+ 
+<![endif]--> 
+
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/newguidecss/main_0d353d8.css"/>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/newguidecss/common_33aed6d.css"/>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/newguidecss/landing_4beaec1.css"/>
+</head>
+<script>alog('speed.set', 'ht', new Date);</script>
+<body>
+<!--[if lt IE 8]>
+<script>
+
+    (function () {
+
+        function showie() {
+
+            if (window.statis) {
+
+                try {
+
+                    var b = navigator.userAgent.toLowerCase();
+
+                    var version = b.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/)[1];
+
+                    window.statis.trackEvent("isie", "show", version);
+
+                }
+
+                catch (e) {
+
+                }
+
+
+
+            } else {
+
+                setTimeout(showie, 1000);
+
+            }
+
+        }
+
+        showie();
+
+    })();
+
+
+
+</script>
+<div id="lowie-tip" class="lowie-tip">
+您现在使用的浏览器版本过低，可能会导致部分图片和信息的缺失，为获得更好的用户体验。请立即<a href="http://www.microsoft.com/china/windows/IE/upgrade/index.aspx" target="_blank" title="免费升级至IE8浏览器">免费升级</a>或下载使用<a href="http://liulanqi.baidu.com/"  target="_blank" title="百度浏览器">百度浏览器</a></div>
+<style>
+
+      .lowie-tip {
+
+          height: 24px;
+
+          line-height: 1.8;
+
+          font-weight:normal;
+
+          text-align: center;
+
+          border-bottom:1px solid #fce4b5;
+
+          background-color:#FFFF9B;
+
+          color:#e27839;
+
+          position: relative;
+
+          font-size: 14px;
+
+          text-shadow: 0px 0px 1px #efefef;
+
+          padding: 5px 0;
+
+      }
+
+      .lowie-tip a {
+
+          color:#08c;
+
+          text-decoration: none;
+
+      }
+
+  </style>
+<![endif]-->
+<div id="header" class="header-container clearfix">
+  <div class="logo-section"> <img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/waimai_logo_ec811f2.png"> </div>
+  <div class="nav-section">
+    <div class="nav-wrapper">
+      <div id="landing-citybar" class="citybar-section">
+        <div class="city-dropdown open">
+          <div id="all" class="city-locate dropdown-toggle" style="height:55px;">
+			<{load_data assign="list" table="area"  fileds="*" where="parent_id = 0"  limit=1}>   
+					 <{foreach from=$list['list'] key=myid item=items}> 
+					 
+		  <a class="current-city" data-name="<{$items['name']}>" data-code="<{$items['id']}>"> <{$items['name']}></a> <b class="arrow"></b> 
+		   <{/foreach}> 
+		  </div>
+          <div  id="twojiguide" class="dropdown-menu" style="display:none;">
+            <div class="city-disabled">已开通地区</div>
+            <ul class="city-list">
+			<{load_data assign="list" table="area"  fileds="*" where="parent_id = 0"  limit=100}>   
+					 <{foreach from=$list['list'] key=myid item=items}> 
+					 
+					 
+              <li class="city-item" data-name="<{$items['name']}>" data-code="<{$items['id']}>">
+			    <{if $area_grade == 1}><a href="<{ofunc type=url link="/site/setlocationlink/areaid/<{$items['id']}>"}>"><{/if}>
+			  <{$items['name']}>
+			    <{if $area_grade == 1}></a><{/if}>
+			  </li>
+			  
+			  
+			   <{/foreach}> 
+            
+            </ul>
+          </div>
+        </div>
+      </div>
+	 <script>
+	 
+		$(function(){
+		
+			$("#all").click(function(){
+				var shifouyc =document.getElementById("twojiguide").style.display;
+		
+				if(shifouyc=="none"){
+				
+				
+					$("#twojiguide").show();
+					
+				}else{
+					$("#twojiguide").hide();
+				}
+				$("#twoqidulist").hide();
+				$("#search_result_list").hide();
+			});
+			$("#all").blur(function(){
+			
+				$("twojiguide").hide();
+			
+			});
+			$(".city-list li").click(function(){
+				
+				var cityhtml = $(this).html();
+				var cityid    = $(this).attr("data-code");
+				var cityname    = $(this).attr("data-name");
+				
+				$(".current-city").html(cityhtml);
+				$(".current-city").attr("data-code",cityid);
+				$(".current-city").attr("data-name",cityname);
+				$("#twojiguide").hide();
+			});
+			
+			$(".gsearch_input").focus(function(){
+					$("#twojiguide").hide();
+					var curcityid = $(".current-city").attr("data-code");
+					
+					
+					$("#twoqidulist").show();
+					
+					var url = '<{ofunc type=url link="/site/twojiguide"}>'; 
+					$.post(url, {'position':curcityid},function (data, textStatus){ 
+							$('#diquli').html(data); 
+						}, 'html');
+					
+			});
+					
+			
+			
+			
+			
+		});
+	 
+	 </script>
+      <div id="landing-search" class="search-section">
+        <div class="search-control">
+			
+          <input type="text2" onkeydown="if(event.keyCode==13)beginSearch()"  class="gsearch_input  search-con placeholder-con" placeholder="请输入您的订餐地址（写字楼、小区或学校等）" >
+       
+          <input type="submit" class="search-btn hc_login_inputs_serch_btn" value="搜索一下">
+        </div>
+	<style>
+	#twoqidulist{display:none;width:625px; background:#fff; height:165px; OVERFLOW-Y: auto;
+OVERFLOW-X: hidden; z-index:9999999; position:absolute; margin-top:55px;border-top:1px solid #ccc; border-bottom:1px solid #ccc;}
+	#twoqidulist li{ float:left;background:#fff; height:55px; padding:0 20px; line-height:55px; }
+	</style>	
+		<div id="twoqidulist">
+		<ul id="diquli">
+		<!-- 	<li>2121</li>
+			<li>2121</li> -->
+		</ul>
+		
+		</div>
+		
+		<div class="dropup" style="position: relative;">
+
+						<ul id="search_result_list" class="dropdown-menu" role="menu" aria-labelledby="dLabel" style= "position:absolute; top:55px; bottom:0px; background:#fff;">
+
+						    
+
+					  	</ul>
+
+					</div>
+
+
+        <div class="search-show s-item search-sug s-hide "></div>
+        <div class="search-show s-item search-history s-hide"> </div>
+        <div class="search-show s-item search-result s-hide"> </div>
+        <div class="search-show s-item search-empty s-hide">
+          <p>此地点附近暂时没有外卖餐厅，努力覆盖中...</p>
+        </div>
+      </div>
+	  
+	  
+	  
+		
+		
+		
+		
+		
+    </div>
+  </div>
+  <div id="user_info" class="user-info-widget" >
+    <div id="login_user_info" style="display:none;"></div>
+    <div id="logout_user_info">
+      <ul class="logout_info">
+	    <{if !empty($member['uid'])}> 
+			<li id="usernameInfo" style="background: none;" class="uname mn-lk-w">
+				<a id="username" class="mn-lk" href="<{ofunc type=url link="/member/base"}>">你好，<{$member['username']}></a>
+				
+				<div id="popUserInfoId" class="mn-tip" style="display:none;">
+					<div class="top-arrow"></div>
+					<ul class="mn">
+						<li style="background: none;" ><a class="my-info" href="<{ofunc type=url link="/order/usersorder"}>"><span class="icon order-icon"></span>我的订单</a></li>
+						<li style="background: none;" ><a class="my-info" href="<{ofunc type=url link="/area/useraddress"}>"><span class="icon address-icon"></span>送餐地址</a></li>
+						<li style="background: none;" ><a class="my-info" href="<{ofunc type=url link="/shop/collect"}>"><span class="icon favorite-icon"></span>收藏夹</a></li>
+						<li style="background: none;" ><a class="my-info" href="<{ofunc type=url link="/shop/collect"}>"><span class="icon favorite-icon"></span>收藏夹</a></li>
+						<li style="background: none;" ><a class="my-info" href="<{ofunc type=url link="/card/myjuan"}>"><span class="icon coupon-icon"></span>优惠券</a></li>
+						<li style="background: none;" ><a id="logout" class="logout" href="<{ofunc type=url link="/member/loginout"}>"><span class="icon account-icon"></span>退出</a></li>
+					</ul>
+						
+				</div>
+						
+						
+			</li>
+						
+						<script>
+							$(function(){
+								$("#usernameInfo").mouseover(function(){
+									$("#popUserInfoId").show();
+								});
+								
+								$("#usernameInfo").mouseout(function(){
+									$("#popUserInfoId").hide();
+								});
+								
+							});
+						</script>
+		 <{else}>
+        <li> <a id="login" href="<{ofunc type=url link="/member/login"}>"  target="_blank" >&nbsp;登录</a> </li>
+        <li> <a href="<{ofunc type=url link="/member/regester"}>" target="_blank">注册</a> </li>
+		
+		  <{/if}> 
+      </ul>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/.com/phoenix/account/jsapi"></script> 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="content" class="content-container clearfix">
+  <div class="waimai-step"> <img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/waimai_step_f0e1df4.png"> </div>
+</div>
+<footer id="baiducopy" style="height:230px;">
+  <div class="footer-items">
+    <div class="footer-items-snippet footer-item help" style="height:126px;">
+      <h3>帮助</h3>
+      <div class="text">
+
+<a href="<{ofunc type=url link="/site/news/id/15"}>">购物流程</a>
+       <a href="<{ofunc type=url link="/site/news/id/4"}>">积分说明</a>
+	   <a href="<{ofunc type=url link="/site/news/id/44"}>">服务细则</a>
+	   <a href="<{ofunc type=url link="/site/news/id/45"}>">常见问题</a>
+	  </div>
+    </div>
+    <div class="footer-items-snippet footer-item followus">
+      <h3>关于我们</h3>
+      <div class="text"> 
+
+	  <a href="<{ofunc type=url link="/site/news/id/48"}>">公司简介</a>
+	  <a href="<{ofunc type=url link="/site/news/id/49"}>">加入我们</a>
+	   <a href="<{ofunc type=url link="/site/news/id/50"}>">联系我们</a>
+	   <a href="<{ofunc type=url link="/site/news/id/51"}>">商家加盟</a>
+
+	  </div>
+    </div>
+    <div class="footer-items-snippet footer-item">
+      <h3>商务合作</h3>
+      <div class="text"> <a href="mailto:waimai-zhaoshang@baidu.com">邮箱：375952873@qq.com</a> </div>
+    </div>
+    <div class="footer-items-contact footer-item">
+      <h3> <img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/contact_25be17c.png" alt="图标"> 客服热线</h3>
+      <em>400-0181-567</em>
+      <div class="text no-hover"> <span>周一至周日9:00-22:00</span> </div>
+    </div>
+  </div>
+  <p class="footer-copy">Copyright©2009-2014 <{$sitename}>  | <{$beian}> </p>
+</footer>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+<script>
+var $isFirstGuide = 0;
+</script>
+
+
+<script>
+var returnFromIndex = 1;
+function showText1(){
+	$(".hc_index_login_logo_clouds").fadeIn("slow");
+}
+
+function showPrmoto1()
+{
+	$(".hc_index_login_logo_arrow").fadeIn("slow", showText1);
+}
+
+function showText2(){
+	$(".mingshows_t2").fadeIn("slow");
+}
+
+
+function showPrmoto2()
+{
+	if ($isFirstGuide != 1)
+	{
+		return;
+	}
+	$(".mingshows_a2").fadeIn("slow", showText2);
+}
+
+
+$(document).ready(function(){
+	if (document.all)
+	{
+		$(".hc_index_login_logo_clouds").css("background", "");
+		$(".hc_index_login_logo_arrow").css("background", "");
+
+		$(".mingshows_t2").css("background", "");
+		$(".mingshows_a2").css("background", "");
+
+	   
+		
+	}
+	 showPrmoto1();
+});
+
+
+function HookFirstCharSel_Landmark()
+
+{
+
+	$(".sel_fa_lm").click(function(){
+
+		var fchar = $(this).html();
+
+		
+
+		$(".lm_fa_active").removeClass("lm_fa_active");
+
+		$(this).addClass("lm_fa_active");
+
+
+
+		$("#item_list_ul_lm").html("");
+
+
+
+		if (fchar == "全部")
+		{
+			$("#item_list_ul_lm").html( $("#item_list_ul_lm_data").html());
+		}
+		else
+		{
+			var index = 1;
+			$("#item_list_ul_lm_data .pos_lmc_li").each(function(){
+				if ($(this).attr("fa") == fchar)
+				{
+					var liv = $(this).closest("li").clone();
+					if (index % 4 == 0) {
+						liv.css("border-right", "0");
+
+						liv.css("width", "130px");
+
+					}
+
+					else {
+
+						liv.removeAttr("style");
+
+					}
+
+					index += 1;
+
+					$("#item_list_ul_lm").append( liv );
+
+				}
+
+			});
+
+		}
+
+                 HookLanmarkMouseEvent();
+	});
+}
+
+function HookFirstCharSel() 
+{ 
+	$(".sel_fa_dsc").click(function(){ 
+		var fchar = $(this).html(); 
+		$(".dsc_fa_active").removeClass("dsc_fa_active"); 
+		$(this).addClass("dsc_fa_active"); 
+		$("#item_list_ul_dsc").html(""); 
+		if (fchar == "全部") 
+		{ 
+			$("#item_list_ul_dsc").html( $("#item_list_ul_dsc_data").html()); 
+		} 
+		else 
+		{ 
+			var index = 1; 
+			$("#item_list_ul_dsc_data .pos_dsc_li").each(function(){ 
+				if ($(this).attr("fa") == fchar) 
+				{ 
+					var liv = $(this).closest("li").clone(); 
+					if (index % 4 == 0) { 
+						liv.css("border-right", "0"); 
+						liv.css("width", "130px"); 
+					} 
+					else { 
+						liv.removeAttr("style"); 
+					} 
+					index += 1; 
+					$("#item_list_ul_dsc").append( liv ); 
+				} 
+			}); 
+		} 
+		HookDscMouseEvent(); 
+	});
+
+} 
+function beginSearch(){
+	$(".gsearch_input").trigger("change");
+}
+
+$(".hc_index_login").click(function(){ 
+	$(".dropup").removeClass("open"); 
+});
+
+
+
+$(".hc_login_inputs_serch_btn").click(function(){ 
+	$("#twoqidulist").hide();
+	$("#search_result_list").show();
+	$(".gsearch_input").trigger("change"); 
+	return false; 
+});
+
+
+
+$(".gsearch_input").change(function(){ 
+	
+
+
+	var s = $(this).val(); 
+	if (s == "")
+	{
+		return;
+	} 
+	$(".dropup").addClass("open"); 
+	$('#search_result_list').html(""); 
+	var li_loading = $("#loading_rt_li").clone(); 
+	$('#search_result_list').append(li_loading); 
+	var url = '<{ofunc type=url link="/site/searchposition"}>'; 
+	$.post(url, {'position':s},function (data, textStatus){ 
+			$('#search_result_list').html(data); 
+		}, 'html');
+
+});
+
+
+
+$("#rt2_city_area").click(function(){
+clearDiscId();
+	$(".dropup").removeClass("open");  
+	$('#popup_box_1').fadeOut(); 
+	$('body').attr('class',''); 
+	$('.modal-backdrop.fade.in').remove();
+	$(".mingshows").css("display", "none"); 
+	$(".li_area").removeClass('area_nclc'); 
+	$(".li_area").removeClass('area_clc'); 
+	$(".li_area").removeAttr('style');
+
+});
+
+
+
+$("#rt2_box_dsc").click(function(){ 
+	clearDiscId();
+	$('#popup_box_2').fadeOut(); 
+	$('#popup_box_1').fadeIn(); 
+});
+
+
+
+$("#rt3_box_dsc").click(function(){
+
+clearDiscId();
+	$('#popup_box_3').fadeOut();
+
+	$('body').attr('class','');
+
+	$('.modal-backdrop.fade.in').remove();
+
+	
+
+});
+
+
+
+
+
+
+
+function HookLanmarkMouseEvent()
+{
+    $(".pos_lmc_li").unbind();
+	$(".pos_lmc_li").click(function(){
+
+		var lm_id = $(this).attr('lm_id');
+
+		var lm_name = $(this).html();
+
+		addHisttoryAddress(lm_name,lm_id); 
+		window.location.href = $(this).attr("href1"); 
+
+	});
+
+}
+
+function HookDscMouseEvent()
+{
+
+	$(".pos_dsc_li").unbind();
+
+	$(".pos_dsc_li").click(function(){
+ 
+     
+		$(".build_n1").html($(this).html()); 
+		$('#popup_box_1').fadeOut(); 
+		$('#popup_box_2').fadeIn();
+		showPrmoto2(); 
+		
+		var url = '<{ofunc type=url link="/site/searchdet"}>'; 
+		var did = $(this).attr('dsc_id'); 
+		setDicId(did);  
+		$('#popup_box_2 .hc_login_pupopsBox_content').html(""); 
+		var loadingBox = $(".loading_c").clone(); 
+		loadingBox.removeClass("hidden"); 
+		$('#popup_box_2 .hc_login_pupopsBox_content').append(loadingBox); 
+		$.post(url, {'id':did},function (data, textStatus){  
+			document.getElementById('hc_login_pupopsBox_content2').innerHTML=data; 
+			HookFirstCharSel_Landmark(); 
+				HookLanmarkMouseEvent(); 
+			}, 'html');
+
+	});
+
+}
+
+
+
+function showPopupBox_Dsc()
+
+{
+
+
+
+}
+
+
+
+$(".li_area").click(function(){
+<{if $area_grade > 1}>
+	var aid = $(this).attr('area_id'); 
+	$(".area_n1").html($(this).find(".area_name").html()); 
+	var pt = $(this).position();
+	var mleft = pt.left;
+	$(this).addClass("area_clc");
+	//$(".li_area").removeClass("area_op");
+	$(".li_area").addClass('area_nclc');
+	$(this).removeClass("area_nclc");
+	$(this).css("left", mleft.toString() + "px");
+	$(".area_nclc").fadeOut();
+	// animate end
+
+	$(this).animate({left:"237.5px"},'normal' , function(){
+
+	$('#popup_box_1').fadeIn();
+	$('body').append('<div class="modal-backdrop fade in"></div>').attr('class','modal-open');
+	var url = '<{ofunc type=url link="/site/searchchild"}>'; 
+	$('#popup_box_1 .hc_login_pupopsBox_content').html("");
+
+	var loadingBox = $(".loading_c").clone();
+	loadingBox.removeClass("hidden");
+
+	$('#popup_box_1 .hc_login_pupopsBox_content').append(loadingBox);
+	$.post(url, {'id':aid},function (data, textStatus){
+		document.getElementById('hc_login_pupopsBox_content1').innerHTML=data;
+		HookFirstCharSel();
+		HookDscMouseEvent();
+
+		if (returnFromIndex == 1)
+		{
+			var lastDscId = getDisId();
+			if (lastDscId != -1)
+			{
+				<{if $area_grade > 2}>
+				$('.pos_dsc_li').each(function(){
+						if ($(this).attr('dsc_id') == lastDscId)
+						{
+							$(this).trigger('click');
+						}
+					});
+				<{/if}> 
+			}
+		}
+
+	}, 'html');
+}); 
+<{/if}> 
+
+});
+
+
+
+$(".cityli").mouseout(function(){
+
+	if (!bClicked)
+
+	{
+
+		$(this).addClass("city_op");
+
+	}
+
+	
+
+});
+
+
+
+$(".area_pic_fr").mouseenter(function(){
+
+	$(this).find(".area_img_on").css("top", "0");
+
+});
+
+
+
+$(".area_pic_fr").mouseleave(function(){
+
+	$(this).find(".area_img_on").css("top", "111px");
+
+});
+
+function clearDiscId()
+{
+	$.cookie('his_disc', null);
+}
+
+function setDicId(id)
+{   
+	$.cookie('his_disc', id, {expires:90});
+}
+
+function getDisId()
+{
+	var id = $.cookie('his_disc');  
+	if (id != null && id !='null' && id != undefined)
+	{
+		return id;
+	}
+	else
+	{ 
+		return -1;
+	}
+}
+
+function addHisttoryAddress(name, id){
+
+	var newAddr = name.toString() + ":" + id.toString();
+
+	var addrs = $.cookie('his_addrs');
+
+	if (addrs != null) {
+
+		var ar = addrs.split("|");
+
+		ar.push(newAddr);
+
+	}
+
+	else {
+
+		var ar = new Array();
+
+		ar.push(newAddr);
+
+	}
+
+
+
+	var ss = ar.join("|");
+
+
+
+	while (ar.length >  16) {
+
+		ar.shift();
+
+	}
+
+	$.cookie('his_addrs', ss, {expires:90});
+}
+
+
+
+function getHistoryAddress(){
+
+	$("#my_addr_list").html("");
+
+	var arr = new Array();
+
+	var addrs = $.cookie('his_addrs');
+
+	if (addrs != null) {
+
+		var ar = addrs.split("|");
+
+		var index = 1;
+
+		for(var i in ar){
+
+    		var info = ar[i].split(":");
+
+    		var addr_name = info[0];
+
+    		var addr_id = info[1];
+
+
+
+    		var a1 = $("<a></a>");
+
+    		a1.html(addr_name);
+
+    		var url = "/index.php?r=pos/set&lm_id="+addr_id.toString();
+
+    		a1.attr("href", url);
+
+
+
+    		var li1 = $("<li></li>");
+
+    		li1.append(a1);
+
+
+
+    		if (index % 4 == 0) {
+
+					li1.css("border-right", "0");
+
+					li1.css("width", "130px");
+
+			}
+
+			else {
+
+					li1.removeAttr("style");
+
+			}
+
+			index += 1;
+
+
+
+    		$("#my_addr_list").append(li1);
+
+		}
+
+	}
+
+	
+
+}
+
+
+
+$(".hc_login_inputs_addrs").click(function(){
+
+	$('#popup_box_3').fadeIn();
+
+	$('body').append('<div class="modal-backdrop fade in"></div>').attr('class','modal-open');
+
+
+
+	getHistoryAddress();
+
+});
+
+
+
+$(".hc_login_inputs_info_addrs_div").click(function(){
+
+	$('#popup_box_3').fadeIn();
+
+	$('body').append('<div class="modal-backdrop fade in"></div>').attr('class','modal-open');;
+
+
+
+	getHistoryAddress();
+
+});
+
+
+
+$(".hc_login_inputs_login").click(function(){
+
+	window.location.href = '<{ofunc type=url link="/member/login"}>';  
+
+}); 
+
+
+
+$(".rt_2_city").click(function(){
+
+	$('#popup_box_2').fadeOut();
+
+	clearDiscId();
+	$("#rt2_city_area").trigger("click");
+
+});
+
+
+
+$(".rt_2_area").click(function(){
+
+	clearDiscId();
+	$("#rt2_box_dsc").trigger("click");
+
+});
+
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function()
+
+{
+
+	var body_height = $(window).height(); //浏览器当前窗口可视区域高度
+
+	if(body_height<=590){
+
+		$('.hc_index_login_logo').css('margin-top','5px');
+
+		$('.hc_index_login_logo').css('padding-bottom','25px');
+
+	
+
+	}else if(590<body_height&& body_height<= 640){
+
+		$('.hc_index_login_logo').css('margin-top','15px');
+
+		$('.hc_index_login_logo').css('padding-bottom','25px');
+
+	}else if(640 < body_height && body_height <= 720){
+
+		$('.hc_index_login_logo').css('margin-top','40px')
+
+		$('.hc_index_login_logo').css('padding-bottom','45px');
+
+	
+
+	}else if(720 < body_height && body_height <= 840){
+
+		$('.hc_index_login_logo').css('margin-top','80px');
+
+	
+
+	}else if(body_height>840){
+
+		$('.hc_index_login_logo').css('margin-top','160px');
+
+	
+
+	}
+
+
+
+})
+
+</script>
+
+
+
+<script type="text/javascript">
+	$('.hc_city_change_div_yuan').click(function(){ 
+		$('.hc_city_change_div_yuan').addClass('hc_city_change_div_yuan_filter');
+
+	},function(){
+		$('hc_city_change_div_yuan').removeClass('hc_city_change_div_yuan_filter');
+	})
+</script>
+
+<script type="text/javascript">
+//placeholder IE8
+var _placeholderSupport = function() {
+    var t = document.createElement("input");
+    t.type = "text";
+    return (typeof t.placeholder !== "undefined");
+}();
+
+window.onload = function() {
+    var arrInputs = document.getElementsByTagName("input");
+    for (var i = 0; i < arrInputs.length; i++) {
+        var curInput = arrInputs[i];
+        if (!curInput.type || curInput.type == "" || curInput.type == "text")
+            HandlePlaceholder(curInput);
+    }
+};
+ 
+function HandlePlaceholder(oTextbox) {
+    if (!_placeholderSupport) {
+        var curPlaceholder = oTextbox.getAttribute("placeholder");
+        if (curPlaceholder && curPlaceholder.length > 0) {
+            oTextbox.value = curPlaceholder;
+            oTextbox.setAttribute("old_color", oTextbox.style.color);
+            oTextbox.style.color = "#c0c0c0";
+            oTextbox.onfocus = function() {
+                this.style.color = this.getAttribute("old_color");
+                if (this.value === curPlaceholder)
+                    this.value = "";
+            };
+            oTextbox.onblur = function() {
+                if (this.value === "") {
+                    this.style.color = "#c0c0c0";
+                    this.value = curPlaceholder;
+                }
+            }
+        }
+    }
+}
+
+$(document).ready(function(){
+	if (returnFromIndex == 1)
+	{
+		var lastDscId = getDisId(); 
+		if (lastDscId != -1)
+		{
+			/****  ***/
+			for(var i=0;i<$('.li_area').length;i++)
+			{
+				if($('.li_area').eq(i).attr('area_id')== "<{$newaddress['parent_id']}>")
+				{
+					$(".li_area").eq(i).trigger('click');
+					break;
+				}
+			}
+			
+		}
+	}
+
+	$(".hc_city_change_div_yuan").mouseenter(function(){
+		 //$(this).tooltip('show');
+		});
+
+});
+</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</html>

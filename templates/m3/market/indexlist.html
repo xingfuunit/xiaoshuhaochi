@@ -1,0 +1,68 @@
+ 
+	<{foreach from=$shoplist key=mykey item=items}>
+				
+				<{if $items['opentype'] == 2 }>
+					 <div class="floor-goods" style="height:206px;margin: 14px 0 10px 16px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank">
+							        <img class="dynload" src="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#5993ca;">立即购物</span> </a>
+						   </div>
+					</div>
+				<{/if}>
+				<{/foreach}>	
+					
+						
+						
+						
+						
+						
+							<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['opentype'] != 2 }>
+					  <div class="floor-goods" style="height:206px;margin: 14px 0 10px 16px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank">
+							        <img class="dynload" src="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#5993ca;">立即购物</span> </a>
+						   </div>
+					</div>
+					<{/if}>
+				<{/foreach}>	

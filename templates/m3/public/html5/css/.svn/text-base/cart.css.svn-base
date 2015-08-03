@@ -1,0 +1,306 @@
+ 
+ 
+
+/***店铺列表页 ****/
+.ico {
+background: url(../images/icos/sear.png) center no-repeat;
+background-size: 40%;
+} 
+header a.cityaa {
+padding-right: 0px;
+background-image: none;
+display: inline;
+padding-left: 0px;
+}
+.return {
+width: 44px;
+height: 44px;
+background: url(../images/icos/return.png) center 10px no-repeat;
+background-size: 12px 22px;
+position: absolute;
+top: 0px;
+left: 0px;
+}
+
+.notopborder {
+/* border-bottom: 1px solid #dfdfdf; */
+border-top: none;
+}
+.container {
+background: #ffffff;
+height: auto;
+min-height: 10px;
+padding-bottom: 10px;
+margin-bottom: 10px;
+border-bottom: 1px solid #dfdfdf;
+border-top: 1px solid #dfdfdf;
+width: auto;
+}
+.container .list {
+width: 97.1875%;
+margin: 10px auto 0;
+background: #ffffff;
+border: 1px solid #e5e5e5;
+}
+.mBxSch {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-align: stretch;
+-moz-box-align: stretch;
+-o-box-align: stretch;
+box-align: stretch;
+}
+.container .list ul {
+width: 100%;
+overflow: hidden;
+border-bottom: 1px solid #e5e5e5;
+}
+.container .list ul li {
+height: 40px;
+line-height: 40px;
+overflow: hidden;
+text-align: center;
+}
+.container .list ul.listcapital li {
+background: none;
+font-weight: 700;
+}
+.container .list ul li:nth-child(1) {
+width: 28%;
+}
+
+.container .list ul li:nth-child(2) {
+width: 32%;
+border-left: 1px solid #e5e5e5;
+border-right: 1px solid #e5e5e5;
+background: url(../images/icos/jj.png) center no-repeat;
+background-size: 58px;
+}
+.container .list ul li:nth-child(3) {
+width: 19%;
+border-right: 1px solid #e5e5e5;
+}
+.container .list ul li:nth-child(4) {
+width: 19%;
+}
+.container .list ul.listcapital li {
+background: none;
+font-weight: 700;
+}
+.del {
+padding-left: 6px;
+padding-right: 6px;
+height: 20px;
+line-height: 20px;
+text-align: center;
+border-radius: 3px;
+color: #299b95;
+border: 1px solid #299b95;
+background: #ffffff;
+}
+
+.inputInp {
+height: 39px;
+width: 100%;
+padding: 0;
+margin: 15px auto 0;
+display: block;
+font-size: 12px;
+color: #737373;
+border: 1px solid #e5e5e5;
+text-indent: 10px;
+background: url(../images/icos/baiInt.jpg) repeat-x;
+}
+.inputInp {
+margin-bottom: 15px;
+border: 1px solid #ffffff;
+border-top: 1px solid #dfdfdf;
+border-bottom: 1px solid #dfdfdf;
+}
+.transport {
+border: 1px solid #e5e5e5;
+border-left: none;
+border-right: none;
+background: #ffffff;
+}
+.mBxCm {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-o-box-pack: center;
+box-pack: center;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+}
+.transport div {
+height: 50px;
+line-height: 50px;
+overflow: hidden;
+margin: 0px 10px;
+}
+.mFlex1 {
+-webkit-box-flex: 1;
+-moz-box-flex: 1;
+-o-box-flex: 1;
+box-flex: 1;
+}
+.transport div:nth-child(1) {
+border-bottom: 1px solid #e5e5e5;
+}
+.transport div > div {
+position: relative;
+height: 51px;
+line-height: 51px;
+overflow: hidden;
+}
+.transport div > div input {
+height: 12px;
+width: 12px;
+overflow: hidden;
+position: absolute;
+left: 0;
+opacity: 0;
+}
+.transport div > div label {
+background: url(../images/icos/chd.png) 0 -25px no-repeat;
+padding-left: 15px;
+background-size: 12px;
+height: 12px;
+width: 12px;
+overflow: hidden;
+}
+.transport div > div input:checked + label {
+height: 12px;
+width: 12px;
+overflow: hidden;
+background: url(../images/icos/chd.png) 0 0px no-repeat;
+background-size: 12px;
+}
+.transport p {
+height: 50px;
+/* border-bottom: 1px solid #e5e5e5; */
+display: -webkit-box;
+-webkit-box-align: center;
+margin-left: 10px;
+margin-right: 10px;
+}
+.transport p[class="colgreen"] {
+padding: 0px 10px;
+margin: 0px 10px;
+color: #ea5413;
+border-bottom: 1px solid #e5e5e5;
+}
+.transport .mFlex1 select {
+border: none;
+-webkit-box-orient: horizontal;
+display: -webkit-box;
+-webkit-box-align: center;
+-webkit-box-pack: center;
+appearance: button;
+-moz-appearance: button;
+-webkit-appearance: button;
+border-left: 1px solid #e5e5e5;
+height: 40px;
+background: url(../images/icos/sanjiao.png) no-repeat center right;
+background-size: 20px;
+padding: 0px 10px;
+margin: 0px 10px;
+}
+.transport .mFlex1 select:nth-child(1) {
+border-left: none;
+}
+.bottomprise {
+margin: 0px 10px 0px 10px;
+border-bottom: 1px solid #eb5f23;
+height: 45px;
+padding-left: 10px;
+padding-right: 10px;
+}
+.noborders {
+/* border-bottom: 1px solid #dfdfdf; */
+border-bottom: none!important;
+border-top: none!important;
+border-left: none!important;
+border-right: none!important;
+} 
+.inputBtn {
+height: 36px;
+width: 210px;
+padding: 0;
+margin: 15px auto 0;
+display: block;
+font-size: 14px;
+color: #fff;
+text-align: center;
+/* text-indent: 10px; */
+/* background: -webkit-linear-gradient(top,#dd0815,#c30713); */
+/* background: -moz-linear-gradient(top,#dd0815,#c30713); */
+/* background: linear-gradient(top,#dd0815,#c30713); */
+background: #ea5413;
+border: none;
+}
+.inputBtn {
+margin-bottom: 40px;
+}
+footer {
+position: static;
+}
+footer nav ul li:hover {
+background: #ccc!important;
+}
+
+.inputInpa {
+ display: block;
+border: none;
+border-top: 1px solid #dfdfdf; 
+height: 39px;
+width: 100%;
+margin: 0 auto;
+-webkit-box-flex: 1;
+-moz-box-flex: 1;
+-o-box-flex: 1;
+box-flex: 1;
+}
+.container .list ul li div {
+width: 80px;
+margin: 0 auto;
+}
+.container .list ul li div a {
+width: 40%;
+height: 30px;
+line-height: 30px;
+float: left;
+display: inline-block;
+}
+.container .list ul li div a:last-child {
+float: right;
+}
+.container .list ul li div span {
+width: 20%;
+height: 30px;
+line-height: 30px;
+display: inline-block;
+}
+
+.selectclass {
+display: block;
+border:1px solid #fff;
+border-top: 1px solid #dfdfdf;
+height: 48px;
+width: 100%;
+margin: 0 auto;
+-webkit-box-flex: 1;
+-moz-box-flex: 1;
+-o-box-flex: 1;
+box-flex: 1;
+}
+.selectone {
+border-top: 1px solid #dfdfdf;
+}

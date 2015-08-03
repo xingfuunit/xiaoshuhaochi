@@ -1,0 +1,312 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Language" content="zh-CN"> 
+<meta content="all" name="robots"> 
+<meta name="description" content=""> 
+<meta content="" name="keywords"> 
+<title>后台管理中心 </title> 
+ 
+
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin1.css">
+ 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/public.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+<script>
+	var menu = <{$menu}>;
+	var siteurl = "<{$siteurl}>";
+</script>
+ 
+ 
+
+</head> 
+<body> 
+<div class="newtop">
+	  <div class="newlogo">
+	  	  <div class="imglogo"><a href="<{$siteurl}>/index.php/admin"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/logo.png"> </a></div>
+	  </div>
+	  <div class="newtopnav">
+	  	 <ul>
+	  	 	  <li class="on">
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck1"></div>
+	  	 	  	    <div class="libtitle">网站设置</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  <li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck2"></div>
+	  	 	  	    <div class="libtitle">会员管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li class="on">
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck3"></div>
+	  	 	  	    <div class="libtitle">店铺管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck4"></div>
+	  	 	  	    <div class="libtitle">商品管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck5"></div>
+	  	 	  	    <div class="libtitle">订单管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck6"></div>
+	  	 	  	    <div class="libtitle">评价/留言</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck7"></div>
+	  	 	  	    <div class="libtitle">内容管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck8"></div>
+	  	 	  	    <div class="libtitle">礼品管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck9"></div>
+	  	 	  	    <div class="libtitle">营销管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	  	<li>
+	  	 	  	<a href="#">
+	  	 	  	    <div class="lib ck10"></div>
+	  	 	  	    <div class="libtitle">接口管理</div>
+	  	 	  	 </a> 
+	  	 	  	</li>
+	  	 	<ul>
+	  	
+	  </div>
+</div> 
+<div class="newmain">
+	<!-- 提示导航-->
+   <div class="top_nav">
+	    <div class="nav2 datainfo">
+	    	2013.10.1 星期1
+	    </div>
+	    <div class="nav2 positioninfo">
+	    	网站首页
+	    </div>
+	    <div class="nav2 orderinfo">
+	    	您有3个订单未处理
+	    </div>
+   </div>
+   <!-- 主内容区-->
+   <div class="newmain_all">
+   	 <!-- 主内左区-->
+   	 <div class="left_content">
+   	 	   <!-- 主内左区用户信息-->
+   	 	   <div class="userinfo">
+   	 	   	   <div class="user_area">
+   	 	   	   	      <div class="user_name">
+   	 	   	   	      	用户名 
+   	 	   	   	      </div>
+   	 	   	   	      <div class="content_url">
+   	 	   	   	      	 <a href="#" class="out">退出</a> 
+   	 	   	   	      	 <a href="#">修改密码</a>
+   	 	   	   	      </div>
+   	 	   	  </div>
+   	 	   	  <div class="now_name">
+   	 	   	    	网站首页
+   	 	   	    </div>
+   	 	   </div>
+   	 	   <!-- 主内左区导航条-->
+   	 	    <div class="left_nav">
+   	 	    	  <ul>
+   	 	    	  	<li><div class="leftarrow"></div><a href="#" class="on">测试</a></li>
+   	 	    	  	<li><div class="leftarrow"></div><a href="#">测试导航2</a></li>
+   	 	    	  	<li><div class="leftarrow"></div><a href="#">测试导航3</a></li>
+   	 	    	  	<li><div class="leftarrow"></div><a href="#">测试导航4</a></li>
+   	 	    	  </ul>
+   	 	    </div>
+   	 	    <div class="left_navend">
+   	 	    </div>
+   	 	    <!-- 主内左区天气预报-->
+   	 	    <div class="weather" id="weatherinfo">
+   	 	    	 <div class="todayweacher">
+   	 	    	      <div class="weacher_left">
+   	 	    	      	 <div id="wtoday_img"> </div>
+   	 	    	      	 <div><span id="wcity" style="padding-right:5px;"></span><span id="wqihou"></span></div>
+   	 	    	      </div>
+   	 	    	      <div class="weacher_right" id="wwendu">
+   	 	    	      	 
+   	 	    	      </div>	 
+   	 	    	 </div>
+   	 	    	 <div style="clear:both;">
+   	 	    	 	   <div class="tom">
+   	 	    	 	   	    <div id="tom_1" class="tom_img"></div>
+   	 	    	 	   	    <div class="tom_wendu" id="tom_day"></div>
+   	 	    	 	   	    <div class="tom_wendu" id="tom_wendu"></div>
+   	 	    	 	   	
+   	 	    	 	   	</div>
+   	 	    	 	   <div class="tom">
+   	 	    	 	   	    <div id="tom_tom" class="tom_img"></div>
+   	 	    	 	   	    <div class="tom_wendu" id="tom_tday"></div>
+   	 	    	 	   	    <div class="tom_wendu" id="tom_twendu"></div>
+   	 	    	 	   	</div>
+   	 	    	 </div>
+   	 	    </div>
+   	 	     
+   	  </div>
+   	  <div class="right_content">
+   	  	
+   	  	
+   	  	  <div class="showpart_1">
+   	        <div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t">快捷导航</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	    <div class="part_main_1">
+   	        	 	    	  <ul>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="#">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj1.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="#">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj2.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="#">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj3.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="#">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj4.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="#">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj5.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="#">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj6.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="#">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj7.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	 
+   	        	 	    	  </ul>
+   	        	    	</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	        </div>
+   	       <!-- show_content_m结束-->
+   	        
+   	      </div>
+   	      <!-- 第一部分结束-->
+   	      <!-- 第二部分开始-->
+   	      <div class="showpart_2">
+   	      	 <div class="smallpart">
+   	      	 	   <div class="small_top"> 系统信息 </div>
+   	      	 	   <div class="small_content">
+   	      	 	   	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">服务器软件</td><td class="tdcls2">反对撒反对撒</td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">服务器软件</td><td class="tdcls2">反对撒反对撒</td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">服务器软件</td><td class="tdcls2">反对撒反对撒</td>
+   	      	 	   		</tr>
+   	      	 	   	</table>
+   	      	 	   	
+   	      	 	   	</div>
+   	      	</div>
+   	      	<div class="smallpart">
+   	      		   <div class="small_top"> 官方信息 </div>
+   	      		   <div class="small_content">
+   	      		   		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3">服务器软件</td><td class="tdcls4">2013-09-18</td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3">服务器软件</td><td class="tdcls4">2013-09-18</td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3">服务器软件</td><td class="tdcls4">2013-09-18</td>
+   	      	 	   		</tr>
+   	      	 	   	</table>
+   	      		   	
+   	      		   	
+   	      		   	</div>
+   	      	</div>
+   	      	
+   	      	
+   	      </div>
+   	      <!-- 第二部分结束-->
+   	  </div>
+   	  
+   </div>
+</div>	
+	
+<div class="newfoot">
+	
+	  版权所有@外卖科技有限公司
+	
+</div>	
+<script>
+	/***
+$(function(){  
+ 
+  $.ajax({
+     type: 'get',
+     async:false, 
+     url: '/index.php/site/getweather', 
+     dataType: 'json',success: function(content) {   
+     	if(content != ''){
+     	$('#wcity').html(content.city);
+     	$('#wtoday_img').html(content.today.img);
+     	$('#wqihou').html(content.today.tiqi);
+     	$('#wwendu').html(content.today.wendu);
+     	$('#tom_1').html(content.tom.img);
+     	$('#tom_wendu').html(content.tom.wendu);
+     	$('#tom_day').html(content.tom.day);
+     		$('#tom_tom').html(content.tomtom.img);
+     	$('#tom_twendu').html(content.tomtom.wendu);
+     	$('#tom_tday').html(content.tomtom.day);
+     	}
+     	 
+      
+		},
+    error: function(content) { 
+    	 
+	  }
+   });   
+
+}); ***/
+</script>
+</body>
+</html>

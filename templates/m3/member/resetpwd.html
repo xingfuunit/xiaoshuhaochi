@@ -1,0 +1,44 @@
+<{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=sitetitle}>重置密码<{/block}>
+ <{block name=bodylist}> 
+  
+	<form id="loginForm" method="post" action="<{$actionlink}>">
+<div class="hc_content">
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span">重置密码</span></div>
+			<div class="hc_login_content">
+					<div class="findPassWordDiv">
+					
+					<div style="height:60px;line-height:60px;">
+							<span class="hc_login_div_span">新 密 码:</span>
+							<input onkeydown="if(event.keyCode==13)loginForm.submit()" class="hc_login_input" style="line-height: 39px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 39px; outline: none;" type="password" placeholder="" name="newpwd">
+							<p class="tip"></p>
+						</div>
+						
+						<div style="height:60px;line-height:60px;">
+							<span class="hc_login_div_span">确认密码:</span>
+							<input onkeydown="if(event.keyCode==13)loginForm.submit()" class="hc_login_input" style="line-height: 39px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 39px; outline: none;" type="password" placeholder="" name="newpwd2">
+							<p class="tip"></p>
+						</div>
+						 
+						<div class="login-button hc_login_btn_div "  ><span id="dosumittbn">确 定</span></div>
+						 
+						<div class="clear"></div>
+					</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</form>
+
+<script type="text/javascript">
+$('#dosumittbn').click(function(){
+	$('#loginForm').submit();
+})
+
+</script> 
+<{/block}>

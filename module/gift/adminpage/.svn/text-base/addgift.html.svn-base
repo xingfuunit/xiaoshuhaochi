@@ -1,0 +1,108 @@
+<{extends file="<{$tempdir}>/public/admin.html"}>
+<{block name=extendjs}>
+<script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>保存礼品<{/block}>
+ <{block name=bodylist}>
+ <{load_data assign="info" table="gift" type="one" where="id='<{$id}>'" fileds="*" }>
+       <div style="width:98%;overflow-y:auto;white-space:nowrap;">
+
+          <div class="tags">
+
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/gift/module/savegift"}>">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">礼品标题</td>
+                      <td><input type="text" name="title" id="title" value="<{$info['title']}>" class="skey" style="width:150px;" ></td>
+                    </tr>
+
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">所在分类</td>
+                      <td>
+                     <select name="typeid">
+                     	 <{load_data assign="gifttypelist" table="gifttype"  limit="100"   }>
+                        <{foreach from=$gifttypelist['list'] item=value}>
+
+                      	   <option value="<{$value['id']}>" <{if $value['id'] == $info['typeid'] }>selected<{/if}>><{$value['name']}></option>
+                      	  <{/foreach}>
+                      	</select>
+                        </td>
+                    </tr>
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">商品图片</td>
+                      <td>
+                      	<img src="<{$info['img']}>" width=80px height=80px id="imgshow" <{if  empty($info['img'])}> style="display:none;"<{/if}>>
+                      	<input type="hidden" name="img" id="img" value="<{$info['img']}>" class="skey" style="width:150px;" >
+                      	<span onclick="uploads();">上传图片</span>
+                      	</td>
+                    </tr>
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">礼品市场价</td>
+                      <td><input type="text" name="market_cost" id="market_cost" value="<{$info['market_cost']}>" class="skey" style="width:100px;" >元</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">兑换所需积分</td>
+                      <td><input type="text" name="score" id="score" value="<{$info['score']}>" class="skey" style="width:100px;" ></td>
+                    </tr>
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">库存</td>
+                      <td><input type="text" name="stock" id="stock" value="<{$info['stock']}>" class="skey" style="width:100px;" >个</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">已兑换数量</td>
+                      <td><input type="text" name="sell_count" id="sell_count" value="<{$info['sell_count']}>" class="skey" style="width:100px;" >个</td>
+                    </tr>
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">详细内容</td>
+                      <td>
+                      <div class='nop'><script>KE.show({id:'content',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/other/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/other/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="content" id="content" style='width:550px; height:260px;'><{$info['content']}></textarea></div>                      </td>
+
+                    </tr>
+
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;">
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+               <input type="submit" value="确认提交" class="button">
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+        <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	var dialogs ;
+ function uploads(){
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucess"}>');
+ 	  dialogs.title('上传图片');
+ }
+ function uploadsucess(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploads();
+ 	 }else{
+ 		 dialogs.close();
+ 	    $('#img').val(linkurl);
+     	$('#imgshow').attr('src',linkurl);
+     	$('#imgshow').show();
+   }
+ }
+
+
+</script>
+
+</div>
+<!--newmain 结束-->
+<{/block}>

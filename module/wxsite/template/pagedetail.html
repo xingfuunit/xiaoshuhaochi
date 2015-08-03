@@ -1,0 +1,192 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/shop.css">
+<{/block}>
+ <{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/jquery-1.11.2.min.js"></script>
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/cart.js"></script> 
+<script>
+    function back_history() {
+        history.back();
+    }
+    $(function() {
+        
+       var shopid = <{$detail['shopid']}>;
+       var id = <{$goods_id}>;
+       url = '<{$siteurl}>/index.php?controller=wxsite&action=cart&shopid='+shopid+'&datatype=json&random=@random@';
+        url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+        var bk = ajaxback(url,''); 
+         var shoplimitcost = <{$limitcost}>;
+     
+        
+           
+        $(".cart_count").text(bk.content.sumcount);
+        $(".go_to_pay").click(function(){
+        })
+      
+       
+        $('#header span').html("商品详情页");
+   	 var shopid = <{$detail['shopid']}>;
+     var checknext = false;
+   
+   	 $('.righ_l_b_btn_moren').click(function(){
+                 addonedish(id,shopid,1,this);  
+                  //  $(".righ_l_b_btn_hover").show();
+                 //   $(".righ_l_b_btn_moren").hide();
+   var flyElm = $('<div></div>');                      
+     flyElm.css({
+     'z-index': 9000,
+      'position': 'absolute',
+      'top': $(this).offset().top  +'px',
+      'left': $(this).offset().left  +'px',
+      'width': 40+'px',
+      'height': 40 +'px',
+      'border-radius':40+'px',
+      'background':'#ff6000',
+      'opacity':1
+     })
+    $('body').append(flyElm);
+  flyElm.animate({
+  	  opacity:0.3,
+      top:$('.cart_count').offset().top*1.2,  
+      left:$('.cart_count').offset().left,
+      width:1+'px',
+      height:1+'px',
+    });
+  
+  setTimeout(function(){$(flyElm).remove();},1000);
+        });
+    $('.detail_list li').click(function(){
+    	$(this).addClass('active').siblings().removeClass('active');
+    	if($(this).index() == 0)
+    	{
+    		$('.detail_dish').fadeIn('slow');
+    		$('.detail_info').fadeOut('fast');
+    	}
+    	if($(this).index() == 1){
+    		$('.detail_info').fadeIn('slow');
+    		$('.detail_dish').fadeOut('fast');
+    	}
+    });
+
+ $(".right_l_btn_right").click(function(){
+     addonedish(id,shopid,1,this);  
+ })
+ 
+  $(".right_l_btn_left").click(function(){
+     removeonedish(id,shopid,1,this);  
+     
+     
+ })
+$("#gotopay").click(function(){
+        url = '<{$siteurl}>/index.php?controller=wxsite&action=cart&shopid='+shopid+'&datatype=json&random=@random@';
+        url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+        var bk = ajaxback(url,''); 
+        if (!bk.content.sum) {
+            bk.content.sum = 0;
+        }
+         if(Number(bk.content.sum) < Number(shoplimitcost)){
+                alert("还差"+(shoplimitcost-bk.content.sum)+"元满足起送价");
+              }else{
+                  
+           window.location.href=  siteurl+'/index.php?controller=wxsite&action=shopcart&id='+shopid 
+              }
+      
+     })
+       });
+ 
+  function initshop () {
+        var shopid = <{$detail['shopid']}>;
+        $(".cart_count").text("0");
+        url = '<{$siteurl}>/index.php?controller=wxsite&action=cart&shopid='+shopid+'&datatype=json&random=@random@';
+        url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+        var bk = ajaxback(url,''); 
+        $(".cart_count").text(bk.content.sumcount);
+        $(".right_l_btn_nub").text(bk.content.sumcount);
+        if (!bk.content.sumcount) {
+            $(".righ_l_b_btn_hover").hide();
+            $(".righ_l_b_btn_moren").show();
+        }
+       
+         
+  };
+  function myyanchi(){
+      
+        checknext = false;
+    };
+    
+
+   </script>
+<{/block}>
+<{block name=myScrolljs}>
+<script>
+var scroll1, scroll2,scroll3;
+function loaded() {
+  //scroll1 = new iScroll('standard',{hScrollbar:false, vScrollbar:false,bounce:false});
+//  scroll2 = new iScroll('transition', {hScroll:false,hScrollbar:false, vScrollbar:false,bounce:false});
+  //scroll3 = new iScroll('shopdeinfo',{hScrollbar:false, vScrollbar:false,bounce:false});
+}
+var gundong = 0;
+function show_btn(shownow,hidenow,nowobj){
+     
+       var obj =  $(window).width();
+       $(nowobj).addClass('redli').siblings().removeClass('redli');
+       $('#'+shownow).addClass('redli');
+       $('#'+hidenow).removeClass('redli');
+      if(shownow == 'shopinfo'){ 
+          $('#shopdeinfo').show();
+          $('#standard').hide();
+          $('#transition').hide();
+          scroll3.refresh();
+      }else{ 
+        $('#shopdeinfo').hide();
+        $('#standard').show();
+          $('#transition').show();
+           
+      }   
+     }
+//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+document.addEventListener('DOMContentLoaded', loaded, false);
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=blockcontent}> 
+        <div class="detail"> 
+         <dl>
+	   <dt>
+	   	 <img src="<{$detail['img']}>" alt="主菜"/>
+	   </dt>
+	   <dd>
+	   	 <h3><{$detail['name']}></h3>
+	   	 <p style="display:none;"><span>供应日期:</span><span>4/5/5/2015-8/5/2015</span></p>
+	   	 <p>
+        
+        <span>¥ <big> <{$detail['cost']}></big> 元/份</span>
+        <del class="prime_cost">
+        <{if $detail['prime_cost']!=='0.00'}>
+                原价<{$detail['prime_cost']}>   
+        <{/if}>
+        </del>
+       <span class="itv_count">剩余<{$detail['count']}>份</span>
+	   	 <button class="righ_l_b_btn_moren" data-id="<{$goods_id}>" data-shopid="<{$detail['shopid']}>"  data-price="<{$detail['cost']}>" typeid="<{$detail['typeid']}>">点餐</button>
+	   	 <div class="righ_l_b_btn_hover" style="display:none;"><span class="right_l_btn_left"   data-id="<{$detail['id']}>" data-shopid="<{$detail['shopid']}>"></span><span class="right_l_btn_nub" id="gshu_<{$detail['id']}>">0</span><span class="right_l_btn_right" id="gid_<{$detail['id']}>" data-price="<{$detail['cost']}>" typeid="<{$detail['typeid']}>" data-id="<{$detail['id']}>" data-shopid="<{$detail['shopid']}>"></span></div>
+	   	 </p>       
+	   </dd>
+	</dl>
+	<ul class="detail_list">
+		<li class="active">菜品</li>
+		<li>商家</li>
+	</ul>
+	<div class="detail_dish"><{$detail["instro"]}></div>
+	<div class="detail_info"><{$detail["intr_info"]}></div>
+	<div class="detail_cart">
+		<ul>
+			<li id="gotopay"><i></i><span class="cart_count"></span></li>
+                                      
+			<li class="return" onclick='back_history();'><i></i></li>
+		</ul>
+	</div>           
+    <!--     <{$detail|@print_r}>  -->
+        </div>
+<{/block}>

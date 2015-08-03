@@ -1,0 +1,176 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>   
+<{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <script>
+  	  var mynomenu='basecx';
+  </script> 
+<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+ 
+  <!---content right start---> 
+        <div class="conWaiSet fr">
+        	
+            <div class="shopSetTop">
+            	<span>促销规则列表</span>
+            </div>
+            
+            <div class="cxruleset">
+            	<div class="cxrule_btn">
+                 
+                    <div class="cxruleButton" onclick="openlink('<{ofunc type=url link="/shop/addcxrule"}>');"></div>
+                </div>
+                
+                  <div class="cl"></div>
+            </div>
+             <div class="cl"></div>
+                       
+                <form action="" method="post">
+                 <div class="caidanSet">
+        			
+                    
+                
+                	<div class="div_orderList">
+                    	
+                        <div class="cxrule_show">
+                    
+                        <div class="cxrule_show_goodli">
+                            <div class="cxrule_goodname">
+                                <span>促销名称</span>
+                            </div>
+                            <div class="cxrule_shuoming">
+                                 <span>规则说明</span>
+                            </div>
+                            <div class="cxrule_pri">
+                                 <span>开始时间</span>
+                            </div>
+                            <div class="cxrule_d">
+                                 <span>结束时间</span>
+                            </div>
+                            <div class="cxrule_day_num">
+                                 <span>状态</span>
+                            </div>
+                             <div class="cxrule_cz">
+                                 <span>操作</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cl"></div>
+                        
+                        
+                    	<div class="cxrule_list	">
+                       		 
+                          	 <{load_data assign="list" table="rule"   fileds="*" limit="100" where="shopid = <{$shopinfo['id']}>"}> 
+                <{foreach from=$list['list'] key=myid item=items}>  
+                          
+                          <div class="cxrule_goodlist">
+                            <div class="cxrule_name">
+                                <span><{$items['name']}></span>
+                            </div>
+                            <div class="cxrule_sm">
+                                 <span id="showrule_<{$items['id']}>" data=""></span>
+                            </div>
+                            <div class="cxrule_price">
+                                 <span><{$items['starttime']|date_format:"%Y-%m-%d"}></span>
+                            </div>
+                            <div class="cxrule_dbf">
+                                 <span><{$items['endtime']|date_format:"%Y-%m-%d"}></span>
+                            </div>
+                            <div class="cxrule_dayNum">
+                                 <span> <{if $items['status'] == 1}>开启中<{else}>未开启<{/if}></span>
+                            </div>
+                             <div class="cxrule_caozuo">
+                                 <span style=" background:#27a9e3; padding:8px; color:#fff;"><a href="<{ofunc type=url link="/shop/addcxrule/id/<{$items['id']}>"}>">编辑</a></span>
+                                  <span style=" background:#ec7501; padding:8px; color:#fff;"><a onclick="return remind(this);"href="<{ofunc type=url link="/shop/delcxrule/cxid/<{$items['id']}>/datatype/json"}>"> 删除</a></span>
+                            </div>
+                          </div>
+                    
+                        
+                        
+                     <{/foreach}> 
+                      
+                      
+                    </div>
+                        <div class="cl"></div>
+                        
+                        
+                    </div>
+                    	
+                        
+                        
+                        
+                    </div>
+                    
+       			 </div>
+                 
+                 
+              </form>  
+                
+                
+        </div>
+        <div class="cl"></div>
+        
+        
+       
+        
+        
+        <!---content right end---> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+<script>
+	var alllist = <{$list['list']|@json_encode}>;
+$(function(){  
+	$.each(alllist,function(i,field){ 
+		var showcontent = '';
+		
+		if(field.limitcontent > 0){
+			showcontent += '订单总价大于'+field.limitcontent+'元';
+		}else{
+			showcontent +='所有订单';
+		} 
+		if(field.limittype ==  2){
+			showcontent ='每周(星期'+field.limittime+'),'+showcontent;
+		} 
+		if(field.limittype == 3){
+			showcontent ='每天在'+field.limittime+'时间段，'+showcontent;
+		}
+		if(field.controltype ==  1){
+			showcontent +='赠送:'+field.presenttitle+'库存还剩'+field.controlcontent+'件';
+		}
+		if(field.controltype ==  2){
+			showcontent +='优惠:'+field.controlcontent+'元';
+		}
+		if(field.controltype ==  3){
+			var times = field.controlcontent*0.1;
+			showcontent +='折扣:'+times+'折';
+		}
+		if(field.controltype ==  4){
+			showcontent +='免配送费';
+		}
+		 
+		
+		 $('#showrule_'+field.id).text(showcontent);
+	});
+	
+});
+	
+	
+	
+	
+	
+	
+</script>
+<{/block}>

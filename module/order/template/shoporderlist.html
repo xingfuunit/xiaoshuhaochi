@@ -1,0 +1,387 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>
+ <{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+   <script>
+  	var mynomenu='baseorder';
+  	</script>
+ <{/block}>
+ <{block name=bodylist}>
+
+
+  <!---content right start-->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>订单查询</span> </div>
+    <div class="selOrder">
+      <div class="autoRe" id="showztai" udata="<{$hidecount}>"  data="20" > 自动刷新倒计时<span>0</span>秒 </div>
+      <div class="refresh_set">
+        <div  class="refset" onclick="refreshorder();"> <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/sdsx.png" /><span>手动刷新</span> </div>
+        <div class="refset" onclick="palywav();"> <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/lstx.png" /><span>铃声提醒</span> </div>
+        <div class="refset" id="startwave" 	 > <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/start.png"  /><span>开启</span> </div>
+        <div class="refset"  id="closetwave"  > <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/close.png"/><span>关闭</span> </div>
+
+      </div>
+      <div class="cl"></div>
+    </div>
+    <div class="cl"></div>
+  <!--  <script>
+
+				$(function(){
+					$(".waimaiset .jbset").click(function(){
+						$(this).css('background','#19b4ea').siblings().css('background','');
+
+					});
+
+				});
+                </script>-->
+    <form action="<{ofunc type=url link="/order/shoporderlist"}>" method="post">
+      <div class="order_search" style="background:transparent;">
+        <label class="chaxun">查询类型：</label>
+        <label>
+          <input type="radio" value="1" name="orderSource" <{if $orderSource==1}>checked<{/if}>  />
+          网站订单</label>
+        <label>
+          <input type="radio" value="2" name="orderSource" <{if $orderSource==2}>checked<{/if}>  />
+          电话订单</label>
+        <label>
+          <input type="radio" value="3" name="orderSource" <{if $orderSource==3}>checked<{/if}>  />
+          待确认订单</label>
+        <label>
+          <input type="radio" value="4" name="orderSource" <{if $orderSource==4}>checked<{/if}>   />
+          待发货订单</label>
+        <label>
+          <input type="radio" value="5" name="orderSource" <{if $orderSource==5}>checked<{/if}>   />
+          已发货订单</label>
+        <label>选择日期
+          <input class="xzrq" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+        </label>
+        <label>
+          <input class="searchBg" type="submit" name="" value="" />
+        </label>
+        
+      </div>
+    </form>
+    <div class="orderList">
+
+      <div class="orderspan"> 共计<span class="numOrder"><{$tongji['shuliang']}></span>张订单，成功订单金额<span class="seccost"><{$tongji['allcost']}></span>元 </div>
+
+      <div id="all_area">
+      	<!--订单循环-->
+       <{foreach from=$list key=myid item=items}>
+      <div class="singleOrder" id="order_area_<{$items['id']}>">
+        <div class="singleOrder_title">
+          <div class="orderNum"> <span><{$items['daycode']}></span> </div>
+          <div class="order_xx"> <span style=" margin-left:26px;"><span class="oxx">订单号</span>：<{$items['dno']}><span style="color:red"><{if $items['is_goshop'] == 1}>（订座）<{else}>（外卖）<{/if}></span></span> <span style=" margin-left:30px;"><span class="oxx">下单时间</span>：<{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></span><span style=" margin-left:30px;"><span class="oxx">状态</span>：
+              <{if $items['is_make'] == 0}>
+                待确认制作
+               <{elseif $items['is_make'] == 1}>
+                 <{$buyerstatus[$items['status']]}>
+                <{else}>
+                   取消制作
+                <{/if}>
+
+
+
+
+          	</span> </div>
+          <div class="showorderdet curbtn" onclick="showdet('<{$items['id']}>',this);">＋</div>
+        </div>
+        <div class="order_details" id="order_det<{$items['id']}>">
+          <table class="order_listli" style="font-size: 14px; margin-top: 5px; text-align: left; margin-left: 20px;" width="898" align="center" border="" cellpadding="0" cellspacing="0" bordercolor="#6596a9" >
+            <tr>
+              <td><div>支付方式: <span><{$paytypearr[$items['paytype']]}>(<{if $items['paystatus'] == 1}>已付<{else}>未付<{/if}>) <font color=red><{$backarray[$items['is_reback']]}></font></span></div></td>
+              <td><div>订单状态: <span><{$buyerstatus[$items['status']]}></span></div></td>
+              <td><div><{if $items['is_goshop'] == 1}>消费时间<{else}>配送时间<{/if}>: <span><{$items['posttime']|date_format:"%Y-%m-%d %H:%M:%S"}></span></div></td>
+              <td><div>配送: <span><{if $items['pstype'] == 1}>店铺<{else}>网站<{/if}></span></div></td>
+            </tr>
+            <tr>
+              <td><div>顾客电话: <span><{$items['buyerphone']}></span></div></td>
+              <td><div>顾客地址: <span><{$items['buyeraddress']}></span></div></td>
+              <{if $items['is_goshop'] == 1}>
+              <td><div>联系人: <span><{$items['buyername']}></span></div></td>
+              <td><div> <{assign var=showother value=$items['othertext']|unserialize}>
+                             <{foreach from=$showother key=mytest item=itc}>
+                            <font color=red> <{$mytest}>:<{$itc}> </font>
+                             <{/foreach}></td></div></td>
+              <{else}>
+              <td colspan="2"><div>联系人: <span><{$items['buyername']}></span></div></td>
+              <{/if}>
+            </tr>
+            <tr>
+              <td colspan="4"><div>订单备注: <span><{$items['content']}></span></div></td>
+            </tr>
+            <tr>
+              <td  colspan="1"><div>审核参考: <span> <{if empty($items['buyeruid'])}>游客<{else}>成交次数:<{$items['maijiagoumaishu']}><{/if}></span></div></td>
+              <td colspan="3"><div>下单IP: <span><{$items['ipaddress']}></span></div></td>
+            </tr>
+          </table>
+          <div class="order_alllist">
+            <table style="font-size: 14px; margin-top: 5px; text-align: left; margin-left: 20px;" width="898" align="center" border="1" cellpadding="0" cellspacing="0" bordercolor="#6596a9" >
+              <tr>
+                  <td style=" font-weight:bold;" width="55%">美食篮子</td>
+                  <td style=" font-size:14px; color:#ffffff; font-weight:bold; font-family:"微软雅黑";"  align="center">单价</td>
+                  <td style=" font-size:14px; color:#ffffff; font-weight:bold; font-family:"微软雅黑";"  align="center" align="center"> 数量 </td>
+                  <td style=" font-size:14px; color:#ffffff; font-weight:bold; font-family:"微软雅黑";"  align="center" align="center">总价  </td>
+              </tr>
+               <{foreach from=$items['detlist'] item=value}>
+              <tr>
+                <td style=" font-weight:bold;"  width="55%"><{$value['goodsname']}><{if $value['is_send'] == 1}><font color=red>[赠品]</font><{/if}><{if $value['shopid'] == 0}><font color=blue>[商城]</font><{/if}></td>
+                <td style=" font-size:14px; color:#ffffff; font-weight:bold; font-family:"微软雅黑";"  align="center"><{$value['goodscost']}></td>
+                  <td style=" font-size:14px; color:#ffffff; font-weight:bold; font-family:"微软雅黑";"  align="center" align="center"><{$value['goodscount']}></td>
+                  <td style=" font-size:14px; color:#ffffff; font-weight:bold; font-family:"微软雅黑";"  align="center" align="center"><{$value['goodscount']*$value['goodscost']}>  </td>
+              </tr>
+               <{/foreach}>
+              <tr>
+                <td style=" font-weight:bold;" colspan="4">
+                	<{if $items['scoredown'] > 0}> <span class="info_name">积分：<font color=red><{$items['scoredown']}></font>个</span><{/if}>
+                               	  <span class="info_name">配送费：<font color=red><{$items['shopps']}></font>元</span>
+                               	 <{if $items['yhjcost']> 0}><span class="info_name ml20">优惠券金额：<font color=red><{$items['yhjcost']}></font>元</span><{/if}>
+                               	<{if $items['cxcost']> 0}> <span class="info_name ml20">促销优惠：<font color=red><{$items['cxcost']}></font>元</span><{/if}>
+                               	 <{if $items['bagcost']> 0}><span class="info_name ml20">打包费：<font color=red><{$items['bagcost']}></font>元</span><{/if}>
+                               	 <span class="info_name ml20">应收金额：<font color=red><{$items['allcost']}></font>元</span>
+                </td>
+              </tr>
+            </table>
+            <div class="order_bottom"  id="<{$items['id']}>">
+            		<{if $items['status'] == 1}>
+       		              	   <{if $items['is_make'] == 0}>
+                                  	<span onclick="unmakeorder(<{$items['id']}>);" class="curbtn"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/buzhizuo.png" /></span>
+
+                              	<span  onclick="makeorder(<{$items['id']}>);" class="curbtn"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/zhizuodingdan.png" /></span>
+                              	 <{elseif $items['is_make'] == 1}>
+                              	 <span onclick="sendorder(<{$items['id']}>);" class="curbtn"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/peisongfahuo.png" /></span>
+                               	<{elseif $items['is_make'] == 2}>
+       		              	       订单取消制作
+       		              	   <{/if}>
+       		      <{/if}>
+
+            	<span onclick="printorder(<{$items['id']}>);" class="curbtn"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/dayindingdan.png" /></span>
+            	<{if $items['status'] == 2}>
+            	   <span class="curbtn" onclick="wancheng(<{$items['id']}>);"  ><img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/wanchengdingdan.png" /></span>
+            	<{/if}>
+            </div>
+          </div>
+        </div>
+      </div>
+      <{/foreach}>
+
+      <!---订单循环-->
+    </div>
+
+    </div>
+  </div>
+  <div class="cl"></div>
+
+  <!---content right end--->
+
+
+
+
+
+
+
+<div id="print_area" style="display:none;"></div>
+<div id="palywave" style="display:none;"></div>
+ <script>
+ 	<{if $playwave != 2}>
+ 	var playwave = true;
+ 	<{else}>
+ 		var playwave = false;
+ 	<{/if}>
+				$(function(){
+					 if(playwave == true){
+					 	$('#startwave').css('background','#ec7501');
+					}else{
+						$('#closetwave').css('background','#ec7501');
+					}
+					$("#startwave").click(function(){
+						$(this).css('background','#ec7501');//.siblings().css('background','');
+						$('#closetwave').css('background','');
+						playwave =   true;
+						ajaxback('<{ofunc type=url link="/order/wavecontrol/type/openwave/datatype/json"}>','');
+					});
+					$("#closetwave").click(function(){
+						$(this).css('background','#ec7501');//.siblings().css('background','');
+							$('#startwave').css('background','');
+								playwave = false;
+					    	ajaxback('<{ofunc type=url link="/order/wavecontrol/type/closewave/datatype/json"}>','');
+
+					});
+
+				});
+function refreshorder(){
+	window.location.reload();
+}
+</script>
+<script type="text/javascript">
+	 function showdet(order,obj){
+	 	var checkobj = $('#order_det'+order).is(":hidden");
+	 	if(checkobj ==  false){
+	 		 $(obj).text('＋');
+	 		 $('#order_det'+order).hide();
+	 	}else{
+	 		$(obj).text('－');
+	 		$('#order_det'+order).show();
+	 	}
+
+	}
+	 function unorder(orderid,dno)
+	 {
+	 	   var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:'取消订单'+dno,
+           content: '<div>关闭订单理由</div><div><textarea name="reason" id="reason" style="height:40px;"></textarea></div><div class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" style="width:65px;float:left;" onclick="sureclose('+orderid+');">提交关闭</div>'
+        });
+	 }
+	 function sureclose(orderid)
+	 {
+	 	  var reasons = $('#reason').val();
+	 	  if(reasons == undefined || reasons == '')
+	 	  {
+	 	  	alert('关闭理由不能为空');
+	 	  }else{
+	 	    myajax('<{ofunc type=url link="/order/shopcontrol/controlname/unorder/datatype/json"}>',{'orderid':orderid,'reason':reasons});
+	 	 }
+	 }
+	 function makeorder(orderid){
+
+	 	  if(confirm('订单已审核通过，确认制作吗？')){
+		        myajax('<{ofunc type=url link="/order/shopcontrol/controlname/makeorder/datatype/json"}>',{'orderid':orderid});
+		  }
+
+
+
+	 }
+	 function wancheng(orderid){
+	 	 if(confirm('订单操作确认完成该订单吗？')){
+		        myajax('<{ofunc type=url link="/order/shopcontrol/controlname/wancheng/datatype/json"}>',{'orderid':orderid});
+		  }
+	}
+	 function unmakeorder(orderid){
+
+	 	  if(confirm('订单已审核通过，取消不制作吗？')){
+		       myajax('<{ofunc type=url link="/order/shopcontrol/controlname/unmakeorder/datatype/json"}>',{'orderid':orderid});
+		  }
+
+	 }
+	 function sendorder(orderid)
+	{
+		if(confirm('订单已审核通过，确认发货吗？')){
+		   myajax('<{ofunc type=url link="/order/shopcontrol/controlname/sendorder/datatype/json"}>',{'orderid':orderid});
+		}
+	}
+	function shenhe(orderid)
+	{
+		if(confirm('通过审核，此订单将生效吗？')){
+		   myajax('<{ofunc type=url link="/order/shopcontrol/controlname/shenhe/datatype/json"}>',{'orderid':orderid});
+		}
+	}
+	function delorder(orderid)
+	{
+		if(confirm('彻底删除订单吗？')){
+		   myajax('<{ofunc type=url link="/order/shopcontrol/controlname/delorder/datatype/json"}>',{'orderid':orderid});
+		}
+	}
+	function printorder(orderid)
+	{
+		$('#print_area').html('');
+	 $('#order_area_'+orderid).clone().appendTo($('#print_area'));
+	 $("#print_area").find('.order_bottom').remove();
+	  $("#print_area").printArea();
+	//	$('#print_area').html($('#order_area_'+orderid).html());
+    //	 $("#print_area").find('.print_noshow').remove();
+  }
+  function print_all_area()
+  {
+  	$('#print_area').html($('#all_area').html());
+	  $("#print_area").find('.order_bottom').remove();
+	  $("#print_area").printArea();
+  }
+</script>
+<script>
+
+$(function(){
+	setTimeout("get_status()",1000);
+});
+function get_status(){//<span id="timeshow" data="20" style="color:#666;"></div>
+	//alert('xxx');
+	var timeaction =  $('#showztai').attr('data');
+
+
+	if(timeaction == 0){
+	$('#showztai').text('检测订单..');
+	 var url = siteurl+'/index.php?controller=order&action=ajaxcheckshoporder&datatype=json&random=@random@';
+	 $.ajax({
+       type: 'POST',
+       async:false,
+       url: url.replace('@random@', 1+Math.round(Math.random()*1000)),
+       data: {},
+      dataType: 'json',success: function(content) {
+      	if(content.error == true)
+      	{
+      		$('#showztai').text('未获取到新订单');
+      		$('#showztai').attr('data','20');
+
+      		setTimeout("get_status()",1000);
+      	}else if(content.error == false)
+      	{
+      		  var checkNum = Number($('#showztai').attr('udata'));
+      		  var ccNumber = Number(content.msg);
+      		  if(ccNumber > checkNum){
+      		  	palywav();
+      		  }else{
+      		  	 $('#showztai').text('未获取到新订单');
+      	     	$('#showztai').attr('data','20');
+
+      	      	setTimeout("get_status()",1000);
+      		  }
+
+      	}else{
+      	 $('#showztai').text('未获取到新订单');
+      		$('#showztai').attr('data','20');
+
+      		setTimeout("get_status()",1000);
+      	}
+
+		  },
+      error: function(content) {
+      $('#showztai').text('未获取到新订单');
+      		$('#showztai').attr('data','20');
+
+      		setTimeout("get_status()",1000);
+	   }
+   });
+ }else{
+ 	var nowtime = Number(timeaction)-1;
+ 	$('#showztai').attr('data',nowtime);
+ 	$('#showztai').html('自动刷新倒计时<span>'+nowtime+'</span>秒');
+ 	setTimeout("get_status()",1000);
+
+ }
+
+}
+function palywav(){
+	if(playwave == true){
+if(navigator.userAgent.indexOf("Chrome") > -1){
+$('#palywave').html('<audio src="<{$siteurl}>/upload/wave.mp3" type="audio/mp3" autoplay=”autoplay” hidden="true"></audio>');
+}else if(navigator.userAgent.indexOf("Firefox")!=-1){
+$('#palywave').html('<embed src="<{$siteurl}>/upload/wave.mp3" type="audio/mp3" hidden="true" loop="false" mastersound></embed>');
+}else if(navigator.appName.indexOf("Microsoft Internet Explorer")!=-1 && document.all){
+$('#palywave').html('<object classid="clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95"><param name="AutoStart" value="1" /><param name="Src" value="<{$siteurl}>/upload/wave.mp3" /></object>');
+}else if(navigator.appName.indexOf("Opera")!=-1){
+$('#palywave').html('<embed src="<{$siteurl}>/upload/wave.mp3" type="audio/mpeg" loop="false"></embed>');
+}else{
+$('#palywave').html('<embed src="<{$siteurl}>/upload/wave.mp3" type="audio/mp3" hidden="true" loop="false" mastersound></embed>');
+}
+}
+
+  // $('#palywave').html('<embed id=cct src="<{$siteurl}>/wave.wav" loop="0" autostart="true" hidden="true"></embed>');
+   setTimeout("playon()",3000);
+}
+function playon(){
+	//$('#cct').load("<{$siteurl}>/upload/wave.mp3");
+
+ 	location.reload();
+}
+</script>
+ <{/block}>

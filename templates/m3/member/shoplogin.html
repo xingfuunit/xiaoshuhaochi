@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>商家登陆-<{$sitename}></title>
+<{block name="seokey"}><meta name="Keywords" content="<{$keywords}>" /><{/block}>
+<{block name="seodes"}><meta name="description" content="<{$description}>" /><{/block}>
+<{$metadata|stripslashes}>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="<{$siteurl}>/templates/<{$tempdir}>/public/images/favicon.ico" /> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shangjialogin.css"> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.lazyload.min.js" type="text/javascript" language="javascript"></script>
+  <script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	var controllername= '<{$controlname}>';
+</script>
+<script>
+	$(function(){
+		var cilentHeight = document.documentElement.clientHeight;
+		var topheight = cilentHeight-50;
+		$("#sjfooter").css("top",topheight+"px");
+
+	});
+</script>
+
+</head>
+<body>
+
+<div id="sjtop">
+
+</div>
+
+<div id="sjloginBg">
+	
+</div>
+<div id="sjlogin">
+	<div class="sjlogin_title">
+		<!-- <span>商家管理后台登陆系统</span> -->
+	</div>
+	<div class="sj_cont">
+		<div class="sj_cont_left">
+			<div class="sj_cont_title">
+				<span><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/sjzizhuloginBg1.png" /></span>
+			</div>
+			<div class="sj_cont_bot">
+				<span style=" margin-right:10px; float:left;width:30px; height:30px;">
+					<img width="30" height="30" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/welcome.png" />
+				</span>
+				<span style=" float:left;width:300px; height:30px;">欢迎使用商家自助管理系统后台，请在右边输入用户名和密码登入系统，如账号遇见问题，请联系管理员。</span>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		
+		<div class="sj_cont_right" style="margin-top:10px;">
+		<form id="loginForm" method="post" action="<{ofunc type=url link="/member/shoploginin/datatype/json"}>">
+			<div class="js_username">
+			<input class="unameinput" placeholder="用户名" type="text" name="uname" id="uname" value="" />
+			</div>
+			<div class="js_username">
+			<input class="upasinput" placeholder="密码"  type="password" name="pwd" id="pwd" value="" />
+			</div>
+			  <{if $allowedcode == 1}>
+				<div class="js_username"style="width:250px; background:none; margin-bottom:0px;">
+				<input style="float:left;width:90px;padding-left:10px; " name="Captcha" placeholder="验证码" type="text" name="" value="" />
+				<div style="width:95px;float:left; padding-left:5px;"> <img title="点击可更换验证码" onclick="javascript:freshcode();" src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg" style=" width:80px;height:38px;line-height:38px;">
+				<a style="position:absolute; color: #cbcbcb;font-size: 12px;padding-top: 10px;padding-left: 5px;" href="javascript:freshcode();" >刷新图片</a> </div>
+				<div style="clear:both;"></div>
+				<br>
+				</div>
+			<{/if}>
+		<!-- 	
+			<input style=" width:15px; margin-top:8px; height;15px;" type="checkbox" value="" name="" checked />
+			<span class="remme">记住我</span><br> -->
+			<div style="width:221px; margin:0 auto; margin-top:20px; height:40px;">
+				<img id="sjloginin" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/sj_login_bg.png" />
+			</div>
+		</form>
+	</div>
+		 <script type="text/javascript">
+	$('#sjloginin').click(function(){
+		
+	    subform('<{ofunc type=url link="/shop/useredit"}>',$('#loginForm'));
+	})
+</script>
+	</div>
+	
+</div>
+
+<div id="sjfooter" >
+	
+</div>
+<div id="sjzztop">
+	<span class="topfont"><a href="<{$siteurl}>"><{$sitename}></a></span>
+</div>
+<div id="sjzzdibu">
+<div style="height:20px;"></div>
+	<center><span class="footerfont" style="">@2008-2014 <{$sitename}>版权所有
+</span></center>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/membercenter.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table class="table table-bordered" width=100%>
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr>
+		                  <th style="width:10%;">ID</th>
+		                  <th style="width:60%;text-align:left;">内容</th>
+		                  <th>时间</th>
+		                  <th style="width:10%;">操作</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		              	 <{foreach from=$list item=items}> 
+		              	<tr>
+		                  <td style="width:10%;"><{$items['id']}></td>
+		                  <td style="width:60%;text-align:left;"><{$items['content']}></td>
+		                  <td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+		                  <td style="width:10%;"><a href="<{ofunc type=url link="/membercenter/delmessage/id/<{$items['id']}>"}>" onclick="return remind(this);">删除</a></td>
+		                </tr>
+		                 <{/foreach}>
+		              </tbody>
+		            </table>
+		        </div>
+		        <div class="page"><{$pagecontent}></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div> 
+<{include file="<{$tempdir}>/public/foot.html"}>

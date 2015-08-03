@@ -1,0 +1,742 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market.css"> 
+<{/block}>
+<{block name=extendjs}> 
+<{/block}>
+   <{block name=bgshow}><div class="mmbg" style="background:url(../upload/shop/page_bg.png)"></div><{/block}>
+<{block name=shophide}><{/block}>
+<{block name=sitetitle}>零食铺商品分类<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+  <!--头部-->
+  <div  class="market_index">
+  	<!--绝对路径的分类-->
+  	  <div class="cateList">
+  	  	 <dl>
+        <dt><a href="category-37-b0.html">进口/特色食品</a></dt>
+        <dd>
+        	            	<a href="category-171-b0.html">港台东南亚</a>
+                                        	<a href="category-177-b0.html">日韩欧美</a>
+                                    </dd>
+    </dl>
+    
+    
+    <dl>
+        <dt><a href="category-37-b0.html">进口/特色食品</a></dt>
+        <dd>
+        	            	<a href="category-171-b0.html">港台东南亚</a>
+                                        	<a href="category-177-b0.html">日韩欧美</a>
+                                    </dd>
+    </dl>
+    
+    
+    <dl>
+        <dt><a href="category-37-b0.html">进口/特色食品</a></dt>
+        <dd>
+        	            	<a href="category-171-b0.html">港台东南亚</a>
+                                        	<a href="category-177-b0.html">日韩欧美</a>
+                                    </dd>
+    </dl>
+    
+    
+    <dl>
+        <dt><a href="category-12-b0.html">食品饮料</a></dt>
+        <dd>
+        	            	<a href="category-175-b0.html">休闲零食</a>
+                                        	<a href="category-22-b0.html">饼干糕点</a>
+                                        	<a href="category-16-b0.html">饮料果汁</a>
+                                        	<a href="category-193-b0.html">酒水槟榔</a>
+                                        	<a href="category-57-b0.html">冲调饮品</a>
+                                        	<a href="category-31-b0.html">牛奶制品</a>
+                                        	<a href="category-56-b0.html">熟食罐头</a>
+                                        	<a href="category-18-b0.html">方便速食</a>
+                                        	<a href="category-49-b0.html">粮油酱料</a>
+                                        	<a href="category-192-b0.html">糖果巧克力</a>
+                                    </dd>
+    </dl>
+  	  	
+  	  	
+  	  </div>
+  		<!--绝对路径的分类结束-->
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容-->
+  	 <div class="area_main">
+  	 	
+  	 	
+  	 	
+  	 	
+  	 	<div class="goods_list_1">
+    <ul>
+                        <li id="goods_9680">
+                        <div class="box" style="background-color: rgb(255, 255, 255);">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(9680)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/4680_thumb_G_1397031304381.jpg" data-original="images/201404/thumb_img/4680_thumb_G_1397031304381.jpg" alt="和丝露苹果醋268ml(经典..." style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-9680.html" title="和丝露苹果醋268ml(经典型)`" target="_blank">和丝露苹果醋268ml(经典...</a></h4>
+                <div class="price">
+                                        ￥0                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11469">
+                        <div class="box" style="background-color: rgb(255, 255, 255);">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11469)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/11469_thumb_G_1398503961543.jpg" data-original="images/201404/thumb_img/11469_thumb_G_1398503961543.jpg" alt="康师傅矿物质水" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11469.html" title="康师傅矿物质水" target="_blank">康师傅矿物质水</a></h4>
+                <div class="price">
+                                        ￥1                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11537">
+                        <div class="box" style="background-color: rgb(255, 255, 255);">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11537)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/11537_thumb_G_1398483583402.jpg" data-original="images/201404/thumb_img/11537_thumb_G_1398483583402.jpg" alt="娃哈哈纯净水360ml" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11537.html" title="娃哈哈纯净水360ml" target="_blank">娃哈哈纯净水360ml</a></h4>
+                <div class="price">
+                                        ￥1                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11648">
+                        <div class="box" style="background-color: rgb(255, 255, 255);">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11648)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/11648_thumb_G_1398238888724.jpg" data-original="images/201404/thumb_img/11648_thumb_G_1398238888724.jpg" alt="娃哈哈350ML含氧水" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11648.html" title="娃哈哈350ML含氧水" target="_blank">娃哈哈350ML含氧水</a></h4>
+                <div class="price">
+                                        ￥1.5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2820">
+                        <div class="box" style="background-color: rgb(255, 255, 255);">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2820)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201403/thumb_img/2820_thumb_G_1394796764741.jpg" data-original="images/201403/thumb_img/2820_thumb_G_1394796764741.jpg" alt="农夫山泉饮用天然水550ml" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2820.html" title="农夫山泉饮用天然水550ml" target="_blank">农夫山泉饮用天然水550ml</a></h4>
+                <div class="price">
+                                        ￥1.5                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2271">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2271)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201309/thumb_img/2271_thumb_G_1378275499006.jpg" data-original="images/201309/thumb_img/2271_thumb_G_1378275499006.jpg" alt="怡宝饮用纯净水350ml" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2271.html" title="怡宝饮用纯净水350ml" target="_blank">怡宝饮用纯净水350ml</a></h4>
+                <div class="price">
+                                        ￥1.5                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2822">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2822)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201403/thumb_img/2822_thumb_G_1394797851191.jpg" data-original="images/201403/thumb_img/2822_thumb_G_1394797851191.jpg" alt="雪碧清爽柠檬味汽水330ml" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2822.html" title="雪碧清爽柠檬味汽水330ml" target="_blank">雪碧清爽柠檬味汽水330ml</a></h4>
+                <div class="price">
+                                        ￥2                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2823">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2823)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201403/thumb_img/2823_thumb_G_1394798112509.jpg" data-original="images/201403/thumb_img/2823_thumb_G_1394798112509.jpg" alt="芬达橙味汽水330ml" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2823.html" title="芬达橙味汽水330ml" target="_blank">芬达橙味汽水330ml</a></h4>
+                <div class="price">
+                                        ￥2                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11627">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11627)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/11627_thumb_G_1398240440607.jpg" data-original="images/201404/thumb_img/11627_thumb_G_1398240440607.jpg" alt="百事可乐美年达橙味厅装330..." style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11627.html" title="百事可乐美年达橙味厅装330ml" target="_blank">百事可乐美年达橙味厅装330...</a></h4>
+                <div class="price">
+                                        ￥2                                        <!--<i>本月售出 9</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11435">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11435)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201405/thumb_img/11435_thumb_G_1399271809853.jpg" data-original="images/201405/thumb_img/11435_thumb_G_1399271809853.jpg" alt="哇哈哈矿泉水" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11435.html" title="哇哈哈矿泉水" target="_blank">哇哈哈矿泉水</a></h4>
+                <div class="price">
+                                        ￥2                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2839">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2839)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201403/thumb_img/2839_thumb_G_1394803954647.jpg" data-original="images/201403/thumb_img/2839_thumb_G_1394803954647.jpg" alt="统一冰糖雪梨500ml" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2839.html" title="统一冰糖雪梨500ml" target="_blank">统一冰糖雪梨500ml</a></h4>
+                <div class="price">
+                                        ￥2.5                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11470">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11470)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/11470_thumb_G_1398503977744.jpg" data-original="images/201404/thumb_img/11470_thumb_G_1398503977744.jpg" alt="康师傅蜂蜜柚子茶" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11470.html" title="康师傅蜂蜜柚子茶" target="_blank">康师傅蜂蜜柚子茶</a></h4>
+                <div class="price">
+                                        ￥3                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11472">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11472)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/11472_thumb_G_1398503909388.jpg" data-original="images/201404/thumb_img/11472_thumb_G_1398503909388.jpg" alt="康师傅茉莉清茶低糖500ml" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11472.html" title="康师傅茉莉清茶低糖500ml" target="_blank">康师傅茉莉清茶低糖500ml</a></h4>
+                <div class="price">
+                                        ￥3                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11625">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11625)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201404/thumb_img/11625_thumb_G_1398240513886.jpg" data-original="images/201404/thumb_img/11625_thumb_G_1398240513886.jpg" alt="七喜" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11625.html" title="七喜" target="_blank">七喜</a></h4>
+                <div class="price">
+                                        ￥3                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11432">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11432)"><img class="lazy"  src="../upload/shop/grey.gif" data-original="http://zhuzhou.bianli100.com/images/201405/thumb_img/11432_thumb_G_1399272230709.jpg" data-original="images/201405/thumb_img/11432_thumb_G_1399272230709.jpg" alt="格瓦斯" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11432.html" title="格瓦斯" target="_blank">格瓦斯</a></h4>
+                <div class="price">
+                                        ￥3                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11626">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11626)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11626_thumb_G_1398240478451.jpg" alt="美年达"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11626.html" title="美年达" target="_blank">美年达</a></h4>
+                <div class="price">
+                                        ￥3                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11652">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11652)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11652_thumb_G_1398238812428.jpg" alt="健力宝运动饮料橙蜜味"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11652.html" title="健力宝运动饮料橙蜜味" target="_blank">健力宝运动饮料橙蜜味</a></h4>
+                <div class="price">
+                                        ￥3.5                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_15389">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(15389)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201405/thumb_img/15389_thumb_G_1399717761194.jpg" alt="乐天芒果汁180ml"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-15389.html" title="乐天芒果汁180ml" target="_blank">乐天芒果汁180ml</a></h4>
+                <div class="price">
+                                        ￥3.5                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2516">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2516)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201403/thumb_img/2516_thumb_G_1394807644953.jpg" alt="银鹭花生牛奶复合蛋白饮料50..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2516.html" title="银鹭花生牛奶复合蛋白饮料500ML" target="_blank">银鹭花生牛奶复合蛋白饮料50...</a></h4>
+                <div class="price">
+                                        ￥3.5                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11433">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11433)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201405/thumb_img/11433_thumb_G_1399272214485.jpg" alt="冰糖雪梨"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11433.html" title="冰糖雪梨" target="_blank">冰糖雪梨</a></h4>
+                <div class="price">
+                                        ￥3.5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11647">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11647)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11647_thumb_G_1398310498759.jpg" alt="娃哈哈HELLO-C柠檬汁饮..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11647.html" title="娃哈哈HELLO-C柠檬汁饮料" target="_blank">娃哈哈HELLO-C柠檬汁饮...</a></h4>
+                <div class="price">
+                                        ￥4                                        <!--<i>本月售出 3</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3690">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3690)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3690_thumb_G_1396332791462.jpg" alt="草莓味牛奶饮品200g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3690.html" title="草莓味牛奶饮品200g" target="_blank">草莓味牛奶饮品200g</a></h4>
+                <div class="price">
+                                        ￥4                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3689">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3689)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3689_thumb_G_1396599962870.jpg" alt="永和豆浆(瓶装)300g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3689.html" title="永和豆浆(瓶装)300g" target="_blank">永和豆浆(瓶装)300g</a></h4>
+                <div class="price">
+                                        ￥4                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11649">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11649)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11649_thumb_G_1398238866481.jpg" alt="营养快线果汁酸奶椰子味"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11649.html" title="营养快线果汁酸奶椰子味" target="_blank">营养快线果汁酸奶椰子味</a></h4>
+                <div class="price">
+                                        ￥4                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2588">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2588)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201403/thumb_img/2588_thumb_G_1394808278910.jpg" alt="娃哈哈营养快线水果牛奶500..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2588.html" title="娃哈哈营养快线水果牛奶500G" target="_blank">娃哈哈营养快线水果牛奶500...</a></h4>
+                <div class="price">
+                                        ￥4                                        <!--<i>本月售出 21</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_10376">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(10376)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/10376_thumb_G_1398849180904.jpg" alt="尖叫纤维饮料550ml"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-10376.html" title="尖叫纤维饮料550ml" target="_blank">尖叫纤维饮料550ml</a></h4>
+                <div class="price">
+                                        ￥4                                        <!--<i>本月售出 13</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_4022">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(4022)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/4022_thumb_G_1397896395797.jpg" alt="厅棷树275g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-4022.html" title="厅棷树275g" target="_blank">厅棷树275g</a></h4>
+                <div class="price">
+                                        ￥4                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2827">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2827)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201403/thumb_img/2827_thumb_G_1394800443507.jpg" alt="加多宝凉茶500ml"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2827.html" title="加多宝凉茶500ml" target="_blank">加多宝凉茶500ml</a></h4>
+                <div class="price">
+                                        ￥4.5                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_1652">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(1652)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201310/thumb_img/1652_thumb_G_1383016651764.jpg" alt="正宗 椰树椰汁330ml"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-1652.html" title="正宗 椰树椰汁330ml" target="_blank">正宗 椰树椰汁330ml</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 60</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2272">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2272)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201309/thumb_img/2272_thumb_G_1378276343817.jpg" alt="雅哈 意式醇香拿铁280ml"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2272.html" title="雅哈 意式醇香拿铁280ml" target="_blank">雅哈 意式醇香拿铁280ml</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 11</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_15390">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(15390)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201405/thumb_img/15390_thumb_G_1399717736728.jpg" alt="磨谷磨谷 椰肉草莓汁饮料32..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-15390.html" title="磨谷磨谷 椰肉草莓汁饮料320g" target="_blank">磨谷磨谷 椰肉草莓汁饮料32...</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3744">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3744)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3744_thumb_G_1396594802116.jpg" alt="泰国红牛维生素功能饮料瓶装1..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3744.html" title="泰国红牛维生素功能饮料瓶装150g" target="_blank">泰国红牛维生素功能饮料瓶装1...</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_15391">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(15391)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201405/thumb_img/15391_thumb_G_1399717716427.jpg" alt="磨谷磨谷 椰肉桃汁饮料320..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-15391.html" title="磨谷磨谷 椰肉桃汁饮料320g" target="_blank">磨谷磨谷 椰肉桃汁饮料320...</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3701">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3701)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3701_thumb_G_1396493188904.jpg" alt="绿力芒果汁490g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3701.html" title="绿力芒果汁490g" target="_blank">绿力芒果汁490g</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11644">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11644)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11644_thumb_G_1398238967079.jpg" alt="雅哈咖啡280ml"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11644.html" title="雅哈咖啡280ml" target="_blank">雅哈咖啡280ml</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3700">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3700)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3700_thumb_G_1396493179287.jpg" alt="绿力水蜜桃汁490g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3700.html" title="绿力水蜜桃汁490g" target="_blank">绿力水蜜桃汁490g</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11448">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11448)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201405/thumb_img/11448_thumb_G_1399261160031.jpg" alt="金卡8小时维生素饮料"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11448.html" title="金卡8小时维生素饮料" target="_blank">金卡8小时维生素饮料</a></h4>
+                <div class="price">
+                                        ￥5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3686">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3686)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3686_thumb_G_1396429145707.jpg" alt="宏金富木瓜牛奶味饮料500g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3686.html" title="宏金富木瓜牛奶味饮料500g" target="_blank">宏金富木瓜牛奶味饮料500g</a></h4>
+                <div class="price">
+                                        ￥5.5                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3879">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3879)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3879_thumb_G_1396596207538.jpg" alt="哇哈哈 启力250g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3879.html" title="哇哈哈 启力250g" target="_blank">哇哈哈 启力250g</a></h4>
+                <div class="price">
+                                        ￥5.5                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3748">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3748)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3748_thumb_G_1396494172498.jpg" alt="磨谷磨谷 椰肉芒果汁饮料32..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3748.html" title="磨谷磨谷 椰肉芒果汁饮料320g" target="_blank">磨谷磨谷 椰肉芒果汁饮料32...</a></h4>
+                <div class="price">
+                                        ￥5.5                                        <!--<i>本月售出 2</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_3699">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(3699)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/3699_thumb_G_1396427156999.jpg" alt="国农 活益菌250g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-3699.html" title="国农 活益菌250g" target="_blank">国农 活益菌250g</a></h4>
+                <div class="price">
+                                        ￥6                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_4043">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(4043)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/4043_thumb_G_1396332656533.jpg" alt="宾格瑞香蕉味牛奶饮料200g"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-4043.html" title="宾格瑞香蕉味牛奶饮料200g" target="_blank">宾格瑞香蕉味牛奶饮料200g</a></h4>
+                <div class="price">
+                                        ￥6.3                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11497">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11497)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11497_thumb_G_1398498925149.jpg" alt="百事可乐2L"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11497.html" title="百事可乐2L" target="_blank">百事可乐2L</a></h4>
+                <div class="price">
+                                        ￥6.5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_458">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(458)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201403/thumb_img/458_thumb_G_1394684224830.jpg" alt="红牛-维生素功能饮料250m..."><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-458.html" title="红牛-维生素功能饮料250ml" target="_blank">红牛-维生素功能饮料250m...</a></h4>
+                <div class="price">
+                                        ￥6                                        <!--<i>本月售出 40</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2581">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2581)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201403/thumb_img/2581_thumb_G_1394811410081.jpg" alt="美汁源颗粒橙1.25L"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2581.html" title="美汁源颗粒橙1.25L" target="_blank">美汁源颗粒橙1.25L</a></h4>
+                <div class="price">
+                                        ￥7.5                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11651">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11651)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11651_thumb_G_1398238826131.jpg" alt="健力宝柠檬2L"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11651.html" title="健力宝柠檬2L" target="_blank">健力宝柠檬2L</a></h4>
+                <div class="price">
+                                        ￥8                                        <!--<i>本月售出 5</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11428">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11428)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201405/thumb_img/11428_thumb_G_1399272299050.jpg" alt="4.5L怡宝纯净水"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11428.html" title="4.5L怡宝纯净水" target="_blank">4.5L怡宝纯净水</a></h4>
+                <div class="price">
+                                        ￥8                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11646">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11646)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11646_thumb_G_1398238928861.jpg" alt="营养快线"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11646.html" title="营养快线" target="_blank">营养快线</a></h4>
+                <div class="price">
+                                        ￥9.5                                        <!--<i>本月售出 1</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_11484">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(11484)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201404/thumb_img/11484_thumb_G_1398502528602.jpg" alt="王老吉1.5L"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-11484.html" title="王老吉1.5L" target="_blank">王老吉1.5L</a></h4>
+                <div class="price">
+                                        ￥12                                        <!--<i>本月售出 0</i>-->
+                </div>
+            </div>
+                    </li>
+                                <li id="goods_2372">
+                        <div class="box">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a href="javascript:void(0);" onclick="flyToCart(this);addToCart(2372)"><img class="flyobj lazyload" src="themes/default/images/bianli100/hide.gif" data-original="images/201403/thumb_img/2372_thumb_G_1394686888461.jpg" alt="可口可乐听装330ml"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="goods-2372.html" title="可口可乐听装330ml" target="_blank">可口可乐听装330ml</a></h4>
+                <div class="price">
+                                        ￥2                                        <!--<i>本月售出 4</i>-->
+                </div>
+            </div>
+                    </li>
+                    </ul>
+</div>
+
+
+
+
+
+
+  	 </div>
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容结束-->
+  </div> 
+  <!---头结束-->
+  <div style="clear:both;"></div>
+   <script>
+  $('.box').hover(function(){
+  	 $(this).css('background-color','rgb(241, 241, 241)');
+  });
+  $('.box').mouseleave(function(){
+  	 $(this).css('background-color','');
+  });
+  	</script>
+<{/block}>

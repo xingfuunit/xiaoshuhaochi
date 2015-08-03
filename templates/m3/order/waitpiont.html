@@ -1,0 +1,158 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ajaxfileupload.js"> </script>
+ <{/block}>
+ <{block name=membercenter}> 
+ 		<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>待点评订单</b></span>请在订单完成7天内点评，超过7天则点评失效</p>
+							 
+						</div><!--title end-->
+
+						<div class="mr-middle"><!--mr-middle-->
+							<div class="account_prize"><!--account_prize-->
+								 
+								<div id="user_dianpinglist">
+									<table cellpadding="0" cellspacing="0" id="user_dianpingistTable" class="di_table"><tbody>
+										<tr style="background-color: rgb(238, 238, 238);">
+											<th width="187">订单编号</th>
+											<th width="235">订单商家</th>
+											<th width="247">下单时间</th>
+											<th width="99">操作</th>
+											
+											</tr>
+											<{if count($list) > 0}>
+											<{foreach from=$list item=items}>
+											<tr>		
+											<td><a href="#orderview" onclick="getOrderDetail(<{$items['id']}>);"><{$items['dno']}></a></td>		
+											<td><a <{if $items['shoptype']==1}>href="<{ofunc type=url link="/market"}>"<{else}>href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>"}>"<{/if}> target="_blank" class="apanel"><{$items['shopname']}></a></td>		
+											<td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M"}></td>		
+											<td><a href="#" class="apanel" onclick="getOrderDetail(<{$items['id']}>);">点评</a></td>	
+												 
+										 </tr>
+										<{/foreach}>
+										<{else}>
+											<tr style="background-color: rgb(255, 255, 255);"><td colspan="5">暂无相关记录。</td></tr>
+											<{/if}></tbody>
+									</table>
+									<div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$pagecontent}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+								 	</div>
+                 
+								 
+							</div><!--account_prize end-->
+						</div><!--mr-middle end-->
+						
+						 <div style="background-color:#fff;border:1px solid #ccc;margin-top:10px;display:none;" id="tempordershow">
+		 	<a name="orderview"></a>
+								<div class="m3-order-detail" id="m3-order-detail"><!--m3-order-detail-->
+
+								</div><!--m3-order-detail end-->
+		 </div>
+						
+						
+						
+						
+					</div> 
+				</div>
+
+<script id="trgoodlist" type="text/html"> 
+<div class="m3-order-detail-left">	
+										<ul>		
+											<li><span>订单编号：</span><^%=order.dno%^></li>		
+											<li><span>下单时间：</span><^%=order.addtime%^></li>		
+											<li><span>要求时间：</span><^%=order.posttime%^></li>		
+											<li><span>完成时间：</span><^%=order.suretime%^></li>		
+											<li><span>配送方式：</span><^%if(order.pstype==1){%^>店铺自送<^%}else{%^>平台配送<^%}%^></li>		
+											<li><span>支付方式：</span><^%if(order.paytype=='outpay'){%^>餐到付款<^%}else{%^>在线支付<^%if(order.paystatus=='1'){%^>(已付)<^%}else{%^> (未付) <^%}%^><^%}%^></li>		
+											<li><span>客户姓名：</span><^%=order.buyername%^></li>		
+											<li><span>手机号码：</span><^%=order.buyerphone%^></li>		
+											<li><span>配送地址：</span><^%=order.buyeraddress%^></li>		
+											<li><span>订单备注：</span><^%=order.excontent%^></li>	
+										</ul>	
+										<div class="clear"></div>
+									</div>
+									<div class="m3-order-detail-right">	
+										<table>		
+											<tbody>
+												<tr>			
+													<th class="m3-odetail1 ">订单商家：<^%=order.shopname%^></th>			
+													<th class="m3-odetail2">订单状态：<^%=order.status%^></th>		
+												</tr>	
+											</tbody>
+										</table>	
+										<div class="menulist">	
+										
+											<table>		
+												<tbody>
+													<^%for(i = 0; i < orderdet.length; i ++) {%^>
+													<tr>			
+														<td class="m3-odetail1"><^%=orderdet[i].goodsname%^></td>			
+														<td class="m3-odetail2">￥<^%=orderdet[i].goodscost%^>*<^%=orderdet[i].goodscount%^></td>			
+														<td class="m3-odetail3"><span class="money">￥<^%=orderdet[i].sum%^></span></td>		
+													</tr>		
+												 	<^%if(orderdet[i].status == 0){%^>
+													 <tr>			
+														<td colspan= 3 class="m3-odetail1">
+														  <div> <label>评分:</label><input type="radio" name="pingfen<^%=orderdet[i].id%^>" style="width:15px;" value="1" >1分<input type="radio" name="pingfen<^%=orderdet[i].id%^>" style="width:15px;" value="2">2分<input type="radio" style="width:15px;" name="pingfen<^%=orderdet[i].id%^>" value="3">3分<input type="radio" style="width:15px;" name="pingfen<^%=orderdet[i].id%^>" value="4">4分<input type="radio" style="width:15px;" name="pingfen<^%=orderdet[i].id%^>" value="5" checked>5分</div>
+														  <div> <textarea style="margin-left:30px;height:50px;width:300px" id="zping<^%=orderdet[i].id%^>"></textarea></div>
+														  <div> <input type="button" name="tijiao" value="提交评价" style="margin-left:30px;margin-top:5px;width:80px;" onclick="saveping(<^%=order.id%^>,<^%=orderdet[i].id%^>)"></div>
+														</td>			
+													 </tr>	
+													  <^%}else{%^> 
+													  	<tr>			
+														<td colspan= 3 class="m3-odetail1">
+														  <div> <label>评分:</label><^%=orderdet[i].comment.point%^> <font color="gray"><^%=orderdet[i].comment.content%^></div></div>
+														   
+														</td>			
+													 </tr>	
+													  <^%}%^> 	
+												  <^%}%^> 
+					  
+												</tbody>
+											</table>	
+										</div>	
+										
+									</div>
+							<div class="clear"></div>
+</script>
+<script type="text/javascript">
+	function addAddr()
+	{
+		$('#newAddr_1').show();
+	}
+	function getOrderDetail(orderid)
+	{  
+	        var info = {'orderid':orderid};
+	      	var backmes =   ajaxback('<{ofunc type=url link="/order/ordercomdet/datatype/json"}>',info); 
+	      	if(backmes.flag == false)
+	      	{ 
+	      		 var htmls = template.render('trgoodlist', {order:backmes.content.order,orderdet:backmes.content.orderdet});
+	      		 $('#tempordershow').show();
+	      	   $('#m3-order-detail').html(htmls); 
+	      	   
+	      	}else{
+	      		diaerror(backmes.content); 
+	      	}  
+	}
+	function saveping(orderid,orderdetid){ 
+		      var info = {'orderid':orderid,orderdetid:orderdetid,pointcontent:$('#zping'+orderdetid).val(),point:$('input[name="pingfen'+orderdetid+'"]:checked').val()};
+	      	var backmes =   ajaxback('<{ofunc type=url link="/order/saveping/datatype/json"}>',info); 
+	      	if(backmes.flag == false)
+	      	{ 
+	      		getOrderDetail(orderid);
+	        }else{
+	      		diaerror(backmes.content); 
+	      	}   
+	}
+	 
+ 
+</script>
+<{/block}>

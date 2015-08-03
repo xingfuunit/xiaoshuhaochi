@@ -1,0 +1,114 @@
+      <{assign var=allcost  value=0}> 
+      <{assign var=truecost  value=0}>  
+      <{assign var=areacost  value=0}> 
+      <{assign var=bagcost  value=0}> 
+      <{assign var=downcost  value=0}> 
+      <{assign var=surecost  value=0}> 
+      <{foreach from=$cartinfo['list']  key=ckkey item=items}>  
+       <{if $shopid ==  $ckkey}>  
+     
+		
+		 
+   
+		<div class="hc_order_foods_table">
+       
+       
+       
+         <div id="sel_notice" class="sel-notice" style="background-color: rgb(251, 214, 113);"> 
+			      <p class="selNotice" id="selNoticeP_<{$shopid}>" >
+			      	<a href="#"><{$items['shopinfo']['shopname']}></a>，起送价为<{$items['shopinfo']['limitcost']}>元，
+			   	  <{if  $items['sum'] > $items['shopinfo']['limitcost']}>已达到。<{else}>未满足配送最低价格,
+			   	    <a href="<{ofunc type=url link="/shop/index/shopid/<{$shopid}>"}>">继续购买</a> 
+			   	  <{/if}> <span >   小计：<a href="#" style="color:red;font-weight:bold;" id="shop_sum<{$shopid}>"><{$items['sum']}></a>&nbsp;元&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			     	</p>	
+		     </div>
+       <table border="0" cellspacing="0" cellpadding="0" class="table" style="margin-bottom: 0px; width: 1001px;" align="center">
+              <tbody>
+              	<tr style="height: 40px; border-bottom: 1px dashed #ddd; font-size: 16px; color: #777;" id="item-tables-mark" class="xian1">
+					<td style="width: 477px;border-right:1px solid #ddd;"><span style="padding-left:10px;" class="selList-span"><b>美食篮子</b></span></td>
+					<td style="width: 100px;border-right:1px solid #ddd;text-align:center;"><b>打包费</b></td>
+					<td style="width:107px ;border-right:1px solid #ddd; text-align:center; "><b>单价</b></td>
+					<td style="width: 165px; border-right:1px solid #ddd;"><span style="text-align:center; height:24px; display: block;"><b>数量</b><span></span></span></td>
+					<td style="width:125px;"><span style="text-align:center; height:24px; display: block;"><b>清空</b></span></td>
+                </tr>
+           <{foreach from=$items['data'] item=itv}> 
+				  <tr shop_id="<{$itv['shopid']}>" id="xian2_<{$itv['shopid']}>" class="xian2" style="display: table-row;">
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle;"><span class="selList-span" style="padding-left:10px;"><{$itv['name']}><{if $itv['store_num'] < $itv['count']}><font color=red>库存不足</font><{/if}></span></td>
+				  	<td style="text-align: center; border-right:1px solid #ddd; vertical-align: middle;">￥<{$itv['bagcost']}>*<{$itv['count']}></td>
+				  	<td style="text-align: center; border-right:1px solid #ddd; vertical-align: middle;">￥<{$itv['cost']}></td>
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle; text-align:center;" class="quantity">
+				  		<a class="addBtn" onclick="removeonedish(<{$itv['id']}>,<{$itv['shopid']}>,1);" href="#" ></a>
+				  		<input style="width:40px;float: left;" readonly   class="order-item" type="text" id="cart_count<{$itv['id']}>" value="<{$itv['count']}>" autocomplete="off" onblur="modifycart(<{$itv['id']}>,<{$itv['count']}>,<{$itv['shopid']}>);">
+				  		<a class="reduceBtn" onclick="uponedish(<{$itv['id']}>,<{$itv['shopid']}>,1);" href="#"   ></a></td>
+				  	<td style=" text-align:center; vertical-align: middle;">
+				  		<a onmouseover="deleteBtn_huaguo(this);" onmouseout="deleteBtn_moren(this);" class="deleteBtn deleteBtn_moren" onclick="removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>);" href="javascript:void(0);"></a>
+				  	</td>
+				  </tr>
+				  <{/foreach}>
+              
+			  </tbody>
+			 </table>
+			 
+			</div>
+			  <{$allcost = $items['sum']}> 
+		    <{$areacost = $areacost + $items['pscost']}>
+        <{$bagcost = $bagcost + $items['bagcost']}>
+        <{$downcost = $downcost + $items['cx']['downcost']}> 
+       <{$surecost = $surecost + $items['cx']['surecost']}>
+			<div class="hc_order_foods_shop">
+				<div class="shopNameStr hc_order_foods_shop_name">
+					<a id="shopname_<{$shopid}>" class="shopName" href="javascript:changeCartShow(<{$shopid}>);"><{$items['shopinfo']['shopname']}></a>
+					<div class="clear"></div>
+				</div>
+				<div class="hc_order_foods_shop_count">
+					<div class="text">
+					         <a style="margin-right:10px;" href="javascript:clearcart();">清空</a>
+	                共 <strong id="total_quantity_2" class="total-quantity"><{$items['count']}></strong>
+	                 份美食 | 合计 
+	                <strong id="total_price_2" class="total-price"><{$items['sum']}></strong>
+	                 元
+	        </div>
+				</div>
+				<div class="clear"></div>
+			</div> 
+			 
+       	  <div class="hc_order_addr">
+        	<div class="hc_order_foods_head">优惠信息</div>
+        	<div class="hc_order_address">
+        			<ul style="margin-left:20px;" id="yhxx">
+        				   <{if $member['uid'] > 0}>
+        				   <li>我有优惠劵,请<a href="<{ofunc type=url link="/member/myjuan"}>">点击绑定优惠劵</a><li>
+        				   	<{foreach from=$juanlist item=itemm}> 
+        				       <li><input type="radio" name="buyjuan" <{if $items['sum'] < $itemm['limitcost']}> disabled <{/if}> value="<{$itemm['id']}>" data="<{$itemm['cost']}>" data2="<{$itemm['limitcost']}>"><{$itemm['name']}>(说明：优惠<{$itemm['cost']}>元),注意：订单最低金额<{$itemm['limitcost']}>元,截止时间:<{$itemm['endtime']|date_format:"%Y-%m-%d"}><li>  
+        				   	<{/foreach}> 
+        				  <{else}>
+        				  <li>假如你有优惠劵,请先登录在使用优惠劵<a href="<{ofunc type=url link="/member/login"}>">点击登录</a><li>
+        				  <{/if}>
+        				 
+        				 
+        				 
+        				 
+        				 
+        				   <{if count($items['cx']['gzdata']) > 0 && isset($items['cx']['gzdata'])}> 
+        				   <li style="color:red;margin-top:20px;" id="cxinfo">  
+        				 
+        				   <div style="color:#000;">满足的优惠活动</div>
+        				     	<{foreach from=$items['cx']['gzdata'] item=ivalue}>
+        				      <div><{$ivalue}></div>
+        				      <{/foreach}>
+        				   </li> 
+        				   <{/if}>
+        		  </ul> 
+        	</div>
+           
+       </div> 
+       <{$jisuancost = $surecost+$bagcost+$areacost}>
+       <div  class="sel-notice" style="background-color: rgb(251, 214, 113);text-align:right;"> 
+		           	<p class="selNotice" style="color:#08c;margin-right:30px;">配送方式:<{if $items['pstype'] == 1}>网站配送<{else}>店铺配送<{/if}>,配送费:<{$items['pscost']}>元，优惠金额:<{$items['cx']['downcost']}>元,
+		           		订单总价:<span id=surecost style="font-weight:bold;color:red;" data="<{$surecost}>"  bagcost="<{$bagcost}>" areacost="<{$areacost}>" alldata="<{$jisuancost}>"><{$jisuancost}></span>元（包含配送费用）
+		           		
+		           </p> 
+		   </div>
+      <{/if}>
+      
+   <{/foreach}> 

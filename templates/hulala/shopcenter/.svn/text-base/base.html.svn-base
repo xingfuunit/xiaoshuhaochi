@@ -1,0 +1,290 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       	<div class="editcontent">
+       		  <div class="edittop">
+       		  	  <ul>
+       		  	  	 <li class="on"><a href="<{ofunc type=url link="/shopcenter/base"}>">基本信息</a></li>
+       		  	  	 <li><a href="<{ofunc type=url link="/shopcenter/fastfood"}>">外卖设置</a></li>
+       		  	  <!--	 <li><a href="<{ofunc type=url link="/shopcenter/waitfood"}>">订台设置</a></li> -->
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/notice"}>">首页公告</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/cxset"}>">店铺促销</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/instro"}>">店铺介绍</a></li>
+       		  		</ul>
+       		  </div>
+       		  <div class="editcenter">
+       		  	<form id="loginForm" method="post" action="<{ofunc type=url link="/shopcenter/savebase"}>" >
+       		       <table width="600" border="0">
+                      <tr>
+                        <td class="tname">&nbsp;店铺名称：</td>
+                        <td width=280px>&nbsp;<input type="text" id="shopname" name="shopname" value="<{$shopinfo['shopname']}>" class="ttext"></td>
+                        <td colspan="2" rowspan="3" width=200px>&nbsp;
+                        	<div style="width:200px;height:110px;overflow-x:visible;overflow-y:auto;"> 
+									 
+									 <img src="<{$shopinfo['shoplogo']}>" width=80px height=80px id="imgshow" <{if  empty($shopinfo['shoplogo'])}> style="display:none;"<{/if}>>
+                      	<input type="hidden" name="shoplogo" id="shoplogo" value="<{$shopinfo['shoplogo']}>" class="skey" style="width:150px;" >
+                     <br> 	<span onclick="uploads();" style="color:green">选择图片上传</span>
+								</div></td>
+                      </tr>
+                      <tr>
+                        <td class="tname">&nbsp;订餐电话：</td>
+                        <td>&nbsp;<input id="phone" name="phone" value="<{$shopinfo['phone']}>" type="text" class="ttext"></td>
+                      </tr>
+                      <tr>
+                        <td class="tname">&nbsp;店铺负责人电话：</td>
+                        <td>&nbsp;<input id="maphone" name="maphone" value="<{$shopinfo['maphone']}>" type="text" class="ttext"></td>
+                      </tr>
+                      <tr>
+                      	<td class="tname" valign="top">&nbsp;店铺门市地址：</td>
+                        <td colspan="3"><input id="address" name="address" value="<{$shopinfo['address']}>" class="ttext" type="text" style="width:100px;"></td>
+                      </tr>
+                      <tr>
+                      	<td class="tname">&nbsp;访问地址：</td>
+                        <td colspan="3">&nbsp;<{$siteurl}>/<input id="shortname" name="shortname" value="<{$shopinfo['shortname']}>" class="ttext" type="text" style="width:50px;height:20px;line-height:20px;"></td>
+                      </tr>
+                      
+                      <tr>
+                      	<td class="tname">&nbsp;是否营业：</td>
+                        <td colspan="3">&nbsp;<input type="checkbox" name="is_open" value="1" <{if $shopinfo['is_open'] == 1}>checked<{/if}>>勾选营业</td>
+                      </tr>
+                      <tr>
+                      	<td class="tname">&nbsp;百度坐标：</td>
+                        <td colspan="3">&nbsp;<input type="text" name="baidumap" value="<{$shopinfo['lng']}>,<{$shopinfo['lat']}>"> <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" style="color:blue;">拾取地址</a>直接复制内容地图最大化后是6位小数</td>
+                      </tr> 
+                      
+                     <tr>
+                      	<td class="tname">&nbsp;邮箱地址：</td>
+                        <td colspan="3">&nbsp;<input id="email" name="email" value="<{$shopinfo['email']}>" class="ttext" type="text" style="width:100px;height:20px;line-height:20px;"></td>
+                      </tr>
+                      <tr>
+                      	<td class="tname" valign="top">&nbsp;营业时间：</td>
+                        <td colspan="3" valign="top"> 
+                        	 <{assign var=foo value="|"|explode:$shopinfo['starttime']}> 
+                        	 <{foreach from=$foo key=myid item=items}> 
+                        	     <{assign var=newtime value="-"|explode:$items}> 
+                        	     <div style="padding-top:5px;"><input  name="starttime[]" value="<{$newtime[0]}>" class="ttext" type="text" style="width:80px;">至<input  name="starttime[]" value="<{$newtime[1]|default:''}>" class="ttext" type="text" style="width:80px;"></div>
+                        	  <{/foreach}>
+                        	  <div style="padding-top:5px;"><input  name="starttime[]" value="" class="ttext" type="text" style="width:80px;">至<input  name="starttime[]" value="" class="ttext" type="text" style="width:80px;"></div>
+                            填写格式08:00 至 09:30
+                        </td>
+                      </tr>
+                      
+                     <tr>
+                      	<td class="tname">&nbsp;大众网评论地址：</td>
+                        <td colspan="3">&nbsp;<input id="otherlink" name="otherlink" value="<{$shopinfo['otherlink']}>" class="ttext" type="text" style="width:100px;height:20px;line-height:20px;"></td>
+                      </tr>
+                     
+                      <tr>
+                      	<td class="tname">&nbsp;</td> 
+                        <td colspan="3">&nbsp;<div class="hc_login_btn_div hc_UserInfoChangepwd">点击提交</div></td>
+                      </tr>
+                 </table>
+       		  	
+       		  	</form>
+       		  </div>
+       	</div>
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+    
+</div>
+ 
+ <script id="areaid1" type="text/html"> 
+  <div id="liarea1">		 
+				<span id="belongcity1">
+				<select name="area1" id="area1" onchange="dotype2();">
+				<^%for(i = 0; i < list.length; i ++) {%^>
+					<^%if(list[i].parent_id == showid){%^>
+             <option value="<^%=list[i].id%^>" <^% if (list[i].id==defaultid){%^> selected<^%}%^>>
+             <^%=list[i].name%^>
+             </option>
+             <^%}%^>
+        <^%}%^> 
+				
+				</select></span> 
+</div>
+</script>
+<script id="areaid2" type="text/html"> 
+ <div id="liarea2">
+				<span id="belongcity2"><select name="area2" id="area2" onchange="dotype3();">
+				<^%for(i = 0; i < list.length; i ++) {%^>
+					<^%if(list[i].parent_id == showid){%^>
+             <option value="<^%=list[i].id%^>" <^% if (list[i].id==defaultid){%^> selected<^%}%^>>
+             <^%=list[i].name%^>
+             </option>
+             <^%}%^>
+        <^%}%^>  
+				</select></span>
+</div>
+</script>
+<script id="areaid3" type="text/html"> 
+ <div id="liarea3">
+				<span id="belongcity3"><select name="area3" id="area3">
+				<^%for(i = 0; i < list.length; i ++) {%^>
+					<^%if(list[i].parent_id == showid){%^>
+             <option value="<^%=list[i].id%^>" <^% if (list[i].id==defaultid){%^> selected<^%}%^>>
+             <^%=list[i].name%^>
+             </option>
+             <^%}%^>
+        <^%}%^> 
+				
+				</select></span>
+</div>
+</script>
+<script type="text/javascript">
+var arealist = <{$arealist|@json_encode}>;
+var areagrade = <{$area_grade}>;
+$(function(){  
+	  if(arealist.length > 0){ 
+ 	   	var htmls = template.render('areaid1', {list:arealist,showid:0,defaultid:<{$shopinfo['areaid1']|default:0}>});
+          $('#address').before(htmls);
+          if(areagrade > 1){
+           dotype2();
+         }
+     }
+});
+function dotype2(){
+	if(areagrade > 1){
+	var findvalue = $('#area1').find("option:selected").val();
+ 	$('#liarea2').remove();
+ 		var htmls = template.render('areaid2', {list:arealist,showid:findvalue,defaultid:<{$shopinfo['areaid2']|default:0}>});
+          $('#address').before(htmls);
+          if(areagrade > 2){
+ 		 dotype3();
+ 		}
+ 	}
+}
+function dotype3(){
+	if(areagrade > 2){
+	var findvalue = $('#area2').find("option:selected").val();
+ 	$('#liarea3').remove();
+ 		var htmls = template.render('areaid3', {list:arealist,showid:findvalue,defaultid:<{$shopinfo['areaid3']|default:0}>});
+          $('#address').before(htmls);
+  }
+ 		 
+}
+</script>
+ 
+ 
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+  <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js"></script>
+<script type="text/javascript">
+	$('.hc_login_btn_div').click(function(){
+		/*
+		$data['shopname'] =IFilter::act(IReq::get('shopname'));
+		$data['phone'] = IFilter::act(IReq::get('phone'));
+		$data['address'] = IFilter::act(IReq::get('address'));
+		$data['shortname'] = IFilter::act(IReq::get('shortname'));
+		 
+		$data['email'] = IFilter::act(IReq::get('email'));
+		$data['is_open'] = intval(IReq::get('is_open'));
+		$starttime = IFilter::act(IReq::get('starttime'));
+	  $data['areaid1'] = intval(IReq::get('area1')); //  
+	  $data['areaid2'] = intval(IReq::get('area2'));
+	  $data['areaid3'] = intval(IReq::get('area3'));
+	  $data['otherlink'] = IFilter::act(IReq::get('otherlink'));
+	  $baidumap = IFilter::act(IReq::get('baidumap'));*/
+		var shopname = $('input[name="shopname"]').val();
+		var phone = $('input[name="phone"]').val();
+		var address = $('input[name="address"]').val();
+		var shortname = $('input[name="shortname"]').val();
+		var email =$('input[name="email"]').val();
+		var is_open = 0;
+		 var IMEI = '';
+		if($("input[name='is_open']").attr('checked') == 'checked'){
+			is_open = 1;
+		}
+		var stobj = new Array();
+	  
+	  $("input[name='starttime[]']").each(function(){ 
+	  	stobj.push($(this).val()); 
+     })
+     var starttime = stobj.join(',');
+     var areaid1 = $("select[name='area1']").find("option:selected").val();
+     var areaid2 = $("select[name='area2']").find("option:selected").val();
+     var areaid3 = $("select[name='area3']").find("option:selected").val();
+     var otherlink = $('input[name="otherlink"]').val();
+     var baidumap = $('input[name="baidumap"]').val();
+	 
+	//	 showop('保存配送区域信息');
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/savebase"}>',{'shopname':shopname,'IMEI':IMEI,'phone':phone,'address':address,'shortname':shortname,'email':email,'is_open':is_open,'starttime':starttime,'area1':areaid1,'area2':areaid2,'area3':areaid3,'otherlink':otherlink,'baidumap':baidumap});
+	if(backinfo.flag == true)
+	{
+	//	hideop();
+		diaerror(backinfo.content); 
+	}else{
+	//	hideop();
+		 artsucces('保存成功');
+		location.reload();  
+	}
+		
+		
+		//$('#loginForm').submit(); 
+	})
+	$(".hc_login_input").change(function(j){
+		var v=$(this).val();
+		var p=$(this).attr("shopname"); 
+		switch(p){
+		case "shopname":	if(v == '' ||v == null){
+			  alert('用户名不能为空'); 
+			} 
+		break;
+		case "shortname":
+		 	var patrn=/[u4e00-u9fa5]/;  
+			if(v == '' ||v == null){
+			  alert('店铺CODE不能为空'); 
+			} 
+		break; 
+		case "phone":
+		   if(v == '' ||v == null){
+			  alert('联系电话不能为空'); 
+			} 
+		break;
+		case "address":
+		   if(v == '' ||v == null){
+			  alert('联系地址不能为空'); 
+			} 
+		break;
+		case "pwd":
+			var patrn=/(.){4,16}/;  
+			if(!patrn.exec(v)){
+				 alert('密码是4-16位的字母、数字,区分大小写');  
+			 } 
+		break;
+		}
+	});
+	var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/shopcenter/upload/"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(linkurl){
+ 	dialogs.close(); 
+ 	$('#img').val(linkurl);
+ 	$('#imgshow').attr('src',linkurl);
+ 	$('#imgshow').show(); 
+}
+function uploaderror(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+</script> 
+<{include file="<{$tempdir}>/public/shopfooter.html"}>
+
+
+
+
+
+
+
+ 

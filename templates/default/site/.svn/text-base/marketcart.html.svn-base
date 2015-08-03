@@ -1,0 +1,49 @@
+ 
+ 	   	    					    <!--产品循环-->
+ 	   	    					    
+ <{assign var=allcost  value=0}> 
+  <{assign var=tempcost  value=0}> 
+  <{assign var=goodscount  value=0}>
+   <{assign var=areacost  value=0}> 
+   <{assign var=tempcost  value=0}> 
+     <{assign var=cxshodata  value=""}>
+  <{foreach from=$cartinfo['list']  key=ckkey item=items}>  
+   <{if $shopid ==  $ckkey}>   
+ 	   	    					      <{foreach from=$items['data'] item=itv}>
+ 	   	    					    <div class="sc-unit J_CartId<{$itv['id']}>" gid="<{$itv['id']}>" ptype="1">
+ 	   	    					    	<div class="sc-item">
+ 	   	    					    		<div class="cell-item">
+ 	   	    					    			<div class="sc-pic"><a href="<{ofunc type=url link="/market/showgoods/id/<{$itv['id']}>"}>" target="_blank" title="<{$itv['name']}>"><img src="<{$itv['img']}>"></a></div>
+ 	   	    					    			<span><i>¥</i><em class="J_ItemPrice" cost="<{$itv['cost']}>"><{$itv['cost']}></em></span>
+ 	   	    					    		</div>
+ 	   	    					    		<div class="cell-opration">
+ 	   	    					    			<a href="javascript:uponedish(<{$itv['id']}>,<{$itv['shopid']}>,1);" target="_self" class="J_PlusCart plus" title="增加一个">+</a>
+ 	   	    					    			<input type="text" data-now="<{$itv['count']}>" value="<{$itv['count']}>">
+ 	   	    					    			<a href="javascript:removeonedish(<{$itv['id']}>,<{$itv['shopid']}>,1);" target="_self" class="J_MinusCart minus decrease" title="减少一个">-</a>
+ 	   	    					    		</div>
+ 	   	    					    	</div>
+ 	   	    					    	<a class="sc-delete J_TBSCdelete" href="javascript:removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>);">删除</a>
+ 	   	    					    	<a class="sc-deleting" href="javascript:;">删除中...</a>
+ 	   	    				      </div>
+ 	   	    				      <{$goodscount =$goodscount+$itv['count']}> 
+ 	   	    				        <{$tempcost =$tempcost+ $itv['cost']*$itv['count']}> 
+		    
+ 	   	    				       <{/foreach}> 
+ 	   	    				    	<!--产品循环--> 
+ 	   	    				    <{$allcost = $items['pscost']+$items['bagcost']+$items['cx']['surecost']}>  
+         <{$allcost = $allcost}>
+        <{$areacost =   $items['pscost']}>
+         <{if count($items['cx']['gzdata']) > 0 && isset($items['cx']['gzdata'])}> 
+         <{$cxshodata = $items['cx']['gzdata']['0']}>
+         <{/if}>
+          
+ <{/if}> 
+<{/foreach}>  
+<div id="tjdata" allshu="<{$goodscount}>" allcost="<{$allcost}>" areacost="<{$areacost}>" goodscost="<{$tempcost}>" cxshodata="<{$cxshodata}>"></div>
+                 
+ 
+
+  
+    
+
+ 

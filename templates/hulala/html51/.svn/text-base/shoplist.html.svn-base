@@ -1,0 +1,21 @@
+ <{include file="<{$tempdir}>/html5/top.html"}>  
+ <div data-role="collapsible-set" data-theme="c">   
+<ul data-role="listview" data-corners="false" data-inset="true">
+    <li><a href="#">
+        <img src="<{$siteurl}>/templates/<{$tempdir}>/html5/images/album-bb.jpg">
+        <h2>Broken Bells</h2>
+        <p>Broken Bells</p></a>
+    </li>
+    <li><a href="#">
+        <img src="<{$siteurl}>/templates/<{$tempdir}>/html5/images/album-hc.jpg">
+        <h2>Warning</h2>
+        <p>Hot Chip</p></a>
+    </li>
+    <li><a href="#">
+        <img src="<{$siteurl}>/templates/<{$tempdir}>/html5/images/album-p.jpg">
+        <h2>Wolfgang Amadeus Phoenix</h2>
+        <p>Phoenix</p></a>
+    </li>
+</ul>
+</div>
+ <{include file="<{$tempdir}>/html5/foot.html"}> 

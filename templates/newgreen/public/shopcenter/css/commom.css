@@ -1,0 +1,75 @@
+@charset "utf-8";
+html, body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td { margin: 0; padding:0;}
+div,dl,dt,dd,form,h1,h2,h3,h4,h5,h6,img,ol,ul,li,table,th,td,p,span,a{border:0;font-weight: normal;text-decoration: none;}
+article,aside,dialog,figure,footer,header,legend,nav,section{display: block;}
+img,input{border:none;vertical-align:middle;}
+input[type="radio"]{-webkit-appearance:normal;outline:none;}
+input[type="button"],input[type="text"],input[type="password"]{-webkit-appearance: none;outline: none;background: transparent;}
+input[type="button"]{text-indent: 0;}
+input[type="text"],input[type="password"]{text-indent: 10px;}
+input[type='number']{-moz-appearance:textfield;-webkit-appearance:textfield;appearance:textfield;}/*去除输入框右侧的加减按钮*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {-webkit-appearance: none;margin: 0;}
+body{font-family:"Microsoft YaHei","微软雅黑",Tahoma,Arial,Helvetica,"宋体";font-size:12px;text-align:center;-moz-user-select:none;-khtml-user-select:none;-webkit-font-smoothing:antialiaed;}
+html{overflow-y:scroll;}
+ul,ol{list-style-type:none;}
+th,td,input{font-size:12px;}
+button{border:none;cursor:pointer;font-size:12px;background-color:transparent;-webkit-appearance: none;outline: none;}
+select{border-width:1px;_zoom:1;border-style:solid;padding-top:2px;font-size:12px;}
+.fl{ float:left;}
+.fr{ float:right;}
+.cl{ clear:both;}
+
+ul,li{list-style:none;}
+
+/*	body {
+	
+		font-family:Arial, Helvetica, sans-serif,"微软雅黑";
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: transparent; 
+	background-origin: padding-box;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	min-height: 600px;
+	position: relative;
+
+scrollBar-face-color:green;  
+scrollBar-hightLight-color:red;  
+scrollBar-3dLight-color:orange;  
+scrollBar-darkshadow-color:blue;  
+scrollBar-shadow-color:yellow;  
+scrollBar-arrow-color:purple;  
+scrollBar-track-color:black;  
+scrollBar-base-color:pink;*/	
+	
+	}
+.header,.top{position: relative; height:70px;line-height: 70px; background:#45423f;width: 1240px;margin: 0 auto;}
+/*.top{ height:100%; width:100%;  position:relative;}*/
+.topLeft,.topRight{width:40%; height:100%;}
+.top ul li a{width: 100%;height: 100%;display: inline-block; color:#c7c7c7;}
+.topLeft ul{width: 100%;height: 100%;}
+.topLeft ul li { cursor:pointer; float:left; font-size:14px; width:33.3333333%; text-align:center; color:#c7c7c7; font-family:"微软雅黑";}
+.topLeft ul li:hover{background: #27a9e3;}
+.topLeft ul li:hover a{color: #fff;}
+.topRight .cost{font-size:14px; height:70px; line-height:70px; text-align:center; color:#ec7501; margin-right:26px; }
+.topRight .curbtn{cursor: pointer; width: 33.333333%;height: 100%;display: inline-block;text-align: center;float: left;color: #c7c7c7;font-size: 14px;}
+.topRight .curbtn:hover{background:#27a9e3;color: #fff;}
+.cost img,.username img{margin-left:11px; margin-bottom:2px;}
+.username{font-size:14px;color:#2f90bb;}
+.shangjiaTop{ background:url(../images/shangjiaTop.png) no-repeat; position:absolute; top:0;  left:50%; margin-left:-125px; width:230px; height:66px; padding:15px 10px;}
+.shangjiaTop .sjgl{  width:228px; height:70px; background:url(../images/shangjiahoutai.png) no-repeat; }
+.shangjiaTop .sjglorder{  width:228px; height:70px; background:url(../images/lefuDkbg.png) no-repeat; }
+.shangjiaTop .sjglaa{  width:228px; height:70px; background:url(../images/orderQuiBg.png) no-repeat; }
+.shangjiaTop .sjgl span{ margin-left:10px;  font-family:"宋体"; font-weight:600; color:#f0f0f0; font-size:24px; height:70px; line-height:70px;}
+
+
+.footer{ height:100px; margin-top:76px;}
+.foot1{  background:#5e5955; height:50px;}
+.foot1 .db{ width:1240px; height:50px;  margin:0 auto;text-align: center; color:#c7c7c7;}
+
+.foot1 a{  padding: 0 10px; color:#c7c7c7; font-size:12px; font-family:"宋体"; height:50px; line-height:50px;}
+.foot2{ margin:0 auto; background:#2e363f; height:50px;}
+.foot2 p{ width:1240; margin:0 auto; color:#6d7277; font-size:12px; font-family:"宋体"; height:50px; line-height:50px;text-align: center;}

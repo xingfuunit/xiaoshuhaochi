@@ -1,0 +1,59 @@
+
+/*aside*/
+.s-index-side{ margin:0 auto; padding:0; width:230px}
+.s-index-side .part{padding:0px;}
+.s-index-side .part .title{height:41px;}
+.s-index-side .part .title .s-index-icon{left:10px;}
+.s-index-side .part .title h3{padding-left:32px;font-size:14px;}
+.s-index-side .part .game-icon{background-position:-155px 0px;}
+.s-index-side .part .rank-game-icon{background-position:-228px -302px;}
+.s-index-side .part .rank-soft-icon{background-position:-250px -302px;}
+.s-index-side .types{width:218px;overflow:hidden;border-bottom:none;position:relative}
+.s-index-side .types .title h3{padding-left:0px;text-align:center;}
+.s-index-side .types .title .s-index-icon{top:13px;left:58px;}
+.s-index-side .types-list{margin:0px -5px 0px 0px;}
+.s-index-side .types-list li{width:109px;height:44px;position:relative;border-right:1px solid #d8d8d8;overflow:hidden;line-height:44px;text-align:center;float:left;border-bottom:1px solid #d8d8d8;background-color:#f5f5f5;}
+.s-index-side .types-list li a{display:block;color:#333;height:44px;line-height:44px;border-left: 1px solid #fff;border-top: 1px solid #fff;}
+.s-index-side .types-list li a:hover{color:#ff4e00}
+.s-index-side .types-list li.select{background:#FF4E00 url(http://m.baidu.com/static/as/images/s-index-icon-1.png?ver=20120730) no-repeat -235px 0px;}
+.s-index-side .types-list li.select a{margin-left:2px;color:#fff;border:none;background:url(http://m.baidu.com/static/as/images/s-index-icon-1.png?ver=20120730) no-repeat right 0px;font-weight:bold;cursor:default;}
+.s-index-side .types-list li.select a:hover{text-decoration:none;color:#fff;}
+.s-index-side .types-list li .s-index-icon{display:none;}
+.s-index-side .types-list li.select .s-index-icon{position:absolute;display:block;width:6px;height:8px;top:19px;left:11px;background-position: -72px -59px;}
+.s-index-side .types-list li.left,.s-index-side .types-list li:nth-child(odd){border-right: 1px solid #d8d8d8;width:108px;}
+.s-index-side .types-list li.left a{border-left-color:#f5f5f5;}
+.s-index-side .weekly{margin-top:0px;font-size:12px;zoom:1;}
+.s-index-side .app-show-block{padding:2px 0px 0px 80px;position:relative;height:78px;text-align:left;}
+.s-index-side .app-show-block h4{height:24px;line-height: 24px;font-size:14px;}
+.s-index-side .app-show-block h4 span{font-weight: bold;}
+.s-index-side .app-show-block h4 a{color:#555}
+.s-index-side .app-show-block h4 a:hover{color:#FF4E00}
+.s-index-side .app-show-block .s-index-down{margin:0px;margin-top:7px;font-weight:normal;background-color:#FF4E00}
+.s-index-side .app-show-block .pic{position:absolute;top:4px;left:0px;cursor:pointer;}
+.s-index-side .app-show-block img{display:block;width:68px;height: 68px;}
+.s-index-side .weekly .app-show-block{margin:0px 0px 0px 36px;padding-left:65px;height:60px; position:relative}
+.s-index-side .weekly .app-show-block span.one{ position:absolute; height:14px; line-height:14px; color:#FF0000; left:60px; top:0px; font-weight:bold}
+.s-index-side .weekly .app-show-block a.two{ width:63px; height:23px; position:absolute; display:block; background:url(../img/r5_c7.jpg) no-repeat; top:20px; left:60px}
+.s-index-side .weekly .app-show-block a{height:25px;}
+.s-index-side .weekly .app-show-block .pic{position:absolute;top:0px;left:0px;}
+.s-index-side .weekly .app-show-block img{display:block;height:52px;width:52px;}
+.s-index-side .part .weekly-icon{background-position: -193px 0px;}
+.s-index-side .weekly-list{padding:0px 10px 2px 10px;margin-top:-1px;position: relative;}
+.s-index-side .weekly-list li{height:36px;line-height:36px;overflow:hidden;*position:relative;zoom:1;}
+.s-index-side .weekly-list .app-show-title{padding-left:10px;}
+.s-index-side .weekly-list li .num{font-size:12px;height:40px;line-height:40px; background:#05A7FA; padding:3px 6px; border:1px solid #05A7FA; color:#FFFFFF; margin-right:5px}
+.s-index-side .weekly-list li #num2{ background:#F9F9F9; border:1px solid #E5E5E5; color:#000000}
+
+.s-index-side .weekly-list li a{}
+.s-index-side .weekly-list li.current a{}
+.s-index-side .weekly-list li.current .app-show-title a:hover{color:#ff4e00;}
+.s-index-side .weekly-list li.current .s-index-down{font-weight:normal;}
+.s-index-side .s-index-ad img{height:193px;width: 220px;}
+.am-index-software .s-index-side .s-index-ad img{height:148px;}
+.s-index-side .we-down{margin-top:10px;padding-bottom:8px;}
+.s-index-side .we-down-icon{background-position: -138px -19px;}
+.s-index-side .we-down .title h3{padding-left:36px;}
+.s-index-side .tip-info{color:#969696;font-size:12px;}
+.s-index-side .we-down-list{padding:0px 12px;height:230px;overflow-y:hidden;position:relative;}
+.s-index-side .we-down-list li{padding:8px 0px 5px 0px;border-bottom:1px dotted #d8d8d8;}
+.s-index-side .we-down  .app-show-block{margin-top:8px;}

@@ -1,0 +1,58 @@
+<{extends file="<{$tempdir}>/public/admin.html"}>
+<{block name=extendjs}>
+<{/block}>
+ <{block name=controlname}>添加充值卡<{/block}>
+ <{block name=bodylist}>
+
+     <div style="width:98%;overflow-y:auto;white-space:nowrap;">
+
+          <div class="tags">
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/card/module/savecard/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/card/module/cardlist"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">充值卡前缀</td>
+                      <td><input type="text" name="card_temp" id="card_temp" value="" class="skey" style="width:150px;" ></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">充值卡数量</td>
+                      <td>
+                      	 <input type="text" name="card_acount" id="card_acount" value="" class="skey" style="width:150px;" >
+                      	</td>
+                    </tr>
+
+                     <tr class="show_1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">充值卡金额</td>
+                      <td><select name="card_cost">
+                      	<option value="10">10元</option>
+                      	<option value="50">50元</option>
+                      	<option value="100">100元</option>
+                      	<option value="200">200元</option>
+                      	<select></td>
+                    </tr>
+
+
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+               <input type="submit" value="确认提交" class="button">
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+
+
+</div>
+<{/block}>

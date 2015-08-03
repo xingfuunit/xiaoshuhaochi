@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Language" content="zh-CN"> 
+<meta content="all" name="robots"> 
+<meta name="description" content=""> 
+<meta content="" name="keywords"> 
+<title>上传图片</title> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin.css">
+ 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>  
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+</head>
+<body style="background:none;height:70px;">
+	 <form enctype="multipart/form-data" method="post" name="upform" action="<{ofunc type=url link="/other/adminupload"}>" > 
+	 	<input type="hidden" name="obj" value="<{$obj}>">
+	 	<input name="imgFile" type="file">
+	 	<input type="submit" value="提交上传" class="button">  
+	 	<input type="hidden" name="uploaddir" value="<{$uploaddir}>">
+	 	<input type="hidden" name="func" value="<{$func}>">
+	 	
+	 	
+  </form>
+  <script>
+  	 
+  	</script>
+</body>
+</html>

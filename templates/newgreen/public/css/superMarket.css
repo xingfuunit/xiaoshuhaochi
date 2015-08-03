@@ -1,0 +1,65 @@
+﻿/*----------超市页面------------*/
+.superMarket_leftRounded, .superMarket_rightRounded, .pages_title b, .pages_title:hover b, .selectBtn, .commodity_add, .commodity_minus, .commodity_btn, .commodity_btn_mouseon{ background:url('../../images/v12/ordering.png') no-repeat;}
+.superMarket_searchContent, .selectText{ background:url('../../images/v12/repeatx.png') repeat-x;}
+
+.superMarket_tab{ z-index:1; position:relative; width:660px; height:28px; background:url('../../images/v12/search_bg.png') repeat-x; border-bottom:1px solid #e8e8e8; padding:15px 0 0 30px;}
+.superMarket_tab li{ z-index:1; position:relative; float:left; height:28px; line-height:28px; padding:0 15px; color:#666;}
+.superMarket_tab li.selected{ font-weight:bold; color:#000; overflow:hidden; border-top:1px solid #e8e8e8; border-left:1px solid #e8e8e8; border-right:1px solid #e8e8e8; border-bottom:1px solid #fff; background-color:#fff; border-top-left-radius:5px; border-top-right-radius:5px;}
+.superMarket_tab li.selected a{color:#f60;}
+.superMarket_tab_Content{ display:none;}
+#superMarket_tab_Content .selected{ display: block;}
+.sort{ clear:both; width:640px; height:58px;overflow:hidden; padding-left:25px;position:relative}
+.sort li{ z-index:1; position:relative;float:left; width:120px;line-height:26px; text-align:left; color:#ccc;overflow:hidden}
+.sort li a{padding:2px 10px;}
+.showmoretype{height:30px;line-height:30px;text-align:right;}
+.separate{ z-index:99; position:absolute; right:0; top:0;}
+.sort_content{ width:680px; }
+.toolBar{ z-index:1; position:relative; width:100%; height:36px; line-height:36px; border-bottom:1px dashed #ccc; padding:5px 0;}
+.toolBar_bottom{ z-index:99; position:relative; width:100%; height:36px; line-height:36px; margin:2px 0 10px;}
+
+.superMarket_search{ z-index:99; position:absolute; top:16px; left:0px; width:210px; height:24px; overflow:hidden;}
+.superMarket_leftRounded{ float:left; width:11px; height:24px; background-position:-122px -306px;}
+.superMarket_rightRounded{ float:left; width:38px; height:24px; background-position:-140px -306px; cursor:pointer;}
+.superMarket_searchContent{ float:left; width:160px; height:24px; padding:4px 0 0 0; background-position:0px -555px;}
+.superMarket_search_history{ z-index:9999; position:absolute; left:0px; top:20px; width:220px; line-height:24px; border:1px solid #eee; background:#fff; overflow:hidden;}
+.superMarket_search_history li, .search_history li a{ width:220px; height:24px; line-height:24px; overflow:hidden; background:#fff; display:block; text-indent:2em;}
+.superMarket_search_history li a:hover{ background:#eee; display:block;}
+
+.pageBar{ float:right; width:220px; height:26px; margin-top:8px;}
+.lastPage{ float:left; width:56px; height:22px; line-height:22px; border:1px solid #C4C4C4; border-radius:3px; background-color:#ececec; text-align:center; margin-left:10px;}
+.pages{ z-index:1; position:relative; float:left; width:56px; margin-left:10px;}
+.pages_title{ width:56px; height:24px; line-height:24px;}
+.pages_title b{ float:left; width:11px; height:9px; background-position:-219px -172px; margin:8px 0 0 5px;}
+.pages_title:hover b{ float:left; width:11px; height:9px; background-position:-207px -172px; margin:8px 0 0 5px;}
+.pages_content{ z-index:999; position:absolute; top:24px; left:-12px; width:56px; background:#fff; border:1px solid #ccc; }
+.pages_content li, .pages_content_bottom li{ height:24px; line-height:24px; text-align:center; background-color:#F7F7F7;}
+.pages_content li a, .pages_content_bottom li a{ background-color:#F7F7F7; display:block; cursor:pointer;}
+.pages_content li a:hover, .pages_content_bottom li a:hover{ background-color:#fff; display:block; cursor:pointer;}
+.pages_content_bottom{ z-index:999; position:absolute; bottom:24px; left:-12px; width:56px; background:#fff; border:1px solid #eee; }
+
+
+.marketList{ clear:both; width:680px; overflow:hidden;}
+.commodity{background:#fbfbfb; float:left; width:148px; padding:15px 11px;  margin:10px 5px 0;overflow:visible; border-radius:5px;}
+.commodity_img{ width:148px; height:148px; text-align:center; vertical-align:middle; margin-bottom:5px;}
+.commodity_img img{ width:148px; height:148px; border:1px solid #E8E8E8; border-radius:10px; overflow:hidden;}
+.commodity_info{ width:148px; overflow:visible;}
+.commodity_info .f1, .commodity_info .f2{ height:24px; line-height:24px; overflow:hidden;}
+.commodity_info .f2{ white-space:nowrap;}
+.commodity_info .f3{height:24px; line-height:24px;  z-index:2; position:relative; overflow:visible;}
+.commodity_info .f1 a{width:115px;overflow: hidden; font-weight:bold; white-space: nowrap;-o-text-overflow: ellipsis;text-overflow: ellipsis;}
+.selectBox{ float:right; width:106px; height:20px;}
+.selectBtn{ float:left; width:21px; height:20px; background-position:-193px -226px; overflow:hidden; cursor:pointer;}
+.selectText{ float:left; width:75px; height:20px; line-height:20px; border-left:1px solid #D6D6D6; background-position:0 -309px; padding-left:6px; overflow:hidden; color:#666;}
+.commodity_float{ z-index:999; position:absolute; top:20px; left:42px; width:100px; border:1px solid #eee; background:#fff;}
+.commodity_float li{ width:100px; height:24px; line-height:24px; text-align:center; background-color:#F7F7F7;}
+.commodity_float li:hover{ background-color:#fff; display:block; cursor:pointer;}
+.commodity_btns{ display:block; margin-top:3px;}
+.commodity_btns_right{ float:right; width:80px;}
+.commodity_btns_left{ float:left; width:66px; height:20px; padding:5px 0;}
+.commodity_btn{ width:80px; height:26px; line-height:26px; color:#666; text-align:center; cursor:pointer; background-position:0 -306px; margin:4px 0 0 0;}
+.commodity_btn_mouseon{ width:80px; height:26px; line-height:26px; color:#fff; text-align:center; cursor:pointer; background-position:-248px -1px; margin:4px 0 0 0;}
+
+.commodity_add_num{ float:left; width:30px; height:20px; line-height:20px; border:1px solid #d1d1d1; background:#f7f7f7; display:block; font-size:12px; text-align:center; overflow:hidden;}
+.commodity_add_num p{ float:left; width:20px; height:20px;}
+.commodity_add{ float:left; width:20px; height:9px; background-position:-84px -308px; text-indent:-9999px; margin:0px 0 0 2px; cursor:pointer; overflow:hidden;}
+.commodity_minus{ float:left; width:20px; height:9px;  background-position:-84px -320px; text-indent:-9999px; margin:4px 0 0 2px; cursor:pointer; overflow:hidden;}

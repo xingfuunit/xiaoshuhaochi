@@ -1,0 +1,253 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>  
+ <{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+    <script>
+  	var mynomenu='baseset';
+  	</script>
+ <{/block}> 
+ <{block name=bodylist}>
+  <div class="conWaiSet fr">
+        	
+            <div class="shopSetTop">
+            	<span>店铺设置</span>
+            </div> 
+            	  <{include file="<{$tempdir}>/shop/usereditmenu.html"}>  
+             <div class="cl"></div>  
+                  
+                <form id="loginForm" method="post" action="<{ofunc type=url link="/shop/savefastfood"}>">
+                 <div class="jutiSet">
+        			   <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>是否支持预定：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        <input type="radio"<{if  $shopfast['is_orderbefore']==1}> checked<{/if}> name="is_orderbefore" id="" value="1" />是 <input type="radio" name="is_orderbefore" id="" value="0" <{if  $shopfast['is_orderbefore']==0}> checked<{/if}>/>否 <span id="befortime" <{if  $shopfast['is_orderbefore']==1}>style="display:inline-block;" <{else}>style="display:none;"<{/if}>>,可预定天数<input type="text"  name="befortime" value="<{$shopfast['befortime']}>" class="ttext" style="width:50px;">0表示只支持当天</span>
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    
+                    <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>起送价：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input type="text" style=" background:#e0f5ff;width:55px; height:29px;" name="limitcost" value="<{$shopfast['limitcost']}>" />&nbsp;&nbsp;&nbsp;元起
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    
+                    
+                    <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>起送说明：</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" style="width:569px; "  value="<{$shopfast['limitstro']}>"  name="limitstro" />
+                            
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    
+                    <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>制作时间：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input type="text" style=" background:#e0f5ff;width:55px; height:29px;"  name="maketime" value="<{$shopfast['maketime']}>"  />&nbsp;&nbsp;&nbsp;分钟
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    
+                    
+                
+                    
+                    <div class="serxuanze" id="pssset">
+                    	<div class="xuanze_left">
+                        	<span>配送方式：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<{if $opensitesend == 1}><input type="radio" value="0" name="sendtype" <{if  empty($shopfast['sendtype'])}> checked<{/if}>>网站配送 <{/if}>
+                        	          <{if $openshopsend ==  1}> <input type="radio" value="1" name="sendtype" <{if  $shopfast['sendtype']==1}> checked<{/if}>>店铺自行配送  <{/if}> 
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    
+                    
+                     <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>定位最大半径：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input type="text" style=" background:#e0f5ff;width:55px; height:29px;"  name="pradius" value="<{$shopfast['pradius']|default:1}>"  />&nbsp;&nbsp;&nbsp;千米 用户位置和商家距离小于最大定位半径则显示
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                     
+                    
+                     
+                      <{foreach from=$attrlist item=items}>
+                       <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span><{$items['name']}>：</span>
+                        </div>
+                        <div class="xuanze_right"> 
+                        	<{foreach from=$items['det'] item=itv}> 
+                        	      <{if $items['type'] ==  'input'}>
+                        	         <{assign var=shownow value=$items['id']|cat:'-0'}>   
+                        	         <input type="input" value="<{$myattr[$shownow]|default:''}>" name="mydata<{$items['id']}>" class="text" style=" background:#e0f5ff;width:200px; height:29px;margin-top:5px;">
+                        	      <{elseif $items['type'] == 'img'}>
+                        	        <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>  
+                        	         <input type="checkbox" value="<{$itv['id']}>" name="mydata<{$items['id']}>[]"  <{if isset($myattr[$shownow1])}>checked<{/if}> ><img src="<{$itv['name']}>" width=30px> 
+                        	      <{elseif $items['type'] == 'checkbox'}>
+                        	         <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>
+                        	         <input type="checkbox" value="<{$itv['id']}>" name="mydata<{$items['id']}>[]" <{if isset($myattr[$shownow1])}>checked<{/if}> ><{$itv['name']}> 
+                        	      <{elseif $items['type']=='radio'}>
+                        	           <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>  
+                        	           <input type="radio" value="<{$itv['id']}>" name="mydata<{$items['id']}>" <{if isset($myattr[$shownow1])}>checked<{/if}>><{$itv['name']}>  
+                        	      <{/if}>
+                        	      
+                        	<{/foreach}> 
+                        	 </div>
+                        <div class="cl"></div>
+                    </div>
+                      <{/foreach}>
+                    
+                    
+                    
+                    
+                    
+                  	 <div class="settijiao">
+                    	
+                       
+                        	<input class="xuanze_right" type="submit" name=""  value="" />
+                     
+                        <div class="cl"></div>
+                    </div>
+                    
+                    
+       			 </div>
+              </form>  
+                
+                
+        </div>
+        <div class="cl"></div>
+        
+        
+</div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ <script type="text/javascript">
+	         <{$shoppsset = $defaultset}>
+           <{if !empty($shopfast['sendset'])}> 
+	 	           <{$shoppsset = $shopfast['sendset']|unserialize}>
+	 	       <{/if}> 
+ $(function(){ 
+ 	 var myset=  $("input[name='sendtype']:checked").val();
+ 	 if(myset ==  1){
+ 	 	    showhtml();
+ 	 }
+ 	 
+ });
+ function showhtml(){
+ 	 <{$pssetinfo = $psset|unserialize}>;
+ 	 var locationtype = '<{$pssetinfo['locationtype']}>';
+ 	 if(locationtype == 1){
+ 	 	var otherhtml = '';
+ 	 	  <{foreach from=$pestypearr key=mykey item=items}>
+ 	 	  <{if $mykey != 2}>
+ 	 	     otherhtml += '<input type="radio" value="<{$mykey}>"  <{if $shoppsset['pstype'] == $mykey}>checked<{/if}> name="pstype"> <{$items}>';
+ 	 	   <{/if}>
+ 	 	  <{/foreach}>
+ 	 	  //<div class="serxuanze" id="pstype"><div class="xuanze_left"> <span>计费方式：</span> </div> <div class="xuanze_right">  </div> <div class="cl"></div>  </div>
+ 	 	  $('#pssset').after('<div class="serxuanze" id="pstype"><div class="xuanze_left"> <span>计费方式：</span> </div> <div class="xuanze_right"> '+otherhtml+' </div> <div class="cl"></div>  </div>');
+ 	 }else{
+ 	 	 var otherhtml = '';
+ 	 	 <{foreach from=$pestypearr key=mykey item=items}>
+ 	 	  <{if $mykey != 4}>
+ 	 	     otherhtml += '<input type="radio" value="<{$mykey}>" <{if $shoppsset['pstype'] == $mykey}>checked<{/if}>  name="pstype"> <{$items}>';
+ 	 	   <{/if}>
+ 	 	  <{/foreach}>
+ 	 	  $('#pssset').after('<div class="serxuanze" id="pstype"><div class="xuanze_left"> <span>计费方式：</span> </div> <div class="xuanze_right"> '+otherhtml+' </div> <div class="cl"></div>  </div>');
+ 	 }
+ 	 $('input:radio[name="pstype"]:checked').trigger("click");  
+ }
+ $("input[name='pstype']").live("click", function() {   
+ 	   $('.feetr').remove();
+  	 var myset=  $("input[name='pstype']:checked").val();
+  	 var otherhtml = '';
+ 	   if(myset ==  1){//店铺统一配送费
+ 	   	 
+ 	   	
+ 	   	 
+ 	   	 
+ 	   	 
+ 	   	 
+ 	       otherhtml ='<div class="serxuanze feetr"><div class="xuanze_left"><span>配送费：</span></div><div class="xuanze_right"> <input type="text" style=" background:#e0f5ff;width:55px; height:29px;"  name="psvalue1" value="<{$shoppsset['psvalue1']}>"  />&nbsp;&nbsp;&nbsp;元  </div> <div class="cl"></div>  </div>';
+ 	 	     
+ 	   }else if(myset == 2){//店铺区域设置配送费
+ 	   
+ 	   }else if(myset == 3){//不计算配送费
+ 	   }
+ 	   else if(myset == 4){//百度地图测算配送费
+ 	   	otherhtml ='';
+ 	   }else{
+ 	    otherhtml ='<div class="serxuanze feetr"><div class="xuanze_left"><span>基础配送费：</span></div><div class="xuanze_right"> <input type="text" style=" background:#e0f5ff;width:55px; height:29px;"  name="psvalue1" value="<{$shoppsset['psvalue1']}>"  />&nbsp;&nbsp;&nbsp;元  </div> <div class="cl"></div>  </div>';
+ 	    otherhtml +=' <div class="serxuanze feetr"><div class="xuanze_left"><span>自增费：</span></div><div class="xuanze_right"> <input type="text" style=" background:#e0f5ff;width:55px; height:29px;"  name="psvalue2" value="<{$shoppsset['psvalue2']}>"  />&nbsp;&nbsp;&nbsp;元  </div> <div class="cl"></div>  </div>';
+ 	   }
+ 	   $('#pstype').after(otherhtml);
+  });
+ 
+  $("input[name='sendtype']").live("click", function() {   
+  	 var myset=  $("input[name='sendtype']:checked").val();
+ 	   if(myset ==  1){
+ 	 	    showhtml();
+ 	  }else{
+ 	    $('.feetr').remove();
+ 	    $('#pstype').remove();
+ 	  }
+  });
+	function openfast(){
+	  if(confirm('确定开启外卖操作吗？')){
+	  	$("input[name='openshopfast']").attr("checked",false);
+	  	myajax('<{ofunc type=url link="/shop/startshop/datatype/json"}>',{opentype:'shopfast'});
+	   }else{
+	   	$("input[name='openshopfast']").attr("checked",false);
+	  }
+	}
+	function closefast(){
+		if(confirm('确定关闭外卖操作吗？\n 对应商品数据将会清空')){
+	  	$("input[name='openshopfast']").attr("checked",true);
+	  	myajax('<{ofunc type=url link="/shop/closeshop/datatype/json"}>',{opentype:'shopfast'})
+	   }else{
+	   	$("input[name='openshopfast']").attr("checked",true);
+	  }
+	}
+	$("input[name='is_orderbefore']").click(function(){
+		  var checkid =  $("input[name='is_orderbefore']:checked").val();
+		 //befortime
+		 if(checkid == 1){
+		 	$('#befortime').show();
+		 }else{
+		 	 $('#befortime').hide();
+		 	 $("input[name='befortime']").val('0');
+		 }
+		  
+	}); 
+	$('.hc_login_btn_div').click(function(){
+		$('#loginForm').submit(); 
+	}) 
+</script> 
+  
+ <{/block}>

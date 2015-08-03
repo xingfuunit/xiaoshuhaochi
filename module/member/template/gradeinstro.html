@@ -1,0 +1,84 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+ 	<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>我的积分</b></span></p>
+						</div><!--title end-->
+            <div style="background-color:#fff;border:1px solid #ccc;margin-bottom:10px;">
+            	<div class="ai-wrap">
+									<div class="ai-left">
+										<p>会员等级 <span id="now-jifen"><{$member['gradename']}></span>，累计成长值 <span id="leiji-jifen"><{$member['total']|default:0}></span></p>
+									</div>
+			
+								 
+									<div class="clear"></div>
+								</div>
+            </div>
+           
+            
+            
+            
+            
+						<div class="mr-middle"><!--mr-middle-->
+							<div class="account_integral"><!--account_integral--> 
+								<div class="m-m8-jifenlist" id="m-m8-jifenlist" style="padding-top:10px;"> 
+									
+									
+									<div class="progress" pro="1" style="width: 800px;">
+									  	<p class="bg"></p><p class="pro" style="width: 0px;" id="getlongid"></p>
+											   <ul name="pro_loading" id="pro_loading">
+											   	<{foreach from=$membergrade key=mykey item=items}>
+											   	  
+												      <li class="p1  b <{if $member['total'] >= $items['from'] }>hover<{/if}>" style="left:<{$mykey*$perlong}>px;" datafrom="<{$items['from']}>" datato="<{$items['to']}>" dataper="<{$perlong}>"><span><{$items['gradename']}></span></li>
+												<{/foreach}>
+											 
+											</ul>
+										   </div>
+									
+										 
+										  <div class="clear"></div>
+								 	    
+								 		<div class="clear">	</div>
+								 		<div class="clear">	</div>
+								 	</div>
+
+								<div id="showrecord" style="display:none;">  </div>
+							</div><!--account_integral end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end-->
+				</div>
+<script>
+	 
+	$(document).ready(function(){ 
+		  var persongdata = "<{$member['total']|default:0}>";
+		  var findobj = $('#pro_loading').find('li');
+		  var doid = 0;
+		   
+		  for(var i=0;i<$(findobj).length;i++){
+		       if($(findobj).eq(i).hasClass('hover')){
+		       	 doid = i;
+		       }
+		  }
+		  //获取数据
+		  var checkobj = $(findobj).eq(doid);
+		  var baselong = Number($(checkobj).attr('dataper'))*doid;
+		  var from = Number($(checkobj).attr('datafrom'));
+		  var to = Number($(checkobj).attr('datato'));
+		  var alllong = Number(to)-Number(from);
+		  var mylong = Number(persongdata)-Number(from);
+		  var checklong = (Number(mylong)/Number(alllong))*Number($(checkobj).attr('dataper')); 
+		  var resultlong = Number(checklong)+Number(baselong); 
+		  $('#getlongid').css({'width':resultlong});
+		  resultlong = Number(resultlong);// =='NaN'?0:resultlong;
+		  
+		  
+		  //画我的位置
+		  var htmls = '<li class="p3 s " style="left:'+resultlong+'px;background-position: left bottom;">	<a href="javascript:void(0)" style="cursor: default;"><span>我的积分'+persongdata+'</span></a> </li>';
+       $(findobj).eq(doid).after(htmls);
+		  
+	});
+	 
+</script>
+<{/block}>

@@ -1,0 +1,59 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/shop.css">
+<{/block}>
+ <{block name=extendjs}> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/template.min.js"></script>   
+ 
+ <script>  
+  function showorder(obj){
+
+  	window.location.href=siteurl+'/index.php?controller=wxsite&action=ordershow&orderid='+$(obj).attr('orderid')+'&random=@random@';  //'ordershow.html?orderid='+$(obj).attr('orderid');//  	alert($(obj).attr('orderid')); 
+
+  } 
+</script>
+
+<{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 订单分类 </header><{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div style="height:44px;"></div>
+ 
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist"> 
+  			   
+  			  <li class="topheader box_inline" onclick="dolink('<{ofunc type=url link="/wxsite/shopordertoday/status/1"}>');">
+  			  	 <div class="colomns liwd90">
+  			  	 	今日待发货订单(<{$tj[1]|default:'0'}>)
+  			    	</div>
+  			    	 <div class="colomns liwd10" style="text-align:right;"> <div  class="leftarry"></div> 
+  			    	</div>
+  			    	  
+  			  </li>
+  			  <li class="topheader box_inline" onclick="dolink('<{ofunc type=url link="/wxsite/shopordertoday/status/2"}>');">
+  			  	 <div class="colomns liwd90">
+  			  	 	今日已发货订单(<{$tj[2]|default:'0'}>)
+  			    	</div>
+  			    	 <div class="colomns liwd10" style="text-align:right;"> <div  class="leftarry"></div> 
+  			    	</div>
+  			    	  
+  			  </li>
+  			  <li class="topheader box_inline" onclick="dolink('<{ofunc type=url link="/wxsite/shopordertoday/status/3"}>');">
+  			  	 <div class="colomns liwd90">
+  			  	 	今日完成订单 (<{$tj[3]|default:'0'}>)
+  			    	</div>
+  			    	 <div class="colomns liwd10" style="text-align:right;"> <div  class="leftarry"></div> 
+  			    	</div>
+  			    	  
+  			  </li> 
+  			   
+  			  
+  			    
+  			</ul> 
+    </section>
+ 
+
+ 
+  
+<{/block}>

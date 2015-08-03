@@ -1,0 +1,40 @@
+<{include file="<{$tempdir}>/public/admintop.html"}>
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+          <div id="tagstitle"><a class="hover">网站设置</a></div>
+          <div id="tagscontent">
+            <form method="post" name="form1" action="">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">网站名称</td>
+                      <td><input type="text" name="sitename" id="sitename" value="测试网站" class="skey" style="width:150px;"></td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">网站SEO描述</td>
+                      <td><input type="text" name="description" id="description" value="测试网站" class="skey" style="width:250px;"></td>
+                    </tr>
+                    
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">网站SEO关键字</td>
+                      <td><input type="text" name="keywords" id="keywords" value="测试网站" class="skey" style="width:250px;"></td>
+                    </tr> 
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+<{include file="<{$tempdir}>/public/adminfoot.html"}> 

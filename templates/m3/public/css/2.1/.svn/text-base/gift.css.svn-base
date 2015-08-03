@@ -1,0 +1,28 @@
+@charset "gb2312";
+/* CSS Document */
+#gift{ width:100%;}
+#gift .webMainModel{ width:1150px; padding-top:29px;}
+
+/*左侧列表*/
+#gift-list{ width:840px; float:left; padding-bottom:89px;}
+#gift-list li{ background:#fff; border-bottom:1px solid #ddd; box-shadow:1px 1px 3px #ddd,-1px 1px 3px #ddd; float:left; margin:0 10px 10px 0; width:270px; height:393px;}
+.gift-ImgWarp{ width:260px; height:260px; padding:5px 5px 0; }
+.gift-itemTitle{ margin-top:7px; font-weight:normal; height:27px; line-height:27px; color:#333; padding-left:15px;}
+#gift-list li p{ line-height:21px; padding-left:15px; color:#999;}
+#gift-list .gift-exchange{ position:relative; margin-top:12px; height:40px; line-height:40px; padding-left:19px; background:#eee;}
+.gift-price{color:#ec7b01; font-size:15px; padding-right:8px;}
+#gift-list .gift-changeBtn{ position:absolute; right:0; top:0; background:url(../../images/gift-changeBtn.png) no-repeat; width:145px; height:40px; text-indent:34px; color:#fff; cursor:pointer; font-size:14px;}
+
+/*右侧信息*/
+/*可用积分*/
+.gift-msn{ width:280px; float:right;}
+.gift-usableInt{ margin-bottom:19px; box-shadow:1px 1px 3px #ddd,-1px 1px 3px #ddd; height:139px; background:#f5a22d; color:#fff; text-align:center; padding-top:11px; position:relative;}
+.gift-intNum{ font-size:20px; height:34px; line-height:34px; padding-bottom:24px;}
+.gift-usableInt h3{ font-size:18px; font-weight:-normal; height:31px; line-height:31px;}
+.gift-msnRule{ height:50px; background:#fff; text-align:left;  line-height:50px; padding-left:65px;position:relative;}
+.gift-msnRule .triangle{ position:absolute; left:127px; top:-26px; border-width:13px; border-color: transparent transparent #fff; border-style: dashed dashed solid; cursor:default;}
+.gift-msnRule a{color:#f5a22d; padding-right:25px; font-size:16px; }
+
+/*；礼品车*/
+#gift .car{ background:#fff; padding-top:15px; margin-bottom:19px;}
+#gift .car-list{ margin-top:5px;}

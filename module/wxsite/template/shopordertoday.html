@@ -1,0 +1,73 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/order.css">
+<{/block}>
+ <{block name=extendjs}>  
+ <script> 
+   
+  function showorder(obj){
+
+  	window.location.href=siteurl+'/index.php?controller=wxsite&action=ordershow&orderid='+$(obj).attr('orderid')+'&random=@random@';  //'ordershow.html?orderid='+$(obj).attr('orderid');//  	alert($(obj).attr('orderid')); 
+
+  }
+
+ 	</script>
+
+<{/block}>
+<{block name=hearnav}><header id="header"><div class="return"></div> <{$orderbt}> </header><{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="wrapper" style="top:40px;bottom:0px;">
+	<div id="scroller">
+ 
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist">
+  			 
+  			  <li class="topheader box_inline">
+  			  	 <div class="colomn wd1">
+  			  	 	订单ID
+  			    	</div>
+  			    	 <div class="colomn wd2">配送时间
+  			    	</div>
+  			    	 <div class="colomn wd3">订单状态
+  			    	</div>
+  			    	 <div class="colomn wd4">
+  			    	 	详情
+  			    	</div>
+ 
+
+  			  </li>
+  			  <{load_data assign="orderlist" table="order"   fileds="*"   where="<{$where}>" orderby="id desc" limit="300"}>  
+  			  <{if count($orderlist['list']) > 0}>
+  			  <{foreach from=$orderlist['list'] item=items}>
+  		    <li class="list box_inline">
+  			  	 <div class="colomns wd1">
+  			  	 	 <{$items['id']}>
+  			    	</div>
+  			    	 <div class="colomns wd2"><{$items['posttime']|date_format:"%Y-%m-%d %H:%M:%S"}> 
+  			    	</div>
+  			    	 <div class="colomns wd3"><{$buyerstatus[$items['status']]}>
+  			    	</div>
+  			    	 <div class="colomns wd4">
+  			    	 	<span class="btn" onclick="dolink('<{ofunc type=url link="/wxsite/shopshoworder/id/<{$items['id']}>"}>');">详情</span>
+  			    	</div>
+  			  </li>
+  			  <{/foreach}>
+  			  <{else}>
+  			   <li class="list box_inline">
+  			  	  <div style="height:80px;line-height:80px;width:100%;text-align:center;">  暂无数据</div>
+  			  </li>
+  			  <{/if}>
+  			  
+  			    
+  			</ul> 
+    </section>
+ 
+ 
+</div>
+</div>
+ 
+ 
+  
+<{/block}>

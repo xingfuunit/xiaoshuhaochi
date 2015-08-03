@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Language" content="zh-CN"> 
+<meta content="all" name="robots"> 
+<meta name="description" content=""> 
+<meta content="" name="keywords"> 
+<title>任务处理</title> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin.css">
+ 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>  
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+</head>
+<body style="background:none;height:100px;">
+	  <{$taskmiaoshu}><div id="showcontent"></div>
+	  <br>
+	任务对象： <{$showcontent}>
+	<input type="hidden" name="intvaltime" id="intvaltime" value="1000">
+	
+  <script>
+  var timeID; 
+ function timeCount()
+{
+	var timeid = $('#intvaltime').val();
+	if(timeid == 0)
+	{
+		$('#intvaltime').val('0');
+	//	$('#showcontent').html('调用刷新');
+	 window.location.reload();
+	}else{
+		$('#intvaltime').val('0');
+			$('#showcontent').html('处理中..');
+		
+  }
+}
+function beginCount()
+{
+  timeID = setInterval("timeCount()",5000);
+}
+<{if $taskdata['status'] != 2 }>
+$(function(){ 
+	beginCount();
+	
+ })	
+ <{/if}>
+  	 
+  	</script>
+</body>
+</html>

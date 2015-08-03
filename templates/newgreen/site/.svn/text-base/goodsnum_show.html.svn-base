@@ -1,0 +1,224 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/phonecheck.js" type="text/javascript" language="javascript"></script> 
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+<div id="content">
+	<div class="hc_content">
+<form id="cart_form" method="post" action="<{ofunc type=url link="/site/order"}>">
+<div class="ordersel">
+<div class="shopinfoHidden"></div>
+<div class="selectedShop">
+	<input id="selshopid" type="hidden" value="2350">
+</div>
+<div class="hc_order_liucheng">
+	<div class="hc_order_liucheng1"></div>
+	<div class="hc_order_liucheng2"></div>
+	<div class="hc_order_liucheng3"></div>
+	<div class="clear"></div>
+</div>
+  <div class="sel-top"></div> 
+  <div class="hc_order_foods_head">我的美食篮子</div>
+   <div class="bordered-box" >
+      
+	 
+			<div id="cartshow_c"></div>
+			
+		
+       
+       
+            <div class="hc_order_addr">
+        		<div class="hc_order_foods_head">配送信息</div>
+			<div class="hc_order_address">
+				<div style="height: 10px;"></div>
+            	             <{if !empty($addresslist)}>            
+                   <div class="hc_order_lists">
+							     <span class="hc_order_lists_tibiao">详细地址</span>
+							     <{foreach from=$addresslist item=items}> 
+                     <div class="myaddr" style="margin-left: 15px;margin-top: 5px;" title="<{$items['address']}>，<{$items['contactname']}>，<{$items['phone']}><{$items['otherphone']}>">
+                        	<input type="radio" <{if $items['default'] == 1}>checked="checked"<{/if}> style="margin:0px 2px 0px 0px; width: 20px;" id="send_addr_<{$items['id']}>" name="addr_id" value="<{$items['id']}>">
+                        	<{$items['address']}>，<{$items['contactname']}>，<{$items['phone']}>，<{$items['otherphone']}>                      
+                      </div> 
+                   <{/foreach}> 
+                  
+                  
+                 
+                   
+                   <div class="clear"></div>
+                        
+                  </div>	
+                   <{/if}>
+           
+            <div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao">详细地址：</span>
+							<input type="text" class="hc_order_input_box" id="addrestemp" name="addrestemp" size="50" value="<{$areainfo|default:''}>" > 
+							<span class="hc_order_lists_span_color"> * </span>
+							<span class="hc_order_lists_span">如果不一致请修改</span>
+						</div>
+						<{if count($myaddressslist) > 0}>
+					 <div class="hc_order_lists">
+					 	    <{foreach from=$myaddressslist item=itb}> 
+					 	    <div style="margin-left:80px;">     <input type="radio" name="myaddresslist" onclick="setaddress('<{$itb['address']}>','<{$itb['contactname']}>','<{$itb['phone']}>','<{$areainfo}>');" ><{$areainfo}><{$itb['address']}>,<{$itb['contactname']}>,<{$itb['phone']}>  </div>
+					 	    <{/foreach}> 
+						</div>
+						 
+						<{/if}>
+					
+						<div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao">联系电话：</span>
+							<input id="phone" class="hc_order_input_box" type="text" value="" size="30" name="phone">
+							<span class="hc_order_lists_span_color"> * </span>
+							<span class="hc_order_lists_span" id="uphone">外卖到时将以该电话通知您</span>
+						</div>
+						
+						<div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao"> 联 系 人：</span>
+							<input id="recieve_name" class="hc_order_input_box" type="text" value="" size="30" name="recieve_name">
+							<span class="hc_order_lists_span_color"> * </span>
+							<span></span>
+						</div>
+
+						<div class="hc_order_lists">
+							<span class="hc_order_lists_tibiao">备选电话：</span>
+							 <input id="bak-phone" class="hc_order_input_box" type="text" value="" size="30" name="phone-bk">
+							<span class="hc_order_lists_span">为方便送餐员联系，请再留一个备用电话</span>
+						</div> 
+						 
+                                           
+     
+				
+				
+				
+				
+              
+              <div class="hc_order_lists" id="sendFoodTime">
+							<div class="hc_order_select">
+								<span class="hc_order_lists_tibiao">送餐时间：</span>
+								 
+								   <select name="senddate"  style="width: 232px;margin:0px; height:30px; border-radius: 4px 4px 4px 4px;" onchange="maketimenenu();">
+								   	 <{if $shopinfo['befortime'] > 0}>
+								   	    <{assign var=shownow value=time()}>   
+								   	    <{section name=loop loop=$shopinfo['befortime']}>   
+								            <option value="<{$shownow|date_format:"%Y-%m-%d"}>"><{$shownow|date_format:"%Y-%m-%d"}></option>
+								          
+								            <{$shownow = $shownow+86400}>  
+                          <{/section}>  
+								   	 <{else}>
+								   	  <option value="<{time()|date_format:"%Y-%m-%d"}>"><{time()|date_format:"%Y-%m-%d"}></option>
+								   	  <{/if}> 
+								  </select> 
+							 
+							  	<select id="orderTime"  style="width: 232px;margin:0px; height:30px; border-radius: 4px 4px 4px 4px;"> 
+								  </select> 
+								
+								<span class="hc_order_lists_span_color"> * </span>
+							</div>
+							 
+						   <div class="hc_order_lists">
+						   	<span class="hc_order_lists_tibiao">支付方式 ：</span>
+							              <input type="radio" name="paytype" value="outpay" checked>货到支付
+							              <{if $open_acout == 1}>
+							              <{if $open_acout == 1 && !empty($member)}>
+							              <input type="radio" name="paytype" value="open_acout" >账户余额支付(我的余额<{$member['cost']|default:'0'}>元)
+							              <{/if}>
+							              <{if isset($paylist)&&is_array($paylist)}>
+							              <{foreach from=$paylist item=items}>  
+							              <input type="radio" name="paytype" value="<{$items['loginname']}>"><img src="<{$items['logourl']}>"> 
+							              <{/foreach}>
+							              <{/if}>
+							              <{/if}>
+							            <span class="hc_order_lists_span_color">   </span>
+							           <span></span>
+						   	</div>
+						  </div>
+						  
+                  <div class="hc_order_lists" id="jifendkou" jfendata="<{$scoretocost}>" data="<{$member['score']|default:0}>" <{if $member['uid'] < 1}>style="display:none;"<{/if}>>
+							    <span class="hc_order_lists_tibiao">积分抵扣 ：</span> 
+							          <span id="activeJifenselect"> </span>
+							            
+							            <span class="hc_order_lists_span_color"> 抵扣比例：<{$scoretocost}>积分抵扣1元  </span>
+							           
+						    </div>
+						     
+						
+						
+						                                            
+                    	
+				</div>
+				
+			  
+            
+			<div class="hc_order_foods_select">
+				<div class="hc_order_foods_head">订单备注（选填）</div>
+				<div class="text-box hc_order_foods_select_ul">
+					<ul>
+						<{if isset($orderbz) &&!empty($orderbz)}>
+						<{$orderbz = $orderbz|unserialize}>
+						 <{foreach from=$orderbz item=itv}>
+						  <{if !empty($itv)}>
+						<li><span class="hc_order_foods_select_li_span"><{$itv}></span></li>
+						 <{/if}>
+						<{/foreach}> 					
+						<{/if}>											
+						<div class="clear"></div>
+					</ul>
+
+				</div>
+				<div class="hc_order_foods_select_textarea">
+					<textarea id="remark" name="remark" type="text" style="margin: 0px 0px 9px; height: 120px; width: 940px; border:1px solid #ddd;"></textarea>
+				</div>
+				<div class="hc_orderBoxDiv_btn_div_a_div" id="showtj" >
+					<a id="order_submit_tj_g" class="hc_orderBoxDiv_btn_div cart_a" style="margin-top:10px;margin-left:20px;" href="javascript:orderSubmit()">提交订单</a>
+				</div>
+				<div class="hc_orderBoxDiv_btn_div_a_div" id="showtj2" style="display:none;">
+					<a id="order_submit_tj_g" class="hc_orderBoxDiv_btn_div cart_a" style="margin-top:10px;margin-left:20px;"  >提交中....</a>
+				</div>
+
+			</div>
+			<div class="clear"></div> 
+	</div>
+  <div class="clear"></div>
+  
+</div>
+
+</div>
+</form>
+ 
+<script type="text/javascript"> 
+	var cartshopid = '<{$shopid}>';
+	var shopid = '<{$shopid}>'; 
+	 var starttime = '<{$shopinfo['starttime']}>'; 
+	 var is_orderbefore=<{$shopinfo['is_orderbefore']}>;
+	 var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+	 var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+	 	var submithtml = '<{ofunc type=url link="/shop/makeorder/datatype/json/random/@random@"}>';
+	  var orderhtml = '<{ofunc type=url link="/site/waitpay/orderid/@orderid@"}>';
+$(function(){ 	
+	maketimenenu();
+});
+
+function addSend_time(obj)
+{
+	$('#send_time').val($(obj).val());
+}
+function setaddress(address,contactname,phone,areainfo) 
+{
+	 $("input[name='addrestemp']").val(areainfo+address);
+   $("input[name='phone']").val(phone);
+   $("input[name='recieve_name']").val(contactname); 
+}
+
+ 
+$('.text-box span').click(function(){
+	var value = $('#remark').val()+$(this).text() + ',';
+	$('#remark').val(value);
+})
+</script>
+ 
+
+</div> 
+<{/block}>

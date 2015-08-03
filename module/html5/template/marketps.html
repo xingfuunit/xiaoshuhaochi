@@ -1,0 +1,57 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<style>
+
+	.prer03 li p {
+
+width: 87.5%;
+
+border-bottom: 1px solid #dcdcdc;
+
+margin: 0px auto;
+
+padding: 15px;
+
+line-height: 20px;
+
+position: relative;
+
+}
+
+.ftnBd {
+
+font-weight: bold;
+
+}
+
+ 
+
+.city-select {
+
+background: url(images/li_selected.png) right no-repeat;
+
+background-size: 18px 18px;
+
+} 
+
+</style>
+
+<{/block}>
+ <{block name=extendjs}> 
+ 
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+<div id="hallist"> 
+  	<header><div class="return"></div>选择城市</header> 
+  <div class="container" style="padding-top:0px;background:none;margin-top:0px;background:#fff;"> 
+  	<section> 
+         <ul class="prer03" id="prer03">  
+         	 <{load_data assign="list" table="area"   fileds="*" where="parent_id=<{$id}>" limit="100" }> 
+         	 <{foreach $list['list'] item=items}>
+             <li class="clkitm"   ><a href="<{ofunc type=url link="/html5/marketps/id/<{$items['id']}>"}>" ><p   class="city-select" code="102"><{$items['name']}></p></a></li>
+             <{/foreach}>
+          </ul> 
+    </section>
+
+<{/block}>

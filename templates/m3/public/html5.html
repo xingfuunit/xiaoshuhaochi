@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<title><{block name=sitetitle}><{/block}></title> 
+	 
+	<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/public.css">   
+  <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/index.css">   
+<{block name=extendcss}><{/block}>
+	<script src="<{$siteurl}>/templates/<{$tempdir}>/public/html5/js/jquery.js"></script> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/html5/js/public.js"></script>  
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/html5/js/swipe.js"></script> 
+<{block name=extendjs}><{/block}>
+<script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+</script>
+ <script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#eb0a315369c4f60074e72f7079c87fb8"></script><script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({app_id: 'fb7bfde77727fd99a32117ab'});</script>
+</head>
+<body> 
+	<div id="loading" style="display: block;"><div class="loadingbox"><section class="ffffbox"><div class="loadingpice"></div></section></div></div>
+	<{block name=blockcontent}>  
+  <{/block}>
+ <{block name=footer}>  
+  	<footer>
+  		<nav>
+  			<ul>
+  				<li id="homeindex"><a href="<{ofunc type=url link="/html5/index"}>">首页</a></li>
+  	    	<li id="footerorderlist"><a href="<{ofunc type=url link="/html5/order"}>">订单</a></li>
+  	    	<li id="favorate"><a href="<{ofunc type=url link="/html5/collect"}>">收藏</a></li>
+  	    	<li id="opinion"><a href="<{ofunc type=url link="/html5/ask"}>">意见反馈</a></li>
+  	    </ul>
+  	  </nav>
+  	  <p>Copyright © 2011-2014 Powered by <font id="sitetitle"></font></p>
+  	</footer>
+  	
+  </div>
+   <{/block}>
+</div> 
+ <script>
+ 	$(function(){  
+ 	   $('#loading').hide(); 
+  });
+  </script>
+</body>
+</html>
+ 

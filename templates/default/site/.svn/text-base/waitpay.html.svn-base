@@ -1,0 +1,113 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendjs}>
+ 
+<{/block}>
+<{block name=sitetitle}>下单成功提示<{/block}>
+ <{block name=bodylist}>
+<div id="content">
+	<form id="loginForm" method="post">
+<div class="hc_content">
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span">下单成功提示</span></div>
+			<div class="hc_login_content">
+					<div class="showorder">
+						 <table width="100%"  border="0">
+              <tr>
+                <td width="10%" class="tdname">订单编号：</td>
+                <td width="13%" ><{$orderinfo['dno']}>[]</td>
+                <td width="7%" class="tdname">下单时间</td>
+                <td width="20%"><{$orderinfo['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}> </td>
+                <td width="7%" class="tdname">配送时间</td>
+                <td width="33%"><{$orderinfo['posttime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+              </tr>
+                	 
+              <tr>
+                <td class="tdname">店铺名</td>
+                <td><{$orderinfo['shopname']}></td>
+                <td class="tdname">店铺电话</td>
+                <td><{$orderinfo['shopphone']}></td>
+                <td class="tdname">店铺地址</td>
+                <td><{$orderinfo['shopaddress']}></td>
+              </tr>
+              <tr>
+                <td class="tdname">下单联系人</td>
+                <td><{$orderinfo['buyername']}></td>
+                <td class="tdname">联系电话 </td>
+                <td><{$orderinfo['buyerphone']}></td>
+                <td class="tdname">送餐地址</td>
+                <td><{$orderinfo['buyeraddress']}></td>
+              </tr>
+              <tr>
+              	<td class="tdname">优惠</td>
+                <td style="color:#ff7800;"> <{$orderinfo['yhjcost']+$orderinfo['cxcost']}>元</td>
+                <td class="tdname">配送费用</td>
+                <td style="color:#ff7800;"><{$orderinfo['shopps']}>元</td>
+                <td class="tdname">订单总价</td>
+                <td  style="color:#ff7800;"><{$orderinfo['allcost']}>元</td> 
+                
+              </tr> 
+              <tr>
+              	<td class="tdname">备注</td>
+                <td colspan="3" class="tdname"><{$orderinfo['content']}></td>
+                <td class="tdname">使用积分</td>
+                <td><{$orderinfo['scoredown']}></td>
+              </tr>
+              <tr>
+                <td colspan="4" class="tdname">商品名</td><td class="tdname">商品数量</td><td class="tdname">小计</td>
+              </tr>
+              <{foreach from=$orderdetlist item=itmes}>
+              <tr class="detail">
+                <td colspan="4"><{$itmes['goodsname']}><{if $itmes['is_send']==1}><font color=red>[赠品]</font><{/if}><{if $itmes['shopid'] == 0}><font color=red>[商城]</font><{/if}></td>
+                <td><{$itmes['goodscount']}></td>
+                <td><{$itmes['goodscost']*$itmes['goodscount']}>元</td>
+              </tr>
+              <{/foreach}>
+               
+              <tr>
+                <td colspan="4">&nbsp;</td>
+                <td class="tdname">商品总价</td>
+                <td style="color:#ff7800;"><{$orderinfo['shopcost']}>元</td>
+              </tr>
+              
+              <tr>
+              	<td class="tdname">支付方式</td>
+                <td height="42"><{$paytypearr[$orderinfo['paytype']]}></td>
+                <td class="tdname">订单状态</td>
+                 <td height="42" ><{$buyerstatus[$orderinfo['status']]}></td>
+                 <td class="tdname">支付状态</td>
+                 <td height="42"><{if empty($orderinfo['paystatus'])}>未支付<{else}>已支付<{/if}></td>
+              </tr>
+              <tr>
+                <td colspan="6" align=center style="font-weight:bold;"> 恭喜你，订单下单成功</td>
+                 
+              </tr>
+              <{if $orderinfo['paytype'] != 'outpay' && $orderinfo['status'] < 2 && $orderinfo['paystatus'] == 0 }>
+              
+               <tr style="border:none;">
+              	 <td class="tdname">&nbsp;</td>
+                 <td height="50" colspan="5"><div class="login-button hc_login_btn_div " style="margin-top:5px;">提交支付</div></td>
+               </tr>
+              <{/if}>
+              
+              
+            </table>
+					</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</form>
+
+<script type="text/javascript">
+$('.login-button').click(function(){
+	//
+	var url = '<{ofunc type=url link="/site/gotopay/orderid/<{$orderinfo['id']}>"}>';
+	window.open(url);  
+})
+
+</script></div> 
+<{/block}>

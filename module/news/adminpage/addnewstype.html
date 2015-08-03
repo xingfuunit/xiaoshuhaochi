@@ -1,0 +1,67 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>  
+ <{block name=controlname}>编辑/添加分类<{/block}>
+ <{block name=bodylist}>
+ 	
+   	   <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+          
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/news/module/savenewstype/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/news/module/newstype"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">类型名称</td>
+                      <td><input type="text" name="name" id="name" value="<{$info['name']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">上一级目录</td>
+                      <td><select name="parent_id">
+                      	   <option value="0">顶级目录</option>
+                      	   <{$typeoption}>
+                      	  </select></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">目录类型</td>
+                      <td><input type="radio" name="type"   value="1" <{if $info['type'] == 1}>checked<{/if}>>文章(表示此目录下无下级目录，只绑定文章)<input type="radio" name="type"  value="2" <{if $info['type'] == 2}>checked<{/if}>>包含子级（表示比目录拥有下一级目录）</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" <{if $info['type'] != 1}> style="display:none;"<{/if}> id="trdisplaytype">
+                      <td class="left">展示类型</td>
+                      <td><input type="radio" name="displaytype"  value="1" <{if $info['displaytype'] == 1}>checked<{/if}>>文章独显(一个文章显示一条页面) <input type="radio" name="displaytype"   value="2" <{if $info['displaytype'] == 2}>checked<{/if}>>文章全显(此目录所有文章显示到一个页面通过#id访问)</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">排序ID</td>
+                      <td><input type="text" name="orderid" id="orderid" value="<{$info['orderid']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;">
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div> 
+    
+</div> 
+<script>
+	$(function(){ 
+		$("input[name='type']").live('click',function(){
+  	  var checkboj =  $("input[name='type']:checked").val(); 
+  	  if(checkboj ==1){
+  	  	$('#trdisplaytype').show();
+  	  }else{
+  	  	$('#trdisplaytype').hide();
+  	  }
+  	  //$("input[name=jizai]:eq(0)").attr("checked",'checked')
+    });
+	});
+</script>
+<{/block}>    

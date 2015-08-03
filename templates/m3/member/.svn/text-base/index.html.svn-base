@@ -1,0 +1,70 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+ <{block name=extendjs}>
+ <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script> 
+ <{/block}>
+ <{block name=controlname}>模块管理<{/block}>
+ <{block name=bodylist}> 
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto">  
+           <div class="tags">  
+          <div id="tagscontent"> 
+            <div id="con_one_1"> 
+              <div class="table_td" style="margin-top:10px;"> 
+              <form method="post" action="" onsubmit="return remind();"> 
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%"> 
+                    <thead> 
+                      <tr> 
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall(this.form, 'id')"></th> 
+                        <th align="center">id</th>
+                         <th align="center">标题</th>
+                        <th align="center">添加时间</th>  
+                        <th align="center">所在分类</th> 
+                         <th align="center">排序</th> 
+                        <th align="center">操作</th> 
+                      </tr> 
+                    </thead>  
+                     <tbody>
+                    <{load_data assign="list" table="news" where="`id`<100" limit=10}> 
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td> 
+                        <td align="center"><{$items['id']}></td> 
+                        <td align="center"> <{$items['title']}> </td> 
+                        <td align="center"><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>  
+                        <td align="center"><{$items['typename']}></td> 
+                      <td align="center"><{$items['orderid']}></td> 
+                        <td align="center">
+                        	<a href="<{ofunc type=url link="/admin/editnews/id/<{$items['id']}>"}>" ><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delnews/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                      </tr> 
+                       <{/foreach}>  
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                <div class="page_newc">
+                 	     <div class="select_page"><a href="#">全选</a>/<a href="#">取消</a> <a href="#" class="delurl">删除</a></div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+               <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+</div> 
+<{/block}>

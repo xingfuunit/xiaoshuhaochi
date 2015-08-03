@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+html, body, img, a img, form,ul,li,p,dl,dd,dt{margin:0;padding:0;border:0 none}
+
+body{background-color:#fff;font-size:14px;line-height:20px;color:#333;}i{ font-style:normal}
+
+a{text-decoration: none;}
+
+a:link,a:visited{color:#f60}
+
+ul,li{list-style:none}
+
+.content{padding:20px 20px 20px 20px;}
+.hangtiao{height:40px;margin-top:5px;}
+.labeltext{width:100px;float:left;height:40px;line-height:40px;text-align:right;color:#fff;font-weight:bold;background-color:#27a9e3;}
+.inputtext{width:500px;float:left;height:40px;line-height:40px;background-color:#ccc;}
+.inputtext .showdiv{padding-left:20px;color:#27a9e3;line-height:20px;padding-top:10px;}
+.goodsbase{height:160px;margin-top:5px;}
+.baseinfo{width:100px;float:left;height:160px;line-height:40px;text-align:right;color:#fff;font-weight:bold;background-color:#27a9e3;}
+.basetext{width:300px;float:left;height:160;line-height:40px;background-color:#ccc;}
+.basetext p{padding-left:20px;line-height:30px;color:#666;}
+.imgdiv{background-color:#fff;padding-left:30px;width:210px;float: left;height: 160px;}
+.clr{clear:both;}
+#newimg{position: absolute;
+left: 0px;
+top: 25px;
+margin-left: 450px;}
+ 

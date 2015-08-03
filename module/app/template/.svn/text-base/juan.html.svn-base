@@ -1,0 +1,85 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/app/css/juan.css">
+<{/block}>
+ <{block name=extendjs}> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/template.min.js"></script>   
+ 
+  
+
+<{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+  
+ 
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1"> 
+  			   
+  		    <li class="topheader box_inline" onclick="changeto(this);"> 
+  			    	  优惠券介绍
+  			  </li>
+  			  <li class="list box_inline"  >
+  			  	 <span class="costtext">·</span>优惠券可用语在提交订单的时候使用 
+  			  </li>
+  			  <li class="list box_inline"  >
+  			  	 <span class="costtext">·</span>每次交易最多使用一张优惠券 
+  			  </li>
+  			  <li class="list box_inline"  >
+  			  	 <span class="costtext">·</span>优惠券来源网站赠送或者商家活动等 
+  			  </li> 
+  			    
+  			</ul> 
+    </section>
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1"> 
+  			   
+  		    <li class="topheader box_inline" onclick="changeto(this);"> 
+  			    	 <div class="liwd60"> 未使用优惠券</div><div class="liwd40" style="color:#000;">共<span class="costtext"><{$wjuan['shuliang']}></span>张</div>
+  			  </li>
+  			  <{foreach from=$wjuan['list'] item=items}>
+  			  <li class="list box_inline"  >
+  			  	 <div class="liwd50"> <span class="costtext">·</span><{$items['name']}> </div><div calss="liwd50"><{$items['card']}></div>
+  			  </li>
+  			  <{/foreach}> 
+  			    
+  			</ul> 
+    </section>
+     <section class="listselect"> 
+  			<ul class="liststyle1">  
+  		    <li class="topheader box_inline" onclick="changeto(this);"> 
+  			    	 <div class="liwd60"> 已使用优惠券</div><div class="liwd40" style="color:#000;">共<span class="costtext"><{$ujuan['shuliang']}></span>张</div>
+  			  </li>
+  			 <{foreach from=$ujuan['list'] item=items}>
+  			  <li class="list box_inline"  >
+  			  	 <div class="liwd50"> <span class="costtext">·</span><{$items['name']}> </div><div calss="liwd50"><{$items['card']}></div>
+  			  </li>
+  			  <{/foreach}> 
+  			</ul> 
+    </section>
+     <section class="listselect">
+ 	    <ul class="liststyle1">  
+  		    <li class="topheader box_inline" onclick="changeto(this);"> 
+  			    	 <div class="liwd60"> 已过期优惠券</div><div class="liwd40" style="color:#000;">共<span class="costtext"><{$ojuan['shuliang']}></span>张</div>
+  			  </li>
+  			 <{foreach from=$ojuan['list'] item=items}>
+  			  <li class="list box_inline"  >
+  			  	 <div class="liwd50"> <span class="costtext">·</span><{$items['name']}> </div><div calss="liwd50"><{$items['card']}></div>
+  			  </li>
+  			  <{/foreach}> 
+  			</ul> 
+    </section>
+ <div style="clear:both;height:40px;"></div>
+ 
+ <div class="cart_tj">  帐号积分<span id="total_count"><{$member['score']}></span>个 </div>
+ 
+<script>
+	function changeto(obj){
+	  var pobj = $(obj).parent();
+	  $(pobj).find('.list').toggle();
+	}
+	toggle
+</script>
+<{/block}>

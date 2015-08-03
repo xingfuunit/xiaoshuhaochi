@@ -1,0 +1,75 @@
+<{if $showtype == 'shop'}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/comments.css"> 
+<div class="hc_menu_foods_div">
+				</div>
+					<div class="hc_CommentsDiv_content">
+						<div class="hc_CommentsDiv">
+							<ul class="liuyan_ul">
+								<{foreach from=$list item=items}>
+								<li>
+								 <div class="hc_CommentsDiv_li_usercomment">
+								    <div class="hc_CommentsDiv_li_usercomment_left"><{$items['username']|default:"游客"}></div>
+								    <div class="hc_CommentsDiv_li_usercomment_right">
+								 	      <div class="hc_CommentsDiv_li_usercomment_left_comments"><{$items['content']}></div>
+								 	      <div class="hc_CommentsDiv_li_usercomment_left_time">[<{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}>]</div>
+								 	      <{if !empty($items['replycontent'])}>
+								 	      <div class="hc_CommentsDiv_li_usercomment_left_comments">回复：<{$items['replycontent']}></div>
+								 	      <div class="hc_CommentsDiv_li_usercomment_left_time">[<{$items['replytime']|date_format:"%Y-%m-%d %H:%M:%S"}>]</div>
+								 	      <{/if}>
+								 	  </div>
+								 	<div class="clear"></div>
+								 	</div> 
+								 </li> 
+								 <{/foreach}>
+								 
+								 
+																								
+							</ul>
+						</div>
+
+						<div class="pagination pagination-centered">
+						  <{$pagecontent}>
+						</div>
+
+						<div class="hc_commentsBoxDiv">
+							<div class="hc_commentsBoxDiv_text">
+								<span class="hc_commentsBoxDiv_text_span">留&nbsp;&nbsp;言:</span>
+								<textarea id="liuyan_textarea" type="text" style="margin: 0px 0px 9px; height: 80px; width: 654px; border:1px solid #ff9f01;"></textarea>
+							</div>
+							<div class="hc_commentsBoxDiv_yanzheng" <{if $allowedcode != 1}>style="display:none;"<{/if}>>
+								<div class="hc_commentsBoxDiv_yanzheng_span hc_commentsBoxDiv_text_span">验证码：</div>
+								<div class="hc_commentsBoxDiv_yanzheng_input"><input style="border: 1px solid #FF9F01;" type="text" name="Captcha" id="Captcha"></div>
+								<div class="hc_commentsBoxDiv_yanzheng_number"><img src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg"><a href="javascript:freshcode();" >看不清刷新图片</a></div>
+								<div class="clear"></div>
+							</div>
+							<div class="hc_commentsBoxDiv_btn">
+								<div class="hc_commentsBoxDiv_btn_div" onclick="fabu();">提交留言</div>
+							</div> 
+						</div> 
+
+</div> 
+<script>
+	function fabu()
+	{
+		var shopid = $('#nowshopid').val();
+		if(shopid == undefined)
+		{
+			shopid = 0;
+		
+		}
+		if($('#liuyan_textarea').val() == '')
+		{
+			diaerror('留言内容不能为空'); 
+				return '';
+		}
+		var info = {'content':$('#liuyan_textarea').val(),'shopid':shopid,'Captcha':$('#Captcha').val()};
+		var backmes =   ajaxback('<{ofunc type=url link="/ask/saveask"}>',info); 
+		if(backmes.flag == false)
+		{
+			getLiuyan(0);
+		}else{
+			diaerror(backmes.content); 
+		} 
+	}
+</script>
+<{/if}>

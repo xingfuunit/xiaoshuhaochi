@@ -1,0 +1,433 @@
+ <{extends file="<{$tempdir}>/public/app.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/app/css/shopshow.css">   
+<{/block}>
+ <{block name=extendjs}>  
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/wxshop.js"></script>  
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/cart.js"></script> 
+   <script>
+   	 var shopid = <{$shopinfo['id']}>;
+   	 var checknext = false;
+   	 var shoplimitcost = '<{$shopdet['limitcost']}>';
+   	 $(function(){ 
+  		/*初始化样式*/
+  		   url = siteurl+'/index.php?controller=wxsite&action=cart&shopid='+shopid+'&datatype=json&random=@random@';
+        url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+      	var bk = ajaxback(url,''); 
+      	 initshop(bk);
+      	 /*
+      	  $('.goos_c_left li').bind("click", function() {   
+      	  	  var typeid = $(this).attr('data');
+      	  	  $(this).addClass('active').siblings().removeClass('active');
+      	  	  $('.dishli').hide();
+      	  	  $('.dotype'+typeid).show(); 
+          });
+      	   $('.goos_c_left').find('li').eq(0).trigger('click');
+      	   */
+      	 $('.righ_l_b_btn_moren').bind("click", function() {   
+      	    	if(checknext ==  false){ 
+      	    		checknext = true;
+      	     	   addonedish($(this).attr('data-id'),$(this).attr('data-shopid'),1,this);
+      	     	   setTimeout("myyanchi()", 500 );
+           	  }
+      	 	
+          }); 
+           $('.right_l_btn_left').bind("click", function() {   
+           	  if(checknext ==  false){ 
+           	  		checknext = true;
+      	     	   removeonedish($(this).attr('data-id'),$(this).attr('data-shopid'),1,this);
+      	     	   setTimeout("myyanchi()", 500 );
+           	  }
+      	 	
+          }); 
+           $('.right_l_btn_right').bind("click", function() {   
+           	if(checknext ==  false){ 
+           			 checknext = true;
+      	     	   addonedish($(this).attr('data-id'),$(this).attr('data-shopid'),1,this);
+      	     	   setTimeout("myyanchi()", 500 );
+           	  }
+      	 	
+          }); 
+  	});
+  	function myyanchi(){
+  		
+  		  checknext = false;
+  	}
+  	function initshop(datas){ 
+  		 $('.onselect').removeClass('onselect');
+	         	 $('.righ_l_b_btn_moren').show();
+	         	 $('.righ_l_b_btn_hover').hide();
+	         	 $('.right_l_btn_nub').text(0);
+	         	 $('#total_count').text(0);
+	         	 $('#total_money').text(0);
+	      if(datas.flag == false){    
+	         if($('#total_money').html() != undefined){ 
+	         	
+	         	
+	         	 
+	         	 $.each(datas.content.list, function(i,val){   
+	         	 	 
+	         	 	 if($('#gidli_'+val.id).html() != undefined){  
+	         	 	 	  var typeid = $('#gidli_'+val.id).attr('typeid');
+	              //  $('#typelist'+typeid).show();
+	              //   $('#typelist'+typeid).text(Number($('#typelist'+typeid).text())+Number(val.count)); 
+	               //  $('#gidli_'+val.id).addClass('onselect');
+	                 
+	                 $('#gshu_'+val.id).text(val.count); 
+	                $('#gidli_'+val.id).find('.righ_l_b_btn_moren').eq(0).hide();
+	                $('#gidli_'+val.id).find('.righ_l_b_btn_hover').eq(0).show();
+	         	 	 } 
+	          	}); 
+	          	 
+	          	$('#total_count').text(datas.content.sumcount);
+	          	$('#total_money').text(datas.content.sum);
+	          	if(Number(datas.content.sum) > Number(shoplimitcost)){
+	          		 $('#showcha').hide();
+	          		 $('#gotocart').show();
+	          	}else{
+	          	        var checkcost = Number(shoplimitcost)-Number(datas.content.sum);
+	          	        $('#showcha').show();
+	          		       $('#gotocart').hide();
+	          	        $('#showcha').text('差'+checkcost+'起送');
+	          	        
+	          	} 
+        	 }else{
+        	 	$('#showcha').show();
+	          		       $('#gotocart').hide();
+	          	        $('#showcha').text('差'+shoplimitcost+'起送');
+        	 }
+        }else{
+        	$('#showcha').show();
+	          		       $('#gotocart').hide();
+	          	        $('#showcha').text('差'+shoplimitcost+'起送');
+        }
+    }
+   </script>
+   	   
+<{/block}>
+<{block name=myScrolljs}>
+<script>
+var scroll1, scroll2,scroll3;
+function loaded() {
+ 
+	scroll2 = new iScroll('transition', {hScroll:false,hScrollbar:false, vScrollbar:false,fixedScrollbar:false,bounce:false});
+	scroll3 = new iScroll('shopdeinfo',{hScrollbar:false, vScrollbar:false,fixedScrollbar:false,bounce:false});
+}
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+document.addEventListener('DOMContentLoaded', loaded, false); 
+</script>
+
+<{/block}>
+ 
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=blockcontent}> 
+ <style>
+	.scroller {
+	position:absolute; z-index:1; 
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+#standard, #transition {
+	position:absolute; 
+	z-index:1;
+	display:block;  
+	top:45px;
+	bottom:40px; 
+	overflow:auto; 
+	width:28%;
+}
+ #transition{
+  
+  width:100%; 
+  background:#ffffff;
+ }
+ #shopdeinfo{
+ 	position:absolute; 
+	z-index:1;
+	display:block;  
+	top:40px;
+	bottom:40px; 
+	overflow:auto; 
+	width:100%;
+}
+	</style>
+  
+ 	<section class="changetop" id="header"> 
+  			<ul class="box_inline"> 
+  				<li class="liwd50 redli" onclick="show_btn('goodslistidv','shopinfo',this);">
+  					 菜单分类
+  			  </li>
+  				<li class="liwd50" onclick="show_btn('shopinfo','goodslistidv',this);">
+  					 店铺详情
+  			  </li> 
+  			</ul> 
+  			<div class="dolion" id="doshowli"></div>
+  			
+ </section>
+  
+ 
+<div id="transition" style="bottom:40px;">
+	   <div class="scroller right_list" style="margin-left:0px;">
+		    <{foreach from=$goodstype item=items}>
+        	   <div class="right_list_box "  id="listto_<{$items['id']}>" data="<{$items['id']}>">
+        	   	  <h3><{$items['name']}></h3>
+        	   	  <{foreach from=$items['det'] item=itv}>
+        	   	  <div class="right_list_box_body" id="gidli_<{$itv['id']}>" typeid="<{$itv['typeid']}>" data-price="<{$itv['cost']}>">
+        	   	  	  <input type="hidden" name="hiddesc" value="2302">
+        	   	  	 
+        	   	  	  <h4><{$itv['name']}></h4>
+        	   	  	  <p><i class="glyphicon glyphicon-star <{if $itv['point'] > 0}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $itv['point'] > 1}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $itv['point'] > 2}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $itv['point'] > 3}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $itv['point'] > 4}>on<{else}>off<{/if}>"></i></p>
+        	   	  	  <div class="righ_l_b_btn"> 
+        	   	  	  	<{if $itv['count'] < 1}>
+        	   	  	  	 <div class="righ_l_b_btn_sellout"     >¥<{$itv['cost']}></div>
+        	   	  	  	<{else}>
+        	   	  	  	<div class="righ_l_b_btn_moren"     data-id="<{$itv['id']}>" data-shopid="<{$itv['shopid']}>" id="gid_<{$itv['id']}>" data-price="<{$itv['cost']}>" typeid="<{$itv['typeid']}>">¥<{$itv['cost']}></div>
+        	   	  	  	<div class="righ_l_b_btn_hover" style="display:none;"><span class="right_l_btn_left"   data-id="<{$itv['id']}>" data-shopid="<{$itv['shopid']}>"></span><span class="right_l_btn_nub" id="gshu_<{$itv['id']}>">0</span><span class="right_l_btn_right"   id="gid_<{$itv['id']}>" data-price="<{$itv['cost']}>" typeid="<{$itv['typeid']}>" data-id="<{$itv['id']}>" data-shopid="<{$itv['shopid']}>">¥<{$itv['cost']}></span></div>
+        	            <{/if}>
+        	          
+        	          </div>
+        	          <div class="clear"></div>
+        	      </div>
+        	      <{/foreach}>
+        	       
+        	   </div>
+        	   <{/foreach}>
+       
+		
+	   </div>
+</div>
+<div id="shopdeinfo" style="bottom:0px;display:none;">
+	   <div class="scroller ">
+	   	<!--店铺--> 
+	   	<div id="shopinfo"    >
+ 	    <div class="shopyuan" style="width:90%;">
+ 	    	   <div class="box_inline" style="padding:10px 10px 10px 10px;height:80px;">
+ 	    	   	  <div style="width:100px;" ><img src="<{$shopinfo['shoplogo']|default:$shoplogo}>" width="80"></div>
+ 	    	   	  <div class="liwd70" style="height:80px;">
+ 	    	   	     <div style="font-family: Microsoft YaHei,Arial;color:#666;"><{$shopinfo['shopname']}> [<{if $openinfo['opentype'] != 2 && $openinfo['opentype'] != 3}>打烊<{else}>营业<{/if}>] </div>
+ 	    	   	     <div style="color: #fff;background: #ff5639;display: inline-block;padding: 0 4px;margin: 5px 0;"><{if $psinfo['pstype'] == 1}>店铺配送<{else}>网站配送<{/if}></div>	
+ 	    	   	    	<div style="font-size:16px;"> 
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $shopinfo['point'] > 0}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $shopinfo['point'] > 1}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $shopinfo['point'] > 2}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $shopinfo['point'] > 3}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $shopinfo['point'] > 4}>on<{else}>off<{/if}>"></i> <{$shopinfo['point']}>.0                <span>(<{$shopinfo['pointcount']}>)</span>&nbsp;&nbsp;&nbsp;
+ 	    	   	     </div>	
+ 	    	   	  </div> 
+ 	    	   </div>
+ 	    	   <div class="box_inline" style="height:60px;border-top:1px solid #ddd;text-align:center; padding:10px 10px 10px 10px;">
+ 	    	   	     <div class="liwd30" style="border-right:1px solid #ddd;height:60px;width:33%" onclick="sendMessage();">
+ 	    	   	        <div style="font-weight:bold;font-size: 16px;color: #666;font-family: Microsoft YaHei,Arial;">&nbsp;
+ 	    	   	        	<{foreach from=$mainattr item=itat}>
+								             	  <{if $itat['type']=='input'}>
+								             	     <{foreach from=$itat['det'] item=itcc}>
+								             	       
+								             	          <{foreach from=$shopattr item=itaa}>
+								             	             <{if $itcc['parent_id'] == $itaa['firstattr']}>
+								             	                 <{$itaa['value']}>
+								             	             <{/if}>
+								             	          <{/foreach}>
+								             	     <{/foreach}>
+								             	  <{/if}>     
+								        <{/foreach}> </div>
+ 	    	   	        <div style="font-size: 14px;color:#999;">送达</div>	
+ 	    	   	     </div>
+ 	    	   	     <div class="liwd30" style="border-right:1px solid #ddd;height:60px;width:34%">
+ 	    	   	     	 <div style="font-weight:bold;font-size: 16px;color: #666;font-family: Microsoft YaHei,Arial;"><{$shopdet['limitcost']}></div>
+ 	    	   	        <div style="font-size: 14px;color:#999;">起送价/￥</div>	
+ 
+ 	    	   	     </div>
+ 	    	   	     <div class="liwd30" style="height:60px;width:33%">
+ 	    	   	      <div style="font-weight:bold;font-size: 16px;color: #666;font-family: Microsoft YaHei,Arial;"><{$psinfo['pscost']}></div>
+ 	    	   	        <div style="font-size: 14px;color:#999;"   >配送费/￥</div>		
+ 	    	   	     	
+ 	    	   	     </div>
+ 	    	   </div>
+ 	    </div>
+ 	    <div class="shopyuan" style="width:90%;">
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 20px;height:40px;">
+ 	    	    	店铺公告
+ 	    	    </div>
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 10px;height:40px;border-top:1px solid #ddd;">
+ 	    	    	<{$shopinfo['intr_info']|htmlspecialchars_decode}>
+ 	    	    </div>
+ 	    </div>
+ 	     
+ 	    <div class="shopyuan" style="width:90%;">
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 20px;height:40px;">
+ 	    	    	营业时间
+ 	    	    </div>
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 10px;height:40px;border-top:1px solid #ddd;">
+ 	    	    	<{$shopinfo['starttime']}>
+ 	    	    </div>
+ 	    </div>
+ 	     <div class="shopyuan" style="width:90%;">
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 20px;height:40px;">
+ 	    	    	店铺地址
+ 	    	    </div>
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 10px;height:40px;border-top:1px solid #ddd;">
+ 	    	    	<{$shopinfo['address']}>
+ 	    	    </div>
+ 	    </div>
+ 	    <div class="shopyuan" style="width:90%;">
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 20px;height:40px;">
+ 	    	    	店铺促销
+ 	    	    </div>
+ 	    	    <{if count($cxinfo) < 1}>
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 10px;height:40px;border-top:1px solid #ddd;">
+ 	    	    	
+ 	    	    	暂无
+ 	    	    </div>
+ 	    	    <{else}>
+ 	    	     <{foreach from=$cxinfo item=items}>
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 10px;height:40px;border-top:1px solid #ddd;">
+ 	    	    	 <{$items}>
+ 	    	    </div>
+ 	    	    <{/foreach}>
+ 	    	    <{/if}>
+ 	    	    
+ 	    </div>
+ 	     <div class="shopyuan" style="width:90%;">
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 20px;height:40px;">
+ 	    	    	店铺介绍
+ 	    	    </div>
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 10px;border-top:1px solid #ddd;">
+ 	    	    	<{$shopinfo['notice_info']|htmlspecialchars_decode}>
+ 	    	    </div>
+ 	    </div>
+ 	    <div class="shopyuan" style="width:90%;">
+ 	    	    <div class="box_inline" style="padding:10px 10px 10px 20px;height:40px;">
+ 	    	    	店铺评价
+ 	    	    </div>
+ 	    	    <div  style="padding:10px 10px 10px 10px;border-top:1px solid #ddd;">
+ 	    	    	  <ul class="liststyle1" style="border:1px solid #ffffff;">
+  				  <{load_data assign="comentlist" table="comment"   fileds="*"   limit="10" orderby=" id desc" where="is_show=0"}>  
+  				  <{if count($comentlist['list']) > 0}>
+  				    <{foreach from=$comentlist['list'] key=mykey item=items}>
+  				     <li class="touchend"  >
+  			  	      <div class="liwd50"><{$items['content']}></div>
+  			  	      <div class="liwd50">
+  			  	      	    <div><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></div>
+  			  	      	    <div> <i class="glyphicon glyphicon-star <{if $items['point'] > 0}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $items['point'] > 1}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $items['point'] > 2}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $items['point'] > 3}>on<{else}>off<{/if}>"></i>
+ 	    	   	    		<i class="glyphicon glyphicon-star <{if $items['point'] > 4}>on<{else}>off<{/if}>"></i></div>
+  			  	       </div> 
+  			       </li>
+  			     <{/foreach}>
+  				  <{else}>
+  				<li class="touchend" style="height:80px;">
+  					   <div style="line-height:80px;text-align:center;width:100%;">暂无评价</div>
+  			  </li>
+  			   <{/if}>
+  			 
+  			</ul> 
+ 	    	    </div>
+ 	    </div>
+ 	     
+   </div>
+   
+      <!--店铺-->
+	   	
+	   	
+	   	
+	   	
+	  </div>
+</div>
+  
+ 	  
+ 	  
+ 	  
+ 	  
+ 	 <style>
+ 	 	.glyphicon-star:before {
+content: "★";
+} 
+ 	 	.glyphicon {
+position: relative;
+top: 1px;
+display: inline-block;
+font-family: 'Glyphicons Halflings';
+-webkit-font-smoothing: antialiased;
+font-style: normal;
+font-weight: normal;
+line-height: 1;
+-moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-star.on {
+color: #ff5639;
+}
+.glyphicon:empty {
+width: 1em;
+}
+.glyphicon-star.off {
+color: #999;
+}
+ 	 	</style>
+ 	  
+  
+   
+  
+  
+   
+ 
+ 
+ <script>
+ 	var gundong = 0;
+ 	$(function(){  
+ 	//	$('#goodslistidv').css('width',$(window).width());
+ 	//	$('#shopinfo').css('width',$(window).width());
+  });
+ 	   function show_btn(shownow,hidenow,nowobj){
+ 	   
+ 	   	 var obj =  $(window).width();
+ 	   	 $(nowobj).addClass('redli').siblings().removeClass('redli');
+ 	   	 $('#'+shownow).addClass('redli');
+ 	   	 $('#'+hidenow).removeClass('redli');
+ 	   	if(shownow == 'shopinfo'){ 
+ 	   		  $('#shopdeinfo').show();
+ 	   		  
+ 	   		  $('#transition').hide();
+ 	   		  scroll3.refresh();
+ 	   		  var marginleft = Number(obj)/2;
+ 	   		  $("#doshowli").animate({'margin-left':marginleft});
+ 	   		 
+ 	   		 $('#footer').hide(); 
+ 	   	}else{ 
+ 	   		$('#shopdeinfo').hide();
+ 	   	 
+ 	   		  $('#transition').show();
+ 	   		 $("#doshowli").animate({'margin-left':0});
+ 	   		  $('#footer').show();
+ 	   		   
+ 	   	}
+ 	   	  
+ 	    
+ 	   	
+ 	   	
+ 	   	
+ 	      	
+ 	   }
+ 	</script>
+ 	
+ 	 
+ <div class="mealList_foot" id="footer" style="height:40px;">
+ 	    
+  	     <div class="showcart">
+  	     	<span class="doshowcart"></span>
+  	     	<span>￥</span><span id="total_money">0</span><span></span>
+  	     	<span id="total_count">0</span><span>份</span></div>
+  	     <div id="showcha"></div>
+  	     <div id="gotocart" onclick="dolink('<{ofunc type=url link="/app/shopcart/id/<{$id}>"}>');">立即结算</div>
+  	  
+         
+    </div>
+<{/block}>

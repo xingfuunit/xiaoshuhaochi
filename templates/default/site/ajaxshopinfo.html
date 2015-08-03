@@ -1,0 +1,32 @@
+	<div class="hc_popups_div">
+	<div class="hc_popups" id="ShopView_<{$shopinfo['id']}>">
+		<div class="hc_popups_head"> 
+			<span class="hc_popups_font hc_popups_font_head">公告：</span>
+			 <div style="width:250px;word-wrap:break-word;float:right;margin-right:20px;"><{$shopinfo['notice_info']|htmlspecialchars_decode}></div> 
+			<p style="clear:both;"><span class="hc_popups_font">起送价：</span><{$shopinfo['limitcost']}> 元</p> 
+			<p><span class="hc_popups_font">地址：</span><{$shopinfo['address']}></p>
+			<p><span class="hc_popups_font">电话：</span><{$shopinfo['phone']}></p>
+			<p><span class="hc_popups_font">营业时间：</span><{$shopinfo['starttime']}></p>
+			<{foreach from=$attr item=items}>
+			<p style="clear:both;">
+				<span class="hc_popups_font"><{$items['name']}>:</span>	 
+				 <{foreach from=$shopinfo['attrdet'] item=itv}>
+				 <{if $itv['firstattr'] == $items['id']}>
+				  <{if $items['type'] == 'img'}>
+				    <img src="<{$itv['value']}>">
+				  <{else}>
+				     <{$itv['value']}>
+				     <{/if}>
+				 <{/if}>
+				    
+				 <{/foreach}>
+			 </p>
+			<{/foreach}>
+			 
+			
+			 
+		</div>
+		<div class="hc_popups_sanjiao"></div>
+	</div>
+
+</div>

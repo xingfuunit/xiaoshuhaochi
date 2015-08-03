@@ -1,0 +1,21 @@
+[ISAPI_Rewrite]
+
+# ª∫¥Ê3600√Î = 1 –° ±£®hour£©
+CacheClockRate 3600
+
+RepeatLimit 32
+ 
+RewriteRule (?!/index\.php)(?!/robots\.txt)(?!/Public)(?!/plug)(?!/upload)(?!/plug)(?!/plug)(?!/install)(.*)$ /index\.php\?s=$1 [I] 
+	RewriteCond $1 !^(index\.php|robots\.txt|views|plugins|backup|upload|images|install|admin123|plug|test||make)
+	
+	
+	
+	
+	<rule name="rule1" stopProcessing="true">
+                     <match url="!^(index\.php|robots\.txt|views|plugins|backup|upload|images|templates|install|admin123|plug|test|install|make)" />
+                     <action type="Rewrite" url="{R:1}"/>
+                </rule> 
+                <rule name="rule2" stopProcessing="true">
+                     <match url="^^(.*/)*site/(.*)$" />
+                     <action type="Rewrite" url="{R:1}/index.php?controll=site&amp;action={R:2}"/>  
+                </rule>

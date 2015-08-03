@@ -1,0 +1,142 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>备份数据<{/block}>
+ <{block name=bodylist}>
+   <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+
+      	  <div class="search">
+
+
+            <div class="search_content">
+
+            	   <div class="select_page">
+                 	      	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a>
+                 	     <a  onclick="bkbase();" href="#"   class="delurl">备份数据</a>
+                 	     <span id="showstatus">showinfo</span>
+
+                 </div>
+            </div>
+
+      	</div>
+
+
+           <div class="tags">
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">表名</th>
+                        <th align="center">&nbsp;</th>
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items}>" ></td>
+                        <td align="center"><{$items}></td>
+                        <td id="table_<{$items}>">&nbsp;</td>
+
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+
+
+                </form>
+
+                <div class="page_newc">
+
+
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+  </div>
+
+</div>
+<!--newmain 结束-->
+<script>
+	//空气开始结束
+	//时间间隔
+	function bkbase(){
+		var dotable = '';
+		$("input[name='id[]']").each(function(){
+		 if($(this).is(":checked")){
+		 	 if($(this).attr('disabled')==false){
+		 	 	dotable = $(this).val();
+		 	 	$(this).attr('disabled',true);
+		 	 	 return false;
+		 	 }
+		 	}
+	 });
+	 if(dotable !=''){
+	 	 $('#showstatus').text('备份'+dotable+'表');
+	 	$.ajax({
+     type: 'post',
+     async:false,
+     data:{'tabelname':dotable,'dirname':<{$dirname}>},
+   url: '<{ofunc type=url link="/adminpage/other/module/savesqldata/datatype/json"}>',
+     dataType: 'json',success: function(content) {
+     	if(content.error == false){
+     		$('#table_'+dotable).text('ok');
+     	}else{
+     		if(content.error == true)
+     		{
+     			$('#showstatus').text(content,msg);
+     			 $('#table_'+dotable).text(content.msg);
+     		}else{
+     			//diaerror(content);
+     			$('#showstatus').text(content);
+     			 $('#table_'+dotable).text(content);
+     		}
+     	}
+     	setTimeout("bkbase()",200);
+	   },
+     error: function(content) {
+     	 $('#showstatus').text('数据获取失败');
+       $('#table_'+dotable).text('数据获取失败');
+       setTimeout("bkbase()",200);
+	     }
+     });
+
+
+	 }else{
+	 	 $('#showstatus').text('备份完成表');
+	 }
+
+		//
+	}
+</script>
+<{/block}>

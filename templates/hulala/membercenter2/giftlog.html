@@ -1,0 +1,45 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/membercenter.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table class="table table-bordered" width=100%>
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr>
+		                  <th style="width:30%;">兑换产品</th>
+		                  <th style="width:30%;text-align:left;">我的联系方式</th>
+		                  <th>时间</th>
+		                  <th style="width:20%;">处理状态</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		              	 <{foreach from=$list item=items}> 
+		              	<tr>
+		                  <td style="width:30%;"><{$items['title']}></td>     
+		                  <td style="width:30%;text-align:left;"><{$items['address']}><{$items['telphone']}>,<{$items['content']}>,<{$items['contactman']}></td>
+		                  <td><{$items['addtime']|date_format:"%Y-%m-%d"}></td>
+		                  <td style="width:25%;">
+		                  	<{$logstat[$items['status']]}>
+		                  	<br>
+		                  	<{if $items['status'] == 0}>
+		                  	<a href="<{ofunc type=url link="/membercenter/ungift/id/<{$items['id']}>"}>" onclick="return remind(this);">取消兑换</a>
+		                  	<{/if}>
+		                  	</td>
+		                </tr>
+		                 <{/foreach}>
+		              </tbody>
+		            </table>
+		        </div>
+		        <div class="page"><{$pagecontent}></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div> 
+<{include file="<{$tempdir}>/public/foot.html"}>

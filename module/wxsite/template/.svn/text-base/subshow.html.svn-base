@@ -1,0 +1,55 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/order.css">  
+<{/block}>
+ <{block name=extendjs}> 
+  <{if empty($order)}>
+  <script>
+$(function(){  
+       error($('#supplierlist'),'未获取到订单'); 
+});
+  </script>
+  <{/if}>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=blockcontent}> 
+ <div style="height:60px;display:none;"></div>
+   <div class="container">
+    <div style="width:100%; height:180px;text-align:center;">
+    <img src="../upload/images/order_ok.png" style="height:180px;width:180px;">
+    </div>
+    <div style="height:80px;text-align:center;font-weight:bold;color:green;font-size:30px;line-height:80px;">
+        订单提交成功
+    </div>
+    <div style="height:30px;text-align:center;font-size:15px;line-height:30px;">
+        请保持手机畅通
+    </div>
+     <div style="height:30px;text-align:center;font-size:15px;line-height:30px;">
+        您的订单已经下发给餐厅，等待餐厅确认订单 
+    </div>
+     <div  style="height:40px;text-align:center;width:100%;text-align:center;">
+     	 <div class="next_btn" onclick="dolink('<{ofunc type=url link="/wxsite/member"}>');">进入用户中心</div> 
+    </div>
+   </div>
+   
+ <style>
+ 	.next_btn {
+height: 42px;
+background: #ff4200;
+border-radius: 5px;
+border: 1px solid #cb3b09;
+line-height: 42px;
+text-align: center;
+color: #fff;
+font-size: 20px;
+text-shadow: 0 1px 1px #962700;
+box-shadow: 0 0 2px 1px #b2b2b2;
+margin: 20px 10px;
+max-width: 620px;
+margin-bottom: 70px;
+}
+ 	
+ 	</style>
+
+<{/block}>

@@ -1,0 +1,104 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">订单备注标签</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+   	        	 	
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" > 
+              <form method="post" action="<{ofunc type=url link="/admin/saveorderbz"}>" onsubmit="return subform('<{ofunc type=url link="/admin/orderbz"}>',this);">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th align="center">编号</th>
+                        <th align="center">备注内容</th>
+                        
+                        <th align="center">操作</th>
+                      </tr>
+
+                    </thead>
+
+                    <tbody id="type">    
+                       <{foreach from=$list key=myid item=items}>	 
+                       <{if !empty($items)}>
+                        <tr class="s_out" onmouseover="this.bgColor='#fdfbfb';" 
+                         <{if $myid%2 == 0}>	
+                         onmouseout="this.bgColor='f4f4f4';" bgcolor="#f4f4f4"<{else}>
+                          onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"
+                         <{/if}> 
+                        	>
+                        <td align="center"><input type="hidden" name="id[]" value=""></td>
+                        <td align="left" style="padding-left:10px;">
+                          <input type="text" name="typename[]" id="typename[]" value="<{$items}>"  class='skey' style='width:130px;'/>  
+                        </td>
+                         
+                        <td align="center"> <a onclick="$(this).parent().parent().remove();" href="javascript:;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td>
+                      </tr>
+                      <{/if}>
+                    <{/foreach}>  
+
+                    </tbody>      
+
+
+
+                  </table>
+
+                <div class="blank20"></div> 
+
+               <input type="submit" name="button" id="button" value="提交保存" class='button'> 
+
+                 <input type="button" name="button" id="typebutton" value="添加一个分类" onclick="addbz();" class="button" />
+
+              </form>
+              <div class="blank20"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+          
+    
+    
+    
+    
+    
+      </div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script>
+	function addbz(){
+	var 	htmldata='<tr class="s_out" onmouseover="this.bgColor=\'#fdfbfb\';"	>';
+        htmldata+='<td align="center"><input type="hidden" name="id[]" value=""></td>';
+        htmldata+='<td align="left" style="padding-left:10px;">';
+        htmldata+='<input type="text" name="typename[]" id="typename[]" value=""  class=\'skey\' style=\'width:130px;\'/> </td>';
+        htmldata+='<td align="center"> <a onclick="$(this).parent().parent().remove();" href="javascript:;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td></tr>';
+        $('#type').append(htmldata);
+	}
+	</script>
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

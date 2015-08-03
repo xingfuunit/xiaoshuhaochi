@@ -1,0 +1,83 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/gift.css">
+<{/block}>
+ <{block name=extendjs}> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/template.min.js"></script>   
+ 
+ <script>  
+  function showorder(obj){
+
+  	window.location.href=siteurl+'/index.php?controller=wxsite&action=ordershow&orderid='+$(obj).attr('orderid')+'&random=@random@';  //'ordershow.html?orderid='+$(obj).attr('orderid');//  	alert($(obj).attr('orderid')); 
+
+  } 
+</script>
+
+<{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 最近30条兑换记录 </header><{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div style="height:44px;"></div>
+ 
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist"> 
+  			   <{load_data assign="list" table="giftlog"    fileds="*"  where="uid='<{$member['uid']}>'" orderby="id desc" limit="30"}> 
+									<{if count($list['list']) > 0}>
+									 <{foreach from=$list['list'] item=items}> 
+									 <{load_data assign="giftinfo" table="gift" type="one" where="id='<{$items['giftid']}>'" fileds="*" }> 
+		              	 
+		                
+		                  <li class="listb"   >
+  			  	  <div class="imgdiv">
+  			  	 	   <div class="goodsimg"><img alt="<{$giftinfo['title']}>" src="<{$giftinfo['img']}>" style="height:90px;width:90px;"></div>
+  			    	</div>
+  			      <div class="colomns liwd70" style="min-height:90px;"> 
+  			       <div style="line-height:15px;" >名称:<{$giftinfo['title']}></div>
+  			      	<div style="line-height:15px;" class="box_inline" ><div class="liwd30">数量:<span class="costtext"><{$items['count']}></sapn></div><div class="liwd70">时间:<{$items['addtime']|date_format:"%m-%d %H:%M"}> </div></div> 
+  			      	<div style="line-height:20px;"  >状态:<span style="color:#f60;" id="showstatus<{$items['id']}>"><{$logstat[$items['status']]}></span><{if $items['status'] == 0}><span class="btn" onclick="quduihuan(<{$items['id']}>);" id="btn<{$items['id']}>">取消兑换</span><{/if}></div>
+  			      	<div style="line-height:15px;" >地址:<{$items['address']}></div>
+  			      	<div style="line-height:15px;" >电话:<{$items['telphone']}></div>
+  			      	<div style="line-height:15px;" >联系人:<{$items['contactman']}></div>
+  			      
+  			      	
+  			    	</div>
+  			    	  
+  			  </li>
+		                 <{/foreach}>
+		      <{else}>
+										  <li class="listb"   >
+  			  	  暂无数据
+  			    	  
+  			  </li>
+			     <{/if}>   
+  			   
+  		  
+  			   
+   
+  			</ul> 
+    </section>
+   
+  
+ <script> 
+			function quduihuan(giftid){  
+ 	  	    $('#loading').show();  
+	         	var info = {'id':giftid};
+	        	var url = '<{ofunc type=url link="/gift/ungift/random/@random@/datatype/json"}>';
+	        	    url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+	          var backinfo = ajaxback(url,info);
+	          if(backinfo.flag ==  false){
+	          	 $('#loading').hide(); 
+	          	 $('#showstatus'+giftid).text('已取消兑换');
+	              $('#btn'+giftid).remove(); 
+			           Tmsg('操作成功');
+	          }else{
+	          	$('#loading').hide();
+	             alert(backinfo.content);
+	          } 
+ 	  };
+ 	  
+
+ </script>
+  
+<{/block}>

@@ -1,0 +1,145 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+  <{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+  <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/chart/highcharts.js"></script>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/chart/modules/exporting.js"></script>
+<script type="text/javascript">
+
+
+	function gotolink(obj){
+			  var checkvalue = $(obj).val();
+			  var linkis = siteurl+'/index.php?controller=adminpage&action=analysis&module=user&selecttype=@selecttype@';
+		   	window.location.href= linkis.replace('@selecttype@', checkvalue);
+  }
+
+
+
+</script>
+
+ <{/block}>
+ <{block name=controlname}>用户购买时段分析<{/block}>
+ <{block name=bodylist}>
+   <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+      	 <div class="tags">
+          <div id="tagscontent">
+            <div style="text-align:center;height:30px;line-height:30px;widht:100%;">
+            	 <input type="checkbox" name="selecttype" value="0" <{if empty($selecttype)}>checked<{/if}> onclick="gotolink(this);">所有
+            	 <input type="checkbox" name="selecttype" value="1" <{if $selecttype == 1}>checked<{/if}> onclick="gotolink(this);">最近1月
+            	 <input type="checkbox" name="selecttype" value="2"  <{if $selecttype == 2}>checked<{/if}> onclick="gotolink(this);">最近一周
+            	 <input type="checkbox" name="selecttype" value="3"  <{if $selecttype == 3}>checked<{/if}> onclick="gotolink(this);">当天
+            </div>
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+         <div  id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
+
+              </div>
+
+
+               <form method="post" action="" onsubmit="return remind();">
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                    <thead>
+                      <tr>
+                        <th align="center">时间</th>
+                        <th align="center">下单数量</th>
+
+                      </tr>
+                    </thead>
+                     <tbody>
+
+
+                     	<{section name=loop start=6 loop=24 step=1 max=22 }>
+                     	 <tr>
+
+                        <td align="center"><{$smarty.section.loop.index}></td>
+                        <td align="center"><{if isset($list[$smarty.section.loop.index])}><{$list[$smarty.section.loop.index]}><{else}>0<{/if}></td>
+
+                      </tr>
+                       <{/section}>
+                    </tbody>
+                  </table>
+               </form>
+
+                <div class="page_newc">
+
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+  </div>
+
+</div>
+<script type="text/javascript">
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'line',
+                marginRight: 130,
+                marginBottom: 25
+            },
+            title: {
+                text: '时间段统计e',
+                x: 0 //center
+            },
+            subtitle: {
+                text: '<{$siteurl}>',
+                x:0
+            },
+            xAxis: {
+                categories: [
+                <{section name=loop start=6 loop=24 step=1 max=22 }>
+                <{$smarty.section.loop.index}> <{if $smarty.section.loop.index!= 23}>,<{/if}>
+                 <{/section}>
+              ]
+            },
+            yAxis: {
+                title: {
+                    text: '销售数量 (份)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +'点: '+ this.y +'(份)';
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: '时间段销售',
+                data: [<{section name=loop start=6 loop=24 step=1 max=22 }>
+                <{if isset($list[$smarty.section.loop.index])}><{$list[$smarty.section.loop.index]}><{else}>0<{/if}><{if $smarty.section.loop.index!= 23}>,<{/if}>
+                 <{/section}>]
+            }]
+        });
+    });
+
+});
+		</script>
+
+<!--newmain 结束-->
+<{/block}>

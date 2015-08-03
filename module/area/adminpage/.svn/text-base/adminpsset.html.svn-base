@@ -1,0 +1,123 @@
+
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>网站配送设置<{/block}>
+ <{block name=bodylist}>
+ <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+          	<{$pssetinfo = array()}>
+           <{if !empty($psset)}>
+	 	           <{$pssetinfo = $psset|unserialize}>
+	 	       <{/if}>
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/area/module/savepsset/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/area/module/adminpsset"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	 <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">是否开启网站配送</td>
+                      <td><input type="checkbox" name="opensitesend"  value="1" <{if $opensitesend ==1}>checked<{/if}> > 勾选后保存开启 </td>
+                    </tr> 
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">店铺是否可自行设置配送费</td>
+                      <td><input type="checkbox" name="openshopsend"  value="1" <{if $openshopsend ==1}>checked<{/if}> > 勾选后保存允许 </td>
+                    </tr> 
+                    <{if $opensitesend == 1}>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">选择地区选择方式</td>
+                      <td><input type="radio" name="locationtype"  value="1" <{if isset($pssetinfo['locationtype']) && $pssetinfo['locationtype'] ==1}>checked<{/if}> >百度地图 <input type="radio" name="locationtype"  value="2" <{if isset($pssetinfo['locationtype']) && $pssetinfo['locationtype'] ==2}>checked<{/if}>>文字 </td>
+                    </tr> 
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">设置配送方式</td>
+                      <td>
+                      	<{foreach from=$pestypearr key=mykey item=items}>
+                      	   <input type="radio" value="<{$mykey}>" <{if $mykey == $pssetinfo['pstype']}>checked<{/if}> name="pstype" <{if $pssetinfo['locationtype'] ==1}> <{if in_array($mykey,array(2))}>disabled<{/if}> <{else}> <{if in_array($mykey,array(4))}>disabled<{/if}> <{/if}> > <{$items}>
+                      	<{/foreach}> 
+                      </td>
+                    </tr> 
+                    <tr id="allps" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" <{if isset($pssetinfo['pstype']) && $pssetinfo['pstype'] ==1}><{else}>style="display:none;"<{/if}>>
+                      <td class="left">统一配送费</td>
+                      <td><input type="text" name="allpay"   value="<{$pssetinfo['psvalue1']}>" class="skey" style="width:50px;" >元</td>
+                    </tr> 
+                     <tr id="mapay1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" <{if isset($pssetinfo['pstype']) && $pssetinfo['pstype'] ==4}><{else}>style="display:none;"<{/if}>>
+                      <td class="left">1公里内配送费</td>
+                      <td><input type="text" name="mapay1"   value="<{$pssetinfo['psvalue1']}>" class="skey" style="width:50px;" >元</td>
+                    </tr> 
+                     <tr id="mapay2" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" <{if isset($pssetinfo['pstype']) && $pssetinfo['pstype'] ==4}><{else}>style="display:none;"<{/if}>>
+                      <td class="left">3公里内配送费</td>
+                      <td><input type="text" name="mapay2"   value="<{$pssetinfo['psvalue2']}>" class="skey" style="width:50px;" >元</td>
+                    </tr> 
+                     <tr id="mapay3" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" <{if isset($pssetinfo['pstype']) && $pssetinfo['pstype'] ==4}><{else}>style="display:none;"<{/if}>>
+                      <td class="left">6公里内配送费</td>
+                      <td><input type="text" name="mapay3"  value="<{$pssetinfo['psvalue3']}>" class="skey" style="width:50px;" >元</td>
+                    </tr> 
+                      <tr id="caipay1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" <{if isset($pssetinfo['pstype']) && $pssetinfo['pstype'] ==5}><{else}>style="display:none;"<{/if}>>
+                      <td class="left">基本费</td>
+                      <td><input type="text" name="caipay1"  value="<{$pssetinfo['psvalue1']}>" class="skey" style="width:50px;" >元</td>
+                    </tr> 
+                       <tr id="caipay2" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" <{if isset($pssetinfo['pstype']) && $pssetinfo['pstype'] ==5}><{else}>style="display:none;"<{/if}>>
+                      <td class="left">自增</td>
+                      <td><input type="text" name="caipay2"  value="<{$pssetinfo['psvalue2']}>" class="skey" style="width:50px;" >元</td>
+                    </tr> 
+                    <{/if}>
+                    
+                  
+                  </tbody> 
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    
+    
+    
+  </div> 
+<script>
+ $("input[name='locationtype']").live("click", function() {   
+ 	   var checkvalue = $("input[name='locationtype']:checked").val();
+ 	   $("input[name='pstype']").attr('checked',false);
+ 	   $("input[name='pstype']").attr('disabled',false);
+ 	   if(checkvalue == 1){
+ 	   	$("input[name='pstype']").eq(1).attr('disabled',true); 
+ 	   }else{
+ 	   	$("input[name='pstype']").eq(3).attr('disabled',true);
+ 	   }
+ 	    
+ });
+ $("input[name='pstype']").live("click", function() { 
+ 	  var checkvalue =  $("input[name='pstype']:checked").val();
+ 	  $('#allps').hide();
+ 	  $('#mapay1').hide();
+ 	 	$('#mapay2').hide();
+ 	  $('#mapay3').hide();
+ 	  $('#caipay1').hide();
+ 	 	$('#caipay2').hide();
+ 	  if(checkvalue ==  1){
+ 	  	$('#allps').show();
+ 	  }else if(checkvalue == 4){
+ 	  	$('#mapay1').show();
+ 	  	$('#mapay2').show();
+ 	  	$('#mapay3').show();
+ 	  }else if(checkvalue == 5){
+ 	  	$('#caipay1').show();
+ 	  	$('#caipay2').show();
+ 	  }else{
+ 	  }
+ });
+ 
+ 
+ 
+ //
+</script>
+<!--newmain 结束-->
+<{/block}>

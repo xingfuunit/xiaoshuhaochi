@@ -1,0 +1,8 @@
+<{if empty($list)}>
+<li><a class="search_lm_item" tabindex="-1" href="#" ><span>无数据</span></a></li>
+<{/if}>
+<{foreach from=$list item=items}> 
+   <li><a class="search_lm_item" tabindex="-1" href="<{ofunc type=url link="/site/setlocationlink/areaid/<{$items['id']}>"}>" lm_id="275">
+		<{$items['name']}><span style="font-size:10px;"></span>
+		</a></li>
+<{/foreach}> 

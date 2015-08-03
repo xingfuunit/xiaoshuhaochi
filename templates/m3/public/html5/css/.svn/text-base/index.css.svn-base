@@ -1,0 +1,213 @@
+/***幻灯片***/
+.swipe {
+margin: 0 auto;
+overflow: hidden;
+position: relative;
+}
+.swipe-wrap>div {
+float: left;
+width: 100%;
+position: relative;
+overflow: hidden;
+}
+.swipe-wrap>div img {
+float: left;
+}
+.bgboxgo {
+position: absolute;
+z-index: 999;
+left: 0px;
+bottom: 5px;
+width: 100%;
+clear: both;
+}
+.botton-box {
+margin: 0px auto;
+padding-top: 3px;
+padding-bottom: 3px;
+width: 100%;
+}
+.botton-box span {
+box-shadow: 1px 1px 2px #000000;
+text-indent: -9999px;
+height: 8px;
+width: 8px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+display: block;
+margin-right: 10px;
+cursor: pointer;
+background: #ffffff;
+-webkit-opacity: 0.6;
+opacity: 0.6;
+}
+.botton-box span.on {
+-webkit-opacity: 1.0;
+opacity: 1.0;
+}
+.mBxCm {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-o-box-pack: center;
+box-pack: center;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+}
+/*首页搜索框架*/
+section .search {
+width: 100%;
+display: -moz-box;
+display: -webkit-box;
+display: box;
+-moz-box-align: center;
+-webkit-box-align: center;
+box-align: center;
+-moz-box-pack: center;
+-webkit-box-pack: center;
+box-pack: center;
+background: #fff;
+height: 50px;
+border-bottom: 1px solid #d5d5d5;
+}
+.mShadowBm {
+box-shadow: 0px 3px 3px 0px #cccccc;
+}
+section .search .cont {
+display: -moz-box;
+display: -webkit-box;
+display: box;
+width: 94%;
+}
+section .search .cont a.select {
+height: 30px;
+line-height: 30px;
+/* width: 50px; */
+display: block;
+margin-right: 10px;
+border: none;
+-moz-appearance: none;
+-webkit-appearance: none;
+appearance: none;
+background: url(../images/icos/selico.png) right center no-repeat;
+background-size: 12px 10px;
+padding-right: 19px;
+}
+section .search form {
+display: -moz-box;
+display: -webkit-box;
+display: box;
+-moz-box-flex: 1;
+-webkit-box-flex: 1;
+box-flex: 1;
+}
+section .search .cont .inputPp {
+display: block;
+border-radius: 15px;
+border: none;
+background: #e9e9e9 url(../images/icos/sear2.png) 9px center no-repeat;
+background-size: 14px;
+padding-left: 30px;
+height: 30px;
+-moz-box-flex: 1;
+-webkit-box-flex: 1;
+box-flex: 1;
+}
+section .search .cont .inputPp input {
+background: none;
+border: none;
+width: 100%;
+padding-top: 4px;
+height: 20px;
+}
+
+/***图片导航***/
+nav {
+height: 45px;
+line-height: 45px;
+background: #dfdfdf;
+}
+section nav {
+width: 98.4375%;
+margin: 5px auto;
+height: auto;
+border: 1px solid #e5e5e5;
+background: #fff;
+overflow: hidden;
+}
+section nav ul li {
+float: left;
+width: 49.765625%;
+height: 100px;
+border-bottom: 1px solid #e5e5e5;
+}
+section nav ul li.n1 {
+background: url(../images/icos/jwm.png) 10px center no-repeat;
+background-size: 42px 42px;
+border-right: 1px solid #e5e5e5;
+}
+section nav ul li.n2 {
+background: url(../images/icos/dndc.png) 10px center no-repeat;
+background-size: 42px 42px;
+}
+section nav ul li.n3 {
+background: url(../images/icos/dwz.png) 10px center no-repeat;
+background-size: 42px 42px;
+border: none;
+border-right: 1px solid #e5e5e5;
+}
+section nav ul li.n4 {
+background: url(../images/icos/wd.png) 10px center no-repeat;
+background-size: 42px 42px;
+}
+section nav ul li strong {
+line-height: 20px;
+display: block;
+text-align: left;
+margin: 30px 0 0 60px;
+color: #323232;
+}
+section nav ul li p {
+line-height: 20px;
+text-align: left;
+margin: 0 0 0 60px;
+color: #737373;
+}
+section nav ul li.clkitm:hover{
+	background-color: #f5f5f5!important;
+}
+
+/***店铺列表页 ****/
+.ico {
+background: url(../images/icos/sear.png) center no-repeat;
+background-size: 40%;
+} 
+header a.cityaa {
+padding-right: 0px;
+background-image: none;
+display: inline;
+padding-left: 0px;
+}
+.return {
+width: 44px;
+height: 44px;
+background: url(../images/icos/return.png) center 10px no-repeat;
+background-size: 12px 22px;
+position: absolute;
+top: 0px;
+left: 0px;
+}
+header a {
+display: inline-block;
+padding-right: 25px;
+background: url(../images/icos/tou.png) no-repeat right 13px;
+background-size: 18px;
+padding-left: 30px;
+overflow: hidden;
+}
+ 

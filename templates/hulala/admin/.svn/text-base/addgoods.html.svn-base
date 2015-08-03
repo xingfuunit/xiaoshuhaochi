@@ -1,0 +1,125 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname"><{if !empty($info)}>编辑店铺<{else}>添加商品<{/if}></div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+   	        	 	
+   	        	 	
+       <div style="width:98%;overflow-y:auto;white-space:nowrap;height:660px;">  
+      	
+          <div class="tags"> 
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/admin/savegoods"}>" onsubmit="return subform('<{ofunc type=url link="/admin/goodslist"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	<{if !empty($info)}>
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">所在店铺</td>
+                      <td><{$info['shopname']}></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商品类型</td>
+                      <td>
+                      	<select name="typeid">
+                      		<{foreach from=$typlist item=value}>
+                      	   <option value="<{$value['id']}>" <{if $value['id'] == $info['typeid'] }>selected<{/if}>><{$value['name']}></option>
+                      	  <{/foreach}>
+                      	</select>
+                      	
+                      	</td>
+                    </tr>  
+                                    
+                  	<{else}>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">店铺名称</td>
+                      <td><input type="text" name="shopname" id="shopname" value="<{$info['shopname']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <{/if}>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商品名称</td>
+                      <td><input type="text" name="name" id="name" value="<{$info['name']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">商品图片</td>
+                      <td>
+                      	<img src="<{$info['img']}>" width=80px height=80px id="imgshow" <{if  empty($info['img'])}> style="display:none;"<{/if}>>
+                      	<input type="hidden" name="img" id="img" value="<{$info['img']}>" class="skey" style="width:150px;" >
+                      	<span onclick="uploads();">上传图片</span>
+                      	</td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商品数量</td>
+                      <td><input type="text" name="count" id="count" value="<{$info['count']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商品价格</td>
+                      <td><input type="text" name="cost" id="cost" value="<{$info['cost']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">评分</td>
+                      <td><input type="text" name="point" id="point" value="<{$info['point']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+  
+                      <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">销售数量</td>
+                      <td><input type="text" name="sellcount" id="sellcount" value="<{$info['sellcount']}>" class="skey" style="width:150px;" ></td>
+                    </tr>  
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;">
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    
+    <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/admin/upload"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(linkurl){
+ 	dialogs.close(); 
+ 	$('#img').val(linkurl);
+ 	$('#imgshow').attr('src',linkurl);
+ 	$('#imgshow').show(); 
+}
+function uploaderror(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+   
+</script>
+    
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

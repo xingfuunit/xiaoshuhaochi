@@ -1,0 +1,117 @@
+ <{extends file="<{$tempdir}>/public/weixin.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/member.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+ <script>
+     var regestercode=2;
+$(function(){
+
+//点击发送验证码倒计时 Begin
+var count = 60;
+var timer;
+var reg = /^[0-9]*$/;
+$('#send_code').click(function(){
+  if($('#phone').val().length == 11 && reg.test($('#phone').val()) ){
+    timer = setInterval(countDownaaaa,1000); 
+  }
+});
+//验证码
+function countDownaaaa(){
+  count --;
+  if(count == 0 ){
+    $('#send_code').css({
+      'background':'#ff6000',
+      'color':'#fff'
+    }); 
+   $('#send_code').val('获取验证码').removeAttr('disabled');
+    clearInterval(timer);
+    count = 60;
+    
+  }
+  else{
+    $('#send_code').css({
+      'background':'#ccc',
+      'color':'#999'
+    });
+  $('#send_code').attr('disabled',true);
+  $('#send_code').val('('+count+')'+'重新发送');
+  }
+};
+//点击发送验证码倒计时 End
+
+    });
+     </script>
+       <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/regestercode.js"></script>
+      
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist"> 
+  	<header><div class="return"></div>忘记密码</header>
+
+  
+
+    
+
+  
+
+  <div class="container" style="padding:0px;background:none;margin-top:0px;">
+
+  	 
+ <ul>
+       <li>
+       <input type="text" class="mobile_email_reg inputInp" id="phone" placeholder="手机号码"/>
+       </li>
+       <li>
+          <input type="text" class="code inputInp" id="code" placeholder="验证码" />
+          <input type="button" value="发送验证码" id="send_code" class="cursor_pointer send_code" onclick="clickyanzheng(regestercode);"/>
+           <span class="cursor_pointer send_div" style="display:none;"></span>
+           <div class="clear"></div>
+       </li>
+       <li><input type="password" class="password_reg inputInp"  placeholder="密码"/></li>
+       <li><input type="password" class="repassword_reg inputInp" placeholder="重复密码"/></li>
+   <!--    <li>
+       <input type="checkbox">
+         我已阅读并同意<a href="javascript:;">用户协议</a>
+       </li>  -->
+       <li><button class="userRister inputBtn" onclick="savepwd();">修改密码</button></li>
+     </ul>
+
+  	 
+<script> 
+	function savepwd(){  
+	   $('#loading').show();
+         var phone = $("#phone").val();
+         var code = $("#code").val();
+         var newpwd = $(".password_reg").val();
+         var newpwd2 = $(".repassword_reg").val();
+         var info = {'phone':phone,'code':code,'newpwd':newpwd,'newpwd2':newpwd2}
+  	 	  var  url = siteurl+'/index.php?controller=member&action=saveuser&controlname=repwd&datatype=json&random=@random@' 
+  	 	   $.ajax({ 
+            url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+            dataType: "json", 
+            data:info, 
+            success:function(content) {  
+            
+             window.location.href= siteurl+'/index.php?controller=wxsite&action=login';
+            	if(content.msg ==  false){
+            		 window.location.href= siteurl+'/index.php?controller=wxsite&action=member&shoid='+shopid;
+            	}else{ 
+            	   Tmsg(content.msg);
+                   $("#loading").hide();
+              }
+            	
+            }, 
+            error:function(){ 
+            	$('#loading').toggle();
+
+            } 
+         });
+		  
+	}
+
+</script>
+
+<{/block}>

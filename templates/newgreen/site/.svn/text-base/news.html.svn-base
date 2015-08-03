@@ -1,0 +1,57 @@
+<{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name="seokey"}><meta name="Keywords" content="<{$info['seo_key']}>" /><{/block}>
+<{block name="seodes"}><meta name="description" content="<{$info['seo_content']}>" /><{/block}>
+<{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/news.css"><{/block}> 
+<{block name=sitetitle}><{$info['title']}><{/block}>
+<{block name=bgshow}><{/block}>
+ <{block name=shophide}><{/block}>
+<{block name=bodylist}>  
+<div class="main-b "> 
+<div class="main hc_content"> 
+	
+	<div class="sub_lf"> 
+	      <{load_data assign="list" table="newstype" where="displaytype=1 and parent_id=0" fileds="*"  limit=10 orderby="orderid asc"}> 
+	         <{foreach from=$list['list'] key=mykey item=items}>    
+	      <h1><{$items['name']}></h1>
+	     <ul class="ul1">
+	     	  <{if $items['type'] == 2}>
+	     	      <{load_data assign="list2" table="newstype"   fileds="*" where="parent_id=<{$items['id']}>" limit=20 }> 
+	     	       <{foreach from=$list2['list'] item=itv}>    
+	              <li><a href="<{ofunc type=url link="/site/newstype/id/<{$itv['id']}>"}>"  <{if $info['typeid'] == $itv['id']}>class="current"<{/if}>  ><{$itv['name']}></a></li> 
+	             <{/foreach}> 
+	     	      
+	     	      
+	     	  <{else}>
+	  		      <{load_data assign="list2" table="news"   fileds="id,title,typeid" where="typeid=<{$items['id']}>" limit=20 }> 
+            	  <{foreach from=$list2['list'] item=itv}>    
+	              <li><a href="<{ofunc type=url link="/site/news/id/<{$itv['id']}>"}>" <{if $info['id'] == $itv['id']}>class="current"<{/if}> ><{$itv['title']}></a></li> 
+	             <{/foreach}> 
+	         <{/if}>
+	   
+	       </ul>
+	    <{/foreach}>       
+	 
+	</div>
+	 
+    <!--mainContent begin-->
+      <div class="mainContent">
+        	<div class="navTips">
+            	<h1 class="ti"><{$info['title']}></h1>
+        	</div>
+            
+            <div class="textContent">
+            	
+            	
+            	
+            	<{$info['content']|htmlspecialchars_decode}>
+                
+                
+                
+           </div>
+        </div>
+    <!--mainContent end-->
+    <div class="clear"></div>
+  </div> 
+	
+</div>
+<{/block}>

@@ -1,0 +1,234 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ajaxfileupload.js"> </script>
+ <{/block}>
+ <{block name=membercenter}> 
+ <div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>基本资料</b></span></p>
+						</div><!--title end-->
+
+						<div class="mr-middle content"><!--mr-middle-->
+							<div class="mr-middle-left"><!--mr-middle-left-->
+								<div class="field mgt50">
+									<label>ID号</label>
+									<input type="text" id="nickname" name="nickname" disabled="disabled" value="<{$member['uid']}>">
+									<label class="tip"></label>
+								</div>
+
+								<div class="field">
+									<label>邮箱</label>
+									<input type="text" id="email" name="email" disabled="disabled" value="<{$member['email']}>" data="<{$member['email']}>"> <span id="emailaction"> <{if empty($member['email'])}><<a href="javascript:void(0);" class="apanel" onclick="mody('email')">修改</a><{/if}></span>
+									<label class="tip" id="emaildiv" style="width:100px;"></label>
+								</div>
+
+								<div class="field">
+									<label>手机</label>
+									<input type="text" id="mobile" name="mobile" disabled="disabled" value="<{$member['phone']}>"> <span id="mobileaction"> <{if empty($member['phone'])}><a href="javascript:void(0);" id="mdphone" onclick="mody('mobile')" class="apanel">绑定手机</a><{/if}></span>
+									<label class="tip" id="mobilediv" style="width:100px;"></label> 	
+								</div>
+
+
+								<div class="field">
+									<label>昵称</label>
+									<input type="text" id="username" name="username" disabled="disabled" value="<{$member['username']}>" data="<{$member['username']}>">	<span id="usernameaction"> <a href="javascript:void(0);" id="usernamea" class="apanel" onclick="mody('username')">修改</a></span>						
+									<label class="tip" id="usernamediv" style="width:100px;"></label>
+								</div> 
+								<div class="field">
+									<p style="text-indent:165px;">
+										<a href="javascript:void(0)" id="pwdmx" onclick="showLayer('updatepwd');" class="apanel">修改密码</a>
+									</p>
+								</div>
+							</div><!--mr-middle-left end-->
+
+							<div class="mr-middle-right"><!--mr-middle-right-->
+								<div class="img" id="member-img"><img id="headpic" src="<{$member['logo']|default:$userlogo}>" onclick="showLayer('div-headpicUpload')" onmouseover="this.style.cursor='hand'"></div>
+								<p>&nbsp;</p>
+								<p><a href="javascript:showLayer('div-headpicUpload');" class="apanel" id="channgeheadimg">修改头像</a></p>
+
+								<div id="div-headpicUpload" style="display:none;margin-left:-175px"><!--div-headpicUpload-->
+		               <form id="form1" name="form1" method="post" action="<{ofunc type=url link="/other/userupload/type/userlogo"}>" enctype="multipart/form-data" target="ifr-headpic-upload" onsubmit="return checkImagetype('1');">    
+		               	<div class=""> 
+		               		<input name="head" type="file" id="imgFile" style="margin-left:15px;" name="imgFile" onchange="$('#input1').val($(this).val())">
+		               		<input id="submitImg" type="button" value="上传" class="ss_sc">   
+		               	</div> 
+		               	<div class="ok">
+		               		<p>仅支持<font color="red">GIF,JPG,PNG</font>格式
+		               		<a href="javascript:void(0)" id="close" onclick="closeLayer('div-headpicUpload')">关闭</a></p><p>
+		               	</p></div>
+		               </form> 
+									<br>
+								</div><!--div-headpicUpload end-->
+
+							</div><!--mr-middle-right end-->
+							<div class="clear"></div>
+
+							<div class="modifymobile" id="updatemobile" style="display:none"><!--modifymobile-->
+								<div class="regtitle">
+									<h1>绑定手机</h1> <span></span>
+								</div>
+
+								<div class="field">
+									<label>手机</label>
+									<input type="text" id="phone" onblur="verifyPhone(6)">
+									<input type="button" class="btn_mobileCode" value="获取手机验证码">
+									<label class="tip" id="phonediv" style="margin-left:160px;"></label>
+								</div>
+
+								<div class="field">
+									<label>手机验证码</label>
+									<input type="text" name="mobileCode" id="mobileCode">
+									<label class="tip" id="mobileCodediv" style="margin-left:160px;"></label>
+								</div>
+
+								<div class="field" id="hebin" style="display:none">
+									<label></label>
+									<label class="tip" id="isBinddiv" style="margin-left:0;"></label><br>
+									<label></label>
+									<input type="radio" name="isHebin" class="check" value="1"> 合并
+									<input type="radio" name="isHebin" class="check" value="0"> 不合并，另一账户解除绑定<br>
+									<label class="tip" id="isHebindiv" style="margin-left:160px;"></label>
+								</div>
+
+								<div class="field">
+									<p style="text-indent:163px;">&nbsp;<input type="button" class="weight" id="postBindMobile" value="提交"></p>
+								</div>
+							</div><!--modifymobile end-->
+
+							<div class="modifypwd" id="updatepwd" style="display:none"><!--modifypwd-->
+								<div class="regtitle">
+									<h1>修改密码</h1> <span></span>
+								</div>
+
+								<div class="field">
+									<label>原密码</label>
+									<input type="password" id="oldpwd">
+									<label class="tip"></label>
+								</div>
+
+								<div class="field">
+									<label>新密码</label>
+									<input onblur="blurPro(2)" onfocus="focusPro(2)" type="password" name="pwdinput" id="pwdinput">
+									<label class="tip" id="pwddiv"></label>
+								</div>
+
+								<div class="field">
+									<label>确认密码</label>
+									<input onblur="blurPro(3)" onfocus="focusPro(3)" type="password" name="pwd2input" id="pwd2input">
+									<label class="tip" id="pwd2div"></label>
+								</div>
+
+								<div class="field">
+									<p style="text-indent:163px;">&nbsp;<input type="button" class="weight" onclick="postBaseInfo()" value="提交"></p>
+								</div>
+							</div><!--modifypwd end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end--> 
+				</div>
+			</div>
+<script type="text/javascript">
+	$('.hc_login_btn_div').click(function(){
+		subform('<{ofunc type=url link="/member/loginout"}>',$('#loginForm'));
+	})
+	$('#submitImg').click(function(){
+		ajaxFileUpload();
+	});
+</script>
+<script type="text/javascript">
+	var showaction = '<{$showaction}>';
+	$(document).ready(function(){ 
+		if($('#'+showaction).html() != undefined){
+			$('#'+showaction).trigger('click');
+		}
+	});
+	function ajaxFileUpload()
+	{
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload
+		(
+			{
+				url:'<{ofunc type=url link="/other/userupload/type/userlogo/datatype/json"}>',
+				secureuri:false,
+				fileElementId:'imgFile',
+				dataType: 'json',
+				data:{name:'logan', id:'id'},
+				success: function (data, status)
+				{
+					if(typeof(data.error) != 'undefined')
+					{
+						if(data.error == false)
+						{ 
+							$('#headpic').attr('src',data.msg); 
+							$('#div-headpicUpload').hide();
+						}else
+						{
+							alert(data.msg);
+						}
+					}else{
+					  alert(data);
+					}
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)
+		
+		return false;
+
+	}
+	function closeLayer(obj){
+	$('#'+obj).hide();
+	}
+	function showLayer(obj){
+		$('#'+obj).show();
+	}
+	function mody(obj){
+		$('#'+obj).attr('disabled',false);
+		$('#'+obj+'action').html('<input type="button" class="weight" onclick="update(\''+obj+'\')" value="保存">');
+	 
+	}
+	function update(obj){
+		$('#'+obj).attr('data');
+		$.ajax({
+       type: 'POST',
+       async:false,
+       url: '<{ofunc type=url link="/member/saveuser/datatype/json"}>',
+       data: {'controlname':obj,obj:$('#'+obj).val()},
+      dataType: 'json',success: function(content) { 
+      	if(content.error == false)
+      	{
+      		$('#'+obj).attr('disabled',true);
+		      $('#'+obj+'action').html('<a href="javascript:void(0);" class="apanel" onclick="mody(\''+obj+'\')">修改</a>');
+      	}else{
+      	   alert(content.msg);
+      	} 
+		  },
+      error: function(content) { 
+      	alert(content);
+	    }
+    });   
+		
+	}
+	function postBaseInfo(){
+		var info = {'controlname':'pwd','pwd':$('#oldpwd').val(),'newpwd':$('#pwdinput').val(),'newpwd2':$('#pwd2input').val()};
+		var url = '<{ofunc type=url link="/member/saveuser/random/@random@/datatype/json"}>';
+		var message =  ajaxback(url,info);
+		if(message.flag== false){
+			location.reload();  
+		}else{
+		  alert(message.content);
+		}
+	}
+	</script>	
+<{/block}>

@@ -1,0 +1,26 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name="seokey"}><meta name="Keywords" content="<{$info['seo_key']}>" /><{/block}>
+<{block name="seodes"}><meta name="description" content="<{$info['seo_content']}>" /><{/block}>
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shouye.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/food_menu.css">
+<{/block}> 
+<{block name=sitetitle}><{$info['title']}><{/block}>
+ <{block name=shophide}><{/block}>
+  <{block name=bgshow}><{/block}>
+<{block name=bodylist}> 
+<div class="hc_content"> 
+		<div style="background: white;padding-bottom:20px;margin-top:13px;">
+			<div class="hc_login_head"><span class="hc_login_head_span"><{$info['title']|default:''}></span></div>
+			<div class="hc_login_content">
+		    	<div style="width:990px; margin:0 auto;">
+			       <{$info['content']|htmlspecialchars_decode}>
+		      </div>
+
+
+
+				  <div class="clear"></div>
+			</div> 
+		</div> 
+</div>
+<{/block}>

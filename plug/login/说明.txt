@@ -1,0 +1,8 @@
+member/linktest/logintype/qq
+接口内包含
+login.php  构造跳转登录链接
+back.php   返回数据处理
+save.php 保存接口信息
+set.php  接口信息说明
+
+有的服务器https错误  关闭QQ 的  class/URL.class.php中 filegetcontents命令  file_get_contents  只是用  curl_init

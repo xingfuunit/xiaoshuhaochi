@@ -1,0 +1,25 @@
+<ul id="Msgul" scrollpagination="enabled"> 
+ 
+<{foreach from=$list item=items}>
+ 
+ <li id="Msg_1647">
+         <div class="MTop"><a href="#" class="MTName"><{$items['username']|default:"游客"}></a>  <{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></div>
+         <div class="MMid"><{$items['content']}></div>
+         <div class="MBottom">
+            <{if !empty($items['replycontent'])}>
+                        <div id="MR_65" class="MsgReply">
+                        	<a href="#" class="MsgCustomerService">
+                              (<b style="color:Red;"><{$items['replyname']|default:$sitename}>客服</b>)</a>发表于: <{$items['replytime']|date_format:"%Y-%m-%d %H:%M:%S"}>
+                            <br>
+                            <{$items['replycontent']}><span class="MsgReplyIcon"></span>
+                        </div>
+            <{/if}>     
+        </div>
+ </li>
+ <{/foreach}> 
+
+  </ul>
+  <div class="ajaxpage">
+  	<{$pagecontent}>
+  </div>
+ 

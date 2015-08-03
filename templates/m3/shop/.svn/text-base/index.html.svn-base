@@ -1,0 +1,993 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=sitetitle}><{$shopinfo['shopname']}><{/block}>
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shop.css">
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/outdiv.css">
+<{/block}>
+<{block name=extendjs}>  
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/bootstrap.min.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/hanwoshop.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/outdiv.js" type="text/javascript" language="javascript"></script>
+
+<{/block}> 
+<{block name=shophide}><{/block}>
+
+
+
+<{block name=bodylist}>  
+<style>
+body{background:url(<{$siteurl}>/upload/shop/listBg.png) no-repeat ;background-size: cover;}
+
+.shopheader{ display:none; position:relative;  background:#fba6a6; width:100%;height:130px;}
+.spinfo{ position:relative;padding:15px 21px 0px 21px;width:331px ; float:left; height:111px; border:2px #fedddd solid;}
+.spinfoLeft{ width:76px; height:76px; background:#ffffff; padding:6px; float:left;}
+.spinfoLeft img { width:82px; height:82px; }
+.spinfoRight{ position:relative; width:212px; padding-left:17px; float:left;}
+.spinfoRight ul li{ height:29px; line-height:29px; color:#ffffff; font-family:微软雅黑; font-size:14px; }
+.spinfodrwo ul li{ height:29px; line-height:29px; color:#ffffff; font-family:微软雅黑; font-size:14px; }
+
+.spinfodrwo{ display:none; position:absolute; right:0px; z-index:999999999; top:130px; background:#fba6a6; padding:15px 21px 0px 21px;width:331px;  border:2px #fedddd solid; border-top:none; height:66px;}
+
+
+.spiRig{float:right;  height:130px; line-height:130px; text-align:center; padding-top:20px;}
+.spiRig p{font-family:微软雅黑;height: 25px; line-height:25px;color:#ffffff;}
+.spiRig p.sp{font-size: 26px;font-weight: bold; margin-top:25px;}
+.spiRig li{float:left; width:90px; height:90px; margin-left:30px; background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/yuanB.png) center no-repeat;}
+</style>
+
+<style>
+.m-cf {
+width: 1156px;
+margin:20px auto 0px;
+height: 66px;
+padding: 20px 22px;
+background-color: #ffffff;
+}
+.f-radius {
+border-radius: 2px;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+}
+.f-shadow-con {
+background-color: #ffffff;
+box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.1);
+-moz-box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.1);
+-webkit-box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.1);
+filter: progid:DXImageTransform.Microsoft.Shadow(color=#f0f0f0, Direction=2, Strength=2);
+}
+.m-cf .logo {
+float: left;
+height: 66px;
+width: 66px;
+}
+.m-cf .title {
+float: left;
+margin-top: 7px;
+margin-left: 15px;
+width: 260px;
+margin-right: 15px;
+}
+.m-cf .title h3 {
+font-size: 18px;
+font-weight: bold;
+color: #535353;
+margin-bottom: 0px;
+cursor: pointer;
+width: 260px;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+height: 25px;
+margin-top: 5px;
+margin-top: 5px;
+}
+.m-cf .title h3 #supplierName_span {
+display: inline-block;
+max-width: 180px;
+zoom: 1;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+float: left;
+}
+a {
+text-decoration: none;
+color: #535353;
+}
+.service_status_0 {
+font-size: 14px;
+font-family: "Microsoft YaHei",微软雅黑,"Microsoft JhengHei", "黑体";
+font-weight: normal;
+margin-left: 20px;
+height: 31px;
+display: inline-block;
+color: #ff7c24;
+cursor: auto;
+}
+.f-fl {
+float: left;
+}
+.m-cf .num {
+margin-left: 5px;
+color: #ffc700;
+}
+.f-14 {
+font-size: 14px;
+}
+.m-cf .liang {
+margin-left: 5px;
+color: #666;
+}
+.f-13 {
+font-size: 13px;
+}
+.m-cf .shoucang {
+float: right;
+padding-left: 20px;
+padding-right: 20px;
+margin-top: 5px;
+}
+.m-cf .shoucang a p {
+padding-top: 41px;
+}
+a.l-shoucang {
+background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/all.png) no-repeat -353px -98px;
+width: 40px;
+height: 40px;
+display: block;
+}
+a.l-shoucang11{
+background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/all.png) no-repeat -397px -98px;
+width: 40px;
+height: 40px;
+display: block;
+}
+.m-cf .sudu {
+float: right;
+border-right: 1px solid #ccc;
+padding-right: 20px;
+margin-top: 5px;
+}
+.m-cf .sudu span {
+color: #ff6931;
+}
+.f-36 {
+font-size: 36px;
+}
+.m-cf .sudu span {
+color: #ff6931;
+}
+
+.m-cf .sudu p {
+text-align: center;
+padding-top: 5px;
+}
+.m-cf .sudus {
+float: right;
+border-right: 1px solid #ccc;
+padding-right: 20px;
+margin-top: 5px;
+margin-right: 20px;
+}.m-cf .sudus span {
+color: #ff6931;
+}
+.f-36 {
+font-size: 36px;
+}
+
+</style>
+<div class="m-cf f-shadow-con f-radius" id="restaurant-panel">
+                <div class="logo" style="float: left;
+height: 66px;
+width: 66px;
+margin: 0px;">
+	            
+					
+						<img src="<{$shopinfo['shoplogo']|default:$shoplogo}>" width="66px" height="66px">
+					
+					
+				
+                </div>
+                <div class="title">
+                    <h3 class="f-dian c-24231e">
+                     	<a href="/diaojiangnacanyinquanjiao" id="supplierName_span" title="<{$shopinfo['shopname']}>"><{$shopinfo['shopname']}></a>
+                     	<span class="status service_status_0" id="status_resturant">
+						<{if $shopopeninfo['opentype'] ==2}>正在营业
+                    <{elseif $shopopeninfo['opentype']==3}>休息中,但接受预定
+                    <{else}>休息中
+                    <{/if}>
+						
+						</span>
+                     </h3>
+                    <span class="f-fl f-s4">
+                      <div class="hc_xinxin_div" style="margin:3px 3px 0 0;"> <span class="Star_g" original-title="<{$shopinfo['point']*20}>" style="margin:0px 0px 0px 0px;"> <span class="Star_y" style="width:<{$shopinfo['point']*20}>%;"></span> </span> </div>
+				
+                    </span>
+                    <span class="f-14 num c-999">  <{$shopinfo['point']}>.0</span>
+                    <span class="f-13 liang">  
+					
+					<{foreach from=$mainattr item=itvv}>
+			
+						 <{foreach from=$shopattr item=itv}>
+							
+							 <{if $itv['firstattr'] == $itvv['id']}>
+							     <{if $itvv['type'] == 'checkbox'}>
+									<{$itv['value']}>
+								 <{/if}>
+							 <{/if}>
+							
+						 <{/foreach}>
+			  
+			       <{/foreach}></span>
+                </div>
+                
+                
+                <div class="shoucang" onclick="favor()">
+                	
+                	
+                		<a href="javascript:void(0);" <{if !empty($collect)}> style="display:none;" <{/if}>  onclick="myFavorite2();" id="AddFavShop"  class="favor_0 l-shoucang" id="isFavor">
+						
+						<p class="f-13" id="favor">未收藏</p>
+						
+						</a>
+						
+						
+						<a href="javascript:void(0);" <{if empty($collect)}> style="display:none; " <{/if}> onclick="delFav();"   id="CancelFavShop"  class="favor_0 l-shoucang11" id="isFavor"><p class="f-13" id="favor">已收藏</p></a>
+                	
+                </div>
+                <div class="sudu">
+                	<div style="margin-top: 5px;">
+                		<span class="f-36">						
+						
+						<{$shopinfo['maketime']}>
+                    </span><span class="f-14">分钟</span>
+                    <p class="f-13">送餐速度</p></div>
+                </div>
+                <div class="sudus">
+                	<div style="margin-top: 5px;">
+                		<span class="f-36" id="deliveryLeastValue"><{$shopinfo['limitcost']}></span><span class="f-14">元</span>
+                    <p class="f-13">起送价</p></div>
+                </div>
+            </div>
+
+
+
+
+
+<div class="shopheader">
+<div style="width:1200px; margin:0 auto;">
+	<div class="spinfo">
+		<div class="spinfoLeft">
+			<img width="76" height="76" style="width:76px; height:76px;" src="<{$shopinfo['shoplogo']|default:$shoplogo}>" title="<{$shopinfo['shopname']}>" />
+		</div>
+		<div class="spinfoRight">
+			<ul>
+				<li style="font-size:16px;background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/xiaoicon.png) center right no-repeat;"><{$shopinfo['shopname']}></li>
+				<li>
+				            <div class="hc_xinxin_div" style="margin:3px 3px 0 0;"> <span class="Star_g tips" original-title="<{$shopinfo['point']*20}>" style="top:34px; left:15px;margin:0px 0px 0px px;"> <span class="Star_y" style="width:<{$shopinfo['point']*20}>%;"></span> </span> </div>
+				<div style="margin-left:60px;"><{$shopinfo['point']}>.0</div></li>
+				<li><{$shopinfo['limitcost']}>元起送  
+				<{if $psinfo['pscost'] == 0 }>
+					免配送费
+				<{else}>
+					<{$psinfo['pscost']}>元配送费 
+				<{/if}>
+				
+				由<{if $psinfo['pstype'] == 1}>餐厅<{else}>网站<{/if}>配送
+				
+				</li>
+			</ul>
+		</div>
+		<div style="clear:both;"></div>
+		
+			
+		<div class="spinfodrwo"  style="border-top:1px #ffbcbc solid">
+		
+			<ul>
+				<li>时间 : <{assign var=newshowtime value="|"|explode:$shopinfo['starttime']}>
+						<{foreach from=$newshowtime  item=v}>
+						 <{$v}>&nbsp;
+						<{/foreach}></li>
+				<li>地址 : <{$shopinfo['address']}></li>
+			</ul>
+		
+		</div>
+	
+		
+	</div>
+	
+
+	<div class="spiRig">
+	
+		<ul>
+			<li>
+				<p class="sp">45+</p>
+				<p>送餐速度/分钟</p>
+			</li>
+			<li>
+				<p class="sp" id="juli" style="font-size:14px;">未启用地图</p>
+				<p>餐厅距离/米</p>		
+			</li>
+			<li style="margin-right:10px;">
+				<p class="sp"><{$shopinfo['limitcost']}></p>
+				<p>起送价/元</p>
+			</li>
+		</ul>
+	
+	</div>
+	
+</div>
+</div>
+<script>
+
+	$(".spinfo").mouseover(function(){
+	
+		$(".spinfodrwo").show();
+		$(".spinfo").css("border-bottom","none");
+		
+	});
+		$(".spinfo").mouseout(function(){
+	
+		$(".spinfodrwo").hide();
+			$(".spinfo").css("border-bottom","2px #fedddd solid");
+		
+	});
+	
+	
+</script>
+<style>
+	.tuijianfood{ position:relative; width:1190px; margin:34px auto; background:#ffffff; height:232px; padding:22px 0px 22px 10px; }
+	.recFoodimg{ position:absolute; margin-left:-93px; left:50%;}
+	.recFood ul li{ position:relative; float:left; margin-right:8px;width:242px; height:228px;}
+	.recFood ul li img {width:242px; height:228px;}
+	.recFood ul li .recFoodxq {width:242px; height:82px; position:absolute;left:0px; bottom:-1px; background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/recFoodxqBg.png) center no-repeat; }
+	.rfoodname{font-family: "Microsoft yahei"; height:21px; color:#000000; font-size:16px; font-weight:bold; margin:12px 12px 0px 12px;}
+	.rfname{ float:left;}
+	.rcfcosst{ float:right; color:#c02424;}
+	
+	
+	
+	.caidanFood ul li{ position:relative; float:left;  margin:0px 20px 30px 0px; width:266px; height:230px;}
+	.caidanFood ul li img {width:266px; height:230px;}
+	.caidanFood ul li .recFoodxq {width:266px; height:82px; position:absolute; left:0px; bottom:-1px; background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/recFoodxqBgBG.png) center no-repeat; }
+	.caidanFood .rfoodn{width:266px; height:49px;}
+	.caidanFood .rfoodn .rfoodnRight{ float:right;width:112px; height:49px;}
+	
+	.rfoodn{width:242px; height:49px;}
+	.rfoodn .rfoodnLeft{ float:left;width:130px; height:49px;}
+	.rfoodn .rfoodnRight{ float:left;width:112px; height:49px;}
+	.yueshou{font-family: "Microsoft yahei";  color:#363636; font-size:12px; font-weight:bold; margin:16px 12px 0px 12px;}
+
+	
+	#left_list{width:908px;}
+	#left_list div.tit03{ background:#ff6931; width:100%; height:43px; line-height:43px; font-size:14px}
+#left_list div.tit03 span{ color:#E7F1FA}
+#left_list div.tit03 span.tit03{ color:#ADC4F8; margin-left:15px}
+#left_list div.tit03 a{  padding:12px 16px; color:#FFFFFF; margin-left:15px}
+#left_list div.tit03 a.a1{ background:#ffffff;  padding:12px 16px; color:#ff6931; margin-left:15px}
+#left_list div.tit03 a:hover{ background:#ffffff; padding:12px 16px;  color:#ff6931; margin-left:15px}
+
+
+
+ul#left_cale2{ clear:both; margin-top: 20px; padding: 0px 40px 10px;}
+ul#left_cale2 li{ font-size:14px; color:#0c0c0c; height:40px; line-height:40px;font-family: "Microsoft yahei"; border-bottom:1px #f0f0f0  solid; padding-left:15px;  }
+ul#left_cale2 li a{ padding:4px 10px; margin-left:5px; margin-right:7px; color:#0c0c0c; line-height:250%}
+ul#left_cale2 li a.current{background:none; padding:4px 10px; color:#c42e2e}
+ul#left_cale2 li a:hover{ background:none; padding:4px 10px; color:#c42e2e}
+
+ul#left_cale2 {
+clear: both;
+margin-top: 20px;
+padding: 0px 15px 10px;
+}
+
+#cd_925_box {
+margin: 0px auto;
+width: 872px;
+padding: 0px 18px;
+overflow: hidden;
+}
+#cd_925_box h2.h87 {
+width: 100%;
+color: #242424;
+height: 44px;
+background: #f1f1f1;
+line-height: 44px;
+text-indent: 1.2em;
+font-family: "微软雅黑";
+font-size: 16px;
+}
+</style>
+
+<div class="tuijianfood">
+
+	<div class="recFoodimg">
+		<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/recBg.png" />
+	</div>
+	
+	<div class="recFood">
+		<ul>
+		  <{foreach from=$com_goods item=items}>
+		
+			<li class="">
+			<img src="<{$items['img']}>" />
+			<div class="recFoodxq">
+				<div class="rfoodname">
+					<span class="rfname"><{$items['name']}></span>
+					<span class="rcfcosst">￥<{$items['cost']}></span>
+				</div>
+				<div style="clear:both;"></div>
+				
+				<div class="rfoodn">
+					<div class="rfoodnLeft">
+						<div class="hc_xinxin_div" style="margin:3px 3px 0 12px;"> <span class="Star_g" original-title="<{$items['point']*20}>" style="margin:0px 0px 0px 0px;"> <span class="Star_y" style="width:<{$items['point']*20}>%;"></span> </span> </div>
+						<br>
+						<div>
+							<span class="yueshou">月售<{$items['sellcount']}>份</span>
+						</div>
+					</div>
+					<div class="rfoodnRight">
+						<div style="width:98px; height:27px; margin-top:8px;">
+							<div style="float:left;width:25px;<!--  background:#3b79b3; --> height:27px; line-height:27px; text-align:center; color:#FFF;">
+								<!-- 3 -->&nbsp;
+							</div>
+							
+							
+							
+								<{if $shopopeninfo['opentype'] ==2 || $shopopeninfo['opentype'] ==3 }>
+			
+							<div  onclick="addonedish(<{$items['id']}>,<{$items['shopid']}>,1,this);" style=" cursor:pointer; float:left;width:73px; background:#5993ca; height:27px; line-height:27px; text-align:center; color:#FFF;">
+							
+					
+							
+									
+								<{if $items['count'] < 1}>
+									
+									已售完
+									
+									<{else}>
+										加入购物车
+									<{/if}>
+					
+
+								</div>
+								
+										
+						<{else}>
+							<div  style=" cursor:pointer; float:left;width:73px; background:#ccc; height:27px; line-height:27px; text-align:center; color:#3D3D3D;font-weight:bold;">休息中
+					
+
+								</div>
+							<{/if}>			
+								
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			</li>
+			
+			      <{/foreach}>
+		</ul>
+	</div>
+<script>
+
+$(function(){
+
+$(".recFood li:eq(1)").css("margin-right","195px");
+
+
+});
+ </script>
+
+
+</script>
+</div>
+
+<div id="dingcan"> 
+ 
+   
+   
+<div class="chy_list_zp">
+  <div class="mainbody" style="overflow: visible">
+    <div class="left" style=" width:908px; overflow:visible">
+    	
+     <!---菜品展示-->	
+     <div id="left_list" style="width:908px;background:#FFFFFF; margin-bottom:20px" class="leftlist">
+     	
+	        
+	             <div class="tit03" style=" background:#ff6931; width:100%; height:43px; line-height:43px; font-size:14px">
+	                       <a href="javascript:;" class="a1">外卖菜品</a><a href="javascript:;">商家评论</a><a href="javascript:;">商家详情</a><a href="javascript:;">特价活动</a>
+	              </div>
+	             <ul id="left_cale2">
+	                        <li>价格区间：
+	                        	    <a href="javascript:;"  onclick="change_shop_cost(0,0,this)" class="current">全部</a>
+	                        	    <a href="javascript:;"  onclick="change_shop_cost(0,20,this)">20元以下</a>
+	                        	    <a href="javascript:;"  onclick="change_shop_cost(19,40,this)">20-40元</a>
+	                        	    <a href="javascript:;"  onclick="change_shop_cost(39,60,this)">40-60元</a>
+	                        	    <a href="javascript:;"  onclick="change_shop_cost(59,1000,this)">60元以上</a></li>
+		                      <li>
+		                      	  美食分类：
+		                      	       <a href="javascript:;" onclick="change_shop_list(0,this)" class="current">全部</a>     	
+		                      	     <{foreach from=$goodstype  item=items}>  
+			                			       <a href="javascript:;" onclick="change_shop_list(<{$items.id}>,this)"><{$items.name}></a>
+			                            <{/foreach}> 
+			                   </li> 
+	             </ul>
+	             <div id="goodlista">
+	             <{foreach from=$goodstype key=cid item=items}> 
+        	     <div id="cd_925_box" class="<{$items.id}>_mid lisul">
+	                <h2 class="h87"><{$items['name']}></h2>
+					
+					
+					
+					<div class="caidanFood" id="" style="margin-top:30px;">
+		<ul>
+		  <{foreach from=$items['det'] item=itv}>
+			<{if !empty($itv['img'])}>
+			<li class="" >
+			<img src="<{$itv['img']}>" />
+			<div class="recFoodxq">
+				<div class="rfoodname">
+					<span class="rfname"><{$itv['name']}></span>
+					<span class="rcfcosst">￥<{$itv['cost']}></span>
+				</div>
+				<div style="clear:both;"></div>
+				
+				<div class="rfoodn">
+					<div class="rfoodnLeft">
+						<div class="hc_xinxin_div" style="margin:3px 3px 0 12px;"> <span class="Star_g" original-title="<{$itv['point']*20}>" style="margin:0px 0px 0px 0px;"> <span class="Star_y" style="width:<{$itv['point']*20}>%;"></span> </span> </div>
+						<br>
+						<div>
+							<span class="yueshou">月售<{$itv['sellcount']}>份</span>
+						</div>
+					</div>
+					<div class="rfoodnRight">
+						<div style="width:98px; height:27px; margin-top:8px;">
+							<div style="float:left;width:25px; <!-- background:#3b79b3;  -->height:27px; line-height:27px; text-align:center; color:#FFF;">
+								<!-- 3 -->&nbsp;
+							</div>
+							
+							
+							<{if $shopopeninfo['opentype'] ==2 || $shopopeninfo['opentype'] ==3 }>
+							<div  onclick="addonedish(<{$itv['id']}>,<{$itv['shopid']}>,1,this);" style=" cursor:pointer; float:left;width:73px; background:#5993ca; height:27px; line-height:27px; text-align:center; color:#FFF;">
+							
+							<{if $itv['count'] < 1}>
+							
+							已售完
+							
+							<{else}>
+								加入购物车
+							<{/if}>
+
+								</div>
+													
+						<{else}>
+							<div  style="position:absolute;right:10px; top:14px; cursor:pointer; float:left;width:73px; background:#ccc; height:27px; line-height:27px; text-align:center; color:#3D3D3D;font-weight:bold;">休息中
+					
+
+								</div>
+							<{/if}>			
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			</li>
+			<{/if}>
+			      <{/foreach}>
+		</ul>
+	</div>
+					
+					
+					
+					
+					
+		              <ul class="ul01" style="padding:0px;line-height:52px; ">
+		              	 <{foreach from=$items['det'] item=itv key=key}>
+						 
+						 
+						 <{if empty($itv['img'])}>
+						 
+						 <{if $key is not odd}>
+		                    <li class="goodsli" cdata="<{$itv['cost']}>" style="width:432px; margin-left:0px; margin-right:0px;height: 52px;line-height: 52px;" >
+						<{else}>
+							    <li class="goodsli" cdata="<{$itv['cost']}>" style="width:432px; margin-left:0px;margin-right:8px;height: 52px;line-height: 52px;" >
+								
+						<{/if}>
+		                             <a href="javascript:void(0);" style="background:none; height:52px; line-height:52px;color: #000000;
+font-size: 16px;
+font-weight: bold; width:180px; overflow:hidden;"><{$itv['name']}> 
+		                             	</a>
+		                             	
+                                        <span style="color: #c02424;font-size: 16px; left:210px; right:0px;
+font-weight: bold;" >￥<{$itv['cost']}>元</span>
+
+<{if $shopopeninfo['opentype'] ==2 || $shopopeninfo['opentype'] ==3 }>
+<div onclick="addonedish(<{$itv['id']}>,<{$itv['shopid']}>,1,this);" style=" position:absolute;right:10px; top:14px; cursor:pointer; float:left;width:73px; background:#5993ca; height:27px; line-height:27px; text-align:center; color:#FFF;">
+							
+     								     <{if $itv['count'] < 1}>
+							
+							已售完
+							
+							<{else}>
+								加入购物车
+							<{/if}>
+
+							
+								</div>
+								
+								<{else}>
+							<div  style=" position:absolute;right:10px; top:14px;  cursor:pointer; float:left;width:73px; background:#ccc; height:27px; line-height:27px; text-align:center; color:#3D3D3D;font-weight:bold;">休息中
+					
+
+								</div>
+							<{/if}>		
+		                   </li>
+						   
+						   <{/if}>
+		                   <{/foreach}>
+		                   
+		               </ul>
+	             </div> 
+	              
+	            <{/foreach}>
+	            </div>
+     </div>
+	  <!---菜品展示结束--> 
+	   <div id="left_list" style="background:#FFFFFF; overflow: visible; position:relative; z-index:55; margin-bottom:20px" class="leftlist">
+	        
+	        <div id="cd_925_box"  style="padding:0px; width:908px;"> 
+	                 <h2 class="h87" style="clear:both;background:#ff6831; color:#fff;height:43px; line-height:43px;">全部评论</h2>
+	                 <div id="pingjialist">
+	                
+	               </div>
+	         </div> 
+	    </div>
+	  <!---评价结束--> 
+	  
+	    <div id="left_list" style="background:#FFFFFF; display:none; overflow: visible; position:relative; z-index:55; margin-bottom:20px" class="leftlist leftlistlist">
+	         
+	
+	           <div id="cd_925_box"  style="padding:0px; width:908px;">
+	                        <h2 class="h87" style="background:#ff6931;color:#fff; height:43px; line-height:43px;">商家详情</h2>
+		                      <div class="business_abstract">
+		                             <{$shopinfo['intr_info']|htmlspecialchars_decode}>
+		                      </div>
+	        	              <h2 class="h87" style="clear:both">商家地图</h2>
+	        	              <div class="business_map">
+	        	                                  <div class="left"><div id="SearchAddmap" style="width:700px;height:444px;"></div></div>
+	        		                                <div class="right">
+	        		                                  <h5>地址：</h5>
+	        		                                  <p><{$shopinfo['address']}></p>
+	        		                                 
+	        		                                  <h5>营业时间：</h5>
+	        		                                  <p><{$shopinfo['starttime']|replace:"|":","}> </p> 
+	        		                                </div>
+	        	              </div>
+	          </div>
+	 
+
+	  
+	     </div>
+	    <!---商家结束--> 
+	     <div id="left_list" style="background:#FFFFFF; overflow: visible; display:none;position:relative; z-index:55; margin-bottom:20px" class="leftlist">
+	         
+	
+	           <div id="cd_925_box" style="padding:0px; width:908px;">
+	                        <h2 class="h87" style="background:#ff6931; height:43px; line-height:43px; color:#fff;">特价活动</h2>
+		                      <div class="business_abstract">
+		                          <{$shopinfo['cx_info']|htmlspecialchars_decode}>
+		                      </div> 
+	          </div>
+	 
+
+	  
+	     </div>
+	      <!---促销结束--> 
+	
+	</div>
+	
+	
+	<style>.prudot_right_05{ width:275px; overflow:visible}
+	.restuGg{ margin-bottom:40px; margin-left:17px; width:275px; background:#fff;}
+	.restuGgTitle{width:255px; height:43px; line-height:43px; background:#5993ca; color:#fff; padding-left:20px;font-size:16px; }
+	.restuGgContent{ padding:22px; width:211px;}
+	.restuGgqsj{width:241px; color:#fff; margin-left:8px;font-size:16px;  background:#ff6931; padding-left:18px; line-height:37px;}
+	
+	.restuGgimg{ width:259px; margin-top:10px; color:#101010;  margin-left:8px;background:#fff;}
+	.restuGgimg ul li{float:left; border-right:1px solid #dcdcdc; padding:5px; margin-bottom:10px;}
+	
+	.newGouwuche{width:292px; background:#deedfb;}
+	.newGouwucheTit{width:292px; background:#9bbddd; height:47px; line-height:47px; color:#ffffff;}
+	.newGouwucheTit .cpfood{font-size: 14px;margin-left: 17px;}
+	.newGouwucheTit .qkfood{font-size: 14px; color:#2c6396; cursor:pointer;}
+	.newGouwucheTit .fsfood{font-size: 14px;margin-left: 52px;}
+	.newGouwucheTit .jgfood{font-size: 14px;margin-left: 37px;}
+	
+	.qujiesuan{width:292px; background:#9bbddd; height:51px; line-height:51px; color:#ffffff;}
+	</style>
+		
+		<form action="<{ofunc type=url link="/site/showcart"}>" method="post" onsubmit="return checkcart();"> 
+    <div class="prudot_right_05" style="width:292px;"> 
+	
+	<div class="restuGg">
+		<div class="restuGgTitle">
+			餐厅公告
+		</div>
+		<div class="restuGgContent">
+			<{$shopinfo['notice_info']|htmlspecialchars_decode}>
+		</div>
+		<div class="restuGgqsj">
+		
+		<{foreach from=$ruledata item=items}>
+			
+			<p><{$items['name']}></p>
+		
+		<{/foreach}>
+		
+		</div>
+		<div class="restuGgimg">
+			 <ul>
+          <{foreach from=$mainattr item=itat}>
+          <{if $itat['type']=='img'}> 
+          <{foreach from=$itat['det'] item=itdd}>
+          <{foreach from=$shopattr item=itaa}>
+          <{if $itdd['id'] == $itaa['attrid']}>
+          <li class="rst-badge-item" style="width:259px;">
+		  <span><img src="<{$itaa['value']}>" /></span>
+		  <span style="margin-left:5px;"><{$itdd['instro']}></span>
+		
+          <{/if}>
+          <{/foreach}> 
+          <{/foreach}> 
+          <{/if}>     
+          <{/foreach}>
+        </ul>
+		<div style="clear:both;"></div>
+		</div>
+	</div>
+	
+	
+	
+	<!-- 购物车 -->
+	
+	<div id="newGouwuche" class="newGouwuche">
+	
+		<div class="newGouwucheTit">
+			<span class="cpfood">菜品</span>
+			<span onclick="delshopcart();" class="qkfood">[清空]</span>
+			<span class="fsfood">份数</span>
+			<span class="jgfood">单价</span>
+		</div>
+		 <div id="cartlist">
+		 
+		 
+		 
+		 </div>
+	
+		
+		
+		
+		
+	</div>
+	
+	
+	
+ 
+      
+       </form>
+	  
+	
+    
+</div>
+
+</div>
+</div>	
+	
+ </div> 
+<div id="temdiv_id" style="display:none;">
+	 <div id="temd_id1">
+     <div>  	您距<{$shopinfo['shopname']}>超过<{$servery}>米，如需配送请致电<{$litel}>， </div>
+     <div>我们的客服会为您提供解决方案。</div>
+     <div id="btntu_div" style="margin-top:20px;">  <a href="<{ofunc type=url link="/site/guide/shopid/<{$shopinfo['id']}>"}>" class="y"><< 重新定位</a>  <a href="<{ofunc type=url link="/site/index"}>" class="n"> 查看附近商家</a>  <a href="javascript:void();" onclick="closetout();" class="n"> 继续看看 >></a> </div>
+	 </div>
+	<div id="temd_id2">
+	   <div> <font style="font-weight:bold;">您还未定位，我们无法为您提供准确服务…</font></div>
+     <div>   您需要先定位，确定您与所选商家的距离  </div>
+     <div id="btntu_div" style="margin-top:20px;">  <a href="<{ofunc type=url link="/site/guide/shopid/<{$shopinfo['id']}>"}>" class="y"><< 定位确定您的位置</a>  <a href="javascript:void();" onclick="closetout();" class="n"> 留在本页面先看看 >></a> </div>
+  </div>
+</div>
+ <style>
+ 	#btntu_div a.y{
+ 		padding:5px 5px 5px 5px;
+ 		background-color:#fca500;
+ 		height:30px;
+ 		color:#fff;
+ 		font-weight:bold;
+ 	}
+ 	#btntu_div a.n{
+ 		padding:5px 5px 5px 5px;
+ 		background-color:#5ec3cd;
+ 		height:30px;
+ 		color:#fff;
+ 		font-weight:bold;
+ 	}
+ 	#btntu_div a:hover{
+ 		text-decoration:none;
+ 		color:#fff;
+ 		
+ 	}
+</style>
+  
+ <script type="text/javascript"> 
+ $(".MealsList li:nth-child(even)").addClass('odd');//css({'border-left':'3px solid #f60','background-color':'#fffae7'});
+ 	var juanlist = <{$juanlist|json_encode}>;
+ 	var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+	var starttime = '<{$shopinfo['starttime']}>';
+	var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+ var shopid = <{$shopinfo['id']}>;   
+ var locationfalse  = false;
+ var submithtml = '<{ofunc type=url link="/shop/makeorder/datatype/json/random/@random@"}>';
+	  var orderhtml = '<{ofunc type=url link="/site/waitpay/orderid/@orderid@"}>';
+var memberid = <{$member['uid']}>;
+var allowedguestbuy = <{$allowedguestbuy|default:0}>;
+ 
+   <{if $locationtype == 1}> 
+ 	      <{if empty($lng)}>
+	      
+	       $('#temd_id1').remove();
+	     
+    	<{else}>
+		        $('#temd_id2').remove();
+     	<{/if}> 
+ 	     $.get("<{ofunc type=url link="/site/ceju/lat/<{$shopinfo['lat']}>/lng/<{$shopinfo['lng']}>/dlng/<{$lng}>/dlat/<{$lat}>/datatype/json"}>", function(result){
+ 	     	   $("#juli").text(result.msg);
+ 	        	if(result.error ==  false){
+                locationfalse = false;    
+           }else{
+           	 locationfalse = true;
+           	   artopen();
+           }
+       },'json'); 
+ 	  <{else}>
+ 	   
+ 	  	$(function(){
+		       var myaddressid = '<{$myaddress}>';
+		      if(myaddressid == null|| myaddressid==''){
+			           window.location.href= '<{ofunc type=url link="/site/guide"}>';
+	    	   }
+	    }); 
+ 	  <{/if}> 
+ 
+	
+ 
+  function artopen(){ 
+    art.dialog({
+       id: 'testID3',
+       lock: true,
+       background: '#666', // 背景色
+       opacity: 0.87,	// 透明度
+       title:'定位提示',
+       content: $('#temdiv_id').html()
+    });  
+  }
+	function closetout(){ 
+	  art.dialog({id: 'testID3'}).close();
+	}
+	
+	     
+//添加店铺收藏
+function myFavorite2()
+{ 
+  var url = siteurl+'/index.php?ctrl=shop&action=addcollect&datatype=json&collectid='+shopid+'&type=0'; 
+  var backinfo = ajaxback(url,{});
+  if(backinfo.flag == false){ 
+     		$('#AddFavShop').hide(); 
+     		$('#CancelFavShop').show();
+   }else{ 
+   	diaerror(backinfo.content); 
+  }  
+}  
+//删除店铺收藏
+function delFav()
+{ 
+	var url = siteurl+'/index.php?ctrl=shop&action=delcollect&datatype=json&collectid='+shopid+'&type=0'; 
+  var backinfo = ajaxback(url,{});
+  if(backinfo.flag == false){ 
+      $('#AddFavShop').show(); 
+      $('#CancelFavShop').hide();
+   }else{ 
+   	 diaerror(backinfo.content); 
+  }  
+}
+	
+	
+	
+</script>
+<script>
+ 
+
+
+</script>
+
+
+ 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<{$baidumapkey}>"></script>
+<script type="text/javascript">
+
+// 百度地图API功能
+/*初始化地图*/  
+var map = new BMap.Map("SearchAddmap");
+var point = new BMap.Point(<{$lng}>, <{$lat}>); 
+var myIcon1 = new BMap.Icon(siteurl+"/upload/map/pepole.png", new BMap.Size(30,50));  
+var point2 = new BMap.Point(<{$shopinfo['lng']}>, <{$shopinfo['lat']}>); 
+var myIcon2 = new BMap.Icon(siteurl+"/upload/map/shop.png", new BMap.Size(19,19));  
+var marker2 =  new BMap.Marker(point2,{icon:myIcon2}); 
+var marker = new BMap.Marker(point,{icon:myIcon1});
+var infoWindow = new BMap.InfoWindow('');  // 创建信息窗口对象 
+map.centerAndZoom(point2, 15);
+//加载缩放级别
+map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+
+ map.addOverlay(marker);
+ 
+   map.addOverlay(marker2);
+
+$(function(){
+
+		$(' .ordering_pic_orange').showBigPic({
+			src: 'bigsrc',   	  //图片地址
+			type:'click', //事件
+			content:''	  //显示的内容
+		})
+
+})
+ 
+ 
+ //刷新购物车
+function freshcart(){ 
+	
+	if($('#ShopCart').html() == undefined){
+	
+	    url = siteurl+'/index.php?ctrl=site&action=smallcat&shopid='+shopid+'&random=@random@';
+	    url = url.replace('@random@', 1+Math.round(Math.random()*1000)); 
+	    $.get(url, function(result){ 
+	   
+        $("#cartlist").html(result);
+         freachperson();
+         jifenduihuan();  
+       //  $('.new_cart_show').bind("hover", function() {   
+      //   	  $(this).addClass('hoveron').siblings().removeClass('hoveron');
+      //   });
+    //    $('#CMoney').text(allcost);
+     //   $('#waimaibtn').text(allcost);
+      });
+   }else{ 
+   	//调用  自动刷新购物车  
+
+      url = siteurl+'/index.php?ctrl=site&action=smallcat2&shopid='+shopid+'&random=@random@';
+	    url = url.replace('@random@', 1+Math.round(Math.random()*1000)); 
+	    $.get(url, function(result){  
+        $("#cartshow_c").html(result);  
+         if(Number($('#jifendkou').attr('data')) > 0){
+  	        $('#jifendkou').show();
+         } 
+          jifenduihuan();  
+      }); 
+     
+     
+   }  
+}
+ 
+</script>
+ 
+
+<div style="text-align:center;"></div>
+ 
+ 
+<{/block}>

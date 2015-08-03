@@ -1,0 +1,273 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>店铺列表<{/block}>
+ <{block name=bodylist}>
+
+   <div style="width:98%;overflow-y:auto;white-space:nowrap;"> 
+           <div class="tags"> 
+          <div id="tagscontent"> 
+            <div id="con_one_1"> 
+              <div class="table_td" style="margin-top:10px;"> 
+              <form method="post" action="" onsubmit="return remind();"> 
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%"> 
+                    <thead> 
+                      <tr> 
+                        <th align="center">区域名称</th>  
+                        <th align="center">首字母</th> 
+                        <th align="center">排序ID</th> 
+                       <{if !empty($psset)}> 	
+                         	<{$pssetinfo = $psset|unserialize}>
+                         	<{if $pssetinfo['locationtype'] == 1}>
+                         	<th align="center">标记地图位置</th>
+                        <{/if}>
+                        <{/if}>
+                        <th align="center">操作</th> 
+                      </tr> 
+                    </thead>  
+                     <tbody>
+                   <{if empty($psset)}> 	
+                     	  请先网站配送设置
+                   <{else}>
+                        	<{$pssetinfo = $psset|unserialize}>
+                         <{if $area_grade == 1}>
+                            <{load_data assign="list" table="area"   where="parent_id='0'" limit="100"}> 
+                            <{foreach from=$list['list'] item=items}> 
+                            <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$items['id']}>"> 
+                              
+                              <td align="left"><{$items['name']}>    
+                              	 <{if $pssetinfo['pstype'] == 2}>
+                              	      配送费:<input type="text" data="<{$items['id']}>" onchange="doupsetarea(this);" name="areain_<{$items['id']}>" value="<{$areacost[$items['id']]|default:0}>" style="width:50px;">元 
+                                	<{/if}>
+                              	</td> 
+                              <td align="center"> <{$items['pin']}> </td>  
+                              <td align="center"><{$items['orderid']}></td>  
+                              <{if $pssetinfo['locationtype'] == 1}>
+                         	        <td align="center"><a href="javascript:void(0);" onclick="biaoji(<{$items['id']}>);"><{if $items['lng'] == 0}>标记位置<{else}>编辑位置<{/if}></a> <input type="checkbox" data="<{$items['id']}>" name="checkshow" <{if $items['show'] == 1}> checked<{/if}> value="1" onclick="doshowmap(this);">勾选后百度地图内查找</td>  
+                             <{/if}>
+                              <td align="center"><a href="<{ofunc type=url link="/area/addarealist/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                              	 <a onclick="return remind(this);" href="<{ofunc type=url link="/area/delarea/id/<{$items['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                            </tr>
+                            <{/foreach}>
+                         <{elseif $area_grade == 2}>
+                            <{load_data assign="list" table="area"   where="parent_id='0'" limit="100"}> 
+                            <{foreach from=$list['list'] item=items}> 
+                            <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$items['id']}>"> 
+                              
+                              <td align="left"><{$items['name']}> </td> 
+                              <td align="center"> <{$items['pin']}> </td>  
+                              <td align="center"><{$items['orderid']}></td>  
+                             <{if $pssetinfo['locationtype'] == 1}>
+                                   	 <td align="center"><a href="javascript:void(0);" onclick="biaoji(<{$items['id']}>);"><{if $items['lng'] == 0}>标记位置<{else}>编辑位置<{/if}></a> <input type="checkbox" name="checkshow" data="<{$items['id']}>" <{if $items['show'] == 1}> checked<{/if}> value="1" onclick="doshowmap(this);">勾选后百度地图内查找</td>  
+                             <{/if}>
+                              <td align="center"><a href="<{ofunc type=url link="/area/addarealist/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                              	 <a onclick="return remind(this);" href="<{ofunc type=url link="/area/delarea/id/<{$items['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                            </tr>
+                            <{load_data assign="listdet" table="area"   where="parent_id='<{$items['id']}>'" limit="100"}> 
+                            <{foreach from=$listdet['list'] item=itv}> 
+                             <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$itv['id']}>"> 
+                              
+                              <td align="left">&nbsp&nbsp&nbsp&nbsp<{$itv['name']}> 
+                              	<{if $itv['is_com']==1}>(推荐)<{/if}>
+                              	 <{if $pssetinfo['pstype'] == 2}>
+                              	       配送费:<input type="text" data="<{$itv['id']}>" onchange="doupsetarea(this);" name="areain_<{$itv['id']}>" value="<{$areacost[$itv['id']]|default:0}>" style="width:50px;">元 
+                                	<{/if}>
+                              	
+                              	
+                              	
+                              	</td> 
+                              <td align="center"> <{$itv['pin']}> </td>  
+                              <td align="center"><{$itv['orderid']}></td>  
+                                <{if $pssetinfo['locationtype'] == 1}>
+                         	       <td align="center"><a href="javascript:void(0);" onclick="biaoji(<{$itv['id']}>);"><{if $itv['lng'] == 0}>标记位置<{else}>编辑位置<{/if}></a></td>  
+                               <{/if}>
+                              <td align="center"><a href="<{ofunc type=url link="/area/addarealist/id/<{$itv['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                              	 <a onclick="return remind(this);" href="<{ofunc type=url link="/area/delarea/id/<{$itv['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                            </tr>
+                             <{/foreach}>
+                            
+                            <{/foreach}>
+                         
+                         
+                         
+                         
+                         
+                         <{else}>
+                           <{load_data assign="list" table="area"   where="parent_id='0'" limit="100"}> 
+                            <{foreach from=$list['list'] item=items}> 
+                            <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$items['id']}>"> 
+                              
+                              <td align="left"><{$items['name']}> </td> 
+                              <td align="center"> <{$items['pin']}> </td>  
+                              <td align="center"><{$items['orderid']}></td>  
+                                <{if $pssetinfo['locationtype'] == 1}>
+                                	 <td align="center"><a href="javascript:void(0);" onclick="biaoji(<{$items['id']}>);"><{if $items['lng'] == 0}>标记位置<{else}>编辑位置<{/if}></a> <input type="checkbox" name="checkshow" data="<{$items['id']}>" <{if $items['show'] == 1}> checked<{/if}> value="1" onclick="doshowmap(this);">勾选后百度地图内查找</td>  
+                             <{/if}>
+                              <td align="center"><a href="<{ofunc type=url link="/area/addarealist/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                              	 <a onclick="return remind(this);" href="<{ofunc type=url link="/area/delarea/id/<{$items['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                            </tr>
+                            <{load_data assign="listdet" table="area"  where="parent_id='<{$items['id']}>'" limit="100"}> 
+                            <{foreach from=$listdet['list'] item=itv}> 
+                             <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$itv['id']}>"> 
+                              
+                              <td align="left">&nbsp&nbsp&nbsp&nbsp<{$itv['name']}> </td> 
+                              <td align="center"> <{$itv['pin']}> </td>  
+                              <td align="center"><{$itv['orderid']}></td>  
+                               <{if $pssetinfo['locationtype'] == 1}>
+                                	 <td align="center"><a href="javascript:void(0);" onclick="biaoji(<{$itv['id']}>);"><{if $itv['lng'] == 0}>标记位置<{else}>编辑位置<{/if}></a></td>  
+                             <{/if}>
+                              <td align="center"><a href="<{ofunc type=url link="/area/addarealist/id/<{$itv['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                              	 <a onclick="return remind(this);" href="<{ofunc type=url link="/area/delarea/id/<{$itv['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                            </tr>
+                            
+                                  <{load_data assign="listdetdet" table="area"   where="parent_id='<{$itv['id']}>'" limit="100"}> 
+                                  <{foreach from=$listdetdet['list'] item=itc}> 
+                                   <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$itc['id']}>"> 
+                                    
+                                    <td align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<{$itc['name']}> 
+                                    	 <{if $pssetinfo['pstype'] == 2}>
+                              	            配送费:<input type="text" data="<{$itc['id']}>" onchange="doupsetarea(this);" name="areain_<{$itc['id']}>" value="<{$areacost[$itc['id']]|default:0}>" style="width:50px;">元 
+                                	    <{/if}>
+                                    	
+                                    	
+                                    	</td> 
+                                    <td align="center"> <{$itc['pin']}> </td>  
+                                    <td align="center"><{$itc['orderid']}></td>  
+                                      <{if $pssetinfo['locationtype'] == 1}>
+                         	 <td align="center"><a href="javascript:void(0);" onclick="biaoji(<{$itc['id']}>);"><{if $itc['lng'] == 0}>标记位置<{else}>编辑位置<{/if}></a></td>  
+                             <{/if}>
+                                    <td align="center"><a href="<{ofunc type=url link="/area/addarealist/id/<{$itc['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                                    	 <a onclick="return remind(this);" href="<{ofunc type=url link="/area/delarea/id/<{$itc['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                                  </tr>
+                                   <{/foreach}>
+                             <{/foreach}>
+                            
+                            <{/foreach}>
+                         
+                         
+                         <{/if}>  	
+                     	
+                     	
+                     	
+                     	
+                   <{/if}>
+                    
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                 
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  <script> 
+  	 
+ </script>
+ 
+</div> 
+<script>
+	function dosetarea(obj){
+		 var panduan = $(obj).attr('checked');
+	   var areaid = $(obj).attr('data');
+	   if(panduan == true){
+	   	var backmes = doupdata({'areaid':areaid,'type':'add'});
+	   	if(backmes == true){
+	   	 $('#showno_'+areaid).hide();
+	   	 $('#showyes_'+areaid).show();
+	   	}
+	   	$(obj).attr('checked',false);
+	   }else{
+	   	var backmes = doupdata({'areaid':areaid,'type':'del'});
+	   	if(backmes == true){
+	   	  $('#showno_'+areaid).show();
+	   	  $('#showyes_'+areaid).hide();
+	   	}
+	   	$(obj).attr('checked',true);
+	   }
+	}
+	function doupsetarea(obj){
+		 var areaid = $(obj).attr('data');
+		doupdata({'areaid':areaid,'type':'updat','cost':$(obj).val()});
+	}
+	function doupdata(datas){
+		var getinfo = true;
+   	$.ajax({
+     type: 'post',
+     async:false,
+     data:datas,
+     url: '<{ofunc type=url link="/area/adminareacost/datatype/json"}>', 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){
+     		artsucces('更新成功');
+     	}else{
+     		 getinfo = false;
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	getinfo = false;
+    	diaerror('提交数据失败'); 
+	    }
+    });  
+    return getinfo;
+  } 
+  	var mydialog;
+	function biaoji(areaid){
+    	mydialog = art.dialog.open(siteurl+'/index.php?ctrl=area&action=baidumap&id='+areaid);
+    	//http://www.hanwoba.com/index.php?ctrl=admin&action=baidumap&id=2#
+	 	  mydialog.title('设置标记百度地址位置'); 
+ }
+ function closemydilog(){
+    	mydialog.close();
+ }
+ function doshowmap(obj){
+ 	var types = 2;
+ 	if($(obj).attr("checked")==true)types = 1; 
+  $.ajax({
+     type: 'post',
+     async:false,
+     data:{'id':$(obj).attr('data'),'type':types},
+     url: '<{ofunc type=url link="/area/setshow/datatype/json"}>', 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){
+     		artsucces('更新成功');
+     	}else{ 
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) {  
+    	diaerror('提交数据失败'); 
+	    }
+    });
+  
+ }
+</script>
+<!--newmain 结束-->
+<{/block}>

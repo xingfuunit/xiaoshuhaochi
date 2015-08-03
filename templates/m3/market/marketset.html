@@ -1,0 +1,111 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<{/block}>
+ <{block name=controlname}>保存超市商品<{/block}>
+ <{block name=bodylist}>
+   <div style="width:auto;overflow-x:hidden;overflow-y:auto;">   
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/market/savesetmark/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">下单可提前天数</td>
+                      <td>
+                      	<input type="input" value="<{$marketlong|default:1}>" name="marketlong" style="width:100px;">独立购买商城商品下单提前天数   默认1
+                      	</td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商城独立营业时间:</td>
+                      <td>
+                      	 <{assign var=foo value="|"|explode:$marketstarttime}> 
+                        	 <{foreach from=$foo key=myid item=items}> 
+                        	     <{assign var=newtime value="-"|explode:$items}> 
+                      	         <div>  从<input type="input" name="starttime[]" value="<{$newtime[0]}>" style="width:80px;"> 到<input type="input" name="starttime[]" value="<{$newtime[1]|default:''}>" style="width:80px;"></div>
+                      	     <{/foreach}>
+                      	      <div>  从<input type="input" name="starttime[]" value="" style="width:80px;"> 到<input type="input" name="starttime[]" value="" style="width:80px;"></div>
+                      	   填写格式08:00 至 09:30
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商城短信接收手机:</td>
+                      <td> 
+                      	    <input type="input" value="<{$marketphone|default:''}>" name="marketphone" style="width:100px;">
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">超市邮箱:</td>
+                      <td> 
+                      	    <input type="input" value="<{$maketemail|default:''}>" name="maketemail" style="width:100px;">请不要于设置的发件邮箱重复，
+                      	</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+         
+           
+         </div>
+      
+    
+
+          </div> 
+
+<script>
+	var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/admin/upload"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(linkurl){
+ 	dialogs.close(); 
+ 	$('#userlogo').val(linkurl);
+ 	$('#imgshow').attr('src',linkurl);
+ 	$('#imgshow').show(); 
+}
+function uploaderror(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+
+function uploadm(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/admin/uploadm"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucessm(linkurl){
+ 	dialogs.close(); 
+ 	$('#shoplogo').val(linkurl);
+ 	$('#imgshows').attr('src',linkurl);
+ 	$('#imgshows').show(); 
+}
+function uploaderrorm(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+function uploadc(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/admin/uploadc"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucessc(linkurl){
+ 	dialogs.close(); 
+ 	$('#sitelogo').val(linkurl);
+ 	$('#imgshowc').attr('src',linkurl);
+ 	$('#imgshowc').show(); 
+}
+function uploaderrorc(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+   
+</script>    
+<{/block}>

@@ -1,0 +1,103 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=sitetitle}>
+  会员中心
+  <{/block}> 
+  <{block name=extendcss}> <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberCenter.css">
+  <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/base.css"> 
+  <{/block}>
+  <{block name=shophide}><{/block}>
+  <{block name=bgshow}><{/block}>
+  <{block name=bodylist}> 
+ 
+ <div class="box950" id="main">
+	<div class="box150">
+	  <a class="waimairenPic-logo" href="<{ofunc type=url link="/site/index"}>"></a>
+     <div class="title">
+     		<ul class="title_name">
+				<!--<span class="colortip"></span>-->
+				<li><a href="<{ofunc type=url link="/site/index"}>">回到首页</a></li>
+	     		<li><a href="<{ofunc type=url link="/member/loginout"}>">退出登录</a></li>
+     		</ul>
+      </div>
+     <div class="content"><!-- 左侧菜单 -->
+		<ul class="navLeft1">
+		 
+		<li class="light">
+			<h3 class="supervise">资料管理<!--<span class="arrow_bottom" id="cate-a1"></span>--></h3>
+		  <ol class="navLeft2" id="a1" > 
+		      <li class="navitem">
+		      <a class="gray_w" href="<{ofunc type=url link="/member/base"}>" id="cateId1"  <{if $urlshort == 'member/base'}> class="navLeft1_cur"<{/if}> >基本资料</a>
+		      </li>
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/member/edituser"}>" id="cateId1" <{if $urlshort == 'member/edituser'}> class="navLeft1_cur"<{/if}> >修改资料</a></li>
+		      <li class="navitem"><a  class="gray_w" href="<{ofunc type=url link="/area/useraddress"}>" id="cateId1" <{if $urlshort == 'area/useraddress'}> class="navLeft1_cur"<{/if}> >配送资料</a></li>
+		  </ol>
+		</li>
+		<li class="light">
+			<h3 class="supervise">订单管理<!--<span class="arrow_bottom" id="cate-a2"></span>--></h3>
+		  <ol class="navLeft2" id="a2" > 
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/order/usersorder"}>" id="cateId1" <{if $urlshort == 'order/usersorder'}> class="navLeft1_cur"<{/if}> >餐厅订单</a></li>
+		   <!--   <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/order/usermorder"}>" id="cateId1" <{if $urlshort == 'order/usermorder'}> class="navLeft1_cur"<{/if}> >超市订单</a></li> -->
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/member/drawbacklog"}>" id="cateId1" <{if $urlshort == 'member/drawbacklog'}> class="navLeft1_cur"<{/if}> >我要退款</a></li> 
+		  </ol>
+		</li>	 
+		<li class="light">
+			<h3 class="supervise">积分管理<!--<span class="arrow_bottom" id="cate-a2"></span>--></h3>
+		  <ol class="navLeft2" id="a2" > 
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/member/jifenlog"}>" id="cateId1" <{if $urlshort == 'member/jifenlog'}> class="navLeft1_cur"<{/if}> >我的积分</a></li>
+		      <li style="display:none;"><a class="gray_w" href="<{ofunc type=url link="/gift/usergift"}>" id="cateId1" <{if $urlshort == 'gift/usergift'}> class="navLeft1_cur"<{/if}> >积分礼品</a></li>
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/card/myjuan"}>" id="cateId1" <{if $urlshort == 'card/myjuan'}> class="navLeft1_cur"<{/if}> >我的优惠卷</a></li>
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/member/share"}>" id="cateId1" <{if $urlshort == 'member/share'}> class="navLeft1_cur"<{/if}> >邀请好友</a></li>
+		  </ol>
+		</li>	
+		<li style="display:none;" class="light">
+			<h3 class="supervise">留言管理<!--<span class="arrow_bottom" id="cate-a2"></span>--></h3>
+		  <ol class="navLeft2" id="a2" > 
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/order/waitpiont"}>" id="cateId1" <{if $urlshort == 'order/waitpiont'}> class="navLeft1_cur"<{/if}> >待点评订单</a></li>
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/order/overpiont"}>" id="cateId1" <{if $urlshort == 'order/overpiont'}> class="navLeft1_cur"<{/if}> >我的点评</a></li>
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/ask/pmessage"}>" id="cateId1" <{if $urlshort == 'ask/pmessage'}> class="navLeft1_cur"<{/if}> >我的私信</a></li>
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/ask/myask"}>" id="cateId1" <{if $urlshort == 'ask/myask'}> class="navLeft1_cur"<{/if}> >我的留言</a></li> 
+		  </ol>
+		</li>	
+		<li style="display:none;" class="light">
+			<h3 class="supervise">收藏管理<!--<span class="arrow_bottom" id="cate-a2"></span>--></h3>
+		  <ol class="navLeft2" id="a2" > 
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/shop/collect"}>" id="cateId1" <{if $urlshort == 'shop/collect'}> class="navLeft1_cur"<{/if}> >我的收藏</a></li> 
+		  </ol>
+		</li>	
+		<{if $open_acout ==  1}>
+		<li style="display:none;" class="light">
+			<h3 class="supervise">充值管理<!--<span class="arrow_bottom" id="cate-a2"></span>--></h3>
+		  <ol class="navLeft2" id="a2" > 
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/member/paylog"}>" id="cateId1" <{if $urlshort == 'member/paylog'}> class="navLeft1_cur"<{/if}> >帐号资金记录</a></li> 
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/member/payoncard"}>" id="cateId1" <{if $urlshort == 'member/payoncard'}> class="navLeft1_cur"<{/if}> >我要充值</a></li> 
+		   <!--    <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/member/onlinelog"}>" id="cateId1" <{if $urlshort == 'member/onlinelog'}> class="navLeft1_cur"<{/if}> >在线支付记录</a></li>   -->
+		  </ol>
+		</li>	
+		<{/if}>
+			<li style="display:none;" class="light">
+			<h3 class="supervise">店铺管理<!--<span class="arrow_bottom" id="cate-a2"></span>--></h3>
+			 <ol class="navLeft2" id="a2" > 
+		<{load_data assign="checkinfo" table="shop" type="one" where="uid='<{$member['uid']}>' and is_pass='1' " fileds="*" }>
+		<{if !empty($checkinfo)}> 
+		      <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/shop/mangeshop/id/<{$checkinfo['id']}>"}>" id="cateId1" <{if $urlshort == 'shop/openshop'}> class="navLeft1_cur"<{/if}> target="_blank" >我的店铺</a></li> 
+		<{else}> 
+		        <li class="navitem"><a class="gray_w" href="<{ofunc type=url link="/shop/openshop"}>" id="cateId1" <{if $urlshort == 'shop/openshop'}> class="navLeft1_cur" <{/if}> >我要开店</a></li> 
+		<{/if}> 
+			  </ol>
+		</li>	
+				
+			</ul>
+     </div>
+	</div>
+
+	 <{block name=membercenter}><{/block}> 
+
+ <script>
+ 
+ //$('.light a').wrap('<li></li>');
+ $('.light').find('.current').eq(0).parent().css({'background':'#f60'}); 
+
+   
+</script>
+ </div>
+<{/block}>

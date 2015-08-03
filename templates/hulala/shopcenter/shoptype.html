@@ -1,0 +1,559 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       	<div class="editcontent">
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+<div id="menu">
+    <div class="clearfix menu_title" style="padding-top:10px;">
+        
+        <p class="clear">
+            <input type="text" class="menutxt" id="shoptypename" name="shoptypename"><a class="button" id="add_FoodType">添加分类</a></p>
+        <p class="clear" style="display:none;">
+            <input type="text" class="menutxt" id="txtsearch_food"><a class="button" id="search_food">查找菜品</a></p>
+    </div>
+    
+    <div id="div_searchfood" style="display: none">
+        <div class="br4 st_box">
+            <div class="st_title">
+                <span>菜品搜索 </span>
+            </div>
+            <table cellpadding="0" cellspacing="0" class="menu_detail" style="display: table;">
+                <thead>
+                    <tr>
+                        <th width="240px">食品名称</th>
+                        <th width="120px">价格</th>
+                        <th width="370px">食品描述</th>
+                        <th>状态</th>
+                        <th>特价菜</th>
+                        <th>新菜</th>
+                        <th>招牌菜</th>
+                        <th>特色菜</th>
+                        <th>辣</th>
+                        <th>图片</th>
+                        <th>修改类别</th>
+                        <th>删除</th>
+                    </tr>
+                </thead>
+                <tbody id="search_food_tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+    <!--end of menu_title-->
+    <div id="div_foodlist" data-listidx="0">
+    	
+    	
+    	 <!--start of st_box--> 
+    	 <{foreach from=$list key=myid item=items}>  
+            <div class="br4 st_box" id="goodstype<{$items['id']}>" data="<{$items['id']}>" >
+                <div class="st_title" style="cursor: pointer;">
+                    <p class="change" id="showgoodstypename<{$items['id']}>"><{$items['name']}></p>
+                    <p class="" style="display:none;"><input type="text" class="menutxt" id="sgoodstypename<{$items['id']}>" value="<{$items['name']}>" style="width:100px;"></p>
+                    <a class="button change" onclick="mdigoodstype(this);" data="<{$items['id']}>">修改</a> 
+                    <a class="button save" onclick="saveigoodstype(this);" data="<{$items['id']}>">保存</a> 
+                    <a class="button cancel" onclick="canceligoodstype(this);" data="<{$items['id']}>">取消</a>   
+                    <!--
+                    <{if !empty($checkwaimai)}>
+                    <div style="float:left;width:50px;">
+                    	 <input type="radio" name="customtype<{$items['id']}>" value="1" <{if $items['cattype'] == 1}>checked<{/if}>  onclick="changcustype(<{$items['id']}>,1);"><font style="font-size:12px;" >外卖</font> 
+                    </div>
+                    <{/if}>
+                     <{if !empty($checkding)}>
+                     <div style="float:left;width:50px;">
+                    <input type="radio" name="customtype<{$items['id']}>" value="2" <{if $items['cattype'] == 2}>checked<{/if}> onclick="changcustype(<{$items['id']}>,2);" ><font style="font-size:12px;" >订台</font>
+                    </div>
+                     <{/if}>  -->
+                     
+                    <a href="javascript:;" class="close" style="background-position: 100% -22px;" onclick="showdet(this);">展开</a>
+                    <a href="javascript:;" onclick="move_c(<{$items['id']}>,'up');" class="movea">上移</a> 
+                    <a href="javascript:;" onclick="move_c(<{$items['id']}>,'down');"class="movea">下移</a>
+                </div>
+                <table cellpadding="0" cellspacing="0" class="menu_detail" style="display: none;width:100%" >
+                    <thead style="width:100%">
+                        <tr>
+                            <th width="240px">食品名称</th>
+                            <th width="100px">价格</th>
+                            <th width="100px">打包费</th>
+                            <th width="280px">食品描述</th>
+                            <th width="120px">每日数量</th>  
+                          
+                            <th>展示标签</th>
+                            <th>图片</th>
+                            <th>修改类别</th>
+                            <th>删除</th>
+                        </tr>
+                    </thead>
+                    <tbody>    
+                    	<{foreach from=$items['det']  item=ite}>  
+                    	<tr data="<{$ite['id']}>" id="goodstr_<{$ite['id']}>">
+                         <td><p class="name"><{$ite['name']}></p></td>
+                         <td><p class="cost"><{$ite['cost']}></p></td>
+                         <td><p class="bagcost"><{$ite['bagcost']}></p></td>
+                         <td><p class="instro" style="width: 100%"><{if empty($ite['instro'])}>&nbsp;<{else}><{$ite['instro']}><{/if}></p>        </td>
+                         <td><p class="count"><{$ite['count']}></p></td>  
+                       
+                         <td> <{assign var=mycxids value=","|explode:$ite['signid']}> 
+                         <{foreach from=$goodssign   item=itema}> 
+                           <input class="food_check" name="cxids<{$ite['id']}>[]" type="checkbox" data="<{$ite['id']}>" value="<{$itema['id']}>" <{if in_array($itema['id'],$mycxids)}>checked="checked" <{/if}>><img src="<{$itema['imgurl']}>" alt="<{$itema['instro']}>">
+                          <{/foreach}>  </td>
+                         <td><input type="button" class="uploadImg <{if empty($ite['img'])}>green<{else}>blues<{/if}>" value="上传" onclick="uploads(<{$ite['id']}>,'<{$ite['img']}>');"></td>
+                         <td><a href="javascript:;" class="chg_type" onclick="changetype(<{$ite['id']}>,<{$items['id']}>,'<{$ite['name']}>');">修改</a></td>
+                         <td>  <a class="deleteRow" href="#" data="<{$ite['id']}>">删除</a></td>
+                      </tr> 
+                      <{/foreach}> 
+                      <tr class="tbody_foot">
+                         <td> <input type="text" value="请添加新菜名" data="请添加新菜名" id="adgoodname<{$items['id']}>" class="add_fname menutxt">  </td>
+                         <td> <input type="text" class="add_fprice menutxt" id="adgoodscost<{$items['id']}>" data="价格" value="价格"><a href="javascript:;" class="button addfood" onclick="addgoodson(<{$items['id']}>);">确定</a></td>
+                         <td colspan="9">&nbsp;</td>
+                      </tr>
+                      <tr><td colspan="<{$showshu+7}>"><a href="javascript:;" class="button del_cate" data="<{$items['id']}>">删除分类</a></td></tr>
+                    </tbody>
+                </table>
+            </div> 
+            <{/foreach}> 
+            <!--end of st_box-->
+            
+            
+            
+              
+            
+            
+            
+    </div>
+    <!--end of menu_title-->
+</div>
+       		
+       		
+<div id="tempid" style="display:none;">临时DIV</div>
+       		
+       		
+       		
+       		 
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+       		
+       	</div> 
+    
+</div>
+
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	//排序
+	var jsondata = <{$jsondata}>;
+function move_c(goodstypeid,position)
+{
+	 //div_foodlist st_box
+	 var objpostion = $('#div_foodlist .st_box').index($('#goodstype'+goodstypeid));
+	 var zshu = $('#div_foodlist .st_box').length;
+	 if(position == 'down')
+	 {//向下移动
+	 	var moveposition = Number(objpostion)+1;
+	 	if(moveposition < zshu){
+	 		$("#tempid").append($('#goodstype'+goodstypeid).clone(true));  
+	 		$('#div_foodlist .st_box').eq(objpostion).remove();
+	 		$('#div_foodlist .st_box').eq(objpostion).after($('#tempid').find('#goodstype'+goodstypeid).clone(true));  
+	 		$('#tempid').html(''); 
+	 		savepx();
+	 	}else{
+	 		diaerror('排序已经在最下面');
+	 	}
+	 }else{
+	 	//向上移动
+	 	if(objpostion > 0){ 
+	 		var moveposition = Number(objpostion)-1;
+	 		$("#tempid").append($('#goodstype'+goodstypeid).clone(true));  
+	 		$('#div_foodlist .st_box').eq(objpostion).remove();
+	 		$('#div_foodlist .st_box').eq(moveposition).before($('#tempid').find('#goodstype'+goodstypeid).clone(true));  
+	 		$('#tempid').html(''); 
+	 		savepx();
+	 	}else{
+	 		diaerror('排序已经在最上面');
+	 	} 
+	 } 
+}
+//保存排序
+function savepx()
+{
+    var findobj = $('#div_foodlist .st_box');
+    var pxids = '';
+    var pxindex =  '';
+    for(var i=0;i<findobj.length;i++)
+    {
+    	pxids +=$(findobj).eq(i).attr('data')+',';
+    	pxindex += i+',';
+    }
+    //提交数据
+    showop('保存排序信息');
+	  var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/savepx"}>',{'pxids':pxids,'pxindex':pxindex});
+	  if(backinfo.flag == true)
+	  {
+		  hideop();
+		  diaerror(backinfo.content); 
+	  }else{
+		   hideop();
+		   artsucces('保存成功');
+	 }
+}
+function changcustype(goodsid,goodscustype){
+	 var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/changcustype"}>',{'goodsid':goodsid,'goodscustype':goodscustype});
+	  if(backinfo.flag == true)
+	  {
+		  hideop();
+		  diaerror(backinfo.content); 
+	  }else{
+		   hideop();
+		   artsucces('保存成功');
+	 }
+}
+$("#add_FoodType").live("click", function() {   
+	if($('#shoptypename').val() == ''||$('#shoptypename').val() ==null){
+		diaerror('分类不能空'); 
+	}else{
+		var mm = $('#shoptypename').val();
+		$('#shoptypename').val('')
+	   myajax('<{ofunc type=url link="/shopcenter/saveshoptype"}>',{'name':mm,'orderid':$("#div_foodlist .st_box").length}); 
+  }
+});
+$(".del_cate").live("click", function() {  
+	if(confirm('确定操作吗？')){ 
+    myajax('<{ofunc type=url link="/shopcenter/delgoodstype"}>',{'addressid':$(this).attr('data')});
+  }
+});
+function mdigoodstype(obj){
+	$(obj).parent().find('.change').hide();
+	$(obj).parent().find('.save').show();
+	$(obj).parent().find('.cancel').show();
+	var typeid = $(obj).attr('data');
+	$('#sgoodstypename'+typeid).parent().show(); 
+}
+function saveigoodstype(obj){
+	$(obj).parent().find('.change').show();
+	$(obj).parent().find('.save').hide();
+	$(obj).parent().find('.cancel').hide();
+	var typeid = $(obj).attr('data');
+	$('#sgoodstypename'+typeid).parent().hide(); 
+	  showop('保存商品分类信息');
+	  var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/editgoodstype"}>',{'what':'name','addressid':typeid,'controlname':$('#sgoodstypename'+typeid).val()});
+	  if(backinfo.flag == true)
+	  {
+		  hideop();
+		  diaerror(backinfo.content); 
+	  }else{
+	  	 hideop();
+	  	 artsucces('保存成功');
+		  $('#showgoodstypename'+typeid).text($('#sgoodstypename'+typeid).val());
+	 } 
+}
+function canceligoodstype(obj){
+	$(obj).parent().find('.change').show();
+	$(obj).parent().find('.save').hide();
+	$(obj).parent().find('.cancel').hide();
+	var typeid = $(obj).attr('data');
+	$('#sgoodstypename'+typeid).parent().hide();
+	$('#sgoodstypename'+typeid).val($('#showgoodstypename'+typeid).text());
+}
+function showdet(obj){ 
+	var mes = $(obj).text(); 
+	var startheight = $('#div_foodlist').height();
+	if(mes == '展开'){
+		$(obj).text('收起');
+		$(obj).parent().parent().find('.menu_detail').css('display','block');//table
+		$(obj).css('background-position','100% 12px');
+		//: 
+	}else{
+		$(obj).text('展开');
+		$(obj).parent().parent().find('.menu_detail').css('display','none');
+		
+		$(obj).css('background-position','100% -22px');
+	} 
+	var bianhuan = Number($('#div_foodlist').height())- Number(startheight);
+	var dobianhuan = 0;
+	 
+	      dobianhuan =Number($('#content').height())+bianhuan;
+	  
+		      //  alert(bianhuan);
+		      $('#nav').css('height',dobianhuan);
+		    $('#content').css('height',dobianhuan);
+		    autosize();
+} 
+$(".menu_detail p").live("click", function() {  
+	var is_save = $(this).hasClass('now_edit');
+	var typename = $(this).attr('class');
+	var doc = $(this).text();
+	 if(is_save){
+	 	 
+	 }else{
+	 	$(this).addClass('now_edit');
+	 	var goodsid = $(this).parent().parent().attr('data');
+	 	$(this).html('<input type="text" value="'+doc+'" id="'+typename+goodsid+'" class="menutxt" ><a class="button addfood" onclick="savegoodtxt(\''+goodsid+'\',\''+typename+'\');">保存<\/a>');
+	 } 
+});
+function savegoodtxt(goodsid,typename){ 
+  	var values = $('#'+typename+goodsid).val();
+	   showop('保存商品信息');
+	  var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/updategoods"}>',{'controlname':typename,'goodsid':goodsid,'values':values});
+	  if(backinfo.flag == true)
+	  {
+		  hideop();
+		  diaerror(backinfo.content); 
+	  }else{
+	  	 hideop();
+	  	 $('#goodstr_'+goodsid).find('.'+typename).text(values);
+	  	 $('#goodstr_'+goodsid).find('.'+typename).removeClass('now_edit');
+	  	 artsucces('保存成功');  
+	 } 
+}
+function updategoods(){
+	
+}
+function changetype(goodsid,typeid,goodsname){
+	var findobj = $('#div_foodlist .st_box');
+	//showgoodstypename6
+	var showcontent = '<div class="layer_inner br4"><div class="layer_content clearfix" id="loadfoodtypes">';
+      showcontent += '<ul class="show_type clearfix">'; 
+      for(var i=0;i<findobj.length;i++){
+      	var findid = $(findobj).eq(i).attr('data');
+      	if(findid == typeid){
+      		 showcontent += '<li><input type="radio" checked="checked" name="goodsfoodtype" value="'+findid+'">';
+           showcontent += '<label class="foodtypelis">'+$('#showgoodstypename'+findid).text()+'</label></li>';
+      	}else{
+      		showcontent += '<li><input type="radio" name="goodsfoodtype" value="'+findid+'">';
+          showcontent += '<label class="foodtypelis">'+$('#showgoodstypename'+findid).text()+'</label></li>'; 
+      	} 
+      } 
+      showcontent += '</ul>';
+      showcontent += '<div class="lb_box">';
+      showcontent += '<a href="javascript:;" class="button orange change_food_type" onclick="savegtotype(\''+goodsid+'\',\''+typeid+'\');">保存</a>';
+      showcontent += '<a href="javascript:;" class="button cancel" onclick="closeart();">取消</a>';
+      showcontent += '</div>';
+      showcontent += '</div></div>';
+	  art.dialog({
+		id:'showchangdia',
+		title:'修改'+goodsname+'所在分类', 
+    content:showcontent
+  }); 
+}
+function savegtotype(goodsid,typeid){
+	var dotypeid = $('input[name="goodsfoodtype"]:checked').val();
+	if(dotypeid ==typeid){
+		alert('此商品所在分类未发生改变');
+	}else{
+		 showop('保存商品信息');
+	  var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/updategoods"}>',{'controlname':'typeid','goodsid':goodsid,'values':dotypeid});
+	  if(backinfo.flag == true)
+	  {
+		  hideop();
+		  diaerror(backinfo.content); 
+	  }else{
+	  	 hideop();
+	  	 art.dialog({id: 'showchangdia'}).close();
+	  	 $("#tempid").append($('#goodstr_'+goodsid).clone(true)); 
+	 		$("#goodstr_"+goodsid).remove();
+	 		$('#goodstype'+dotypeid).find('tbody').prepend($('#tempid').find('#goodstr_'+goodsid).clone(true));  
+	 		$('#tempid').html('');
+	  	 artsucces('保存成功');  
+	  }  
+	} 
+}
+function closeart()
+{
+	art.dialog({id: 'showchangdia'}).close();
+}
+var dialogs ;
+ function uploads(goodsid,imgurl){  
+ 	  dialogs = art.dialog.open(siteurl+'/index.php?controller=shopcenter&action=upload&type=goods&goodsid='+goodsid+'&imgurl='+imgurl);
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(linkurl){
+ 	dialogs.close();
+ 	artsucces('保存成功');    
+}
+function uploaderror(msg){ 
+		dialogs.close();
+		diaerror(msg);  
+}
+
+$(".add_fname").live("click", function() {   
+	if($(this).val() ==  $(this).attr('data')){
+	 $(this).val('');
+	}
+});
+$(".add_fname").live("blur", function() {   
+	if($(this).val() == ''){
+		$(this).val($(this).attr('data'));
+	} 
+});
+$(".add_fprice").live("click", function() {   
+	if($(this).val() ==  $(this).attr('data')){
+	 $(this).val('');
+	}
+});
+$(".add_fprice").live("blur", function() {   
+	if($(this).val() == ''){
+		$(this).val($(this).attr('data'));
+	} 
+});
+ 
+function addgoodson(typeid){
+	var defaultdata = $('#adgoodname'+typeid).attr('data');
+	var defaultdata2 = $('#adgoodscost'+typeid).attr('data');
+	var data1 = $('#adgoodname'+typeid).val();
+	var data2 = $('#adgoodscost'+typeid).val();
+	if(defaultdata == data1){
+		diaerror('请录入菜名');
+	}else if(defaultdata2 == data2){
+		diaerror('请录入菜品价格');
+	}else{
+		if(confirm('确定操作吗？')){ 
+			 showop('保存商品分类信息');
+			 
+			 $('#adgoodname'+typeid).val(defaultdata);
+			 $('#adgoodscost'+typeid).val(defaultdata2);
+	    var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/addgoods"}>',{'name':data1,'typeid':typeid,'cost':data2});
+	    if(backinfo.flag == true)
+	    {
+		    hideop();
+		  diaerror(backinfo.content); 
+	     }else{
+	  	    hideop();
+	  	   // var backdata = backinfo.content;
+	  	    var htmldata = '<tr data="'+backinfo.content.id+'" id="goodstr_'+backinfo.content.id+'">';
+              htmldata += '<td><p class="name">'+backinfo.content.name+'</p></td>';
+              htmldata += '<td><p class="cost">'+backinfo.content.cost+'</p></td>';
+              htmldata += '<td><p class="bagcost">'+backinfo.content.bagcost+'</p></td>';
+              htmldata += '<td><p class="instro" style="width: 100%">&nbsp;</p>        </td>';
+              htmldata += '<td><p class="count">'+backinfo.content.count+'</p></td>'; 
+              htmldata += '<td><input type="checkbox" name="is_new" value="1" data="'+backinfo.content.id+'"></td>'; 
+              htmldata += '<td><input type="checkbox" name="is_com" value="1" data="'+backinfo.content.id+'"></td>'; 
+              htmldata += '<td><input type="checkbox" name="is_hot" value="1" data="'+backinfo.content.id+'"></td>'; 
+              htmldata += '<td>';
+              for(var c=0;c<jsondata.length;c++){
+              	  htmldata += '<input class="food_check" name="cxids'+backinfo.content.id+'[]" type="checkbox" data="'+backinfo.content.id+'" value="'+jsondata[c].id+'"><img src="'+jsondata[c].imgurl+'">';
+              }
+               htmldata += '</td>';
+              htmldata += '<td><input type="button" class="uploadImg green" value="上传" onclick="uploads('+backinfo.content.id+',\'\');"></td>';
+              htmldata += '<td><a href="javascript:;" class="chg_type" onclick="changetype('+backinfo.content.id+','+typeid+',\''+backinfo.content.name+'\');">修改</a></td>';
+              htmldata += '<td>  <a class="deleteRow" href="#" data="'+backinfo.content.id+'">删除</a></td>';
+              htmldata += '</tr>';
+          $('#goodstype'+typeid).find('.tbody_foot').before(htmldata); 
+	  	    artsucces('保存成功');
+		     
+	     } 
+		}
+	} 
+}
+$(".deleteRow").live("click", function() {  
+	if(confirm('确定操作吗？')){ 
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/delgoods"}>',{'id':$(this).attr('data')});
+	    if(backinfo.flag == true)
+	    {
+		    hideop();
+		  diaerror(backinfo.content); 
+	     }else{
+	  	    hideop();
+	  	    $('#goodstr_'+$(this).attr('data')).remove();
+	  	    artsucces('删除成功'); 
+	     }  
+	}
+});
+$(".food_check").live("click", function() {   
+	var goodsid = $(this).attr('data'); 
+	var result=new Array();
+	$("input[name='cxids"+goodsid+"[]']").each(function(){
+		 if($(this).is(":checked")){
+		 	 result.push($(this).val());
+		 	}
+	});	
+	var idsm = result.join(","); 
+	 showop('保存商品信息');
+	  var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/updategoods"}>',{'controlname':'signid','goodsid':goodsid,'values':idsm});
+	  if(backinfo.flag == true)
+	  {
+		  hideop(); 
+		  diaerror(backinfo.content); 
+	  }else{
+	  	 hideop(); 
+	  	 artsucces('保存成功');  
+	  }   
+});
+$("input[name='is_new']").live("click", function() {   
+	var cc = $(this).is(":checked");
+	var mm = cc == true?1:0;
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/updategoods"}>',{'controlname':'is_new','goodsid':$(this).attr('data'),'values':mm});
+	if(backinfo.flag == true)
+	  {
+	  	 hideop(); 
+		  diaerror(backinfo.content); 
+		  if(cc == true){
+		  	$(this).attr('checked',false);
+		  }else{
+		  	$(this).attr('checked',true);
+		  }
+	  }else{
+	  	hideop(); 
+	  	 artsucces('保存成功');  
+	  } 
+});
+$("input[name='is_hot']").live("click", function() {   
+	 var cc = $(this).is(":checked");
+	var mm = cc == true?1:0;
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/updategoods"}>',{'controlname':'is_hot','goodsid':$(this).attr('data'),'values':mm});
+	if(backinfo.flag == true)
+	  {
+	  	 hideop(); 
+		  diaerror(backinfo.content); 
+		  if(cc == true){
+		  	$(this).attr('checked',false);
+		  }else{
+		  	$(this).attr('checked',true);
+		  }
+	  }else{
+	  	hideop(); 
+	  	 artsucces('保存成功');  
+	  } 
+});
+$("input[name='is_com']").live("click", function() {   
+	 var cc = $(this).is(":checked");
+	var mm = cc == true?1:0;
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/updategoods"}>',{'controlname':'is_com','goodsid':$(this).attr('data'),'values':mm});
+	if(backinfo.flag == true)
+	  {
+	  	 hideop(); 
+		  diaerror(backinfo.content); 
+		  if(cc == true){
+		  	$(this).attr('checked',false);
+		  }else{
+		  	$(this).attr('checked',true);
+		  }
+	  }else{
+	  	hideop(); 
+	  	 artsucces('保存成功');  
+	  } 
+});
+
+</script>
+
+<{include file="<{$tempdir}>/public/shopfooter.html"}>

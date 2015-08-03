@@ -1,0 +1,105 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>我的留言</b></span></p>
+						</div><!--title end-->
+
+						<div class="mr-middle"><!--mr-middle-->
+							<div class="account_integral"><!--account_integral-->
+								 
+
+								 	<div class="m10-sixin-list" id="m10-sixin-list">
+								<{load_data assign="list" table="ask" showpage="true" where="uid=<{$member['uid']}>"  orderby = "id desc"}> 
+									 
+			             <{foreach from=$list['list'] item=items}> 
+								 
+									<{if !empty($items['replycontent'])}>
+									<div class="dwb-sixin-list" id="li_ssss_<{$items['id']}>">
+										   <ul>	
+										   	  <li>		
+										   	   	<div class="dp_left">			
+										   	   		<div class="dp_left_img">				
+										   	   			<img src="<{$userlogo}>"> 			
+										   	   		</div>			
+										   	   		<p style="border:1px solid #f0f0f0;font-size:11px;"></p>		
+										   	    </div>	
+										   	    <div class="dp_right">			
+										   	    	<div class="bgimg"></div>			
+										   	    	<ul>				
+										   	    		<li class="stitle">                   
+										   	    			<p>客服回复</p>				
+										   	    		</li>				
+										   	    		<li class="intime">					
+										   	    			<p><{$items['replytime']|date_format:"%Y-%m-%d %H:%M:%S"}></p>
+										   	 				</li>			
+										   	 		  </ul>			
+										   	 		  <div class="clear"></div>			
+										   	 		  <p class="scontent"><{$items['replycontent']|htmlspecialchars_decode}></p> 
+										   	 		  
+										   	 		</div>		
+										   	    <div class="clear"></div>	
+										   	  </li>
+										   </ul>
+									</div> 
+									<{/if}>
+									<div class="my-sixin-list" id="li_s_<{$items['id']}>">
+										<ul>	
+											<li>		
+									        <div class="dp_left">		 
+									         	<div class="dp_left_img">				
+									         		<img src="<{$member['logo']|default:$userlogo}>"> 			
+									         	</div>			
+									         	<p style="border:1px solid #f0f0f0;font-size:11px;"><{$member['username']}></p>		
+									        </div>		
+									        <div class="dp_right">			
+									        	<div class="bgimg"></div>			
+									        	<ul>				
+									        		<li class="stitle">					
+									        			<p>我的留言[<{$typelist[$items['typeid']]}>]</p>				
+									        	  </li>				
+									        	  <li class="intime">				
+									        				<p><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></p>				
+									        		</li>		
+									        	</ul>		
+									          <div class="clear"></div>		
+									        	  <p class="scontent"><{$items['content']|htmlspecialchars_decode}></p> 
+										   	 		 
+									        	<p class="replysixin"><a href="javascript:void(0);" onclick="deleteSixin('<{$items['id']}>')">删除</a></p>		
+									        </div>		
+									        <div class="clear"></div>	
+									    </li>
+									  </ul>
+									</div>
+								 
+									
+									<{/foreach}>
+
+							 
+								  <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+								 	</div>
+
+								<div id="showrecord" style="display:none;">  </div>
+							</div><!--account_integral end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end-->
+				</div>
+<script>
+	function deleteSixin(uid)
+	{
+		 
+		var info = {'tijiao':'do','default':'1','id':uid,'what':'default'};
+		var url = '<{ofunc type=url link="/ask/delmyask/datatype/json/random/@random@"}>';
+		 myajax(url,info);
+	}
+</script>
+
+<{/block}>

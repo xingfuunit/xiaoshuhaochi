@@ -1,0 +1,35 @@
+.container section .account {
+height: 70px;
+line-height: 70px;
+padding-left: 80px;
+background: white url(../images/headpic.png) 15px center no-repeat;
+background-size: 54px 54px;
+}
+.container section section, .container section .account {
+margin-bottom: 10px;
+overflow: hidden;
+border: 1px solid #e5e5e5;
+}
+.container section section {
+width: 98.4375%;
+margin: 0 auto;
+background: #fff;
+}
+.container section section, .container section .account {
+margin-bottom: 10px;
+overflow: hidden;
+border: 1px solid #e5e5e5;
+}
+.container section section {
+border-bottom: 0px;
+}
+.container section section div {
+height: 50px;
+line-height: 50px;
+padding-left: 15px;
+background: url(../images/enter.png) 95% center no-repeat;
+background-size: 5px 8px;
+}
+.container section section div {
+border-bottom: 1px solid #e5e5e5;
+}

@@ -1,0 +1,644 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shouye.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/food_menu.css"> <{/block}>
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script> 
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/slides.jquery.js"> </script>
+ <script>
+	$(function(){
+			$('#bannerBox').slides({
+				preload: true,
+				preloadImage: '/upload/images/shop/loading.gif',
+				play: 5000,
+				pause: 2500,
+				hoverPause: true,
+				generatePagination:true,
+				paginationClass:'mypagination'
+			});
+		});
+
+</script>
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+<div id="content">
+	<div class="hc_content">   
+		
+  <div class="hc_advertising">
+     <div id="bannerBox">
+					 <div  class="slides_container" style="height:175px;">
+					 	 <{load_data assign="lunbo" table="adv"    fileds="*"  limit="5" where="advtype='lunbo'"}>  
+							<{foreach from=$lunbo['list'] item=items}>
+			        	   <a href="<{$items['linkurl']}>" target="_blank"><img src="<{$items['img']}>" width="1100" height="175"></a> 
+				      <{/foreach}> 
+				    </div>
+					 
+		 </div>
+	</div>
+ 
+ <div class="new_shoplist">
+     <div class="new_list_l">    </div>
+    <div class="new_list_m">
+       	<ul>
+						<li>
+							<div id="all" class="hc_changes_menu_div_active hc_changes_menu_div_active_hover"><span class="hc_changes_menu_div_active_span">全部</span></div></li> 
+					    <{foreach from=$attrinfo[0]['det']  item=items}>   
+											             	<li><div class="menu-xuanze-img hc_changes_menu_div_active" style_id="<{$items['id']}>"><span class="hc_changes_menu_div_active_span"><{$items['name']}></span></div></li>
+				       <{/foreach}>		 
+					    	<div class="clear"></div>
+			 </ul>
+    </div>
+    <div class="new_list_r">
+    	 <div id="qisongjia" qisongjia_val="4" class="hc_shop_frist">起送价</div>
+						<div class="hc_shop_scale">
+								<div class="hc_shop_scale_span" style="margin-left:0px;">
+								<div qisongjia_val="4" class="qisongjia_click hc_shop_scale_price hc_shop_scale_img_margin hc_shop_scale_price_hover">全</div>
+								<div qisongjia_val="10" class="qisongjia_click hc_shop_scale_price hc_shop_scale_img_margin">10</div>
+								<div qisongjia_val="20" class="qisongjia_click hc_shop_scale_price hc_shop_scale_img_margin">20</div>
+								<div qisongjia_val="30" class="qisongjia_click hc_shop_scale_price">30</div>
+								<div class="clear"></div>
+							</div>
+							<div class="hc_shop_scale_up">
+								<div qisongjia_val="4" class="qisongjia_click hc_shop_scale_img hc_shop_scale_img_margin hc_shop_scale_images"></div>
+								<div qisongjia_val="10" class="qisongjia_click hc_shop_scale_img hc_shop_scale_img_margin"></div>
+								<div qisongjia_val="20" class="qisongjia_click hc_shop_scale_img hc_shop_scale_img_margin"></div>
+								<div qisongjia_val="30" class="qisongjia_click hc_shop_scale_img"></div>
+								<div class="clear"></div>
+							</div>
+						
+						</div>
+    </div>
+ </div>
+ 
+ <div class="hc_shop_list">
+			 
+			<div class="hc_shop_list_div">
+				<ul id="shopList">
+					
+						<{foreach from=$shoplist  item=items}>  
+					 <li  qisongjia="<{$items['limitcost']}>" fengwei_id="<{$items['servertype']}>" isyingye="<{$items['is_open']}>" id="menu-list-box_<{$items['id']}>" shop_id="<{$items['id']}>" class="menu-list-box hc_collection_div_border_right_bottom">
+						<div class="hc_shop_list_box">
+							
+							<div class="hc_shop_list_box_left">
+								<div class="hc_shop_list_box_img">
+								  <div class="hc_shop_list_box_img_div" shop_id="<{$items['id']}>" >
+									   <a target="_blank" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><img atl="<{$items['shopname']}>" src="<{$items['shoplogo']|default:$shoplogo}>"></a>
+								  </div>
+								</div>
+								<a target="_blank" class="a1" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><div class="hc_shop_list_box_span">
+									<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='input'}>
+									     <{foreach from=$itat['det'] item=itcc}>
+									       
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itcc['parent_id'] == $itaa['firstattr']}>
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}>
+									     <{/foreach}>
+									  <{/if}>     
+									<{/foreach}> 
+									</div></a>
+							</div>
+							
+							<div class="hc_shop_list_box_right">
+								<div class="hc_list_box_head" >
+								    <a target="_blank" class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><{$items['shopname']}></a>
+								</div>
+								<a target="_blank" class="a1" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"> 
+							  <div class="hc_xinxin">
+								  <div class="hc_xinxin_div"> 
+									   <{section name=loop loop=$items['point']}> 
+                  	 <div class="hc_xinxin_div_float"><img alt="star" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png"></div>
+                     <{/section}> 
+                     <div class="clear"></div>
+								  </div>
+								<div class="hc_comment"> 
+									<div class="hc_xinxin_div_float"><img alt="评论" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/comment.png"></div>
+									<div class="hc_xinxin_div_float"><span style="margin-left:3px;"><{$items['pointcount']}></span></div> 
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							
+							
+              <div class="hc_action">
+              	<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='img'}> 
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}> 
+									                 <img alt="<{$itat['name']}>" class="hc_action_img" src="<{$itaa['value']}>" title="<{$itat['instro']}>">  
+									             <{/if}>
+									          <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}>
+              </div> 
+               
+              <div class="hc_order"> 
+              <{if $items['opentype'] == 1}>
+                    <span class="gray_font" title="店铺已过营业时间，打烊中">已打烊</span>
+              <{elseif $items['opentype'] == 2}>
+               <span class="hc_order_box" title="接受预定中。">营业中</span>
+                <span class="">
+              	<{foreach from=$mainattr key=mykey item=itat}>
+              
+									   <{if $itat['type'] == 'checkbox'}>
+									   <{assign var=ckey value="0"}>   
+									          <{foreach from=$items['attrdet'] key=ckey item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr'] &&$ckey < 1}> 
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}> 
+									    <{/if}>     
+									<{/foreach}>
+						     </span>
+              <{elseif $items['opentype'] == 3}>
+                        <span class="hc_order_box" title="接受预定中。">接受预定</span>
+              	         <span class="hc_order_span"><{$items['newstartime']}>开送</span>
+              <{elseif $items['opentype'] == 4}>
+                 <span class="gray_font" title="店铺已过营业时间，打烊中">停止营业</span>
+              <{else}>
+                   <span class="gray_font" title="店铺已过营业时间，打烊中">已打烊</span>
+              <{/if}> 
+              
+              	 
+              </div>					 </a>
+							<div class="fav_font_div" style="display: none;"> </div>
+					
+					</div>
+				  <div class="clear"></div>
+				 
+				  </div>
+		  </li> 
+					
+					<div class="shopview_div" id="shopview_div_<{$items['id']}>" style="display: none;">
+                 		<div class="loading"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/loading43.gif" width="38" height="38"></div>
+          	</div> 
+          	<{/foreach}>
+          	
+          	
+          	
+          	 
+          	
+          	
+          	
+          	
+          	
+          	
+          	
+          	
+          	<div class="clear"></div>
+				 </ul>
+			</div>
+
+		</div>
+<div class="hc_app">
+	<ul>
+		
+	 <{load_data assign="advlist" table="adv"    fileds="*"  where="advtype='other1'" limit="5"}>  
+	 <{if count($advlist['list']) > 0}>
+	   <{foreach from=$advlist['list'] item=items}>
+		  <li style="height:330px;width:220px">
+		     <a href="<{$items['linkurl']}>" target="_blank"><img src="<{$items['img']}>" width="220px" height="330px"></a>
+	    </li>
+	  <{/foreach}>
+		<{/if}>
+		
+		
+	</ul>
+	<div class="clear"></div>
+</div>
+
+<div id="hc_shop_list2" class="hc_shop_list" style="display:none;">
+			<div class="hc_shop_head">
+				<div class="hc_shop_head_left">
+					<div class="hc_shop_h">更多店铺</div>
+					<div class="clear"></div>
+				</div>
+				<div class="hc_shop_head_right"></div>
+				<div class="clear"></div>
+				<div class="hc_changes_menu_div">
+				</div>
+			</div>
+
+			<div class="hc_shop_list_div">
+				<ul id="shopList2">
+					 
+				</ul>
+			</div>
+
+</div> 
+	
+	
+		
+<script type="text/javascript">
+ $(function(){
+		var myaddressid = '<{$myaddress}>';
+		if(myaddressid == null|| myaddressid==''){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	});
+$(document).ready(function(){
+	var newCell = $('#shopList').html();
+	$('#shopList2').append($(newCell));
+	$('#shopList2 .menu-list-box').mouseenter(function(){
+		$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+		$(this).find('.fav_font_div').show();
+		$(".cuSelBox2").removeClass("cuSelBox2");
+		$(this).addClass("cuSelBox2");
+		$(this).find('.hc_shop_list_box .hcl_collection_btn').find('.hcl_collection_btn').addClass('hcl_collection_btn_hover');
+		var item = $(this);
+		setTimeout(function(){show_shop_view2(item);},500);
+	});
+	$('#shopList2 .menu-list-box').mouseleave(function(){	
+		$(this).removeClass("cuSelBox2");	
+		$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+		$(this).find('.fav_font_div').hide();
+		$(this).find('.hc_shop_list_box .hcl_collection_btn').find('.hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+		hide_shop_view2($(this));
+	});
+
+	shopheight();
+})
+function shopheight(){
+	var numshopli = $('#shopList li').length;
+	var numa = Math.ceil(numshopli/4); 
+	$('#shopList').css('height',Number(numa)*170);
+	numshopli = $('#shopList2 li').length;
+	 numa = Math.ceil(numshopli/4);
+	$('#shopList2').css('height',Number(numa)*170);
+}
+/*
+$('#shopList .menu-list-box').mouseenter(function(){
+	$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+	$(this).find('.fav_font_div').show();
+	$(this).find('.hc_shop_list_box .hcl_collection_btn').addClass('hcl_collection_btn_hover');
+	$(".cuSelBox").removeClass("cuSelBox");
+	$(this).addClass("cuSelBox");
+	var item = $(this);
+	setTimeout(function(){show_shop_view1(item);},500);
+});
+
+
+$('#shopList .menu-list-box').mouseleave(function(){
+	$(this).removeClass("cuSelBox");
+	$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+	$(this).find('.fav_font_div').hide();
+	$(this).find('.hc_shop_list_box .hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+	hide_shop_view1($(this));
+});
+*/
+$('#shopList .menu-list-box .hc_shop_list_box_img_div').mouseenter(function(){ 
+	var doobj = $('#menu-list-box_'+$(this).attr('shop_id'));
+	$(doobj).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+	$(doobj).find('.fav_font_div').show();
+	$(doobj).find('.hc_shop_list_box .hcl_collection_btn').addClass('hcl_collection_btn_hover');
+	$(".cuSelBox").removeClass("cuSelBox");
+	$(doobj).addClass("cuSelBox");
+	var item=$(this);
+		setTimeout(function(){show_shop_view1(item);},500);
+});
+$('#shopList .menu-list-box .hc_shop_list_box_img_div').mouseleave(function(){
+		var doobj = $('#menu-list-box_'+$(this).attr('shop_id'));
+	$(doobj).removeClass("cuSelBox");
+	$(doobj).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+	$(doobj).find('.fav_font_div').hide();
+	$(doobj).find('.hc_shop_list_box .hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+	hide_shop_view1($(doobj));
+});
+$('#shopList .hc_shop_list_div').mouseleave(function(){
+	$('#shopList .hc_shop_list_div .shopview_div').hide();
+});
+
+$('#shopList2 .hc_shop_list_div').mouseleave(function(){
+	$('#shopList2 .hc_shop_list_div .shopview_div').hide();
+});
+
+function show_shop_view1(obj) {	
+	var shop_id = $(obj).attr('shop_id');
+	var cur_shop_id = $(".cuSelBox").attr('shop_id'); 
+	if (shop_id != cur_shop_id) {
+		return;
+	}
+	 
+	var offset = $(obj).offset();
+	//$(obj).addClass('blurborder');
+	var windowWidth = $(window).width();
+	var windowHeight = $(window).height();
+
+	var shopviewHeight = $('#shopList #shopview_div_'+shop_id).height();
+
+	 $('#shopList .shopview_div').hide();
+	 $('#shopList .shopview_div .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_left').removeClass('hc_popups_sanjiao_right').addClass('hc_popups_sanjiao_top'); 
+	 if(windowWidth-offset.left > 600)
+	 {
+		 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_left');
+		 $('#shopList #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left+100);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+	 else
+	 {
+		 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_right');
+		 $('#shopList #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left-350);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 } 
+
+	 $('#shopList #shopview_div_'+shop_id).show();
+	
+	if($('#shopList #ShopView_'+shop_id).length == 0) {
+	 
+		 var url = '<{ofunc type=url link="/site/ajaxshopinfo"}>'; 
+		 $('#shopList .loading').show();
+		 $.post(url, {shop_id:shop_id},function (data, textStatus){ 
+			 if($('#shopList #ShopView_'+shop_id).length == 0) {
+				 $('#shopList .loading').hide();
+			 	 $('#shopList #shopview_div_'+shop_id).append(data);
+			 	show_shop_view1(obj);
+			 }
+			}, 'html');
+			 
+	}
+}
+
+function hide_shop_view1(obj) {
+	$('#shopList .shopview_div').hide();
+	var shop_id = $(obj).attr('shopid');
+	$('#shopList #shopview_div_'+shop_id).hide();
+}
+
+$('.menu-xuanze-img').click(function(){
+	fenweiChange($(this));
+});
+
+function fenweiChange(obj){
+	$('.menu-xuanze-img').removeClass('hc_changes_menu_div_active_hover');
+
+	$(obj).addClass('hc_changes_menu_div_active_hover');
+
+	updateFengwei();
+}
+
+function updateFengwei()
+{
+	$('#all').removeClass('hc_changes_menu_div_active_hover');
+	
+	$('#shopList .menu-list-box').each(function(i){
+		$(this).hide();
+	});
+
+	var qisongjia = $('#qisongjia').attr('qisongjia_val');
+	
+	var bool = false;
+
+	var selected_style_id = '';
+
+	$('.menu-xuanze-img').each(function(i){
+		var style_id = $(this).attr('style_id');
+		
+		if($(this).hasClass('hc_changes_menu_div_active_hover'))
+		{
+			selected_style_id = style_id;
+			bool = true;
+			
+			$('#shopList .menu-list-box').each(function(j){
+				var fengwei_id = $(this).attr('fengwei_id').split(',');
+				var my_qisongjia = $(this).attr('qisongjia');
+				
+				if(in_array(style_id,fengwei_id))
+				{
+					if(qisongjia == 4){
+						$(this).show();
+					}
+					else
+					{
+						if(parseInt(my_qisongjia)<=qisongjia)
+						{
+							$(this).show();
+						}
+						else
+						{
+							$(this).hide();
+						}
+					}
+				}
+			})
+		}
+		else
+		{
+			$('#shopList .menu-list-box').each(function(j){
+				var fengwei_id = $(this).attr('fengwei_id').split(',');
+				if(!in_array(selected_style_id,fengwei_id))
+				{
+					$(this).hide();
+				}
+			})
+		}
+	})
+	if(bool==false)
+	{
+		allChange($("#all"));
+	}
+	showOtherArea();
+}
+
+function in_array(e,arr)
+{
+	for(i=0;i<arr.length;i++)
+	{
+		if(arr[i] == e)
+		return true;
+	}
+	return false;
+}
+
+function showOtherArea()
+{
+	var ids = new Array();
+	 
+	$('#shopList .menu-list-box').each(function(i){
+		if($(this).is(":hidden")){
+			ids.push($(this).attr('id'));
+		}
+	});
+	var allnum = $('#shopList li').length;//总数量
+	var downnum = ids.length;//下移数量
+	var numshopli = Number(allnum) - Number(downnum);
+	var numa = Math.ceil(numshopli/5); 
+	$('#shopList').css('height',Number(numa)*170); 
+	 numa = Math.ceil(downnum/5);
+	$('#shopList2').css('height',Number(numa)*170);
+	 
+	if(ids.length > 0)
+	{
+		$('#hc_shop_list2').hide();
+		$('#shopList2 .menu-list-box').hide();
+		for(var j=0;j<ids.length;j++){
+			$('#shopList2 #'+ids[j]).show();
+		}
+	}
+	else
+	{
+		$('#hc_shop_list2').hide();
+	}
+	/***自动计算高度***/
+}
+
+$("#all").click(function(){
+	allChange($(this));
+});
+
+function allChange(obj)
+{
+	if(!$(obj).hasClass('hc_changes_menu_div_active_hover'))
+	{
+		$(obj).addClass('hc_changes_menu_div_active_hover');
+	}
+	$(".menu-xuanze-img").removeClass('hc_changes_menu_div_active_hover');
+		
+		var qisongjia = $('#qisongjia').attr('qisongjia_val');
+		$('#shopList .menu-list-box').each(function(i){
+			var my_qisongjia = $(this).attr('qisongjia');
+			
+			if(qisongjia == 4){
+				$(this).show();
+			}
+			else
+			{
+				if(parseInt(my_qisongjia)<=qisongjia)
+				{
+					$(this).show();
+				}
+				else
+				{
+					$(this).hide();
+				}
+			}
+				
+		});
+	showOtherArea();
+}
+
+function getNowData()
+{
+	if($('#all').hasClass('hc_changes_menu_div_active_hover'))
+	{
+		return '2';
+	}
+	else
+	{
+		return '3';
+	}
+}
+
+$('.qisongjia_click').click(function(){
+	var qisongjia = $(this).attr('qisongjia_val');
+	$('#qisongjia').attr('qisongjia_val',qisongjia);
+	
+	$('.hc_shop_scale_img').removeClass('hc_shop_scale_images');
+	$('.hc_shop_scale_price').removeClass('hc_shop_scale_price_hover');
+
+	$('.hc_shop_scale_img').each(function(){
+		if($(this).attr('qisongjia_val')==qisongjia)
+		{
+			$(this).addClass('hc_shop_scale_images');
+		}
+	})
+	$('.hc_shop_scale_price').each(function(){
+		if($(this).attr('qisongjia_val')==qisongjia)
+		{
+			$(this).addClass('hc_shop_scale_price_hover');
+		}
+	})
+
+	var type = getNowData();
+	if(type=='2')
+	{
+		allChange($('#all'));
+	}
+	else
+	{
+		updateFengwei();
+	}
+})
+
+function show_shop_view2(obj) {
+	var shop_id = $(obj).attr('shop_id');
+	var cur_shop_id = $(".cuSelBox2").attr('shop_id');
+	if (shop_id != cur_shop_id) {
+		return;
+	}
+	var offset = $('#shopList2 #menu-list-box_'+shop_id).offset();
+	var windowWidth = $(window).width();
+	var windowHeight = $(window).height();
+
+	var shopviewHeight = $('#shopList2 #shopview_div_'+shop_id).height();
+
+	 $('#shopList2 .shopview_div').hide();
+	 $('#shopList2 .shopview_div .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_left').removeClass('hc_popups_sanjiao_right').addClass('hc_popups_sanjiao_top');
+
+	 if(windowWidth-offset.left > 600)
+	 {
+		 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_left');
+		 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left+$('#shopList2 #menu-list-box_'+shop_id).width());
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+	 else
+	 {
+		 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_right');
+		 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left-350);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+
+	 $('#shopList2 #shopview_div_'+shop_id).show();
+	
+	if($('#shopList2 #ShopView_'+shop_id).length == 0) {
+		 var url = '<{ofunc type=url link="/site/ajaxshopinfo"}>';  
+		 $('#shopList2 .loading').show();
+		 $.post(url, {shop_id:shop_id},function (data, textStatus){
+			 if($('#shopList2 #ShopView_'+shop_id).length == 0) {
+				 $('#shopList2 .loading').hide();
+			 	 $('#shopList2 #shopview_div_'+shop_id).append(data);
+			 	show_shop_view2(obj);
+			 }
+			}, 'html');
+	}
+}
+
+function hide_shop_view2(obj) {
+	$('#shopList2 .shopview_div').hide();
+	var shop_id = $(obj).attr('shopid');
+	$('#shopList2 #shopview_div_'+shop_id).hide();
+} 
+</script>
+
+
+
+
+</div>
+	
+</div>
+</div>
+</div>
+<{/block}>

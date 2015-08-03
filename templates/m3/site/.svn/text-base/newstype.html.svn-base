@@ -1,0 +1,62 @@
+<{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/news.css"><{/block}> 
+<{block name=sitetitle}><{$info['name']}><{/block}>
+<{block name=bgshow}><{/block}>
+ <{block name=shophide}><{/block}>
+<{block name=bodylist}>
+<div id="help_bt_blue">
+ <h1>帮助中心</h1>
+
+</div>
+  
+<div class="mainbody_02">
+    <div class="sub_lf">
+      <{load_data assign="list" table="newstype" where="displaytype=1 and parent_id=0" fileds="*"  limit=10 orderby="orderid asc"}> 
+	         <{foreach from=$list['list'] key=mykey item=items}>    
+	  <h1><{$items['name']}></h1>
+	  <ul class="ul1">
+	  	 <{if $items['type'] == 2}>
+	     	      <{load_data assign="list2" table="newstype"   fileds="*" where="parent_id=<{$items['id']}>" limit=20 }> 
+	     	       <{foreach from=$list2['list'] item=itv}>    
+	              <li><a href="<{ofunc type=url link="/site/newstype/id/<{$itv['id']}>"}>"  <{if $info['id'] == $itv['id']}>class="current"<{/if}>  ><{$itv['name']}></a></li> 
+	             <{/foreach}> 
+	     	      
+	     	      
+	     	  <{else}>
+	  		      <{load_data assign="list2" table="news"   fileds="id,title,typeid" where="typeid=<{$items['id']}>" limit=20 }> 
+            	  <{foreach from=$list2['list'] item=itv}>    
+	              <li><a href="<{ofunc type=url link="/site/news/id/<{$itv['id']}>"}>"  ><{$itv['title']}></a></li> 
+	             <{/foreach}> 
+	         <{/if}> 
+	  </ul>
+	    <{/foreach}>   
+	 
+	</div>
+	<div class="right_01">
+	  <h1 class="ti"><{$info['name']}></h1>
+	  <div class="cont_help">
+ 	    <ul>
+            	<{load_data assign="list2" table="news"   fileds="id,title,typeid,addtime" where="typeid=<{$info['id']}>" limit=20 showpage="true"}> 
+            	  <{foreach from=$list2['list'] item=itv}>    
+	              <li style="height:30px;line-height:30px;">
+	                <div style="width:600px;float:left;">	<a href="<{ofunc type=url link="/site/news/id/<{$itv['id']}>"}>"  style="width:600px;"><{$itv['title']}></a> </div><div style="float:left;text-align:right;width:150px;"><{$itv['addtime']|date_format:"%Y-%m-%d"}></div>  
+	              	
+	            	</li> 
+	             <{/foreach}> 
+	            </ul>
+ 	  </div>
+ 	  <div class="show_page">
+        		 <ul>
+             <{$list2['pagecontent']}>
+           </ul>
+          </div>
+	</div>
+ </div>   
+ <script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+<{/block}>

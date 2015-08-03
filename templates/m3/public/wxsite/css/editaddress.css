@@ -1,0 +1,217 @@
+ .ico {
+
+width: 40px;
+
+height: 20px;
+
+line-height: 20px;
+
+font-size: 14px;
+
+font-weight: 400;
+
+position: absolute;
+
+top: 10px;
+
+color: #ea5413;
+
+border-radius: 5px;
+
+border: 1px solid #ea5413;
+
+}
+
+.container {  
+
+}
+
+.ico {
+
+/* background: url(../images/icos/editor.png) right 7px no-repeat; */
+
+background-color: transparent;
+
+background-size: 50%;
+
+right: 20px;
+
+border-radius: 5px;
+
+border: 1px solid #ea5413;
+
+}
+
+.container section {
+
+padding: 12px 10px;
+
+background: #f5f5f5;
+
+}
+
+.address-list {
+
+margin: 0px auto;
+
+}
+
+.address-list li {
+
+min-height: 80px;
+
+/* overflow: hidden; */
+
+padding-top: 5px;
+
+padding-left: 50px;
+
+position: relative;
+
+border: 1px solid #e5e5e5;
+
+padding-left: 50px;
+
+margin-bottom: 5px;
+
+background: #fff;
+
+/* width: 60px; */
+
+/* height: 60px; */
+
+/* padding: 2px; */
+
+/* border: 1px solid $linecolor; */
+
+}
+
+.address-list li .count {
+
+width: 20px;
+
+height: 20px;
+
+line-height: 20px;
+
+border-radius: 20px;
+
+border: 1px solid #c3c3c3;
+
+position: absolute;
+
+left: 10px;
+
+top: 35%;
+
+text-align: center;
+
+color: #737373;
+
+} 
+
+div .adsr {
+
+display: -webkit-box;
+
+display: -moz-box;
+
+display: -o-box;
+
+display: box;
+
+}
+
+div .addresse {
+
+-webkit-box-flex: 1;
+
+-moz-box-flex: 1;
+
+-o-box-flex: 1;
+
+box-flex: 1;
+
+}
+
+.address-list li .del {
+
+width: 40px;
+
+height: 20px;
+
+display: none;
+
+border: 1px solid #60ada9;
+
+border-radius: 5px;
+
+color: #299b95;
+
+text-align: center;
+
+margin-right: 10px;
+
+margin-left: 10px;
+
+}
+
+.address-list li .del.show {
+
+display: block;
+
+}
+
+.select-area {
+
+height: 39px;
+
+line-height: 39px;
+
+margin: 15px auto 0;
+
+}
+
+.select-area {
+
+display: -webkit-box;
+
+display: -moz-box;
+
+display: -o-box;
+
+display: box;
+
+}
+
+ 
+
+.select-wi {
+
+width: 50%;
+
+position: relative;
+
+}
+
+.select-area select {
+
+border: 1px solid #e5e5e5;
+
+width:100%;
+
+}
+
+.select-wi select {
+
+width: 100%;
+
+color: #737373;
+
+}
+
+.select-wi select.inadd-city {
+
+width: 96%;
+
+}

@@ -1,0 +1,55 @@
+  <{extends file="<{$tempdir}>/public/admin.html"}> 
+ <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>模板选择<{/block}>
+ <{block name=bodylist}> 
+ <style>
+ 	#showmodule{padding-top:5px;padding-bottom:5px;}
+ 	#showmodule li{height:300px;width:300px;float:left;text-align:left;margin-left:30px;margin-top:30px;}
+ 	</style>
+	 <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+    <div id="showmodule">
+    	<ul >
+    		<{foreach from=$apilist item=items}>
+    		<li>
+    			 <div><img src="<{$items['img']}>" style="width:298px;height:150px;"></div>
+    			 <div style="color:#666;">说明：<{$items['instro']}></div>
+    			 <div><input type="radio" name="modulename" value="<{$items['filename']}>" <{if $sitetemp == $items['filename']}> checked<{/if}> onclick="changemodule(this);"><{$items['filename']}>(<{if $sitetemp == $items['filename']}> 默认模板<{/if}>)</div>
+    			</li>
+    		<{/foreach}>
+    		 
+    	</ul>
+    		
+    </div>
+  </div> 
+        
+        
+   
+    </div> 
+<script>
+	function changemodule(obj){
+	var url = siteurl+'/index.php?controller=adminpage&action=system&module=savetempset&modulename='+$(obj).val()+'&datatype=json&random=@random@'; 
+	$.ajax({
+     type: 'post',
+     async:false, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){
+     	 window.location.reload();
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });    
+	}
+	</script>
+ <{/block}>

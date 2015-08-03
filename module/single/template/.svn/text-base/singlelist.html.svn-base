@@ -1,0 +1,89 @@
+<{extends file="<{$tempdir}>/public/shopcenter.html"}>
+ <{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/public.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <script>
+  var menu = null;
+ </script>
+<{/block}>
+ <{block name=bodylist}>
+
+ <!---content right start--->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>内容管理</span> </div>
+    <div class="cl"></div>
+    <div class="caidanSet">
+         <form method="post" id="delform" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall(this.form, 'id')"></th>
+
+                        <th align="center">id</th>
+                         <th align="center">标题</th>
+                        <th align="center">添加时间</th>
+
+                        <th align="center">标识code</th>
+
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+                    <{foreach from=$list item=items}>
+                      <tr class="s_out">
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['single_id']}>"></td>
+                        <td align="center"><{$items['single_id']}></td>
+                        <td align="center"><a target="_blank" href="<{ofunc type=url link="/single/shopsingle/id/<{$items['single_id']}>"}>"><{$items['title']}></a></td>
+                        <td align="center"><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+                        <td align="center"><{$items['code']}></td>
+
+                        <td align="center"><a href="<{ofunc type=url link="/single/addsingle/id/<{$items['single_id']}>"}>" >修改</a>
+                            <a onclick="return remind(this);" href="<{ofunc type=url link="/single/delsingle/id/<{$items['single_id']}>/datatype/json"}>">删除</a>
+                            <a href="javascript:void(0)" onclick="copyurl(<{$items['single_id']}>)">复制</a></td>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                <div class="page_newc">
+                         <div class="select_page"><a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a> <a onclick="return remindall(this);" href="<{ofunc type=url link="/single/delsingle/datatype/json"}>" class="delurl">删除</a>
+
+                            <a   href="<{ofunc type=url link="/single/addsingle"}>" class="delurl">添加</a>
+
+                            </div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+    </div>
+  </div>
+<script language="javascript">
+function copyurl(single_id) {
+  var strHref = '<{ofunc type=url link="/single/shopsingle/id/'+single_id+'"}>';
+  if (window.clipboardData){
+    if(window.clipboardData.setData("Text",strHref)){
+      alert('链接已复制');
+    }
+  }
+  else{
+    alert('您使用的浏览器不支持此功能，请点击标题到地址栏复制链接');
+  }
+}
+</script>
+ <{/block}>

@@ -1,0 +1,233 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/v5_plugin.js.pagespeed.jm.inM6bedmF7.js"></script>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script> 
+   <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/slides.jquery.js"> </script>
+<{/block}>
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/floor.css"> 
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近小卖铺列表<{/block}>
+ <{block name=bodylist}>
+  
+ 
+<div class="wrapper"> 
+
+
+
+ 	
+ 	
+ 	
+ 	 
+ 	  
+	<!---循环体-->
+ 	
+ 	
+ 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	<div class="index-floor cate0">
+	
+   	<h2 class="index-floor-title" style="text-align:center; height:43px; line-height:43px; color:#fff; background:#ff6931; padding:0px; border:0px;"><a style="color:#fff4f4; font-size:24px;" class="yule" href="javascript:void(0);" cate="<{$mykey}>">所有超市</a></h2>
+		<form id="doselectform">
+		<div class="filter_shop" style="height:40px;background-color:#f7e9e9;">
+		    <div class="checklist" style="height:40px;padding-left:20px;width:850px;padding-right:50px;float:left;line-height:40px;"> 
+		    	  <{foreach from=$attrinfo[0]['det']  item=items}>   
+											       	<input type="checkbox" name="cxid[]" value="<{$items['id']}>" onclick="dosetdata();"> <{$items['name']}>
+				       <{/foreach}>		 
+		    </div>
+		    <div class="select_cost" style="width:280px;height:40px;float:left;text-align:left;">
+		    	 <div class="" style="float:left;width:40px;height:40px;line-height:40px;">起送价</div>
+		    	 <div class="" id="mygunclick" style="float:left;width:157px;margin-left:10px;height:40px;background:url(http://m3shangquan.waimairen.com/templates/m3/public/css/images/pinkbar.png) center no-repeat;text-align:left;cursor: pointer;">
+		          <div class="blue_bar" id="blue_bar" style="width:0px;height:40px;background:url(http://m3shangquan.waimairen.com/templates/m3/public/css/images/bluebar.png)  no-repeat left center;float:left;"> 
+		          </div> 
+		          <span id="myselect_q" style="display:block;height:40px;width:20px;background:url(http://m3shangquan.waimairen.com/templates/m3/public/css/images/pushbtn.png)  no-repeat  center;float:left;margin-left:-10px;"></span>
+		          <input type="hidden" name="limitcost" id="limitcost" value="0">
+		       </div>
+		       <div class="" style="float:left;width:63px;height:40px;line-height:40px;margin-left:10px;" id="showlimittext">不限制</div>
+		    </div>
+		</div>
+	  </form>
+		<div class="floor-warp" style="margin:20px 0px 30px;">
+		
+			<div class="floor-content" style=" height:auto;">
+				
+				<div class="floor-con0 floor-con-show" id="shopList">
+				
+				
+			 
+				
+				
+				
+					<{foreach from=$shoplist key=mykey item=items}>
+				
+				<{if $items['opentype'] == 2 }>
+					 <div class="floor-goods" style="height:206px;margin: 14px 0 10px 16px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#5993ca;">立即购物</span> </a>
+						   </div>
+					</div>
+				<{/if}>
+				<{/foreach}>	
+					
+						
+						
+						
+						
+						
+							<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['opentype'] != 2 }>
+					  <div class="floor-goods" style="height:206px;margin: 14px 0 10px 16px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/market/shopshow/id/<{$items['shopid']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#5993ca;">立即购物</span> </a>
+						   </div>
+					</div>
+					<{/if}>
+				<{/foreach}>	
+					
+						
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+	
+	
+	
+
+ 
+ 	
+ 	
+ 	
+ 	 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	
+</div>
+
+<script>
+ $(function(){
+		<{if $locationtype == 1}>
+ 	   var lng = '<{$lng}>';
+		
+		if(lng == 0 ){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+ 	<{else}>
+		var myaddressid = '<{$myaddress}>';
+		if(myaddressid == null|| myaddressid==''){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	<{/if}>
+ 
+  $("#mygunclick").click(function(e) {
+    //
+    var offset = $(this).offset();
+    var relativeX = (e.pageX - offset.left);
+    var bili = Number(relativeX)/Number($(this).width())*100; 
+    bili = Math.ceil(bili);
+    var checknowid = $('#limitcost').val();
+    if(bili > 75){
+    	//30
+    	 $('#blue_bar').css({'width':'93%'});
+    	$('#limitcost').val(30);
+    	$('#showlimittext').text('30元以上');
+    	if(checknowid != 30){
+    		dosetdata();
+    	}
+       
+    }else if(bili > 50){
+       //20
+       $('#blue_bar').css({'width':'75%'});
+       $('#limitcost').val(20);
+       $('#showlimittext').text('20元以上');
+       if(checknowid != 20){
+    		dosetdata();
+    	}
+    }else if(bili > 25){
+      //10
+      $('#blue_bar').css({'width':'50%'});
+       $('#limitcost').val(10);
+       $('#showlimittext').text('10元以上');
+       if(checknowid != 10){
+    		dosetdata();
+    	}
+    }else if(bili > 5){
+    	 $('#blue_bar').css({'width':'25%'});
+       $('#limitcost').val(5);
+       $('#showlimittext').text('5元以上');
+       if(checknowid != 5){
+    	   	dosetdata();
+    	}
+    }else{
+    	$('#blue_bar').css('width','0px');
+    	$('#limitcost').val(0);
+    	$('#showlimittext').text('不限制');
+    	if(checknowid != 0){
+    	   	dosetdata();
+    	}
+    }
+     
+  }); 
+});
+  function dosetdata(){
+  	    var url = siteurl+"/index.php?ctrl=market&action=indexlist"; 
+	   $.post(url, $('#doselectform').serialize(),function (data, textStatus){  
+	     	$('#shopList').html(data);  
+	  }, 'html'); 
+  }
+	function tabCutover02(obj,tempobj){
+		$(obj).addClass('current').siblings().removeClass('current');
+		$(obj).parent().parent().find($('.'+tempobj)).addClass('floor-con-show').siblings().removeClass('floor-con-show');
+	}
+</script>
+<div style="height:20px;"></div>
+ 
+<{/block}>

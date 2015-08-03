@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+#guide{ width:1150px; display:block; height:520px; z-index:2; background:url(/images/map/mapMarker.png) no-repeat; position:absolute; top:53px; left:0;}
+#guide-close{ width:35px; height:35px; position:absolute; right:28px; top:30px; cursor:pointer;}
+#home-map{ width:1150px; margin:30px auto; border-bottom:3px solid #b8b8b8; position:relative;}
+#home-map .searchBtn{ top:16px;}
+#map-position .searchBtn{ top:16px;}
+#home-mapBox{ width:1150px; height:520px;}
+#h-map{ position:relative;}
+#home-map #mapBox{ width:100%; float:none;}
+#mapBox{ color:#666;}
+/*搜索地址->地图页*/
+#map-position{ width:1150px; margin:30px auto 95px; border-bottom:3px solid #b8b8b8;}
+.mapContent{ height:520px;}
+ .mapContent .mapSide{ width:299px; height:520px; float:left; border-right:1px solid #c8c8c8}
+ .mapSide h3{ height:39px; line-height:39px; padding-left:20px; font-weight:normal; color:#666; font-family:'宋体'; border-bottom:1px solid #ccc; background:#f0f0f0;}
+ .mapSide .Messlist{ height:480px; overflow-y:auto; position:relative; overflow-x:hidden;}
+ .mapSide .Messlist ul{ height:100%; position:absolute; top:0; left:0; width:100%;}
+ .mapSide .Messlist li{cursor: pointer; padding:13px 0 13px 45px;color:#666; position:relative; border-top:1px solid #e6e6e6;}
+ .mapSide .Messlist .active{ background:#fff5e6;}
+ .mapSide .Messlist h4{ line-height:28px; font-size:14px; }
+ .mapSide .Messlist p{ line-height:18px;}
+ .mapSide .Messlist .index{ width:25px; height:33px; position:absolute; top:14px; left:14px; background-position:right top; text-align:center; line-height:25px; color:#FFF;}
+ .mapSide .Messlist .active .index{ background-position:0 0;}
+ /*没有数据处理*/
+.mapSide .noResults{ padding:5px 10px; color:#666; font-size:12px;}
+ 
+ /*右侧地图 */
+ #SearchAddmap{ width:850px; float:left; height:520px; position:relative;}
+.guess{ cursor:pointer; width:42px; height:41px; display:none; position:absolute; top:10px; left:12px; background:url(/images/map/map.png) no-repeat -103px 0;}
+ #mapBox{ width:850px; height:520px;}
+ #mapBox .infoTitle{height:30px; line-height:30px; color:#666; font-size:15px;}
+ /* BMapLib_SearchInfoWindow*/
+ #mapBox .infoAddress,#mapBox .HotelNum{ line-height:18px; color:#666;}
+#mapBox .infoAddress{ line-height:18px;}
+ #mapBox .watchBtn{ width:120px; line-height:30px;text-align:center; color:#fff; height:30px; background-position:-150px 0; text-shadow:0 0 5px #000; font-size:14px; cursor:pointer; margin-top:12px; display:block;}
+ #mapBox .HotelNum a{ color:#f87206; padding:0 5px; text-decoration:underline;}
+ #mapBox .btnStyle2{ width:100px; display:block;}
+ #mapBox .infoAddress {
+line-height: 18px;
+}
+a.mapBtns {
+width: 80px;
+height: 25px;
+float: left;
+background: #ff6f00;
+color: #fff;
+line-height: 25px;
+text-align: center;
+margin-right: 10px;
+}
+ 
+

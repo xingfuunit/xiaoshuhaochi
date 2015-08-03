@@ -1,0 +1,168 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/cart.css">   
+<{/block}>
+ <{block name=extendjs}> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/html5/js/cart.js"></script> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/html5/js/template.min.js"></script> 
+ 
+<script>
+$(function(){   
+     if ($("#gustinfo").val()) {
+            $(".save_button").hide();
+            $("#username").attr("disabled", "disabled");
+            $("#mobile").attr("disabled", "disabled");
+            $("#addressdet").attr("disabled", "disabled");
+        }
+        $(".order_addnew").click(function(){
+        
+             $(".save_button").toggle();
+             if ($(".save_button").is(":hidden")) {
+            $("#username").attr("disabled", "disabled");
+            $("#mobile").attr("disabled", "disabled");
+            $("#addressdet").attr("disabled", "disabled");
+             } else {
+                    $("#username").attr("disabled", "");
+            $("#mobile").attr("disabled", "");
+            $("#addressdet").attr("disabled", "");
+             }
+        })
+  freshcart();
+}); 
+var shopid='<{$id}>';
+var  cartbagcost = 0;
+var  cartpscost = 0;
+var  cartsum = 0;
+var cxcost = 0;  
+var psarealist,psstarttime,psareagrade;
+</script>
+ <script id="cartlist" type="text/html">    
+    <ul class="listcontent mBxSch" price="<^%=list.cost%^>" supplierdishid="<^%=list.id%^>" id="gid_<^%=list.id%^>">
+            <li class="mBxCm"><^%=list.name%^></li><li class="mBxCm"><div><a onclick="removeonedish(<^%=list.id%^>,<^%=list.shopid%^>,1); "></a><span id="quantity"><^%=list.count%^></span><a onclick="addonedish(<^%=list.id%^>,<^%=list.shopid%^>,1); "></a></div></li>
+            <li class="mBxCm"><^%=list.cost%^></li><li class="mBxCm"><a class="del" onclick="removesupplierdish(<^%=list.id%^>,<^%=list.shopid%^>);">删除</a></li>
+    </ul> 
+ </script>
+<{/block}>
+<{$gustinfo|@print_r}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+
+<header class="shoppingbox_header">
+  <div class="return"></div>
+  <span>返回</span>提交订单
+</header>
+  <div id="shoppingbox">  
+    <div class="container"> 
+     <h3 class="item_header"><span class="header_1"></span>我的订单
+        <div class="mFlex1" id="deTime">
+          <select name="DeliveryTime" id="DeliveryTime" class="mFlex1">
+              <{foreach from=$timelist item=items}> 
+              <option value="<{$items}>"><{$items}></option>
+              <{/foreach}> 
+          </select>
+        </div>
+     </h3>
+  <input type='hidden' id='gustinfo' value='<{$gustinfo}>'/>
+        <section class="list">
+          <ul class="listcapital mBxSch">
+            <li>菜品名称</li>
+            <li>数量</li>
+            <li>价格</li>
+            <li>操作</li>
+          </ul>
+        </section>
+        <div class="mBxCm bottomprise noborders"><div class="mf"><h3>合计:￥<span class="colred fontbold" id="totalFee">115.00</span></h3></div></div>
+   </div> 
+    <div class="order_gap"></div>
+    <div class="container">
+        <h3 class="item_header"><span class="header_2"></span>配送信息<span class="modify order_addnew">+ 修改</span></h3>  
+        <ul class="address_info">
+          <li><span>姓名:</span>
+             <input id="username" class="inputInpa" type="text" placeholder="姓名" maxlength="20"  <{if ($gustinfo)}>   value="<{$gustinfo['username']}>" <{else}> value="<{$myaddressslist['contactname']|default:''}>"  <{/if}>>
+          </li>
+          <li><span>电话:</span>
+            <input id="mobile" class="inputInpa" type="tel" placeholder="联系电话" maxlength="11" <{if ($gustinfo)}>   value="<{$gustinfo['mobile']}>" <{else}> value="<{$myaddressslist['phone']|default:''}>" <{/if}>>
+          </li>
+          <li><span>地址:</span>
+            <input id="addressdet" class="inputInpa" type="text" placeholder="地址详情" maxlength="20" <{if ($gustinfo)}>   value="<{$gustinfo['addressdet']}>" <{else}> value="<{$myaddressslist['address']|default:<{$areainfo}>}>" data="<{$areainfo}>" <{/if}>>
+          </li>
+          <li>
+            <input type="button" class="save_button" onclick="save_gust_address();" value="保存">
+          </li>
+        </ul>
+      </div> 
+      <div class="order_gap"></div>
+    <div  class="container">
+    <h3 class="item_header"><span class="header_3"></span>支付方式</h3>
+      <ul id="test" class="mBxCm">
+         <!-- <div class="mFlex1"><input id="s1" type="radio" data-freedeliveryline="200.0000" data-delminorderamount="30" name="scfs" value="2" checked><label for="s1">餐到付款</label></div>--> 
+        <li>
+          <label>
+            <input checked name="paytype" type="radio" value="alipay">支付宝
+          </label>
+        </li>
+        <li>
+          <label>
+            <input name="paytype" type="radio" value="weixin">微信支付
+          </label>
+        </li>
+        <!--<li>
+          <label>
+            <input name="paytype" type="radio" value="open_acout">账户余额支付
+          </label>
+        </li>-->
+      </ul> 
+     </div>
+      <div style="display:none;" class="mBxCm">
+          <div class="mFlex1" id="deTime">送餐时间：</div>
+                  <!--  <select name="senddate"  style="width: 232px;margin:0px; height:30px; border-radius: 4px 4px 4px 4px;" onchange="maketimenenu();">
+                         <{if $shopinfo['befortime'] > 0}>
+                        <{assign var=shownow value=time()}>   
+                        <{section name=loop loop=$shopinfo['befortime']}>   
+                            <option value="<{$shownow|date_format:"%Y-%m-%d"}>"><{$shownow|date_format:"%Y-%m-%d"}></option>
+            mFlex1              
+                            <{$shownow = $shownow+86400}>  
+                          <{/section}>  
+                     <{else}>
+                      <option value="<{time()|date_format:"%Y-%m-%d"}>"><{time()|date_format:"%Y-%m-%d"}></option>
+                      <{/if}> 
+                    </select>-->
+
+      </div>
+
+      <input style="display:none;" class="inputInp" id="remark" type="text" placeholder="请输入备注信息(可不填)">
+  </div>
+       
+      <ul style="display:none;" class="order_feedback">
+            <li>姓名:<input  type="text"  name="username" id="username" <{if ($gustinfo)}> value="<{$gustinfo['username']}>"  <{else}>value="<{$deaddress['contactname']|default:''}>"  <{/if}> >
+        
+       </li>
+        
+       <li>电话:<input type="text" name="mobile" id="mobile" <{if ($gustinfo)}> value="<{$gustinfo['mobile']}>" <{else}> value="<{$deaddress['phone']|default:''}>" <{/if}>>
+    
+       </li>
+       <li>地址:<input type="text"  name="addressdet" id="addressdet" <{if ($gustinfo)}> value="<{$gustinfo['addressdet']}>" <{else}> value="<{$deaddress['address']|default:$areainfo}>" <{/if}>  data="<{$areainfo}>">
+       
+       </li>
+     
+       <li style="display:none;"><textarea name="remark" id="remark"  onfocus="if(this.value==&quot;备注:&quot;){this.value=&quot;&quot;};" onblur="if(this.value==&quot;&quot;){this.value=&quot;备注:&quot;;};">备注:</textarea> </li>
+       <li style="display:none;">
+        <input type="hidden" name="jifen" id="jifen" value="0">
+             <font id="jifenshuoming">未选择</font><span id="jifenchoice" onclick="doselectjifen('<{$scoretocost}>','<{$member['score']|default:0}>');">选择金额</span> 
+       </li>
+       <li style="display:none;"><input type="hidden" name="juanid" id="juanid" value="0"><input type="hidden" name="juancost" id="juancost" value="0">
+             <font id="juanshuoming">未选择</font><span id="youhuichoice" onclick="doselectjuan();">选择优惠券</span> 
+       </li>
+       </ul>
+      </div>
+   </section>
+   
+   
+   <div style="display:none;" class="mBxCm bottomprise"><div class="mFlex1"><h3>打包费: ￥<span id="packagingFee">0.00</span></h3></div><div class="mf"><h3>送餐费： ￥<span id="fixedDeliveryFee">0.00</span></h3></div></div>
+   
+   <{if $is_open== 1}>
+   <section class="muli"><input type="BUTTON" class="inputBtn" id="logSubmit" onclick="orderSubmit();" value="确认下单"></section>
+   <{else}>
+    <section class="muli"><input type="BUTTON" class="inputBtn" id="logSubmit"   value="店铺停止下单"></section>
+   <{/if}>
+<{/block}>

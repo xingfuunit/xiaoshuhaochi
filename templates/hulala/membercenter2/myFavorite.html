@@ -1,0 +1,98 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/membercenter.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+					
+					<div class="hc_userinfo_myshop">
+						
+					</div>
+          	<{foreach from=$list key=myid item=items}> 
+					 <div shop_id="2734" id="fav_2734" class="hc_userInforCollectionShops">
+						<div shop_id="2734" class="hc_userInforCollectionShop_left" style="width:630px;">
+							<div class="hc_shop_list_box">
+								<div class="hc_shop_list_box_left">
+									<div class="hc_shop_list_box_img"><div class="hc_shop_list_box_img_div"><img atl="<{$items['shopname']}>" src="<{$items['shoplogo']}>"></div></div>
+									<div class="hc_shop_list_box_span"><{$items['sendtime']}>分钟</div>
+								</div>
+								<div class="hc_shop_list_box_right">
+									<div class="hc_list_box_head"><{$items['shopname']}></div>
+
+									
+
+
+							<div class="hc_xinxin">
+								<div class="hc_xinxin_div">
+										 <{section name=loop loop=$items['point']}> 
+                  	 <div class="hc_xinxin_div_float"><img alt="star" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png"></div>
+                     <{/section}> 
+																											<div class="clear"></div>
+								</div>
+								<div class="hc_comment">
+									
+									<div class="hc_xinxin_div_float"><img alt="评论" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/comment.png"></div>
+									<div class="hc_xinxin_div_float"><span style="margin-left:3px;"><{$items['pointcount']}></span></div> 
+									
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+
+
+									<div class="hc_action"></div>
+
+															
+                 <div class="hc_order"><span class="gray_font">
+              	        	<{assign var=alltype value=","|explode:$items['servertype']}> 
+						<{foreach from=$shoptypelist  item=v}> 
+						   <{if in_array($v['id'],$alltype)}> <{$v['name']}> <{/if}>
+						<{/foreach}></span></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="hc_userInforCollectionShop_right"><a style="color:#333;" href="javascript:delfavte(<{$items['collectid']}>,this);"><div class="hc_userInforCollectionShop_x"></div></a></div>
+						<div class="clear"></div>
+					</div>
+					<{/foreach}>
+					
+			   <div style="height:50px;"></div><div class="page"><{$pagecontent}></div>
+				</div>
+				
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+ 
+  function delfavte(collectid,obj){ 
+	var url = siteurl+'/index.php?controller=site&action=delcollect&collectid='+collectid+'&type=0'+'&@random@'; 
+	$.ajax({
+     type: 'post',
+     async:true, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){ 
+           window.location.reload();
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });    
+}
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

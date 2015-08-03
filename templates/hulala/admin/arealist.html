@@ -1,0 +1,193 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">配送区域</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+
+
+
+
+
+      <div style="width:98%;overflow-y:auto;white-space:nowrap;"> 
+           <div class="tags">
+
+      	 	 
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        
+                        <th align="center">区域名称</th>  
+                        <th align="center">首字母</th> 
+                        <th align="center">排序ID</th> 
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <{if $items['parent_id'] == 0}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$items['id']}>"> 
+                        
+                        <td align="left"><{$items['name']}>
+                        	<{if $area_grade == 1}>
+                        	<input type="checkbox" name="areach_<{$items['id']}>" value="1" <{if isset($areacost[$items['id']])}>checked<{/if}> onclick="dosetarea(this);" data="<{$items['id']}>">
+                                          	<span id="showno_<{$items['id']}>" <{if isset($areacost[$items['id']])}>style="display:none;"<{/if}>>勾选设置为网站配送</span><span id="showyes_<{$items['id']}>" <{if !isset($areacost[$items['id']])}>style="display:none;"<{/if}>>配送价:<input type="text" data="<{$items['id']}>" onchange="doupsetarea(this);" name="areain_<{$items['id']}>" value="<{$areacost[$items['id']]|default:0}>" style="width:50px;">元</span>
+                        <{/if}>           	
+                        	
+                        	</td> 
+                        <td align="center"> <{$items['pin']}> </td>  
+                        <td align="center"><{$items['orderid']}></td>  
+                        <td align="center"><a href="<{ofunc type=url link="/admin/eidtarea/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                        	 <a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delarea/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                      </tr>
+                          <{if $area_grade > 1}>
+                          <{foreach from=$list item=itv}>  
+                              <{if $itv['parent_id'] == $items['id']}>
+                              
+                              <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$itv['id']}>"> 
+                                  
+                                   <td align="left">&nbsp&nbsp&nbsp&nbsp<{$itv['name']}>
+                                   	<{if $area_grade == 2}>
+                                   	<input type="checkbox" name="areach_<{$itv['id']}>" value="1" <{if isset($areacost[$itv['id']])}>checked<{/if}> onclick="dosetarea(this);" data="<{$itv['id']}>">
+                                          	<span id="showno_<{$itv['id']}>" <{if isset($areacost[$itv['id']])}>style="display:none;"<{/if}>>勾选设置为网站配送</span><span id="showyes_<{$itv['id']}>" <{if !isset($areacost[$itv['id']])}>style="display:none;"<{/if}>>配送价:<input type="text" data="<{$itv['id']}>" onchange="doupsetarea(this);" name="areain_<{$itv['id']}>" value="<{$areacost[$itv['id']]|default:0}>" style="width:50px;">元</span>
+                                   	<{/if}>
+                                   	</td> 
+                                    <td align="center"> <{$itv['pin']}> </td>  
+                                    <td align="center"><{$itv['orderid']}></td>  
+                                    <td align="center"><a href="<{ofunc type=url link="/admin/eidtarea/id/<{$itv['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                        	         <a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delarea/id/<{$itv['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                                </tr>
+                                <{if $area_grade == 3}>
+                                 <{foreach from=$list item=itm}> 
+                                    <{if $itm['parent_id'] == $itv['id']}>
+                                     <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" id="tr_<{$itm['id']}>"> 
+                                  
+                                          <td align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<{$itm['name']}>
+                                          	<input type="checkbox" name="areach_<{$itm['id']}>" value="1" <{if isset($areacost[$itm['id']])}>checked<{/if}> onclick="dosetarea(this);" data="<{$itm['id']}>">
+                                          	<span id="showno_<{$itm['id']}>" <{if isset($areacost[$itm['id']])}>style="display:none;"<{/if}>>勾选设置为网站配送</span><span id="showyes_<{$itm['id']}>" <{if !isset($areacost[$itm['id']])}>style="display:none;"<{/if}>>配送价:<input type="text" data="<{$itm['id']}>" onchange="doupsetarea(this);" name="areain_<{$itm['id']}>" value="<{$areacost[$itm['id']]|default:0}>" style="width:50px;">元</span></td> 
+                                           <td align="center"> <{$itm['pin']}> </td>  
+                                           <td align="center"><{$itm['orderid']}></td>  
+                                           <td align="center"><a href="<{ofunc type=url link="/admin/eidtarea/id/<{$itm['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                        	                <a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delarea/id/<{$itm['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                                    </tr>
+                                    <{/if}> 
+                                 <{/foreach}> 
+                                 <{/if}>
+                              <{/if}> 
+                         <{/foreach}>
+                         <{/if}>
+                      
+                      <{/if}> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                 
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  <script> 
+  	 
+ </script>
+ 
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script>
+	function dosetarea(obj){
+		 var panduan = $(obj).attr('checked');
+	   var areaid = $(obj).attr('data');
+	   if(panduan == true){
+	   	var backmes = doupdata({'areaid':areaid,'type':'add'});
+	   	if(backmes == true){
+	   	 $('#showno_'+areaid).hide();
+	   	 $('#showyes_'+areaid).show();
+	   	}
+	   	$(obj).attr('checked',false);
+	   }else{
+	   	var backmes = doupdata({'areaid':areaid,'type':'del'});
+	   	if(backmes == true){
+	   	  $('#showno_'+areaid).show();
+	   	  $('#showyes_'+areaid).hide();
+	   	}
+	   	$(obj).attr('checked',true);
+	   }
+	}
+	function doupsetarea(obj){
+		 var areaid = $(obj).attr('data');
+		doupdata({'areaid':areaid,'type':'updat','cost':$(obj).val()});
+	}
+	function doupdata(datas){
+		var getinfo = true;
+   	$.ajax({
+     type: 'post',
+     async:false,
+     data:datas,
+     url: '<{ofunc type=url link="/admin/areacost"}>', 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){
+     		artsucces('更新成功');
+     	}else{
+     		getinfo = false;
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	getinfo = false;
+    	diaerror('提交数据失败'); 
+	    }
+    });  
+    return getinfo;
+  } 
+</script>
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

@@ -1,0 +1,35 @@
+   
+    
+    
+       <div class="cart_title"><i></i>我的菜篮子</div>
+   	 	    <div class="cartgoodslist">
+   	 	    	 <ul>
+   	 	    	 	 <{foreach from=$cartinfo['list']  key=ckkey item=items}>  
+   <{if $shopid ==  $ckkey}>  
+   	 	    	 	<{foreach from=$items['data'] item=itv}>
+   	 	    	 	<li>
+   	 	    	 	  <div class="cart_one"><div class="cart_goodsname"><{$itv['name']}></div><i onclick="removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>);"></i></div>
+   	 	    	 	  <div class="cart_tow">
+   	 	    	 	      <span class="cp_pre" onclick="removeonedish(<{$itv['id']}>,<{$itv['shopid']}>,1);">-</span>
+   	 	    	 	      <input type="text" readonly="readonly" class="cinput" value="<{$itv['count']}>">
+   	 	    	 	      <span class="cp_next" onclick="uponedish(<{$itv['id']}>,<{$itv['shopid']}>,1);">+</span>
+   	 	    	 	      <span class="cp_much">￥<{$itv['cost']}></span>
+   	 	    	 	  </div>	
+   	 	    	 	</li>
+   	 	    	 	<{/foreach}> 
+   	 	    	 	<{/if}>
+  <{/foreach}>
+   	 	    	</ul>
+   	 	    </div>
+   	 	    <div class="cart_bottom">
+   	 	    	  <div class="cart_tj">
+   	 	    	  	 <div class="cart_sum"><label>商品总价</label><span><{$items['sum']}>元</span></div>
+   	 	    	  	 <{if isset($cxdata['gzdata'])}>
+   	 	    	  	 <{foreach from=$cxdata['gzdata'] item=itv}>
+   	 	    	  	  <div class="cart_cx"><em><{$itv}></em></div>
+   	 	    	  	 <{/foreach}> 
+   	 	    	  	 <{/if}>
+   	 	    	  	
+   	 	    	  	</div>
+   	 	    	    <input type="button" class="next bg" value="仅订桌位" onclick="outdiv_position()"><input type="button" class="next bg" value="下单订位" onclick="outdiv_cart()">
+   	 	    </div> 

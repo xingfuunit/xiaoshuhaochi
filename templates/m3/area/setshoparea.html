@@ -1,0 +1,365 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>   
+ <{block name=bodylist}>
+ 
+ 
+ <!---content right start--->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>配送设置</span> </div>
+  
+    <div class="cl"></div>
+    <script>
+                	
+				$(function(){
+					$(".waimaiset .jbset").click(function(){
+						$(this).css('background','#ec7501').siblings().css('background','');
+						
+					});	
+					
+				});
+     </script>
+    
+     <{if $shopinfo['shoptype'] == 0}>
+       		  	<{load_data assign="shopfast" table="shopfast" where="`shopid`='<{$shopinfo['id']}>'"  type="one"}>  
+       		 	  <{if !empty($shopfast)}>  
+       		 	  
+       		 	        <{$showcost = 0}> 
+       		 	     <{if $shopfast['sendtype'] == 0}> 
+       		 	       <{$pssetinfo = $psset|unserialize}>
+       		 	       <{if $pssetinfo['pstype'] == 2}>
+       		 	            <{$showcost =  1}>
+       		 	       <{/if}> 
+       		       <{else}>
+       		         <{$pssetinfo = $shopfast['sendset']|unserialize}>
+       		 	       <{if $pssetinfo['pstype'] == 2}>
+       		 	            <{$showcost =  2}>
+       		 	       <{/if}> 
+       		       <{/if}>
+       		          <div class="order_search">
+                  <span>  定位配送费设置:app和使用地图定位使用以下配送费 
+                 	 </span>
+                </div>
+  <div class="peisongList">   
+      <div class="peisongSet"> 
+      	 
+       
+        
+        <table width="100%" border="1" bordercolor="#c6c5c5"> 
+                 	  <{$tempaapcost = array()}>
+        	                  <{if !empty($shopfast['pradiusvalue'])}>
+                        		<{$tempaapcost = $shopfast['pradiusvalue']|unserialize}>
+                        		<{/if}>
+                 	  <{section name=loop loop=$shopfast['pradius']}> 
+                 	   <tr>
+                        <td   height=40px>&nbsp; 
+                        	<div style="padding-top:5px;padding-left:0px;width:200px;float:left;" >
+                        	  <{$tempgongli = $smarty.section.loop.index+1}>
+                        	     <{$tempgongli}> 公里内配送费
+                        	    </div>
+                        	 </td>
+                       
+                      
+                        <td   height=40px>&nbsp; 
+                        	<div style="padding-top:5px;padding-left:0px;width:200px;float:left;" >
+                        		
+                        	     <input type="text" name="appcost<{$smarty.section.loop.index}>" id="appcost<{$smarty.section.loop.index}>"   value="<{$tempaapcost[$smarty.section.loop.index]|default:0}>"  onchange="modifyappdo('<{$smarty.section.loop.index}>',this);" class="myinputon" maxlength=3    >元
+                        	    </div>
+                        	 </td>
+                       
+                      </tr> 
+                  <{/section}> 
+               </table>
+        
+        
+        
+ 
+
+
+
+
+      </div>
+    </div>
+    
+    
+    
+    
+       		        <div class="order_search">
+                  <span><{if $shopfast['sendtype'] == 0}> 网站配送, 
+                 	计价方式：
+                 	<{if $pssetinfo['pstype'] == 1}>统一配送费:<{$pssetinfo['psvalue1']}><{/if}>
+                 	<{if $pssetinfo['pstype'] == 2}>不同区域不同配送费<{/if}>
+                 	<{if $pssetinfo['pstype'] == 3}>不计算配送费<{/if}>
+	 	              <{if $pssetinfo['pstype'] == 4}>百度地图测算配送费（1公里内:<{$pssetinfo['psvalue1']}>,3公里内<{$pssetinfo['psvalue2']}>,6公里内<{$pssetinfo['psvalue3']}> <{/if}>
+	 	              <{if $pssetinfo['pstype'] == 4}> 根据菜品数计算配送费:（起送费<{$pssetinfo['psvalue1']}>,增加一菜品增加<{$pssetinfo['psvalue2']}> <{/if}>
+	 	             
+                 	
+                 	<{else}>店铺自行设置配送费,请设置配送区域 ,
+                 	 	<{if $pssetinfo['pstype'] == 1}>统一配送费:<{$pssetinfo['psvalue1']}><{/if}>
+                 	  <{if $pssetinfo['pstype'] == 2}>不同区域不同配送费<{/if}>
+                 	  <{if $pssetinfo['pstype'] == 3}>不计算配送费<{/if}>
+	 	                <{if $pssetinfo['pstype'] == 4}>百度地图测算配送费（1公里内:<{$pssetinfo['psvalue1']}>,3公里内<{$pssetinfo['psvalue2']}>,6公里内<{$pssetinfo['psvalue3']}> <{/if}>
+	 	                <{if $pssetinfo['pstype'] == 4}> 根据菜品数计算配送费:（起送费<{$pssetinfo['psvalue1']}>,增加一菜品增加<{$pssetinfo['psvalue2']}> <{/if}> 
+                 	<{if $showcost == 2}>，并设置对应配送费<{/if}><{/if}>   
+                 	 </span>
+                </div>
+       		       
+       		       
+       		         <div class="peisongList">   
+      <div class="peisongSet"> 
+       		      <table width="100%"  > 
+       		      	 <{foreach from=$arealist item=items}>
+                 	 <tr>
+                        <td colspan="3" height=40px>&nbsp;  
+                        	<div style="padding-top:5px;padding-left:<{$items['space']*30}>px;width:300px;float:left;" >
+                        	    <{if $shopfast['sendtype'] == 1}>
+                        	    <{if !in_array($items['id'],$parent_ids)}>
+                        	    <{load_data assign="shopareacheck" table="areashop" type="one" where="areaid='<{$items['id']}>' and shopid = <{$shopinfo['id']}>" fileds="shopid" }> 
+                        	       <input type="checkbox" value="<{$items['id']}>" name="areaid[]" class="mycheckbox" onclick="changinput(this);" <{if !empty($shopareacheck)}>checked<{/if}>>
+                        	    <{/if}>
+                        	    <{/if}>
+                        	    <{$items['name']}> 
+                        	    <{if !in_array($items['id'],$parent_ids)}>
+                        	    
+                        	     <{if $showcost == 1}>
+                        	      
+                   	    	     	 	    <{load_data assign="shoparea" table="areatoadd" type="one" where="areaid='<{$items['id']}>' and shopid = 0" fileds="cost" }> 
+                   	    	     	 	     <font color=red style="font-weight:bold;"><{$shoparea['cost']}>元</font>
+                   	    	    <{elseif $showcost == 2}>
+                   	    	        
+                   	    	     	 	    <{load_data assign="shoparea" table="areatoadd" type="one" where="areaid='<{$items['id']}>'  and shopid = '<{$shopinfo['id']}>'" fileds="cost" }> 
+                   	    	     	 	    <input type="text" name="areacost<{$items['id']}>" id="areacost<{$items['id']}>"   value="<{$shoparea['cost']}>"  onchange="modifydo('<{$items['id']}>',this);" class="myinputon" maxlength=3  <{if empty($shopareacheck)}> style="display:none;"<{/if}> ></div>
+                   	    	        
+                   	    	      <{/if}>
+                   	    	       <{/if}>
+                        	    </div>
+                        	 </td>
+                        
+                      </tr> 
+                 	<{/foreach}> 
+               </table>
+                </div>
+    </div>
+               <{else}>
+                 <div class="order_search">
+                  <span>未启用外卖店铺不需要设置配送区域</span>
+      </div>
+               <{/if}>
+      <{elseif $shopinfo['shoptype'] == 1}>     
+      
+               <{load_data assign="shopfast" table="shopmarket" where="`shopid`='<{$shopinfo['id']}>'"  type="one"}>  
+       		 	  <{if !empty($shopfast)}>   
+       		 	        <{$showcost = 0}> 
+       		 	     <{if $shopfast['sendtype'] == 0}> 
+       		 	       <{$pssetinfo = $psset|unserialize}>
+       		 	       <{if $pssetinfo['pstype'] == 2}>
+       		 	            <{$showcost =  1}>
+       		 	       <{/if}> 
+       		       <{else}>
+       		         <{$pssetinfo = $shopfast['sendset']|unserialize}>
+       		 	       <{if $pssetinfo['pstype'] == 2}>
+       		 	            <{$showcost =  2}>
+       		 	       <{/if}> 
+       		       <{/if}>
+       		        <div class="order_search">
+                  <span>  定位配送费设置:app和使用地图定位使用以下配送费 
+                 	 </span>
+                </div>
+  <div class="peisongList">   
+      <div class="peisongSet">  
+        <table width="100%" border="1" bordercolor="#c6c5c5"> 
+        	                  <{$tempaapcost = array()}>
+        	                  <{if !empty($shopfast['pradiusvalue'])}>
+                        		<{$tempaapcost = $shopfast['pradiusvalue']|unserialize}>
+                        		<{/if}>
+                 	  <{section name=loop loop=$shopfast['pradius']}> 
+                 	   <tr>
+                        <td   height=40px>&nbsp; 
+                        	<div style="padding-top:5px;padding-left:0px;width:200px;float:left;" >
+                        	  <{$tempgongli = $smarty.section.loop.index+1}>
+                        	     <{$tempgongli}> 公里内配送费
+                        	    </div>
+                        	 </td>
+                       
+                     
+                        <td   height=40px>&nbsp; 
+                        	<div style="padding-top:5px;padding-left:0px;width:200px;float:left;" >
+                        		
+                        	     <input type="text" name="appcost<{$smarty.section.loop.index}>" id="appcost<{$smarty.section.loop.index}>"   value="<{$tempaapcost[$smarty.section.loop.index]|default:0}>"  onchange="modifyappdo('<{$smarty.section.loop.index}>',this);" class="myinputon" maxlength=3    >元
+                        	    </div>
+                        	 </td>
+                       
+                      </tr> 
+                  <{/section}> 
+               </table> 
+
+      </div>
+    </div>
+       		          <div class="order_search">
+                  <span><{if $shopfast['sendtype'] == 0}> 网站配送 ,
+                 	计价方式：
+                 	<{if $pssetinfo['pstype'] == 1}>统一配送费:<{$pssetinfo['psvalue1']}><{/if}>
+                 	<{if $pssetinfo['pstype'] == 2}>不同区域不同配送费<{/if}>
+                 	<{if $pssetinfo['pstype'] == 3}>不计算配送费<{/if}>
+	 	              <{if $pssetinfo['pstype'] == 4}>百度地图测算配送费（1公里内:<{$pssetinfo['psvalue1']}>,3公里内<{$pssetinfo['psvalue2']}>,6公里内<{$pssetinfo['psvalue3']}> <{/if}>
+	 	              <{if $pssetinfo['pstype'] == 4}> 根据菜品数计算配送费:（起送费<{$pssetinfo['psvalue1']}>,增加一菜品增加<{$pssetinfo['psvalue2']}> <{/if}>
+	 	             
+                 	
+                 	<{else}>店铺自行设置配送费,请设置配送区域,
+                 	 	<{if $pssetinfo['pstype'] == 1}>统一配送费:<{$pssetinfo['psvalue1']}><{/if}>
+                 	  <{if $pssetinfo['pstype'] == 2}>不同区域不同配送费<{/if}>
+                 	  <{if $pssetinfo['pstype'] == 3}>不计算配送费<{/if}>
+	 	                <{if $pssetinfo['pstype'] == 4}>百度地图测算配送费（1公里内:<{$pssetinfo['psvalue1']}>,3公里内<{$pssetinfo['psvalue2']}>,6公里内<{$pssetinfo['psvalue3']}> <{/if}>
+	 	                <{if $pssetinfo['pstype'] == 4}> 根据菜品数计算配送费:（起送费<{$pssetinfo['psvalue1']}>,增加一菜品增加<{$pssetinfo['psvalue2']}> <{/if}> 
+                 	<{if $showcost == 2}>，并设置对应配送费<{/if}><{/if}></span>
+             </div>
+              <div class="peisongList">   
+      <div class="peisongSet">
+       		      <table width="100%" border="1" bordercolor="#c6c5c5"> 
+                 	 <{foreach from=$arealist item=items}> 
+                 	 <tr>
+                        <td colspan="3" height=40px>&nbsp; 
+                        	<div style="padding-top:5px;padding-left:<{$items['space']*30}>px;width:200px;float:left;" >
+                        	    <{if $shopfast['sendtype'] == 1}>
+                        	    <{if !in_array($items['id'],$parent_ids)}>
+                        	     <{load_data assign="shopareacheck" table="areamarket" type="one" where="areaid='<{$items['id']}>' and shopid = <{$shopinfo['id']}>" fileds="shopid" }> 
+                        	       <input type="checkbox" value="<{$items['id']}>" name="areaid[]" class="mycheckbox" onclick="changinput(this);" <{if !empty($shopareacheck)}>checked<{/if}>>
+                        	    <{/if}>
+                        	    <{/if}>
+                        	    <{$items['name']}> 
+                        	     <{if !in_array($items['id'],$parent_ids)}>
+                        	     <{if $showcost == 1}>
+                        	      
+                   	    	     	 	    <{load_data assign="shoparea" table="areatomar" type="one" where="areaid='<{$items['id']}>' and shopid = 0" fileds="cost" }> 
+                   	    	     	 	     <font color=red style="font-weight:bold;"><{$shoparea['cost']}>元</font>
+                   	    	    <{elseif $showcost == 2}>
+                   	    	       
+                   	    	     	 	    <{load_data assign="shoparea" table="areatomar" type="one" where="areaid='<{$items['id']}>'  and shopid = '<{$shopinfo['id']}>'" fileds="cost" }> 
+                   	    	     	 	    <input type="text" name="areacost<{$items['id']}>" id="areacost<{$items['id']}>"   value="<{$shoparea['cost']}>"  onchange="modifydo('<{$items['id']}>',this);" class="myinputon" maxlength=3  <{if empty($shopareacheck)}> style="display:none;"<{/if}> ></div>
+                   	    	        
+                   	    	      <{/if}>
+                   	    	       <{/if}>
+                        	    </div>
+                        	 </td>
+                        
+                      </tr> 
+                 	<{/foreach}> 
+               </table>
+                 </div>
+    </div>
+               <{else}>
+                 <div class="order_search">
+                  <span> 未启用超市店铺不需要设置配送区域!</span>
+      </div>
+               <{/if}>
+      
+      
+          
+      <{/if}>
+     
+     
+     
+     
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  <div class="cl"></div>
+  
+  <!---content right end---> 
+ 
+ 
+ 
+  
+<script>
+	//选择地址
+	var showcost = '<{$showcost}>';
+ function changinput(obj){
+ 	if($(obj).is(':checked')){ 
+ 		//配送区域指定
+ 		shopidtoad($(obj).val(),'add');
+ 		if(showcost == 2){
+ 			$('#areacost'+$(obj).val()).show();
+	  }
+ 	}else{ 
+ 		shopidtoad($(obj).val(),'del');
+ 		if(showcost == 2){
+ 			$('#areacost'+$(obj).val()).hide();
+	  }
+ 	}
+ }
+function selall(obj){
+	var findobj = $('#checkboxdiv'+$(obj).val()).find("[name='areaid[]']");
+	var findobj2 = $('#checkboxdiv'+$(obj).val()).find("[type='text']");
+	if($(obj).is(':checked')){  
+		 $(findobj).attr('checked',true);
+		 $(findobj2).removeClass('myinput').addClass('myinputon');
+		 $(findobj2).attr('disabled',false); 
+		 $(findobj2).attr('value',$('#sendcost').val());
+		 shopidtoad(2,$(obj).val(),$('#sendcost').val(),1);
+	}else{
+		$(findobj).attr('checked',false);
+		 $(findobj2).removeClass('myinputon').addClass('myinput');
+		 $(findobj2).attr('disabled',true);
+		 $(findobj2).attr('value','');
+		 shopidtoad(2,$(obj).val(),$('#areacost'+$(obj).val()).val(),2);
+	}
+}
+ 
+function modifydo(areaid,obj)
+{
+	 var backinfo = ajaxback('<{ofunc type=url link="/area/shoptoadcost/datatype/json"}>',{'areaid':areaid,'cost':$(obj).val()});
+	if(backinfo.flag == true)
+	{ 
+		diaerror(backinfo.content); 
+	}else{
+	  
+		artsucces('保存成功');
+	}
+} 
+function modifyappdo(gongli,obj){
+	var backinfo = ajaxback('<{ofunc type=url link="/area/shoptoappcost/datatype/json"}>',{'gongli':gongli,'cost':$(obj).val()});
+	if(backinfo.flag == true)
+	{ 
+		diaerror(backinfo.content); 
+	}else{
+	  
+		artsucces('保存成功');
+	}
+}
+function setdefault(obj){ 
+	/*
+	showop('店铺默认配送费用修改保存中');
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/setdefaultsend"}>',{'sendcost':$(obj).val()});
+	if(backinfo.flag == true)
+	{
+		hideop();
+		diaerror(backinfo.content); 
+	}else{
+		hideop();
+		artsucces('保存成功');
+	}*/
+}
+//店铺ID到地址ID关联保存
+function shopidtoad(areaid,types)
+{ 
+	  
+	var backinfo = ajaxback('<{ofunc type=url link="/area/shopidtoad/datatype/json"}>',{'areaid':areaid,'types':types});
+	if(backinfo.flag == true)
+	{
+		 
+		diaerror(backinfo.content); 
+	}else{
+	  
+		artsucces('保存成功');
+	}
+}
+ 
+</script>
+ <{/block}>

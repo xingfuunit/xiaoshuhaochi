@@ -1,0 +1,110 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+ <div class="box790">
+
+		<div class="clientInfo" id="user-panel">
+			<div class="clientImg">
+				<p class="avatar" id="member-img"><img id="headpic" src="<{$member['logo']|default:$userlogo}>"></p>
+				<p class="pad_tb_5"><a href="<{ofunc type=url link="/member/edituser/showaction/headpic"}>" class="blue12">修改头像</a></p>
+			</div>
+			<div class="clientText">
+				<div class="pad_tb_5 border_bottom" style="position:relative">
+					<ul> 
+						<li class="w190 bold" id="member-name"><{$member['username']}>，欢迎您！</li>
+						<li class="w190" id="member-rank">ip：<span id="userRating"><{$member['loginip']}></span> </li>
+						<li class="w230">上一次登陆时间：<span id="member-lastlogin"><{$member['logintime']|date_format:"%Y-%m-%d %H:%M:%S"}></span></li>
+					</ul>
+				</div>
+				<div class="pad_tb_5 border_bottom">
+					<ul>  
+						<li class="w190"><a href="<{ofunc type=url link="/order/usersorder"}>">安排中的餐品订单 <em class="orange12" id="ChaoOrderCount">(<{$temp2['shuliang']|default:0}>)</em></a></li>
+						<!--
+						<li class="w190"><a href="<{ofunc type=url link="/order/usermorder"}>">安排中的超市订单 <em class="orange12" id="CanOrderCount">(<{$temp['shuliang']|default:0}>)</em></a></li> -->
+					<{if $open_acout==1}>	<li class="w190"><a href="<{ofunc type=url link="/member/paylog"}>">账户余额 <em class="orange12" id="AccountBalance">￥<{$member['cost']|default:0}></em></a></li><{/if}>
+						<li class="w190"><a href="<{ofunc type=url link="/member/jifenlog"}>"">积分余额 <em class="orange12" id="JifenNow"><{$member['score']|default:0}></em> 分</a></li>
+						<li class="w190"><a href="<{ofunc type=url link="/member/jifenlog"}>">累计积分 <em class="orange12" id="JifenAll"><{$member['sumcore']|default:0}></em> 分</a></li>
+						<li class="w190"><a href="<{ofunc type=url link="/order/waitpiont"}>">待评价商家 <em class="orange12" id="DPcount">(<{$temp4['shuliang']|default:0}>)</em></a></li>
+						<!--<li class="w190"><{if $member['group'] == 3}><a href="<{ofunc type=url link="/shop/mangeshop"}>"><em class="orange12">进入店铺</em></a><{else}><a href="<{ofunc type=url link="/shop/openshop"}>"><em class="orange12">申请开店</em></a><{/if}></li>-->
+						<li class="w190"><a href="<{ofunc type=url link="/member/gradeinstro"}>">用户等级 <em class="orange12" id="DPcount">(<{$member['gradename']}>)</em></a></li> 
+					</ul> 
+				</div>
+				<div class="pad_tb_5">
+					<ul>
+						<li class="w190"><span class="bold">昵称：</span><span id="member-nick"><{$member['username']}></span>
+						 <a class="blue12" href="<{ofunc type=url link="/member/edituser/showaction/usernamea"}>">[修改]</a></li>
+						<li class="w190"><span class="bold">邮箱:</span> <span id="member-email"><{$member['email']}></span></li>
+						<li class="w230"><span class="bold">手机：</span><span id="member-id"><{$member['phone']}></span> <a class="blue12" href="<{ofunc type=url link="/member/edituser/showaction/mdphone"}>" id="isBindMobile">修改手机</a>&nbsp;&nbsp;<a class="blue12" href="<{ofunc type=url link="/member/edituser/showaction/pwdmx"}>">修改密码</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="manageBox margin_bottom">
+				<h3 class="title"><span class="colortip"></span>已保存的配送地址<small class="gray666">（最多保存<{$addresslimit}>条配送资料)</small><a class="blue12" href="<{ofunc type=url link="/area/useraddress"}>">管理配送资料</a></h3>
+			<div class="content" id="addr-list">
+				<table class="di_table">	
+					<thead>
+						<tr>       
+						   <th class="alist1">客户姓名</th>       
+						   <th class="alist3">配送地址</th>		
+						   <th class="alist4">手机号码</th>		
+						   <th class="alist5">操作</th>		
+						</tr>
+					</thead>
+				<tbody>	
+				 <{load_data assign="list" table="address"    fileds="*"  limit="5"  where="userid='<{$member['uid']}>'"}>
+				 <{foreach from=$list['list'] item=items}>
+		  <tr>		
+		  	<td><{$items['contactname']}></td>		
+		   
+		  	<td><{$items['address']}></td>		
+		  	<td><{$items['phone']}></td>		
+		  	<td>
+		  		  <a href="<{ofunc type=url link="/area/useraddress/addressid/<{$items['id']}>"}>" id="edit_<{$items['id']}>"  class="apanel" >修改</a> 
+		  		| <a  href="<{ofunc type=url link="/area/deladdress/addressid/<{$items['id']}>/datatype/json"}>" class="apanel" onclick="return remind(this);">删除</a> 
+		  	| <{if $items['default'] == 1}><span class="money">默认</span><{else}><a class="apanel" onclick="changeAddr(<{$items['id']}>);">设置默认</a><{/if}>
+		  	</td>		
+		   
+		  </tr>
+		  <{/foreach}>
+			</tbody>
+			</table>
+			</div>
+		</div>
+
+		<div class="manageBox">
+		<h3 class="title"><span class="colortip"></span>最近订单<a class="blue12" href="<{ofunc type=url link="/order/usersorder"}>">更多&gt;&gt;</a></h3>
+			<div class="content" id="order-list">
+				<table class="di_table">	
+				   <thead>
+						<tr>      
+						 <th class="olist1">订单号</th>     
+					     <th class="olist2">订单商家</th>      
+					     <th class="olist3">付款方式</th>		
+					     <th class="olist4">订单金额</th>	
+	              	     <th class="olist5">下单时间</th>		 	
+	              	   </tr>	
+					</thead>
+					<tbody>
+					 <{load_data assign="orderlist" table="order"    fileds="*"  limit="5" where="buyeruid='<{$member['uid']}>'" }>
+					
+					<{foreach from=$orderlist['list'] item=items}>
+					<tr>		
+					  <td><a href="#" class="apanel"><{$items['dno']}></a></td>	 
+						<td><a class="apanel"  <{if $items['shoptype']==1}>href="<{ofunc type=url link="/market"}>"<{else}>href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>"}>"<{/if}> ><{$items['shopname']}></a></td>		
+						<td><{if $items['paytype']=='outpay'}>就餐支付<{else}>在线支付<{if $items['paystatus']==1}>(已付)<{else}>(未付)<{/if}><{/if}></td>		<td class="money">￥<{$items['allcost']}></td>		
+						<td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>		 	</tr>
+					<{/foreach}>			
+					</tbody></table></div>
+		</div>
+	</div>
+	
+<script>
+	function changeAddr(uid)
+	{
+		 
+		var info = {'tijiao':'do','default':'1','addressid':uid,'what':'default'};
+	 	var url = '<{ofunc type=url link="/area/editaddress/random/@random@/datatype/json"}>';
+		 myajax(url,info);
+	}
+</script>
+<{/block}>

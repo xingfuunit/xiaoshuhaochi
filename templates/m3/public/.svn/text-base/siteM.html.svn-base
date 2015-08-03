@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> <{block name=sitetitle}><{/block}>-<{$sitename}></title>
+<{block name="seokey"}><meta name="Keywords" content="<{$keywords}>" /><{/block}>
+<{block name="seodes"}><meta name="description" content="<{$description}>" /><{/block}>
+<{$metadata|stripslashes}>
+<link href="<{$siteurl}>/templates/<{$tempdir}>/public/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/common.css"> 
+<{block name=extendcss}><{/block}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.lazyload.min.js" type="text/javascript" language="javascript"></script> 
+ <script>
+ 	$(function() { 
+$("img").lazyload({ 
+effect : "fadeIn" 
+}); 
+}); 
+
+ 	</script>
+ 	<script type="text/javascript">
+//=点击展开关闭效果=
+function openShutManager(oSourceObj,oTargetObj,shutAble,oOpenTip,oShutTip){
+var sourceObj = typeof oSourceObj == "string" ? document.getElementById(oSourceObj) : oSourceObj;
+var targetObj = typeof oTargetObj == "string" ? document.getElementById(oTargetObj) : oTargetObj;
+var openTip = oOpenTip || "";
+var shutTip = oShutTip || "";
+if(targetObj.style.display!="none"){
+   if(shutAble) return;
+   targetObj.style.display="none";
+   if(openTip && shutTip){
+    sourceObj.innerHTML = shutTip; 
+   }
+} else {
+   targetObj.style.display="block";
+   if(openTip && shutTip){
+    sourceObj.innerHTML = openTip; 
+   }
+}
+}
+</script>
+<{block name=extendjs}><{/block}>
+
+ <script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	var controllername= '<{$controlname}>';
+</script>
+
+<!--[if lte IE 6]>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/DD_belatedPNG_0.0.8a.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('div, ul, img, li, input , a'); 
+    </script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ie6.js" type="text/javascript"></script>
+<![endif]--> 
+</head> 
+<body style="background-color:#f0f0f0;">
+
+
+
+   <div class="hearder01">
+     <div class="box01">
+	   <div class="left">亲，欢迎来到<{$sitename}>！<a href="javascript:AddFavorite(window.location,document.title);"  class="sc"><font style="font-size:12px;">收藏<{$sitename}></font></a></div>
+	   <div class="right">
+  		<ul>
+       <{if !empty($member['uid'])}> 
+          <li><a href="<{ofunc type=url link="/member/base"}>" class="brown"><{$member['username']}></a></li> 
+          <li><span class="sep">|</span><a href="<{ofunc type=url link="/member/loginout"}>" class=" brown">退出</a></li>
+          
+		    <{else}>
+       
+	      <li><a href="<{ofunc type=url link="/member/login"}>" class="brown">登陆</a></li> 
+          <li><span class="sep">|</span><a href="<{ofunc type=url link="/member/regester"}>" class=" brown">注册</a></li>
+         
+         <{/if}> 
+           <li><span class="sep">|</span><a href="<{ofunc type=url link="/order/"}>" class="al">我的点单</a> </li> 
+           <li><span class="sep">|</span><a href="<{ofunc type=url link="/site/news/id/51"}>" class="kf">商家加盟</a> </li>
+           </ul>
+	   </div>
+	 </div>
+   </div>
+   <div class="hearder02">
+     <div class="box01">
+       <div class="logo"><a href="<{$siteurl}>"><img src="<{$sitelogo}>" /></a></div>
+	   <div class="div2"><{$mapname|default:''}><span  class="hc_change"><a href="<{ofunc type=url link="/site/guide"}>">[ 更改地址 ]</a> </span></div>
+	   <span class="slg"></span>
+	   <div class="div3">
+	     <ul>
+		   <li><a href="<{ofunc type=url link="/site/guide"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/img/index_r13_c16_r1_c1.jpg" /></a></li>
+		   <li><img src="<{$siteurl}>/templates/<{$tempdir}>/public/img/index_r13_c16_r1_c2.jpg" /></li>
+		   <li><img src="<{$siteurl}>/templates/<{$tempdir}>/public/img/index_r13_c16_r1_c3.jpg" /></li>
+		 </ul>
+	   </div>
+	 </div>
+   </div>
+   
+   
+<{block name=navhide}>
+<div class="headNav">
+	<div style="margin:0 auto; width:1200px">
+	
+	   <div class="navCon w1020">
+
+    <div class="navCon-menu fl">
+    
+      <ul>
+      
+      <li style="width: auto" ><a href="#" class="curMenu" style="width:178px" onclick="openShutManager(this,'box3',false,'','')">所有商家分类</a></li>
+      <{if !empty($footlink)}>
+	 	     	<{$footlink = $footlink|unserialize}>
+       <{foreach from=$footlink key=myid item=items}> 
+			          <li class="active_li" data="<{$items['typeurl']}>"><a href="<{$items['typeurl']}>"><{$items['typename']}></a> </li>
+		  <{/foreach}>
+		  <{/if}>
+         	
+	 	      
+      </ul>
+    </div>
+	 
+    <div class="hc_search">
+					<div class="hc_search_left"></div>
+					<div class="hc_search_midd"><input id="search_input" value="<{$shopsearch|default:'搜索餐厅、美食'}>" text="搜索餐厅、美食" onfocus="cls(this)" onblur="res(this)"   onkeyprese="pre(this)" type="text6" onkeydown="if(event.keyCode==13)search();" style="padding:0;margin-bottom:0;margin-top:1px;width: 209px;height: 26px;line-height:26px; outline:none;border:0;"  ></div>
+					<div class="hc_searching"></div>
+					<div class="clear"></div>
+					<script type="text/javascript">
+						$('.hc_searching').click(function(){
+							search();
+						})
+						
+						function search()
+						{
+							var name = $('#search_input').val();
+							if(name != '' && name != $('#search_input').attr('text')) 
+							{
+								var url = siteurl+'/index.php?ctrl=site&action=shoplist&shopsearch='+name; 
+								location.href=url;
+							}
+						}
+						function cls(obj)
+						{
+							if($(obj).attr('text') == $(obj).val())
+							{
+								$(obj).val('');
+								$('#search_input').css('color','#000');
+							}  
+						}
+						function res(obj)
+						{
+							if($(obj).val() == '')
+							{
+								$('#search_input').css('color','#666');
+								$(obj).val($(obj).attr('text'));
+							}
+						}
+						$(document).ready(function(){
+							$('#search_input').css('color','#666');
+						});
+					</script>
+				</div>
+  </div>
+	</div>
+	
+	
+ </div>
+
+
+
+ 
+ <link rel="stylesheet" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/A.v5_base.css+v5_index.css+v5_responsive_1200.css,Mcc.hamxfLk_e9.css.pagespeed.cf._DunfNQbS8.css"/>  
+ 
+ <div class="wrapper" id="box3" style="display:none">
+  
+ 
+<div class="n_marketbox" style="top:0px" id="cataloglist">
+ 
+</div>
+ 
+ 
+</div>
+<{/block}>
+
+<{block name=bgshow}> <{/block}>
+<{block name=shophide}> 
+<{/block}>
+<{block name=bodylist}><{/block}> 
+
+<div class="footer01">
+  <div class="box02">
+   <div class="tel">
+     <ul>
+	   <li class="li1"><strong>客服电话</strong><br /><b id="font24"><{$litel}></b><br />周一至周日&nbsp;09:30-21:30
+       
+      
+                         </li>
+	   <li class="li2"><strong>欢迎留言 </strong><br /><b id="font24"><a href="<{ofunc type=url link="/ask/index"}>" >反馈留言</a></b><br />您的意见对我们至关重要</li>
+	 </ul>
+   </div>
+   <div style="float:right; width:650px">
+    <dl>
+	   <dt >新手指南</dt>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/15"}>">购物流程</a></dd>
+       <!--
+	   <dd><a href="<{ofunc type=url link="/site/news/id/14"}>">会员等级</a></dd>
+       -->
+	   <dd><a href="<{ofunc type=url link="/site/news/id/4"}>">积分说明</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/44"}>">服务细则</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/45"}>">常见问题</a></dd>
+	</dl>
+	<dl>
+	   <dt>配送方式</dt>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/42"}>">配送时间</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/1"}>">配送范围</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/43"}>">配送规则</a></dd>
+	</dl>
+	<dl>
+	   <dt>支付方式</dt>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/38"}>">货到付款</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/39"}>">在线支付</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/40"}>">抵价券支付</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/41"}>">账户余额支付</a></dd>
+	</dl>
+	<dl>
+	   <dt>关于我们</dt>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/48"}>">公司简介</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/49"}>">加入我们</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/50"}>">联系我们</a></dd>
+	   <dd><a href="<{ofunc type=url link="/site/news/id/51"}>">商家加盟</a></dd>
+	</dl>
+	</div>
+	 <div class="footer02">
+  <p>
+  
+  <P class="">Copyright©2009-2014 <{$sitename}>  | <{$beian}> </P>
+   
+  </div> 
+  </div>
+ 
+</div>
+
+ <{$footerdata|stripslashes}>
+
+</body>
+</html>

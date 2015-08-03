@@ -1,0 +1,203 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+	<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>邀请好友</b></span></p>
+						</div><!--title end-->
+
+
+
+  
+
+
+
+
+
+						<div class="mr-middle"><!--mr-middle-->
+							<div id="account_balance" class="account_balance"><!--account_balance-->
+								 
+										
+
+										<!--充值信息-->
+										<div class="Recharge">
+											<h2>邀请好友的方式</h2>
+											<div style="padding:20px 20px 20px 20px;">
+												<p style="background-color:#f3f3f3;padding-left:20px;height:30px;line-height:30px;color:#666;">方式一：这是您的专属邀请码，复制以下文字通过QQ等方式发送给好友</p>
+												<p style="margin-top:20px;padding-left:20px;"><textarea name="fxiang" id="fxiang" style="width:400px;height:80px;padding:5px 5px 5px 5px;color:#666;font-size:12px;">我请大家吃外卖啦，接受我的邀请 <{ofunc type=url link="/member/login/logincode/<{$member['uid']}>"}> 注册<{$sitename}>，我们都能获得优惠券抵扣现金，快点行动吧。</textarea><div style="position:relative;top:-80px;left: 450px;width: 50px;height:30px;border:1px solid #ccc;line-height:30px;padding-left:20px;cursor: pointer;font-weight:bold;" onclick="copyUrl2();">复制</div></p>
+											  	<p style="background-color:#f3f3f3;padding-left:20px;height:30px;line-height:30px;color:#666;">方式二：立即分享到社区</p>
+											  <div>
+											  	<div class="bdsharebuttonbox" data-tag="share_1">
+	<a class="bds_mshare" data-cmd="mshare"></a>
+	<a class="bds_qzone" data-cmd="qzone" href="#"></a>
+	<a class="bds_tsina" data-cmd="tsina"></a>
+	<a class="bds_baidu" data-cmd="baidu"></a>
+	<a class="bds_renren" data-cmd="renren"></a>
+	<a class="bds_tqq" data-cmd="tqq"></a>
+	<a class="bds_more" data-cmd="more">更多</a>
+	<a class="bds_count" data-cmd="count"></a>
+</div>
+<script>
+	window._bd_share_config = {
+		common : {
+			bdText : '我请大家吃外卖啦，接受我的邀请 <{ofunc type=url link="/member/login/logincode/<{$member['uid']}>"}> 注册<{$sitename}>，我们都能获得优惠券抵扣现金，快点行动吧。',	
+			bdDesc : '注册会员抵现金',	
+			bdUrl : '<{ofunc type=url link="/member/login/logincode/<{$member['uid']}>"}>', 	
+			bdPic : ''
+		},
+		share : [{
+			"bdSize" : 32
+		}],
+		slide : [{	   
+			bdImg : 0,
+			bdPos : "right",
+			bdTop : 100
+		}],
+		image : [{
+			viewType : 'list',
+			viewPos : 'top',
+			viewColor : 'black',
+			viewSize : '16',
+			viewList : ['qzone','tsina','huaban','tqq','renren']
+		}],
+		selectShare : [{
+			"bdselectMiniList" : ['qzone','tqq','kaixin001','bdxc','tqf']
+		}]
+	}
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<script>
+ function copyUrl2()
+ {
+   var clipBoardContent=$('#fxiang').val(); 
+   copyToClipboard(clipBoardContent);
+ }
+  function copyToClipboard(txt) {
+            if (window.clipboardData) {
+                window.clipboardData.clearData();
+                clipboardData.setData("Text", txt);
+                alert("复制成功！");
+
+            } else if (navigator.userAgent.indexOf("Opera") != -1) {
+                window.location = txt;
+            } else if (window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                } catch (e) {
+                    alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将 'signed.applets.codebase_principal_support'设置为'true'");
+                }
+                var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+                if (!clip)
+                    return;
+                var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+                if (!trans)
+                    return;
+                trans.addDataFlavor("text/unicode");
+                var str = new Object();
+                var len = new Object();
+                var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+                var copytext = txt;
+                str.data = copytext;
+                trans.setTransferData("text/unicode", str, copytext.length * 2);
+                var clipid = Components.interfaces.nsIClipboard;
+                if (!clip)
+                    return false;
+                clip.setData(trans, null, clipid.kGlobalClipboard);
+                alert("复制成功！");
+            }
+  }
+  </script>
+											  	 
+											  </div>
+											</div>
+											 
+
+											<!--温馨提示-->
+											<div class="tips" style="margin-top:10px;">
+												<h3>温馨提示</h3>
+												<ol class="tipsList">
+													<li>1. 新用户通过您的邀请链接进行注册，订单成功后你将获得优惠券,该用户也将获得优惠券。 </li>
+													<li>2. 新用户下单成功后仅赠送一次 ； </li> 
+													<li>3. 本活动最终解释权归<{$sitename}>所有。  </li>
+												</ol>
+											</div> 
+										</div>
+										
+								 
+										
+										
+									</div>
+								</div><!--account_current end-->
+								
+								
+								<div class="mr-middle" style="margin-top:10px;"><!--mr-middle-->
+							<div id="account_balance" class="account_balance"><!--account_balance-->
+								
+								
+									<div class="mr-middle"><!--mr-middle-->
+							<div class="account_integral"><!--account_integral--> 
+								<div class="m-m8-jifenlist" id="m-m8-jifenlist"><table class="di_table">	<tbody><tr>     
+									  <th class="m6-ilist1">日期</th>       
+									  <th class="m6-ilist2">用户名</th>      
+									 <th class="m6-ilist3">详细说明</th>	
+									 	 
+									 	
+									 	 <{load_data assign="list" table="sharealog" showpage="true"  fileds="*" where="uid = <{$member['uid']}>" orderby="id desc" }> 
+									 	
+									 	<{if count($list['list']) > 0}>
+									  <{foreach from=$list['list'] item=items}>  
+									 		<tr>	 
+									 			<td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>	
+									 				<td><{$items['childusername']|default:'&nbsp;'}></td>		
+									 				<td><{$items['titile']|default:'&nbsp;'}></td>		
+									 			 	</tr>
+										   <{/foreach}>
+		               <{else}>
+										  	<tr><td colspan="4">暂无相关数据。</td></tr>
+										<{/if}>
+										 
+										 
+										 </tbody></table>
+										 
+										  <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+								 		<div class="clear">	</div>
+								 	</div>
+
+								<div id="showrecord" style="display:none;">  </div>
+							</div><!--account_integral end-->
+						</div><!--mr-middle end-->
+										
+										
+										
+									</div>
+								</div><!--account_current end-->
+								
+
+						 
+					</div><!--mc-right end-->
+				</div>
+	 
+<script>
+	 
+	function newAddr()
+	{
+		 
+		subform('',$('#adfrom'));
+	}
+	 
+	$('#nextpay').click(function(){
+		var newlink = '<{ofunc type=url link="/member/payonline/cost/@cost@"}>';
+		var showlink = newlink.replace('@cost@',$('#Sum').val());
+		//Sum
+		window.open(showlink);  
+	});
+ 
+</script>
+<{/block}>

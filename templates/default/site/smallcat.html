@@ -1,0 +1,51 @@
+  <{assign var=allcost  value=0}> 
+  <{assign var=tempcost  value=0}> 
+  <{foreach from=$cartinfo['list']  key=ckkey item=items}>  
+   <{if $shopid ==  $ckkey}>  
+		 
+		   <{foreach from=$items['data'] item=itv}>
+		     <li class="incart" id="cartli_<{$itv['id']}>" ><div class="SCName"><{$itv['name']}></div> <div class="SCNum"><span><input type="text" id="cart_count<{$itv['id']}>" onblur="modifycart(<{$itv['id']}>,<{$itv['count']}>,<{$itv['shopid']}>);" value="<{$itv['count']}>" data="1" maxlength="2" class="cart_num"></span></div>
+             <div class="SCSubtotal"><{$itv['cost']}></div><div class="SCOperate"><a href="javascript:;" onclick="removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>)"></a></div>
+             <div style="clear:both;"></div>
+        </li>
+		    
+		    	    <{$tempcost =$tempcost+ $itv['cost']*$itv['count']}> 
+		    	 <!--  <b>￥<{$tempcost|string_format:'%.1f'}></b>  -->
+		    
+		   <{/foreach}> 
+		  <{if is_array($items['cx']['zid'])}> 
+      <{foreach from=$items['cx']['zid'] item=itv}>
+			  <!--  <li><a href="#"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/img/content_r4_c6.jpg"></a><i><{$itv['name']}>[赠品]</i><span id="plus_add"><a href="#">+</a>1<a href="#">-</a></span><b>￥0</b></li>  -->
+		
+		   <{/foreach}> 
+      <{/if}> 
+		 
+      <{$allcost = $items['pscost']+$items['bagcost']+$items['cx']['surecost']}> 
+		
+    <{$allcost = $allcost}>
+ <{/if}>
+ <{if $ckkey !=0 && $shopid == 0}>
+    <{foreach from=$items['data'] item=itv}>
+		     <li class="incart" id="cartli_<{$itv['id']}>" ><div class="SCName"><{$itv['name']}>[商城]</div> <div class="SCNum"><span><input type="text" id="cart_count<{$itv['id']}>" onblur="modifycart(<{$itv['id']}>,<{$itv['count']}>,<{$itv['shopid']}>);" value="<{$itv['count']}>" data="1" maxlength="2" class="cart_num"></span></div>
+             <div class="SCSubtotal"><{$itv['cost']}></div><div class="SCOperate"><a href="javascript:;" onclick="removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>)"></a></div>
+             <div style="clear:both;"></div>
+        </li>
+		    
+		    	    <{$tempcost =$tempcost+ $itv['cost']*$itv['count']}> 
+		    	 <!--  <b>￥<{$tempcost|string_format:'%.1f'}></b>  -->
+		    
+		   <{/foreach}> 
+		   <{$allcost = $items['pscost']+$items['bagcost']+$items['cx']['surecost']}> 
+ <{/if}>
+ 
+  
+<{/foreach}>
+<input type="hidden" id="caipincost"  value="<{$tempcost}>">
+<input type="hidden" id="cartallcost"  value="<{$allcost}>">
+
+
+
+  
+    
+
+ 

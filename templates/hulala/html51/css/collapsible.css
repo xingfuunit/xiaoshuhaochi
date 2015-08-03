@@ -1,0 +1,33 @@
+/*!
+* ÷ÿ∂®º‰∏Ù
+*  
+* 
+*/
+
+
+/* .ui-collapsible-content no padding */
+.ui-collapsible-content {padding:0px 0px; } 
+ 
+ .list_cart{font-size:12px;font-weight:normal;padding:5px 0px;height:18px;}
+ .addcartbtn{
+ 	background-image: url(../js/images/icons-18-white.png);
+ 	width: 15px;
+  height: 18px; 
+  display:inline-block;
+  background-position: -2px -1px;
+ }
+ .downcartbtn{
+ 	background-image: url(../js/images/icons-18-white.png);
+ 	width: 15px;
+  height: 18px; 
+  display:inline-block;
+  background-position: -37px -1px;
+ }
+ .delcartbtn{
+ 	background-image: url(../js/images/icons-18-white.png);
+ 	width: 15px;
+  height: 18px; 
+  display:inline-block;
+  background-position: -73px -1px
+ }
+  

@@ -1,0 +1,347 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/order.css">  
+<{/block}>
+ <{block name=extendjs}> 
+  <{if empty($order)}>
+  <script>
+$(function(){  
+       error($('#supplierlist'),'未获取到订单'); 
+});
+  </script>
+  <{/if}>
+<{/block}>
+<{block name=myScrolljs}>
+<script> 
+		var myScroll;
+function loaded() {
+	myScroll = new iScroll('wrapper', {
+		useTransform: false,
+		hScrollbar:false,
+		vScrollbar:false,
+		bounce:false,
+		onBeforeScrollStart: function (e) {
+			var target = e.target;
+			while (target.nodeType != 1) target = target.parentNode;
+
+			if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' )
+				e.preventDefault();
+		}
+	});
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false); 
+document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><header  id="header"><div class="return"></div> 订单详情 </header><{/block}>
+<{block name=blockcontent}> 
+   <div id="wrapper" style="top:40px;bottom:0px;">
+	<div id="scroller">
+		
+		
+		
+   <div class="container">
+   	<{if !empty($order) }>
+   	
+   	
+   	
+   	
+   	<section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist" style="border-bottom:1px solid #c30814;">
+  			 
+  			  <li class="topheader box_inline">
+  			  	 <div class="colomn wd5" style="text-align:left;">
+  			  	 	名称
+  			    	</div> 
+  			    	 <div class="colomn wd3">数量
+  			    	</div>
+  			    	 <div class="colomn wd4">
+  			    	   价格
+  			    	</div> 
+  			  </li>
+  			   <{foreach from=$orderdet item=items}>
+  		    <li class="listg box_inline">
+  			  	 <div class="colomnsb wd5" style="text-align:left;">
+  			  	 	 <{$items['goodsname']}>
+  			    	</div>
+  			    	 
+  			    	 <div class="colomnsb wd3" ><{$items['goodscount']}>
+  			    	</div>
+  			    	 <div class="colomnsb wd4" >
+  			    	 	<span class="costtext">￥<{$items['goodscost']}></span>
+  			    	</div>
+  			  </li>
+  			  <{/foreach}>
+  			  <li class="list box_inline">
+  			  	 <div class="colomnsb wd5" style="text-align:left;">
+  			  	 	 商品总价：
+  			    	</div>
+  			    	 
+  			    	 <div class="colomnsb wd3" > 
+  			    	</div>
+  			    	 <div class="colomnsb wd4" >
+  			    	 	<span class="costtext">￥<{$order['shopcost']}></span>
+  			    	</div>
+  			  </li>
+  			  <li class="list box_inline">
+  			  	 <div class="colomnsb wd5" style="text-align:left;">
+  			  	 	 包：<span class="costtext">￥<{$order['bagcost']}></span> 送:<span class="costtext">￥<{$order['ps']}></span>
+  			    	</div>
+  			    	 
+  			    	 <div class="colomnsb wd3" > 
+  			    	 	惠<span class="costtext">￥<{$order['cxcost']+$order['yhjcost']}></span>
+  			    	</div>
+  			    	 <div class="colomnsb wd4" >
+  			    	 	<span class="costtext">￥<{$order['allcost']}></span>
+  			    	</div>
+  			  </li>
+  			    
+  			</ul> 
+    </section>
+   	
+   	<div style="padding-top:10px;color:#c30814;height:30px;line-height:30px;padding-left:5px;">订单详情</div>
+   	 	<section class="listselectdet">
+ 	    
+  			<ul class="liststyle2" id="orderlist" >
+  			 
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	订单ID:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['id']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	订单编号:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['dno']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	下单时间:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['addtime']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	店铺:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['shopname']}>
+  			    	</div>
+  			  </li>
+  			  
+  		 </ul>
+  		 	
+  	  </select>
+   	
+   	<section class="listselectdet">
+ 	    
+  			<ul class="liststyle2" id="orderlist" >
+  			 
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	配送时间:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['posttime']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	配送地址:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['buyeraddress']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	联系人:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['buyername']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	联系电话:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['buyerphone']}>
+  			    	</div>
+  			  </li>
+  			  
+  		 </ul>
+  		 	
+  	  </select>
+  	  
+  	  <section class="listselectdet">
+ 	    
+  			<ul class="liststyle2" id="orderlist" >
+  			 
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	订单备注:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['content']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	支付方式:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['paytype']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	支付状态:
+  			    	</div> 
+  			    	<div class="colomn wd80">
+  			    		<{$order['paystatus']}>
+  			    	</div>
+  			  </li>
+  			  <li class="box_inline">
+  			  	 <div class="colomn wd1" style="text-align:right;">
+  			  	 	订单状态:
+  			    	</div> 
+  			    	<div class="colomn wd80" id="orderstatus">
+  			    		<{$order['status']}> <{if $order['is_make']==2}>商家不制作该订单<{/if}>
+  			    	</div>
+  			  </li>
+  			  
+  		 </ul>
+  		 	
+  	  </select>
+  	  
+  	  
+  	 <div style="clear:both;height:40px;"></div>
+  	  <{if $order['surestatus'] == 1}>
+  	     <{if empty($order['is_make'])}>
+  	     <div class="cart_gojs box_inline" id="showqueren" >
+  	     	  <div class="liwd50" style="background-color:#f60;color:#fff;" onclick="dosuer();">确认制作</div>
+  	     	  <div class="liwd50" onclick="nodosuer();">不制作</div>
+  	     	
+  	     	</div> 
+  	     <{/if}> 
+        <div class="cart_gojs" onclick="pingorder();" id="showfahuo"  <{if $order['is_make']==1}>style="display:block"><{else}>style="display:none;"<{/if}>>提交发货</div> 
+      <{/if}>
+      
+  	  
+  	  
+   <{else}>
+   <section>
+
+  		<ul id="supplierlist" class="branch-list">  
+
+  			 
+
+     </ul>
+
+     
+
+    </section>
+   <{/if}>
+</div>
+</div>
+<script>
+	$(".liststyle1 li:even").addClass("tabEven"); 
+	 function pingorder(){  
+	 	if(confirm('确认发货')){
+   	     $('#loading').show();  
+   		   var url = siteurl+'/index.php?controller=wxsite&action=shopcontrol&controlname=sendorder&orderid=<{$order['id']}>&datatype=json&random=@random@';   
+ 	        $.ajax({ 
+           dataType: "json",  
+           url: url.replace('@random@', 1+Math.round(Math.random()*1000)),  
+           success: function(content) {    
+           	 if(content.error == false) 
+          	{  
+          		$('#orderstatus').text('已发货'); 
+          		$('.cart_gojs').remove();
+          		$('#loading').hide();
+          	}else{ 
+          			Tmsg(content.msg);
+          		  $('#loading').hide();
+          	}  
+          	 
+	         }, 
+           error: function(content) {  
+             	Tmsg('提交数据失败');
+        	    $('#loading').hide();
+	         }
+       
+         });  
+     }
+     return false;
+   } 
+   function dosuer(){
+   	if(confirm('确认制作该订单')){
+   	     $('#loading').show();  
+   		   var url = siteurl+'/index.php?controller=wxsite&action=shopcontrol&controlname=domake&orderid=<{$order['id']}>&datatype=json&random=@random@';   
+ 	        $.ajax({ 
+           dataType: "json",  
+           url: url.replace('@random@', 1+Math.round(Math.random()*1000)),  
+           success: function(content) {    
+           	 if(content.error == false) 
+          	{  
+          		$('#showqueren').remove();
+          		$('#showfahuo').show();
+          		$('#loading').hide();
+          	}else{ 
+          			Tmsg(content.msg);
+          		  $('#loading').hide();
+          	}  
+          	 
+	         }, 
+           error: function(content) {  
+             	Tmsg('提交数据失败');
+        	    $('#loading').hide();
+	         }
+       
+         });  
+     }
+     return false;
+   }
+   function nodosuer(){
+   	if(confirm('取消制作该订单')){
+   	     $('#loading').show();  
+   		   var url = siteurl+'/index.php?controller=wxsite&action=shopcontrol&controlname=unmake&orderid=<{$order['id']}>&datatype=json&random=@random@';   
+ 	        $.ajax({ 
+           dataType: "json",  
+           url: url.replace('@random@', 1+Math.round(Math.random()*1000)),  
+           success: function(content) {    
+           	 if(content.error == false) 
+          	{  
+          		$('#orderstatus').text('商家不制作该订单'); 
+          		$('#showqueren').remove();
+          		$('#showfahuo').remove();
+          		$('#loading').hide();
+          	}else{ 
+          			Tmsg(content.msg);
+          		  $('#loading').hide();
+          	}  
+          	 
+	         }, 
+           error: function(content) {  
+             	Tmsg('提交数据失败');
+        	    $('#loading').hide();
+	         }
+       
+         });  
+     }
+     return false;
+   }
+</script>
+
+<{/block}>

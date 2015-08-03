@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>商家自助管理后台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/css/commom.css" />
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/css/shangjiaAdmin.css" />
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+<script> 
+	var siteurl = "<{$siteurl}>"; 
+</script>
+</head>
+<body>
+	<div style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;z-index: -1;background:url(<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/background.png);"></div>
+<!---header start--->
+<div class="header" style=" height:50px;">
+  <div class="top" style=" height:50px;">
+   
+   
+    <div class="topRight fr">  <span style=" height:50px; line-height:50px;cursor: pointer;" class="username" onclick="openlink('<{ofunc type=url link="/adminpage/order/module/orderlist"}>');">返回后台管理<img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/usernameBg.png" /></span> </div>
+    <div class="cl"></div>
+    <div class="shangjiaTop" style=" top:-22px; background:none;margin-left:-150px;">
+      <div class="sjglaa"> </div>
+    </div>
+  </div>
+</div>
+
+<!---header end---> 
+	
+	
+<div class="main">
+	
+	<div class="main_titile">
+	<div class="main_tl">
+		<div class="qhaddress fl">
+			<select name="firstarea" onchange="dofirch(this);">
+      		 		<option value="">选择区域</option> 
+      		        <{foreach from=$arealist item=items}>  
+                               <option value="<{$items['id']}>" <{if $items['id'] == $frinput}>selected<{/if}>>
+                               	   <{section name=one loop=$items['space'] start=0 step=1}> 
+                               	   &nbsp;&nbsp;
+                                  <{/section}>  <{$items['name']}> 
+                               </option>
+                                  
+                         <{/foreach}> 
+      		  
+      		  </select>
+		</div>
+		<div  class="auto_time fl">
+			<span id="showztai" style="color:#666;"  data="20"> 0 </span>秒
+		</div>
+		<div class=" shoushua fl" onclick="gorefresh();" style="cursor: pointer;">
+			手动刷新
+		</div>
+		  <div class="closeVoi fl">
+        <input type="checkbox" name="playwave" id="playwave" value="1" <{if $playwave != 2}>checked<{/if}> style="cursor: pointer;">
+          播放铃声</div>
+	</div>	 
+		 <div class="dingdanGl fl">
+		 
+			<ul>
+				<li <{if empty($statustype)}>class="on"<{/if}> style="cursor: pointer;"  data="0"><span>所有</span> </li>
+				<li <{if $statustype == 1}>class="on"<{/if}> style="cursor: pointer;" data="1"><span>待审核订单</span> </li>
+				<li <{if $statustype == 2}>class="on"<{/if}> style="cursor: pointer;" data="2"><span>待发货订单</span> </li>
+				<li <{if $statustype == 3}>class="on"<{/if}> style="cursor: pointer;" data="3"><span>已发货订单</span> </li>
+				<li <{if $statustype == 4}>class="on"<{/if}> style="cursor: pointer;" data="4"><span>退款处理</span> </li>
+			</ul>
+			<div class="cl"></div>
+		 </div>
+		
+		
+	</div>
+	<div class="cl"></div>
+	
+	
+	<div class="main_ord_list">
+		<div style="margin-bottom:15px;">
+		<div class="chaxun fl">
+		
+			<input class="chainp" placeholder="输入订单号" type="text" name="dno" id="dno" value="<{$dno}>" />
+			<input class="chaxunhBg" type="button" name="" value="" onclick="gorefresh();" style="cursor: pointer;">
+			<div class="cl"></div>
+		</div>
+		
+		<div class="ycOrd fr">
+			 
+		  
+		  <label>
+					<input type="checkbox" name="showdet" id="showdet" value="1" <{if $showdet != 1}>checked<{/if}>>
+					  隐藏订单详情
+			</label>
+			
+		</div>
+			<div class="cl"></div>
+		
+		</div>
+		
+		
+		
+		
+		<div class="order_list_show">
+			<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr bgcolor="#544e48">
+	<th>联系人</th>
+	<th>联系电话</th>
+	  <th>地址</th>
+    <th>IP地址</th>
+    <th>下单次数</th>
+    <th>订单价格</th>
+    <th>操作</th>
+  </tr>
+ <{foreach from=$list item=items}>
+	  <tr class="orLiheight" align="center" bgcolor="#6596a6">
+		<td><{$items['buyername']}></td>
+		<td><{$items['buyerphone']}></td>
+		<td><{$items['buyeraddress']}></td>
+		<td><{$items['ipaddress']}></td>
+		<td><{$items['maijiagoumaishu']}></td>
+		<td><{$items['allcost']}></td>
+		
+		<td style=" color:#bceafe;  font-weight:bold;" class="buttd">
+		  	<{if $items['status'] == 0}> 
+		  	<a class="passorder curbtn" onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/order/module/ordercontrol/id/<{$items['id']}>/type/pass/datatype/json"}>">
+				   审核
+				</a>
+				
+	     <a class=" curbtn"  onclick="unorder(<{$items['id']}>,<{$items['dno']}>);" href="#">
+	   	     取消
+	     	</a>
+	     	<{elseif $items['status'] == 1}>
+	     	    <{if $items['is_make'] == 0}>
+	     	    <span>
+                  待商家确认
+  	         </span>
+  	         
+	     	    <{elseif $items['is_make'] == 1}> 
+	     	   	 <a class="sendorder curbtn"  onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/order/module/ordercontrol/id/<{$items['id']}>/type/send/datatype/json"}>">
+                  发货
+  	         </a> 
+  	         <{else}>
+  	          商品不制作该订单
+	     	   <{/if}> 
+	     	   <a class="sendorder curbtn"  onclick="unorder(<{$items['id']}>,<{$items['dno']}>);" href="#">
+                 取消
+  	         </a>
+	     	 <{elseif $items['status'] ==  2}>
+	     	     <a class="sendorder curbtn" onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/order/module/ordercontrol/id/<{$items['id']}>/type/over/datatype/json"}>">
+                 完成
+  	         </a>
+  	         <a class="sendorder curbtn"  onclick="unorder(<{$items['id']}>,<{$items['dno']}>);" href="#">
+                 取消
+  	         </a>
+  	      <{elseif $items['status'] ==  3}>
+  	          
+  	     <{else}>
+  	        <a class="sendorder curbtn" onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/order/module/ordercontrol/id/<{$items['id']}>/type/del/datatype/json"}>">
+                 删除
+  	         </a>
+	     	<{/if}>
+	     	 
+	    
+	   	
+		              
+		              
+	   	
+	   	  <span class="chakan curbtn" data="<{$items['id']}>">查看</span>	</td>
+	  </tr>
+	  <tr> 
+	  <td colspan=7">
+		<table class="xqOrderlist showdet_<{$items['id']}>"  width="100%" align="center" border="" cellpadding="0" cellspacing="0" bordercolor="#6596a9" >
+            <tr align="center">
+              <td><div><span  style=" color:#bceafe; font-size:14px; ">支付方式: </span><span><{$paytypearr[$items['paytype']]}>(<{if $items['paystatus'] == 1}>已付<{else}>未付<{/if}>)<font color=red><{$backarray[$items['is_reback']]}></font></span></div></td>
+              <td><div><span  style=" color:#bceafe; font-size:14px; ">订单状态: </span><span><{$buyerstatus[$items['status']]}></span></div></td>
+              <td colspan="2"><div><span  style=" color:#bceafe; font-size:14px; ">配送时间:</span> <span><{$items['posttime']|date_format:"%Y-%m-%d %H:%M:%S"}></span></div></td>
+              
+            </tr>
+            <tr>
+                <td ><div><span  style=" color:#bceafe; font-size:14px; ">店铺: </span><span><{$items['shopname']}></span></div></td>
+			         <td colspan="3"><div><span  style=" color:#bceafe; font-size:14px; ">店铺联系电话: </span><span><{$items['shopphone']}></span></div></td>
+            </tr>
+            <tr>
+                <td ><div><span  style=" color:#bceafe; font-size:14px; ">订单备注: </span><span><{$items['content']}></span></div></td>
+			         <td colspan="3"><div><span  style=" color:#bceafe; font-size:14px; ">配送: </span><span><{if $items['pstype'] == 0}>网站<{else}>店铺<{/if}></span></div></td>
+            </tr>
+             
+		         	<tr><td colspan="4" style="height:20px;"></td></tr>
+		         	<tr>
+                <td style=" color:#bceafe; font-size:14px; font-weight:bold;">美食篮子</td>
+                <td style=" font-size:14px; color:#ffffff;font-family:'微软雅黑';"  align="center">单价</td>
+                  <td style=" font-size:14px; color:#ffffff; font-family:'微软雅黑';"  align="center" align="center">
+                数量
+                  </td>
+                  <td style=" font-size:14px; color:#ffffff; font-family:'微软雅黑';"  align="center" align="center">
+                总价
+                  </td>
+              </tr>
+              <{foreach from=$items['detlist'] item=value}>   
+              <tr>
+                  <td  style=" color:#bceafe; font-size:14px; font-weight:bold;" ><{$value['goodsname']}><{if $value['is_send'] == 1}><font color=red>[赠品]</font><{/if}></td>
+                  <td style=" font-size:14px; color:#ffffff;  "  align="center"><{$value['goodscost']}></td>
+                  <td style=" font-size:14px; color:#ffffff;  "  align="center" align="center"> <{$value['goodscount']}> </td>
+                  <td style=" font-size:14px; color:#ffffff; "  align="center" align="center">  <{$value['goodscost']*$value['goodscount']}>  </td>
+              </tr> 
+             <{/foreach}>    
+              <tr>
+                <td  colspan=" 4" >
+                	
+                	 <{if $items['shopcost'] > 0}>
+		            		   	<span style=" color:#bceafe; font-size:14px; font-weight:bold;" >商品总价：</span> <{$items['shopcost']}>   &nbsp;&nbsp;&nbsp;   
+		            		 		<{/if}>
+		            		 		 <{if $items['shopps'] > 0}>
+		            		   	<span style=" color:#bceafe; font-size:14px; font-weight:bold;" > 配送费：</span><{$items['shopps']}>  &nbsp;&nbsp;&nbsp;   
+		            		 		<{/if}> 
+		            		 		<{if $items['scoredown'] > 0}>
+		            		   	<span style=" color:#bceafe; font-size:14px; font-weight:bold;" >积分低扣：</span>-<{$items['scoredown']/$scoretocost}>&nbsp;&nbsp;&nbsp; 
+		            		 		<{/if}>
+		            		 		<{if $items['yhjcost'] > 0}>
+		            		   	<span style=" color:#bceafe; font-size:14px; font-weight:bold;" >优惠券低扣：</span>-<{$items['yhjcost']}>&nbsp;&nbsp;&nbsp; 
+		            		 		<{/if}>
+		            		 		<{if $items['cxcost'] > 0}>
+		            		   	<span style=" color:#bceafe; font-size:14px; font-weight:bold;" >店铺促销：</span>-<{$items['cxcost']}>&nbsp;&nbsp;&nbsp;
+		            		 		<{/if}>
+		            		 		<{if $items['bagcost'] > 0}>
+		            		   	<span style=" color:#bceafe; font-size:14px; font-weight:bold;" >打包费：</span><{$items['bagcost']}>&nbsp;&nbsp;&nbsp;
+		            		 		<{/if}>
+                	      <span style=" color:#bceafe; font-size:14px; font-weight:bold;" >应收金额：</span><{$items['allcost']}></td> 
+              </tr> 
+          </table>
+		 </td>
+	  </tr>
+	  <tr class="noord"><td colspan="7"></td></tr>
+	 <{/foreach}> 
+   </table>
+		
+		</div>
+	
+		
+		
+		
+		
+		
+		
+	</div>
+	
+	
+		
+		
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	  <div id="palywave" style="display:none;"></div>
+<!------以下是公共的底部部分------->
+    <div class="footer">
+    	<div class="foot1">
+        <center>
+        	<div class="db">
+        	   <{if !empty($toplink)}>
+	 	      <{$toplink = $toplink|unserialize}>
+		  	  <{foreach from=$toplink key=myid item=items}> 
+			         <a href="<{$items['typeurl']}>"><{$items['typename']}></a> | 
+			    <{/foreach}>
+			<{/if}> 
+         
+            </div></center>
+            <div class="cl"></div>
+        </div>
+        <div class="foot2">
+        	<p>@2008-2012 <{$sitename}> <{$beian}> <{$footerdata|stripslashes}></p>
+        </div>
+    </div>
+ <script>
+   
+ 	<{if $showdet != 1}>
+ 	   $('.xqOrderlist').hide();
+ 	<{/if}>
+ 	<{if $playwave != 2}> 
+ 	var playwave = true;  	
+ 	<{else}>
+ 		var playwave = false;  	
+ 	<{/if}>
+		$(function(){
+			//$(document.body).height()
+			 var newiheight = Number($(window).height())- 300;
+			$('.main').css('min-height',newiheight+'px');
+			 $("input[name='playwave']").click(function(){
+			 	   if($(this).is(':checked') == true){
+			 	   	   playwave =   true;
+						  ajaxback('<{ofunc type=url link="/adminpage/order/module/wavecontrol/type/openwave/datatype/json"}>',''); 
+			 	   }else{
+			 	   		  playwave = false;
+					    	ajaxback('<{ofunc type=url link="/adminpage/order/module/wavecontrol/type/closewave/datatype/json"}>',''); 
+			 	   } 
+						
+				});	 
+			$(".chakan").click(function(){
+			
+				$(".showdet_"+$(this).attr('data')).toggle();
+			});
+			$("input[name='showdet']").click(function(){
+				   if($(this).is(':checked') == true){
+				   	$('.xqOrderlist').hide();
+				  }else{
+				  	$('.xqOrderlist').show();
+				  }
+			});
+			$('.dingdanGl li').click(function(){
+				   $(this).addClass('on').siblings().removeClass('on');
+				   gorefresh();
+			});
+		});
+	function gorefresh(){
+		var statustype = $('.dingdanGl').find('.on').eq(0).attr('data');
+		var dno = $('#dno').val();
+		var showdet =   $("input[name='showdet']").is(':checked') == true?0:1;
+		var firstarea =$("select[name='firstarea']").find("option:selected").val();
+		var oplink = siteurl+'/index.php?controller=adminpage&action=order&module=ordertoday&statustype='+statustype+'&dno='+dno+'&showdet='+showdet+'&firstarea='+firstarea;
+	    window.location.href=oplink;
+	}
+		 
+ </script>
+ <script type="text/javascript">
+   function colorred(obj){
+   	$(obj).css('background','#eee'); 
+   }
+   function tcolorred(obj){
+   	$(obj).css('background','');
+   }
+    function unorder(orderid,dno)
+	 { 
+	 	   var htmls = '<div class="replayask">';
+	 	   htmls +='<table border=0 width="250">';
+        htmls +='<tbody>';
+        htmls +='<tr> ';
+        htmls +='<td style="border:none;text-align:left;"><textarea style="width:100%;height:100px;color:#ddd;" name="reason" id="reason" placeholder="关闭理由">关闭理由</textarea></td> </tr> '; 
+       htmls +='<tr>   <td style="border:none;"><input type="checkbox" value="1" name="suresend" id="suresend">发送关闭理由给买家手机</td></tr>';
+        htmls +='<tr>   <td style="border:none;"><a href="#" class="button fr saveImgInfo" style="margin-right:10px;" onclick="sureclose('+orderid+');">提交关闭</a></td>';
+        htmls +='  </tr>  </tbody> </table> </div> '; 
+
+	 	   
+	 	   var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:'取消订单'+dno,
+           content: htmls
+        });
+	 }
+	  $('#reason').live("click", function() {   
+ 	 var checka = $(this).attr('placeholder');
+ 	 var checkb = $(this).val();
+ 	 if(checka == checkb){
+ 	    $(this).val('');
+ 	    $(this).css('color','#333');
+ 	 }
+ });
+ $('#reason').blur(function(){
+ 	     var checka = $(this).attr('placeholder');
+ 	    var checkb = $(this).val();
+ 	    if(checka == checkb){
+ 	      $(this).css('color','#ddd');
+ 	    }else{
+ 	       if(checkb == ''){
+ 	          $(this).val(checka);
+ 	           $(this).css('color','#ddd');
+ 	       }else{
+ 	       	$(this).css('color','#333');
+ 	      }
+ 	    }
+ 	    
+  });
+
+	 function sureclose(orderid)
+	 {
+	 	  var reasons = $('#reason').val();
+	 	  var suresend = $("input[name='suresend']:checked").val();
+	 	  if(reasons == undefined || reasons == '')
+	 	  {
+	 	  	alert('关闭理由不能为空');
+	 	  	return false;
+	 	  } 
+	 	  if(reasons == $('#reason').attr('placeholder')){
+	 	     alert('录入关闭理由');
+	 	     return false;
+	 	  }
+	 	    var url = siteurl+'/index.php?controller=adminpage&action=order&module=ordercontrol&type=un&id='+orderid+'&reasons='+reasons+'&suresend='+suresend+'&datatype=json&random=@random@';
+	 	    $.ajax({
+     type: 'get',
+     async:false, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {  
+     	if(content.error == false){
+     		diasucces('操作成功','');
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });   
+	 	  
+	 } 
+ </script>
+<script>
+function openlink(newlinkes){
+					window.location.href=newlinkes;
+}
+function dofirch(obj){
+	gorefresh(); 
+}
+  
+ 
+</script> 
+<!--加载声音-->
+<script>
+	$(function(){
+	setTimeout("get_status()",1000); 	
+ 
+});
+function get_status(){//<span id="timeshow" data="20" style="color:#666;"></div>
+	//alert('xxx');
+	//firstarea
+	//secarea
+	
+	var timeaction =  $('#showztai').attr('data');
+	if(timeaction == 0){  
+      $.ajax({
+     type: 'get',
+     async:false,
+     data:{firstarea:'<{$frinput}>'},
+     url: '<{ofunc type=url link="/adminpage/order/module/ajaxcheckorder/datatype/json"}>', 
+     dataType: 'json',success: function(content) {  
+     	  if(content.error == false){
+     		  //  播放声音 文件 diasucces('操作成功','');
+     		  	palywav();
+     	  }else{ 
+     			// location.reload();  
+     			$('#showztai').attr('data',20); 
+     			setTimeout("get_status()",1000); 	
+       	}
+		  },
+      error: function(content) { 
+     	  //location.reload();  
+     	  $('#showztai').attr('data',20);
+     	  setTimeout("get_status()",1000); 	
+	    }
+     }); 		
+      	 
+  }else{
+ 	var nowtime = Number(timeaction)-1;
+ 	$('#showztai').attr('data',nowtime);
+ 	$('#showztai').text(''+nowtime+'');
+ 	setTimeout("get_status()",1000); 	
+ 	
+  }
+}
+function palywav(){
+	if(playwave == true){
+if(navigator.userAgent.indexOf("Chrome") > -1){  
+$('#palywave').html('<audio src="<{$siteurl}>/upload/wave.mp3" type="audio/mp3" autoplay=”autoplay” hidden="true"></audio>');
+}else if(navigator.userAgent.indexOf("Firefox")!=-1){  
+$('#palywave').html('<embed src="<{$siteurl}>/upload/wave.mp3" type="audio/mp3" hidden="true" loop="false" mastersound></embed>');
+}else if(navigator.appName.indexOf("Microsoft Internet Explorer")!=-1 && document.all){ 
+$('#palywave').html('<object classid="clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95"><param name="AutoStart" value="1" /><param name="Src" value="<{$siteurl}>/upload/wave.mp3" /></object>');
+}else if(navigator.appName.indexOf("Opera")!=-1){ 
+$('#palywave').html('<embed src="<{$siteurl}>/upload/wave.mp3" type="audio/mpeg" loop="false"></embed>');
+}else{ 
+$('#palywave').html('<embed src="<{$siteurl}>/upload/wave.mp3" type="audio/mp3" hidden="true" loop="false" mastersound></embed>'); 
+} 
+}
+
+  // $('#palywave').html('<embed id=cct src="<{$siteurl}>/wave.wav" loop="0" autostart="true" hidden="true"></embed>'); 
+   setTimeout("playon()",3000); 	
+}
+function playon(){
+	 
+ 	location.reload();  
+}
+</script>
+
+</body>
+
+</html>

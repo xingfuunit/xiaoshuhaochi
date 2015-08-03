@@ -1,0 +1,109 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+ <div class="box790">
+		<div class="clientInfo" id="user-panel">
+			<div class="clientImg">
+				<p class="avatar" id="member-img"><img id="headpic" src="<{$member['logo']}>"></p>
+				<p class="pad_tb_5"><a href="<{ofunc type=url link="/membercenter/modify/showaction/headpic"}>" class="blue12">修改头像</a></p>
+			</div>
+			<div class="clientText">
+				<div class="pad_tb_5 border_bottom" style="position:relative">
+					<ul> 
+						<li class="w190 bold" id="member-name"><{$member['username']}>，欢迎您！</li>
+						<li class="w190" id="member-rank">ip：<span id="userRating"><{$member['loginip']}></span> </li>
+						<li class="w230">上一次登陆时间：<span id="member-lastlogin"><{$member['logintime']|date_format:"%Y-%m-%d %H:%M:%S"}></span></li>
+					</ul>
+				</div>
+				<div class="pad_tb_5 border_bottom">
+					<ul>  
+						<li class="w190"><a href="<{ofunc type=url link="/membercenter/order"}>">安排中的餐品订单 <em class="orange12" id="ChaoOrderCount">(<{$temp2['shuliang']|default:0}>)</em></a></li>
+						<li class="w190"><a href="<{ofunc type=url link="/membercenter/ordermarket"}>">安排中的超市订单 <em class="orange12" id="CanOrderCount">(<{$temp['shuliang']|default:0}>)</em></a></li>
+						<li class="w230"><a href="<{ofunc type=url link="/membercenter/orderplat"}>">安排中的订台订单 <em class="orange12" id="PaoOrderCount">(<{$temp3['shuliang']|default:0}>)</em></a></li>
+						<li class="w190"><a href="<{ofunc type=url link="/membercenter/cardlog"}>">账户余额 <em class="orange12" id="AccountBalance">￥<{$member['cost']|default:0}></em></a></li>
+						<li class="w190"><a href="<{ofunc type=url link="/membercenter/jifenlog"}>"">积分余额 <em class="orange12" id="JifenNow"><{$member['score']|default:0}></em> 分</a></li>
+						<li class="w230"><a href="<{ofunc type=url link="/membercenter/jifenlog"}>">累计积分 <em class="orange12" id="JifenAll"><{$member['sumcore']|default:0}></em> 分</a></li>
+						<li class="w190"><a href="<{ofunc type=url link="/membercenter/waitpiont"}>">待评价商家 <em class="orange12" id="DPcount">(<{$temp4['shuliang']|default:0}>)</em></a></li>
+						<li class="w190"><{if $member['usertype'] == 1}><a href="<{ofunc type=url link="/shopcenter/index"}>"><em class="orange12">进入店铺</em></a><{else}><a href="<{ofunc type=url link="/membercenter/openshop"}>"><em class="orange12">申请开店</em></a><{/if}></li>
+						<li class="w190" style="display:none;"><a href="/ucenter/home!msg.do">新的回复 <em class="orange12" id="ReplyNew">(0)</em></a></li>
+						<li class="w230" style="display:none;"><a href="/ucenter/home!msg.do">新的私信 <em class="orange12" id="SixinNew">(0)</em></a></li>
+					</ul> 
+				</div>
+				<div class="pad_tb_5">
+					<ul>
+						<li class="w190"><span class="bold">昵称：</span><span id="member-nick"><{$member['username']}></span>
+						 <a class="blue12" href="<{ofunc type=url link="/membercenter/modify/showaction/usernamea"}>">[修改]</a></li>
+						<li class="w190"><span class="bold">邮箱:</span> <span id="member-email"><{$member['email']}></span></li>
+						<li class="w230"><span class="bold">手机：</span><span id="member-id"><{$member['phone']}></span> <a class="blue12" href="<{ofunc type=url link="/membercenter/modify/showaction/mdphone"}>" id="isBindMobile">修改手机</a>&nbsp;&nbsp;<a class="blue12" href="<{ofunc type=url link="/membercenter/modify/showaction/pwdmx"}>">修改密码</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="manageBox margin_bottom">
+			<div class="title">
+				<p class="yleft"><span class="colortip"></span>
+				<span class="title_name"><b>已保存的配送地址</b></span><em class="gray666">（最多保存<{$addresslimit}>条配送资料）</em></p>
+				<p class="yright"><a class="blue12" href="<{ofunc type=url link="/membercenter/address"}>">管理配送资料</a></p>
+			</div>
+
+			<div class="content" id="addr-list">
+				<table class="di_table">	
+				<tbody>
+				<tr>       
+				  <th class="alist1">客户姓名</th>       
+				  <th class="alist2">所属城市</th>       
+				  <th class="alist3">配送地址</th>		
+				  <th class="alist4">手机号码</th>		
+				  <th class="alist5">操作</th>		
+				  <th class="alist6">快速入口</th>	
+				</tr>	
+				<{foreach from=$list item=items}>
+									  <tr>		
+									  	<td><{$items['contactname']}></td>		
+									  	<td><{$areatoname[$items['areaid1']]}><{$areatoname[$items['areaid2']]}><br><{$areatoname[$items['areaid3']]}></td>		
+									  	<td><{$items['address']}></td>		
+									  	<td><{$items['phone']}></td>		
+									  	<td>
+									  		  <a href="<{ofunc type=url link="/membercenter/address/addressid/<{$items['id']}>"}>" id="edit_<{$items['id']}>"  class="apanel" >修改</a> 
+									  		| <a href="javascript:void(0)" class="apanel" onclick="delAddrs('363668')">删除</a> 
+									  	| <{if $items['default'] == 1}><span class="money">默认</span><{else}><a class="apanel" onclick="changeAddr(<{$items['id']}>);">设置默认</a><{/if}>
+									  	</td>		
+									  	<td>
+									  		<a href="javascript:void(0)" onclick="gotoaddr('363668','D','120160162','30265680')" class="apanel">以此地址点餐</a>
+									  	</td>	
+									  </tr>
+									  <{/foreach}>
+						</tbody>
+			</table>
+			</div>
+		</div>
+
+		<div class="manageBox">
+			<div class="title">
+				<p class="yleft"><span class="colortip"></span>
+				<span class="title_name"><b>最近订单</b></span></p>
+				<p class="yright"><a class="blue12" href="/ucenter/order!hotel.do">更多&gt;&gt;</a></p>
+			</div>
+			<div class="content" id="order-list">
+				<table class="di_table">	<tbody>
+					<tr>       <th class="olist1">订单号</th>       <th class="olist2">订单商家</th>       <th class="olist3">付款方式</th>		<th class="olist4">订单金额</th>		<th class="olist5">下单时间</th>		<th class="olist6">订单状态</th>	</tr>	
+					<{foreach from=$orderlist item=items}>
+					<tr>		
+						  <td><a href="#" class="apanel"><{$items['dno']}></a></td>	
+							<td><a class="apanel" <{if $items['isbefore']==1}>href="<{ofunc type=url link="/waitfood/show/shop/<{$items['shopid']}>"}>"<{else}><{if $items['shopid']==0}>href="<{ofunc type=url link="/market"}>"<{else}>href="<{ofunc type=url link="/fastfood/show/shop/<{$items['shopid']}>"}>"<{/if}> <{/if}>><{$items['shopname']}></a></td>		
+							<td><{if $items['paytype']=='outpay'}>就餐支付<{else}>在线支付<{if $items['paystatus']==1}>(已付)<{else}>(未付)<{/if}><{/if}></td>		<td class="money">￥<{$items['allcost']}></td>		
+							<td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>		<td><{$buyerstatus[$items['status']]}></td>	</tr>
+					<{/foreach}>			
+					</tbody></table></div>
+		</div>
+	</div>
+	
+<script>
+	function changeAddr(uid)
+	{
+		 
+		var info = {'tijiao':'do','default':'1','addressid':uid,'what':'default'};
+		var url = '<{ofunc type=url link="/membercenter/editaddress/random"}>';
+		 myajax(url,info);
+	}
+</script>
+<{/block}>

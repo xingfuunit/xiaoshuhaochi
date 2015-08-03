@@ -1,0 +1,70 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+   <{block name=extendjs}> 
+   <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+ <{/block}>
+ <{block name=controlname}>添加/编辑单页<{/block}>
+ <{block name=bodylist}>
+<{load_data assign="info" table="single" type="one" where="id='<{$id}>'" fileds="*" }> 
+       <div style="width:98%;overflow-y:auto;white-space:nowrap;">  
+      	
+          <div class="tags">
+           
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/single/module/savesingle"}>">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	 
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">单页标题</td>
+                      <td><input type="text" name="title" id="title" value="<{$info['title']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="selecttrstart">
+                      <td class="left">seo关键字</td>
+                      <td><input type="text" name="seo_key" id="seo_key" value="<{$info['seo_key']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="selecttrstart">
+                      <td class="left">seo描述</td>
+                      <td><textarea name="seo_content"><{$info['seo_content']}></textarea></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                      <td class="left">发布时间</td> 
+                      <td> 
+                       <input class="Wdate datefmt" type="text" name="addtime" id="addtime" value="<{$info['addtime']|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />                    
+
+                        </td> 
+                    </tr>
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">访问标识</td>
+                      <td><input type="text" name="code" id="code" value="<{$info['code']}>" class="skey" style="width:50px;" >英文</td>
+                    </tr> 
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                      <td class="left">单页详细内容</td> 
+                      <td>  
+                      <div class='nop'><script>KE.show({id:'content',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/other/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/other/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="content" id="content" style='width:550px; height:260px;'><{$info['content']}></textarea></div>                      </td>
+
+                    </tr>
+
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;">
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    
+       
+</div> 
+ 
+<!--newmain 结束-->
+<{/block}>

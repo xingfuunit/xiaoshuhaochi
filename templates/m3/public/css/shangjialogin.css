@@ -1,0 +1,44 @@
+html, body, img, a img, form,ul,li,p,dl,dd,dt{margin:0;padding:0;border:0 none;}
+a{text-decoration: none;}
+i{ font-style:normal;}
+.fl{ float:left;}
+.fr{ float:right;}
+.cl{ clear:both;}
+ul,li{list-style:none;}
+
+.top{top:600px;}
+*{padding:0px; margin:0px;}
+body{font-family:微软雅黑; height:100%;  background:url(../images/sjBG.png) repeat;}
+#sjtop{position:absolute; top:0px; left:0px; width:100%; height:50px; background:#000;
+filter:alpha(opacity=40);
+	-moz-opacity:0.4;
+	-khtml-opacity: 0.4;
+	opacity: 0.4;
+}
+#sjfooter{position:absolute; right:0px; width:100%; height:50px; background:#000;
+filter:alpha(opacity=40);
+	-moz-opacity:0.4;
+	-khtml-opacity: 0.4;
+	opacity: 0.4;
+}
+#sjloginin{cursor:pointer;}
+#sjzzdibu{position:absolute; bottom:0px; right:0px; width:100%; height:50px; }
+#sjzztop{position:absolute;  top:0px; left:0px; margin-left:1%; width:99%; height:50px;}
+#sjloginBg{position:absolute; top:50%; margin-left:-333px; margin-top:-144px; left:50%; width:666px; height:288px; 
+  background:url(../images/toumingsj.png) no-repeat;}
+#sjlogin{position:absolute; top:50%; margin-left:-333px; margin-top:-144px; left:50%; width:666px; height:288px;}
+.sjlogin_title{ height:35px; line-height:48px; margin-top:20px; margin-left:20px; width:646px; color:#e1e6ea; font-family:微软雅黑; font-weight:bold; font-size:18px;}
+.sj_cont{ width:666px;hieght:240px;}
+.sj_cont_left{ width:395px;heigth:240px; float:left;}
+.sj_cont_title{color:#f5f5f7; font-family:微软雅黑;  font-size:32px; margin:30px 0 0 20px;}
+.sj_cont_bot{color:#bcbcbc; font-family:微软雅黑;  font-size:12px; margin:80px 0px 0 25px; }
+
+.sj_cont_right{ margin-left:20px; width:241px;heigth:240px; float:left; position:relative;}
+.sj_cont_right input{width:167px; height:38px; line-height:38px; border:none;}
+.unameinput{ background:url(../images/unamebg.png) center left no-repeat; padding-left:30px;}
+.upasinput{ background:url(../images/upasbg.png) center left no-repeat; padding-left:30px;}
+.js_username{ width:197px; height:38px; background:#ffffff; margin-bottom:13px;}
+.remme{padding-left:0px; color:#cbcbcb;position:absolute;margin-left:0px;font-size:12px; top:123px;}
+.footerfont{font-weight:bold;font-size:14px; font-family:微软雅黑;  color:#cbcbcb; height:30px; line-height:30px;}
+.topfont{font-weight:bold;font-size:16px; font-family:微软雅黑;  color:#cbcbcb; height:50px; line-height:50px;}
+.topfont a{font-weight:bold;font-size:16px; font-family:微软雅黑;  color:#cbcbcb; height:50px; line-height:50px;}

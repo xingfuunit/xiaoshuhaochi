@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> 快速订餐-<{$sitename}></title>
+<meta name="Keywords" content="<{$keywords}>" />
+<meta name="description" content="<{$description}>" />   
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script> 
+<script> 
+	var siteurl = "<{$siteurl}>"; 
+</script>
+ <style>
+ 	  ul,li{
+ 	  list-style: none;
+ 	  margin:0;
+ 	  padding:0;
+ 	  }
+ 	  a{
+ 	  	 COLOR: #000;  
+ 	    text-decoration:none;
+ 	  }
+ 	  a:visited {
+  COLOR: #000;  
+      TEXT-DECORATION: none
+   }
+a:active {
+ COLOR: #000;  
+ text-decoration: underline;
+}
+ 	  .showli li{
+ 	    height:30px;
+ 	    line-height:30px;
+ 	    font-size:12px;
+ 	    border-bottom:1px solid #ccc;
+ 	  }
+ 	  .showli li:hover{
+ 	    background-color:#EEA371;
+ 	  }
+ 	   
+ 	  .showli li a:hover,.showli li:hover a{
+ 	    color:#f60;
+ 	  }
+ 	  .top{
+ 	    height:20px;
+ 	  }
+ 	  .top span{
+ 	    background-color:#f60;
+ 	    color:#fff;
+ 	    padding:5px 8px 5px 8px;
+ 	   font-size:12px;
+ 	   font-weight:bold;
+ 	  }
+ 	</style>
+</head>
+<body> 
+	<div class="top"   onclick="openlink('<{ofunc type=url link="/order/areashow/id/<{$parent_id}>/shopid/<{$shopid}>"}>');"><span >＜返回</span></div>
+	<div class="showli">
+		  <ul>
+		  	  <{load_data assign="list" table="area"   fileds="*" where="parent_id=<{$id}> and id in(<{$where}>)" limit="100" }> 
+         	 <{foreach $list['list'] item=items}> 
+             <li class="clkitm href"  onclick="openlink('<{ofunc type=url link="/order/areashow/id/<{$items['id']}>/shopid/<{$shopid}>"}>');" ><{$items['name']}></li>
+             <{/foreach}>
+		  </ul>
+	</div>
+<script> 
+	function openlink(newlinkes){
+					window.location.href=newlinkes;
+				}
+
+	</script>
+</body>
+</html>

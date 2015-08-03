@@ -1,0 +1,73 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market-show.css">   
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/market.js"> </script>
+<div style="margin-top:10px;"></div> 
+<div id="list-main" class="clearfix">
+			<!--nav-->
+			<div class="list-goods">
+				<ul class="first-class list-list1">
+				 <{foreach from=$catlist item=items}>
+					<li>
+						<h4 id="item_type_ico" <{if $cat1 == $items['id']}> class="active" data="1" <{else}> data="0" <{/if}>>
+							<a href="<{ofunc type=url link="/market/marketshow/cat1/<{$items['id']}>"}>" title="<{$items['name']}>">
+								<{if $cat1 == $items['id']}>
+							<span style="border-color: rgb(255, 255, 255);">-</span>
+							<{else}> 
+							<span>+</span>
+							<{/if}>
+							<{$items['name']}></a>
+						</h4>
+						<div class="list-list2 item_type_7" <{if $cat1 != $items['id']}>style="display:none"<{else}>style="display:block"<{/if}>> 
+								<{foreach from=$items['det'] item=itv}>
+									<a href="<{ofunc type=url link="/market/marketshow/cat1/<{$items['id']}>/cat2/<{$itv['id']}>"}>" title="<{$itv['name']}>" <{if $cat2 == $itv['id']}>class="active"<{/if}>><{$itv['name']}></a> 
+								<{/foreach}> 
+						</div>
+					</li><!-- h4  a class="active" span  -->
+				 <{/foreach}> 
+					 
+				 
+				</ul>
+			</div>
+			<!--列表-->
+			<div class="goodsList">	
+				<!--排序-->
+				<div id="list-sort">
+					<p> 
+							<a href="<{$defualtlink|replace:'@order@':'id'}>" <{if $defaultoder == 'id'}>class="active default"<{/if}>>默认排序</a> 
+							 <a href="<{$defualtlink|replace:'@order@':'cost'}>" <{if $defaultoder == 'cost'}>class="active default"<{/if}>>价格</a> 
+							<a href="<{$defualtlink|replace:'@order@':'sellcount'}>" <{if $defaultoder == 'sellcount'}>class="active default"<{/if}>>销量</a> 
+					</p>
+				</div>
+				<{if is_array($list)}>
+				<!--商品列表-->
+				<ul class="goodsShow">
+					
+						 <{foreach from=$list key=mykey item=items}>
+						<li class="good-item <{if $mykey%4==3 && $mykey > 0}>last<{/if}>"> 
+						<div class="img"><img  alt="" width="181" heihgt="207" title="<{$items['name']}>" src="<{$items['img']}>"></div>
+						<div class="goodInfo">
+							<p class="goodName" title="<{$items['name']}>"><{$items['name']}></p>
+							<p class="addCart"><span>￥<{$items['cost']}></span>
+							<button  class="addgoods"  item-id="<{$items['id']}>" >加入购物车</button>
+						</p></div>
+					</li>
+					 <{/foreach}> 
+						 
+					
+				</ul> 
+        <div class="page"> 
+		       <ul>
+		          <{$pagecontent}>
+	         </ul> 
+        </div>
+         <{else}>
+         <div class="noResult">
+					<p>该分类商品暂无销售</p>
+				</div>
+         <{/if}>
+				
+			</div>
+		</div>
+<div style="clear:both;"></div>
+<span id="addload" class="SelectedState" style="left: 1153px; top: 444px; opacity: 1;display:none;"></span>
+<{include file="<{$tempdir}>/public/foot.html"}> 

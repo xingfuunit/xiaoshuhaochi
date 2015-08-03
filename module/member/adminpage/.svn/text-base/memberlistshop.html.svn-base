@@ -1,0 +1,109 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+
+ <{block name=controlname}>商家会员列表<{/block}>
+ <{block name=bodylist}>
+
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+
+
+      	 <div class="search">
+
+
+            <div class="search_content">
+
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/member/module/memberlistshop"}>">
+
+            	   <label>用户名：</label>
+            	   <input type="text" name="username" value="<{$username|default:''}>">
+            	   <label>邮箱：</label>
+            	   <input type="text" name="email" value="<{$email|default:''}>">
+                  <label>手机：</label>
+            	   <input type="text" name="phone" value="<{$phone|default:''}>">
+
+            	    <input type="submit" value="提交查询" class="button">
+            	 </form>
+            </div>
+
+      	</div>
+
+           <div class="tags">
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td"  >
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">用户名称</th>
+
+                        <th align="center">登陆时间</th>
+
+                        <th align="center">创建时间</th>
+                        <th align="center">登陆IP</th>
+                        <th align="center">余额</th>
+                        <th align="center">积分</th>
+
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+                      <{load_data assign="list" table="member" showpage="true" where="<{$where}>" }>
+                      <{foreach from=$list['list'] item=items}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['uid']}>"></td>
+                        <td align="center"><{$items['username']}></td>
+                        <td align="center"> <{$items['creattime']|date_format:"%Y-%m-%d %H:%M:%S"}> </td>
+                        <td align="center"><{$items['logintime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+                        <td align="center"><{$items['loginip']}></td>
+                        <td align="center"><{$items['cost']}></td>
+                        <td align="center"><{$items['score']}></td>
+
+                        <td align="center"><a href="<{ofunc type=url link="/adminpage/member/module/addmember/id/<{$items['uid']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/member/module/delmember/id/<{$items['uid']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+                </form>
+                 <div class="page_newc">
+                 	     <div class="select_page">
+
+                 	     	</div>
+                       <div class="show_page"><ul><{$list['pagecontent']}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+
+ </div>
+<{/block}>

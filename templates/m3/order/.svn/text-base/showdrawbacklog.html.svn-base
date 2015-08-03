@@ -1,0 +1,304 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>退款申请详情<{/block}>
+ <{block name=bodylist}>
+     <div style="width:100%;margin-top:-10px;"> 
+      	
+      	 
+      	
+      	
+      	
+           <div class="tags">
+
+      	 	 
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td">
+
+              <form method="post" action="" onsubmit="return remind();">
+                <{if empty($oderinfo)}>
+                  订单已删除
+                <{/if}>
+                <table class="table table-bordered" width=95% style="font-size:12px;margin-top:5px;text-align:left;margin-left:20px;" id="order_area_<{$oderinfo['id']}>" onMouseover="colorred(this);" onMouseout="tcolorred(this);">
+                 <{if !empty($oderinfo)}>
+			   		 
+			   		 
+		             <tr>
+		             	<td colspan="2" style="text-align:left;">单号：<{$oderinfo['dno']}><font color=red><{$shoptype[$oderinfo['shoptype']]}></font></td>
+		             	<td colspan="2" style="text-align:left;">创建时间：<{$oderinfo['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+		             	<td colspan="2" style="text-align:left;">订单状态: <font color=blue><{$buyerstatus[$oderinfo['status']]}></font></td>
+		            </tr>
+		             <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;">店铺名称：<{$oderinfo['shopname']}></td>
+		             	<td colspan="2" style="text-align:left;">店铺地址：<{$oderinfo['shopaddress']}></td>
+		             	<td colspan="2" style="text-align:left;">店铺电话: <{$oderinfo['shopphone']}></td> 
+		            </tr>
+		            <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;">支付方式：<{$paytypearr[$oderinfo['paytype']]}></td>
+		             	<td colspan="2" style="text-align:left;">支付状态：<{if $oderinfo['paystatus'] == 1}>已付<{else}>未付<{/if}> <{if $oderinfo['is_reback'] ==1}>退款中..<{elseif $oderinfo['is_reback'] ==2}>退款成功<{elseif $oderinfo['is_reback'] == 3}>退款未成功<{/if}></td>
+		             	<td colspan="2" style="text-align:left;">下单来源: <{$ordertypearr[$oderinfo['ordertype']]}></td>
+		            </tr>
+		            <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;">配送时间：<{$oderinfo['posttime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+		             	<td colspan="2" style="text-align:left;">订单类型：<{$shoptype[$oderinfo['shoptype']]}></td>   
+		             	<td colspan="2" style="text-align:left;">ip信息：<{$oderinfo['ipaddress']}></td> 
+		            </tr>
+                <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;">联系人：<{$oderinfo['buyername']}>[<{if empty($oderinfo['acountname'])}>游客<{else}>帐号:<{$oderinfo['acountname']}><{/if}>]</td>
+		             	<td colspan="2" style="text-align:left;">消费地址：<{$oderinfo['buyeraddress']}></td>   
+		             	<td colspan="2" style="text-align:left;">联系电话：<{$oderinfo['buyerphone']}></td> 
+		            </tr>
+		            
+		            <tr> 
+		            </tr>
+		            <tr style="height:20px;line-height:20px;">
+		            	<td colspan="3" width="50%" valign=top>
+		            		<table style="margin:0px;padding:0px;font-size:12px;" width="100%">
+		            			<tr style="height:20px;line-height:20px;">
+		            				<td style="border:none;padding:0px;color:gray;text-align:left;" width="60%">名称</td>
+		            				<td style="border:none;padding:0px;color:gray;" width="15%">价格</td>
+		            				<td style="border:none;padding:0px;color:gray;">数量</td> 
+		            			</tr>
+		            			<{foreach from=$orderdet item=value}>  
+		            			<tr style="height:20px;line-height:20px;"><td style="border:none;padding:0px;color:gray;text-align:left;"><{$value['goodsname']}><{if $value['is_send'] == 1}><font color=red>[赠品]</font><{/if}></td>
+		            				  <td style="border:none;padding:0px;color:gray;"><{$value['goodscost']}>元</td>
+		            				  <td style="border:none;padding:0px;color:gray;"><{$value['goodscount']}>份</td>
+		            				  </tr> 
+		            				<{/foreach}>  
+		            				 
+		            	    
+		            		   
+		            		 </table>
+		            	</td>
+		            	<td colspan="3" style="text-align:left;color:gray;" valign=top>
+		            		 <table style="margin:0px;padding:0px;font-size:12px;text-align:left;" width="100%">
+		            		    <{if $oderinfo['shopcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">店铺商品总价</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$oderinfo['shopcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		 <{if $oderinfo['shopps'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">店铺配送费</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$oderinfo['shopps']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 	 
+		            		 		<{if $oderinfo['scoredown'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">积分低扣</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red>-<{$oderinfo['scoredown']/$scoretocost}></font>元,<{$oderinfo['scoredown']}>积分,比例：<{$scoretocost}>:1</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		<{if $oderinfo['yhjcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">优惠券低扣</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red>-<{$oderinfo['yhjcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		<{if $oderinfo['cxcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">店铺促销减金额</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red>-<{$oderinfo['cxcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		<{if $oderinfo['bagcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">打包费</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$oderinfo['bagcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		   
+		            		 		<{/if}>
+		            		 		<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">应收</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$oderinfo['allcost']}></font>元 </td>
+		            		 	   </tr>
+		            		 	   <{if !empty($oderinfo['content'])}>
+		            		 		<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">备注</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><{$oderinfo['content']}></td>
+		            		 	   </tr> 
+		            		 	   <{/if}>
+		            		 	   <{if !empty($oderinfo['othertext'])}>
+		            		 		<tr style="height:20px;line-height:20px;" valign=top>
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">其他说明</td> 
+		            		 		  <td style="border:none;padding:0px;color:gray;">
+		            		 		  	<{assign var=showother value=$oderinfo['othertext']|unserialize}>   
+		            		 		  	 <{foreach from=$showother key=mytest item=itc}>
+		            		 		  	  <{$mytest}>:<{$itc}>，
+		            		 		  	 <{/foreach}>
+		            		 		  	</td>
+		            		 	   </tr> 
+		            		 	   <{/if}>
+		            		 </table> 
+		            		 
+		            		</td>
+		            </tr>
+		             
+		            <tr >
+		              <td colspan="6" style="text-align:left;" class="order_control"> 
+		              	  
+		              	<{if $oderinfo['wxstatus'] ==  1}>
+		              	商家已确认订单
+		              	<{elseif $oderinfo['wxstatus'] == 2}>
+		              	商家需要取消此订单
+		              	<{/if}>
+		              	
+		              	   下单IP：<{$oderinfo['ipaddress']}>  <{if $oderinfo['is_print']==1}>店铺已打印<{/if}>  <{if empty($oderinfo['is_make'])}>商家未确认是否制作<{elseif $oderinfo['is_make'] == 1}>商家确认制作<{else}>商家不制作，请取消此订单<{/if}>
+		              	</td>
+		            </tr>     
+		            
+		          <{/if}>
+		          <tr>
+		             	<td colspan="6" style="text-align:left;">退款申请信息</td>
+		             	 
+		            </tr>
+		           <tr>
+		             	<td colspan="2" style="text-align:left;">申请时间：<{$drawbacklog['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+		             	<td colspan="2" style="text-align:left;">会员名：<{$drawbacklog['username']}></td>
+		             	<td colspan="2" style="text-align:left;">状态: <font color=blue><{if $drawbacklog['status'] == 0}>待处理<{elseif $drawbacklog['status'] == 1}>退款成功<{elseif $drawbacklog['status'] == 2}>不退款<{/if}> </font></td>
+		            </tr>
+		          <tr>
+		             	<td colspan="2" style="text-align:left;">联系人：<{$drawbacklog['contactname']}></td>
+		             	<td colspan="2" style="text-align:left;">联系电话：<{$drawbacklog['phone']}></td>
+		             	<td colspan="2" style="text-align:left;">总金额: <font color=red><{$drawbacklog['cost']}> </font></td>
+		            </tr>
+		          <tr>
+		             	<td colspan="6" style="text-align:left;">退款原因:<{$drawbacklog['reason']}></td>
+		             	 
+		            </tr>
+		            <tr>
+		             	<td colspan="6" style="text-align:left;">收款帐号:<{$drawbacklog['content']}></td>
+		             	 
+		            </tr>
+		             <tr>
+		             	<td colspan="6" style="text-align:left;">
+		             		<{if $drawbacklog['status'] == 0}>
+		             	 	   <table style="margin:0px;padding:0px;font-size:12px;text-align:left;" width="100%">
+		             	 	   	  <tr>
+		             	 	   	 	   <td style="width:100px;">处理说明:</td>
+		             	 	   	 	   <td><input type="text" name="bkcontent" value="" style="width:200px;" id="bkcontent"></td>
+		             	 	   	 	 </tr>
+		             	 	   	 <tr>
+		             	 	   	 	   <td style="width:100px;">&nbsp;&nbsp;</td>
+		             	 	   	 	   <td> <input type="button" value="确认退款" class="button" onclick="sureclose();">   <input type="button" value="不退款" class="button" onclick="unsureclose();"></td>
+		             	 	   	 	 </tr>
+		             	 	   	
+		             	 	  </table>
+		             		<{else}>
+		             		处理说明:<{$drawbacklog['bkcontent']}>
+		             		<{/if}>
+		             		
+		             		
+		             		
+		             	</td>
+		             	 
+		            </tr>
+		             <tr>
+		             	<td colspan="6" style="text-align:left;">注意事项:确认退款后订单将会自动关闭，不退款 则用户不能再次申请退款，不修改订单状态</td>
+		             	 
+		            </tr>
+		          </table> 
+
+                <div class="blank20"></div> 
+
+                </form>
+
+                <div class="page_newc">
+                 	    
+                       
+                 </div>
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  <div id="print_area" style="display:none;font-size:40px;"></div>
+ </div>
+<script type="text/javascript">
+   function colorred(obj){
+   	$(obj).css('background','#eee'); 
+   }
+   function tcolorred(obj){
+   	$(obj).css('background','');
+   }
+    
+	 
+	 function sureclose()
+	 {
+	 	  var reasons = $('#bkcontent').val();
+	 	  if(reasons == undefined || reasons == '')
+	 	  {
+	 	  	alert('处理说明不能为空');
+	 	  }else{ //{'orderid':orderid,'reason':reasons}
+	 	    var url = siteurl+'/index.php?ctrl=order&action=ordercontrol&type=drawback&id=<{$drawbacklog['orderid']}>&reasons='+reasons+'&datatype=json&random=@random@';
+	 	    $.ajax({
+     type: 'get',
+     async:false, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {  
+     	if(content.error == false){
+     		diasucces('操作成功','');
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });   
+	 	 }
+	 }
+	 function unsureclose()
+	 {
+	 	  var reasons = $('#bkcontent').val();
+	 	  if(reasons == undefined || reasons == '')
+	 	  {
+	 	  	alert('处理说明不能为空');
+	 	  }else{ //{'orderid':orderid,'reason':reasons}
+	 	    var url = siteurl+'/index.php?ctrl=order&action=ordercontrol&type=undrawback&id=<{$drawbacklog['orderid']}>&reasons='+reasons+'&datatype=json&random=@random@';
+	 	    $.ajax({
+     type: 'get',
+     async:false, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {  
+     	if(content.error == false){
+     		diasucces('操作成功','');
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });   
+	 	 }
+	 }
+	 
+   
+ </script>
+<{/block}>

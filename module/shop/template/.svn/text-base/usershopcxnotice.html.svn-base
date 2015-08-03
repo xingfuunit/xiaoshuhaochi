@@ -1,0 +1,32 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>   
+  <{block name=extendjs}>
+  <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+  <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=bodylist}> 
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton">店铺促销</div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       	<div class="editcontent">
+       		  <{include file="<{$tempdir}>/shop/usereditmenu.html"}>
+       		  <div class="editcenter">
+       		  	<form id="loginForm" method="post" action="<{ofunc type=url link="/shop/usershopcxnotice"}>" >
+       		       <table width="600" border="0"> 
+                      <tr> 
+                        <td><script>KE.show({id:'cx_info',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/other/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/other/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="cx_info" id="cx_info" style='width:600px; height:190px;'><{$shopinfo['cx_info']}></textarea></td>
+                      </tr> 
+                      <tr>
+                      	  <input type="hidden" name="uid" value="<{$shopinfo['id']}>">
+                        <td >&nbsp;<input type="submit" value="点击提交" class="sbumit1"> </td>
+                      </tr>
+                 </table>
+       		  	
+       		  	</form>
+       		  </div>
+       	</div> 
+</div> 
+ <{/block}>

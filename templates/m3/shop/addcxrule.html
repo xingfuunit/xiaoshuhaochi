@@ -1,0 +1,265 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>   
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<script>
+  	  var mynomenu='basecx';
+  </script> 
+<{/block}>
+ <{block name=bodylist}>
+  <!---content right start---> 
+        <div class="conWaiSet fr">
+        	
+            <div class="shopSetTop">
+            	<span><{if empty($cxinfo)}>添加<{else}>编辑<{/if}>促销规则列表</span>
+            </div>
+           <form id="loginForm" method="post" action="<{ofunc type=url link="/shop/savecxrule/datatype/json"}>" >
+                 <div class="jutiSet">
+        		     	 
+                    
+                    
+                    <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>促销标题：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input type="text" style="width:300px;margin-top:5px;height:30px;line-height:30px;" id="name" name="name" value="<{$cxinfo['name']}>">
+                            
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>订单总金额限制：</span>
+                        </div>
+                        <div class="xuanze_right"  >
+                        	<input type="text" style=" width:100px;margin-top:5px;height:30px;line-height:30px;" id="limitcontent" name="limitcontent" value="<{$cxinfo['limitcontent']}>" >
+                            
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                     
+                    <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>具体时间：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        		<input type="radio" name="limittype" value="1" checked>不限制<{$cxinfo['limittype']}>
+                        	<input type="radio" name="limittype" value="2" <{if $cxinfo['limittype']==2}>checked<{/if}>>每周星期
+                        	<input type="radio" name="limittype" value="3" <{if $cxinfo['limittype']==3}>checked<{/if}>>每天时间段
+                         
+                            
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    
+                     <div class="serxuanze" id="limittime1" style="display:none;">
+                    	<div class="xuanze_left">
+                        	<span>选择星期：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<{assign var=mysign value=","|explode:$cxinfo['limittime']}>  
+                        	<{assign var=signshu value="1"}> 
+                          <{section name=loop  loop=7}> 
+                  	          <input type="checkbox" name="limittime1[]" value="<{$signshu}>" <{if in_array($signshu,$mysign)}>checked<{/if}>> 星期<{if $signshu == 7}>天<{else}><{$signshu}><{/if}>  
+                  	          <{$signshu=$signshu+1}> 
+                         <{/section}> 
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    
+                    <div id="limittime2">
+                    	
+                    	 
+                    	<{assign var=mysign value=","|explode:$cxinfo['limittime']}>  
+                        	  	<{foreach from=$mysign item=items}>
+                        	  	   
+                        	  	    <{assign var=dotime value="-"|explode:$items}>  
+                        	  	    <{if count($dotime) > 1}>
+                        	  	     <div class="serxuanze">
+                    	  <div class="xuanze_left">
+                        	<span>时间段：</span>
+                        </div> 
+                        <div class="xuanze_right"> 
+                        	  	    从<input  name="limittime2[]" value="<{$dotime[0]}>" class="ttext" type="text" style=" background:#e0f5ff;width:55px; height:20px;">
+                        	  	    至<input  name="limittime22[]" value="<{$dotime[1]}>" class="ttext" type="text" style=" background:#e0f5ff;width:55px; height:20px;"><a href="#" onclick="removetime2(this);" style="color:#0989d8;">移除</a> 
+                        	  	    </div>  
+                         <div class="cl"></div>
+                      </div>
+                        	  	    <{/if}>
+                        	  	  
+                        	  	 <{/foreach}>
+                    	
+                       <div class="serxuanze">
+                    	  <div class="xuanze_left">
+                        	<span>时间段：</span>
+                        </div> 
+                        <div class="xuanze_right"> 
+                        	  	    从<input  name="limittime2[]" value="" class="ttext" type="text" style=" background:#e0f5ff;width:55px; height:20px;">
+                        	  	    至<input  name="limittime22[]" value="" class="ttext" type="text" style=" background:#e0f5ff;width:55px; height:20px;"><a href="#" onclick="removetime2(this);" style="color:#0989d8;">移除</a> 
+                        	  	    </div>  
+                         <div class="cl"></div>
+                      </div>
+                      
+                      
+                      
+                      
+                      
+                    	<div class="serxuanze" id="addduan">
+                    	  <div class="xuanze_left">
+                        	<span></span>
+                        </div> 
+                        <div class="xuanze_right">
+                        	  例如：从08:00至11:00   <a href="#" style="color:#0989d8;" onclick="addtimedo(this)">增加时间段</a>
+                        </div>  
+                         <div class="cl"></div>
+                      </div>
+                    	
+                    </div>
+                    
+                      <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>促销类型：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<select name="controltype" id="controltype" onchange="changetxt(this)" style="margin-top:10px;">
+                        	                        <option value="1" data1="赠品数量" data="请录入赠品库存数量" selected >送赠品 </option>
+                        	                        <option value="2" data1="减费用金额" data=""  <{if $cxinfo['controltype'] == 2}>selected<{/if}>>减费用</option>
+                        	                        <option value="3" data1="折扣" data="假如9折请录入90" <{if $cxinfo['controltype'] == 3}>selected<{/if}>>折扣</option>
+                        	                        <option value="4" data1="免配送费" data="免配送费" <{if $cxinfo['controltype'] == 4}>selected<{/if}>>免配送费</option>
+                        	                    </select>
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                      
+                      <div class="serxuanze" id="showpresenttitle">
+                    	<div class="xuanze_left">
+                        	<span>赠品名称：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input type="text" style="width:200px;margin-top:5px;height:30px;line-height:30px; " id="presenttitle" name="presenttitle" value="<{$cxinfo['presenttitle']}>">
+                            
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                       
+                       <div class="serxuanze" id="showdefualt">
+                    	<div class="xuanze_left">
+                        	<span><font id="cctitle">xxx</font>：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input id="controlcontent" name="controlcontent" value="<{$cxinfo['controlcontent']}>" class="ttext" type="text" style="width:50px;margin-top:5px;height:30px;line-height:30px;"><font id="ccmiaoshu">xxx</font>
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                       
+                       
+                      
+                      <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>生效时间：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        从 <input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$cxinfo['starttime']|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+                        	至 <input class="Wdate datefmt" type="text" name="endtime" id="endtime" value="<{$cxinfo['endtime']|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+                            
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                      
+                      <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>是否启用：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input type="radio" name="status" value="1" checked>已启用
+                        	<input type="radio" name="status" value="0" <{if $cxinfo['status']==0}>checked<{/if}>>未启用
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                      
+                      	
+                   <div class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>促销标签：</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<{foreach from=$cxsignlist item=items}>
+                        	<input type="radio" name="signid" value="<{$items['id']}>" <{if $items['id'] == $cxinfo['signid']}>checked<{/if}>><img src="<{$items['imgurl']}>"><{$items['name']}>
+                        	<{/foreach}>
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                     
+                    
+                   <input type="hidden" name="cxid" value="<{$cxinfo['id']}>">
+                     
+                  	 <div class="settijiao">
+                    	
+                          <div class="xuanze_right hc_login_btn_div"></div>
+                         
+                     
+                        <div class="cl"></div>
+                    </div>
+                    
+                    
+       			 </div>
+       			 </form>
+             
+                
+                
+        </div>
+        <div class="cl"></div>
+        
+        
+        
+
+<script type="text/javascript">
+	$(function(){ 
+		$("input[name='limittype']:checked").trigger("click"); 
+		$('#controltype').trigger('change'); 
+	});
+	function addtimedo(obj){
+		var contentdata = '<div class="serxuanze"><div class="xuanze_left"><span>时间段：</span></div>   <div class="xuanze_right">   从<input  name="limittime2[]" value="" class="ttext" type="text" style=" background:#e0f5ff;width:55px; height:20px;"> 至<input  name="limittime22[]" value="" class="ttext" type="text" style=" background:#e0f5ff;width:55px; height:20px;"><a href="#" onclick="removetime2(this);" style="color:#0989d8;">移除</a>  </div>  <div class="cl"></div>  </div>';
+		$('#addduan').before(contentdata);		
+	}
+	function removetime2(obj){
+		$(obj).parent().parent().remove();
+	}
+	$("input[name='limittype']").click(function(){
+		var dovalue = $(this).val();
+		if(dovalue ==  2){
+			 $('#limittime1').show();
+			 $('#limittime2').hide();
+		}else{
+			 if(dovalue == 3){
+			 $('#limittime1').hide();
+			  $('#limittime2').show();
+		}else{
+			 $('#limittime1').hide();
+			  $('#limittime2').hide();
+		  } 
+		}
+	});	
+	function changetxt(obj){
+		var findvalue = $(obj).find("option:selected").val();
+		var doobj = $(obj).find("option:selected");
+		$('#showdefualt').show();
+		if(findvalue == 1){
+			 $('#showpresenttitle').show(); 
+		}else{
+			$('#showpresenttitle').hide(); 
+		}
+		if(findvalue == 4){
+		  $('#showdefualt').hide();
+		}
+		$('#cctitle').text($(doobj).attr('data1'));
+		$('#ccmiaoshu').text($(doobj).attr('data'));
+	}
+	$('.hc_login_btn_div').click(function(){ 
+		//$('#loginForm').submit();
+	  subform('<{ofunc type=url link="/shop/cxrule"}>',$('#loginForm')); 
+	});
+	 
+</script> 
+<{/block}>

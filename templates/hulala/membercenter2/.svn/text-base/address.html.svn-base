@@ -1,0 +1,135 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}> 
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span><a style="font-size:14px;" href="javascript:addAddr();">[添加新地址]</a></div>
+				<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table id="myAddr_table" class="table table-bordered">
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr>
+		                  <th style="width:11%;">默认</th>
+		                  <th style="width:35%;">地址</th>
+		                  <th style="width:16%;">联系电话</th>
+		                  <th style="width:16%;">备选电话</th>
+		                  <th style="width:10%;">联系人</th>
+		                  <th style="width:12%;">操作</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		              	<{foreach from=$list item=items}>
+		           <tr class="my_addr" id="my_addr_<{$items.id}>">
+		              <td><input type="radio" class="is_moren_radio" <{if $items.default == 1}>checked="checked" <{/if}>  onclick="changeAddr('default',<{$items.id}>,this)" id="is_moren_229"></td>
+							    <td><input class="hc_UserInfoTdInput hc_UserInfoTdInputAddr" id="addr_229" type="text8" onchange="changeAddr('addr',<{$items.id}>,this);" value="<{$items.address}>"></td>
+							    <td><input class="hc_UserInfoTdInput hc_UserInfoTdInputPhone" id="phone_229" type="text8" onchange="changeAddr('phone',<{$items.id}>,this);" value="<{$items.phone}>"></td>
+							    <td><input class="hc_UserInfoTdInput hc_UserInfoTdInputPhone" id="bak_phone_229" type="text8" onchange="changeAddr('bak_phone',<{$items.id}>,this);" value="<{$items.otherphone}>"></td>
+							    <td><input class="hc_UserInfoTdInput" id="recieve_name_229" type="text8" onchange="changeAddr('recieve_name',<{$items.id}>,this);" value="<{$items.contactname}>"></td>
+							    <td style="line-height: 30px;"><a href="javascript:delAddr(<{$items.id}>);">删除</a></td>
+		           </tr>
+		                <{/foreach}>
+		                <form id="adfrom">
+		           <tr class="my_addr" id="newAddr_1" style="display:none;">
+		           	 
+		           	<td colspan="2">
+		           		  
+		           		  <select name="farea" id="farea" style="height:30px;float:left;width:75px;overflow:hidden;" <{if $area_grade >  1 }>onchange="nextarea();"<{/if}>>
+		           		  	<{foreach from=$arealist item=items}>
+		           		  	    <option value="<{$items['name']}>" data="<{$items['id']}>"><{$items['name']}></option>	
+		           		  	 <{/foreach}> 
+		           		  </select> 
+		           		  <div id="sareadiv" <{if $area_grade < 2 }> style="display:none;" <{/if}>>
+		           		   <select name="sarea" id="sarea" style="height:30px;float:left;width:75px;overflow:hidden;" <{if $area_grade >  2 }>onchange="nextareab();"<{/if}>>
+		           		   	
+		           		   </select> 
+		           		   </div>
+		           		   <div id="tareadiv" <{if $area_grade < 3 }> style="display:none;" <{/if}>>
+		           		      <select name="tarea" id="tarea" style="height:30px;float:left;width:75px;overflow:hidden;"  style="display:none;">
+		           		   	
+		           		     </select> 
+		           		   </div> 
+		           		  <input class="hc_UserInfoTdInput  <{if $area_grade >  2 }><{else}>hc_UserInfoTdInputPhone<{/if}>" id="addr_new_1" name="add_new" type="text8"> 
+		           	</td>
+		           	 
+		           	<td><input class="hc_UserInfoTdInput hc_UserInfoTdInputPhone" id="phone_new_1" name="phone_new" type="text8"></td>
+		           	<td><input class="hc_UserInfoTdInput hc_UserInfoTdInputPhone" id="bak_phone_new_1" name="bak_phone_new" type="text8"></td>
+		           	<td><input class="hc_UserInfoTdInput" id="recieve_name_new_1" name="recieve_name_new" type="text8">
+		           		<input type="hidden" name="tijiao" value="do">
+		           		</td>
+		           		
+		           		
+		           		
+		           		
+		           		
+		           		
+		           	<td><a href="javascript:newAddr();">确定</a></td></tr>
+		           		
+		           			</form>
+		           			
+		           			
+		           			</tbody>
+		           	
+		            </table>
+		        </div>
+				</div>	
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	function addAddr()
+	{
+		$('#newAddr_1').show();
+	}
+	function newAddr()
+	{
+		var info = $('#adfrom').serialize();
+		 
+		var url = '<{ofunc type=url link="/membercenter/addaddress/random"}>';
+		myajax(url,info);
+	}
+	function changeAddr(controlname,uid,obj)
+	{
+		 
+		var info = {'tijiao':'do',controlname:$(obj).val(),'addressid':uid,what:controlname};
+		var url = '<{ofunc type=url link="/membercenter/editaddress/random"}>';
+		 myajax(url,info);
+	}
+	function delAddr(uid){
+		if(confirm('确定操作吗？')){
+		var info = {'tijiao':'del','addressid':uid};
+		var url = '<{ofunc type=url link="/membercenter/deladdress/random"}>';
+		myajax(url,info);
+	 }
+	}
+	$(document).ready(function(){
+		<{if $area_grade > 1}>
+		$('#farea').trigger('change');
+		<{/if}>
+	});
+	
+	function nextarea(infoob){
+		var kk= $("#farea").find('option:selected').attr('data');  
+		 var url = '<{ofunc type=url link="/membercenter/getparentarea"}>';
+		 $('#sarea').html('');
+		 $.post(url, {areaid:kk},function (data, textStatus){ 
+		 	$('#sarea').append(data); 
+		 	<{if $area_grade > 2}>
+		         $('#sarea').trigger('change');
+		   <{/if}>
+			}, 'html');
+	}
+	function nextareab(){
+		var kk= $("#sarea").find('option:selected').attr('data');  
+		 var url = '<{ofunc type=url link="/membercenter/getparentarea"}>'; 
+		 $('#tarea').html('');
+		 $.post(url, {areaid:kk},function (data, textStatus){ 
+		 	$('#tarea').append(data); 
+			}, 'html');
+	}
+	 
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

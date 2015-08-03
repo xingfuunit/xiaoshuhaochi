@@ -1,0 +1,201 @@
+@charset "utf-8";
+#serverdiv{  
+	overflow:hidden;
+	/*background-color:#fff;*/
+	position: fixed;
+  top: 150px;
+  right:0px;
+  display: block;
+  font-size: 12px;
+text-align: right;
+line-height: 0px;
+font-size: 12px;
+font-weight: normal;
+  
+}
+#open_img_bg{
+	right:0px;
+	bottom:0px;
+	position:fixed;
+	width: 110px; 
+background-color: rgb(144, 218, 148);
+}
+#open_img_bg #open_img {
+height: 25px;
+width: 110px;
+background: url(../images/server/close_open.png) no-repeat -6px -64px;
+}
+
+#serverdiv li{
+	width:82px;
+	height:70px;
+	background-color: rgb(144, 218, 148);
+	margin-bottom:2px; 
+  line-height: 12px;
+  text-align:center;
+}
+#serverdiv li.nav_hover{
+	color: rgb(255, 255, 255);
+	background-color:#ffffff;
+	width:80px;
+	height:68px;
+	border:1px solid rgb(144, 218, 148);
+}
+
+#serverdiv .nav_a {
+text-decoration: none;
+color: #FFFFFF;
+position: relative;
+top: 53px;
+padding: 45px 13px 5px 15px;
+_padding: 50px 13px 5px 15px;
+_position: static;
+_top: 0px;
+cursor: pointer;
+}
+#serverdiv li.nav_hover .nav_a{
+	color: #333333;
+position: relative;
+top: 53px;
+_top: 0px;
+padding: 45px 13px 5px 15px;
+_padding: 50px 13px 5px 15px;
+text-decoration: none;
+cursor: pointer;
+}
+#serverdiv li#close_all{
+height:28px;
+background-color:transparent;
+opacity:1;
+}
+#serverdiv  #close_all.nav_hover{
+	border:none;
+}
+#serverdiv li .outserdiv{
+  display:none;
+}
+#serverdiv li.nav_hover .outserdiv{
+	padding-top:5px;
+	position: fixed;
+	right:82px;
+	width:100px;
+	 
+	z-index: 1000;
+	display:block;
+}
+#serverdiv li.nav_hover .outserdiv #serve_list{
+	border: 1px solid rgb(144, 218, 148);
+	width: 100px;
+	background-color:#fff;
+}
+#serverdiv .bgtitle {
+background: url(../images/server/titles.jpg) no-repeat -016px -008px;
+height: 22px;
+line-height: 22px;
+cursor: pointer;
+text-align: center;
+color:#000;
+}
+#serverdiv #bdshare{
+	margin: -5px 0 0 0;
+	position: fixed;
+	right:82px;
+	width:160px; 
+	text-align:left;
+}
+#serverdiv .bds_tools a {
+background: url(../images/server/icons_0_16.png) no-repeat;
+padding-top: 6px;
+padding-bottom: 3px;
+padding-left: 22px;
+}
+#bdshare a {
+height: 20px;
+line-height: 15px;
+text-decoration: none;
+color: #333333;
+}
+#serverdiv .bds_tools a.bds_qzone {
+background-position: 0 -52px;
+}
+#serverdiv .bds_tools a.bds_tsina {
+background-position: 0 -104px;
+}
+#serverdiv .bds_tools a.bds_tqq {
+background-position: 0 -260px;
+}
+#serverdiv .bds_tools a.bds_renren {
+background-position: 0 -208px;
+}
+#serverdiv .bds_tools a.bds_t163 {
+background-position: 0 -832px;
+}
+#serverdiv .bds_tools a.bds_baidu {
+background-position: 0 -2600px;
+}
+#serverdiv .bds_tools a.bds_mshare {
+background-position: 0 -2444px;
+}
+#serverdiv .bds_tools a.bds_kaixin001 {
+background-position: 0 -312px;
+}
+#serverdiv .bds_tools a.bds_douban {
+background-position: 0 -468px;
+}
+#serverdiv .bds_tools a.bds_hi {
+background-position: 0 -416px;
+}
+#serverdiv .bds_tools a.bds_tqf {
+background-position: 0 -364px;
+}
+#serverdiv .bds_tools a.bds_taobao {
+background-position: 0 -676px;
+}
+#serverdiv .bds_tools a.bds_tsohu {
+background-position: 0 -520px;
+}
+#serverdiv .bds_tools a.bds_qq {
+background-position: 0 -624px;
+}
+#serverdiv #a_product {
+background: url(../images/server/menu_img.png) no-repeat -11px -8px;
+}
+#serverdiv li.nav_hover #a_product{
+background: url(../images/server/menu_img.png) no-repeat -164px -8px;
+}
+#serverdiv #a_serve {
+background: url(../images/server/menu_img.png) no-repeat -14px -75px;
+}
+#serverdiv li.nav_hover #a_serve{
+background: url(../images/server/menu_img.png) no-repeat -164px -75px;
+}
+#serverdiv #a_share {
+background: url(../images/server/menu_img.png) no-repeat -20px -150px;
+}
+#serverdiv li.nav_hover #a_share{
+background: url(../images/server/menu_img.png) no-repeat -164px -150px;
+}
+#serverdiv #a_backtop {
+background: url(../images/server/menu_img.png) no-repeat -14px -228px;
+}
+#serverdiv li.nav_hover #a_backtop{
+background: url(../images/server/menu_img.png) no-repeat -165px -230px;
+}
+#serverdiv #a_qrcode {
+background: url(../images/server/collect.png) no-repeat -5px -5px;
+}
+#serverdiv li.nav_hover #a_qrcode{
+background: url(../images/server/collect.png) no-repeat -5px -78px;
+}
+#serverdiv #close_img {
+height: 22px;
+background: url(../images/server/close_open.png) no-repeat -13px -6px;
+width: 22px;
+}
+#serverdiv #close_img_bg {
+right: 0px;
+position: absolute;
+height: 22px;
+width: 22px;
+cursor: pointer;
+}

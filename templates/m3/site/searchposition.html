@@ -1,0 +1,8 @@
+<{if empty($list)}>
+<li style="background:#fff; height:55px; line-height:55px;"><a  style="background:#fff; height:55px; line-height:55px; font-size:16px; color:#333;" class="search_lm_item" tabindex="-1" href="#" ><span>此地点附近暂时没有外卖餐厅，努力覆盖中...</span></a></li>
+<{/if}>
+<{foreach from=$list item=items}> 
+   <li  style="background:#fff; height:55px; line-height:55px;"><a  style="background:#fff; height:55px; line-height:55px; font-size:16px; color:#333;" class="search_lm_item" tabindex="-1" href="<{ofunc type=url link="/site/setlocationlink/areaid/<{$items['id']}>"}>" lm_id="275">
+		<{$items['name']}><span style="font-size:10px;"></span>
+		</a></li>
+<{/foreach}> 

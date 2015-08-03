@@ -1,0 +1,95 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=sitetitle}>
+  会员中心
+  <{/block}> 
+  <{block name=extendcss}> <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberCenter.css"><{/block}>
+  <{block name=shophide}><{/block}>
+  <{block name=bgshow}><{/block}>
+  <{block name=bodylist}> 
+ 
+ <div class="box950 pad_tb_20" id="main" >
+	<div class="box150">
+	  <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/base.css"> 
+     <div class="title">
+     		<span class="colortip"></span><span class="title_name"><b><a href="<{ofunc type=url link="/member"}>">我的账户</a></b></span>
+      </div>
+     <div class="content"><!-- 左侧菜单 -->
+     		<ul class="navLeft1">
+       		 
+     				<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>资料管理</span><span class="arrow_bottom" id="cate-a1"></span></a>
+     				  <div class="navLeft2" id="a1" > 
+     				      <a class="gray_w" href="<{ofunc type=url link="/member/base"}>" id="cateId1"><p <{if $urlshort == 'member/base'}> class="navLeft1_cur"<{/if}> >基本资料</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/member/edituser"}>" id="cateId1"><p <{if $urlshort == 'member/edituser'}> class="navLeft1_cur"<{/if}> >修改资料</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/area/useraddress"}>" id="cateId1"><p <{if $urlshort == 'area/useraddress'}> class="navLeft1_cur"<{/if}> >配送资料</p></a>
+     				  </div>
+     				</li>	 
+     				<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>订单管理</span><span class="arrow_bottom" id="cate-a2"></span></a>
+     				  <div class="navLeft2" id="a2" > 
+     				      <a class="gray_w" href="<{ofunc type=url link="/order/usersorder"}>" id="cateId1"><p <{if $urlshort == 'order/usersorder'}> class="navLeft1_cur"<{/if}> >餐厅订单</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/order/usermorder"}>" id="cateId1"><p <{if $urlshort == 'order/usermorder'}> class="navLeft1_cur"<{/if}> >超市订单</p></a> 
+     				  </div>
+     				</li>	 
+     				<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>积分管理</span><span class="arrow_bottom" id="cate-a2"></span></a>
+     				  <div class="navLeft2" id="a2" > 
+     				      <a class="gray_w" href="<{ofunc type=url link="/member/jifenlog"}>" id="cateId1"><p <{if $urlshort == 'member/jifenlog'}> class="navLeft1_cur"<{/if}> >我的积分</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/gift/usergift"}>" id="cateId1"><p <{if $urlshort == 'gift/usergift'}> class="navLeft1_cur"<{/if}> >积分礼品</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/card/myjuan"}>" id="cateId1"><p <{if $urlshort == 'card/myjuan'}> class="navLeft1_cur"<{/if}> >我的优惠卷</p></a>
+     				  </div>
+     				</li>	
+     				<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>留言管理</span><span class="arrow_bottom" id="cate-a2"></span></a>
+     				  <div class="navLeft2" id="a2" > 
+     				      <a class="gray_w" href="<{ofunc type=url link="/order/waitpiont"}>" id="cateId1"><p <{if $urlshort == 'order/waitpiont'}> class="navLeft1_cur"<{/if}> >待点评订单</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/order/overpiont"}>" id="cateId1"><p <{if $urlshort == 'order/overpiont'}> class="navLeft1_cur"<{/if}> >我的点评</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/ask/pmessage"}>" id="cateId1"><p <{if $urlshort == 'ask/pmessage'}> class="navLeft1_cur"<{/if}> >我的私信</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/ask/myask"}>" id="cateId1"><p <{if $urlshort == 'ask/myask'}> class="navLeft1_cur"<{/if}> >我的留言</p></a> 
+     				  </div>
+     				</li>	
+     				<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>收藏管理</span><span class="arrow_bottom" id="cate-a2"></span></a>
+     				  <div class="navLeft2" id="a2" > 
+     				      <a class="gray_w" href="<{ofunc type=url link="/shop/collect"}>" id="cateId1"><p <{if $urlshort == 'shop/collect'}> class="navLeft1_cur"<{/if}> >我的收藏</p></a> 
+     				  </div>
+     				</li>	
+     				<{if $open_acout ==  1}>
+     				<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>充值管理</span><span class="arrow_bottom" id="cate-a2"></span></a>
+     				  <div class="navLeft2" id="a2" > 
+     				      <a class="gray_w" href="<{ofunc type=url link="/member/paylog"}>" id="cateId1"><p <{if $urlshort == 'member/paylog'}> class="navLeft1_cur"<{/if}> >帐号资金记录</p></a> 
+     				      <a class="gray_w" href="<{ofunc type=url link="/member/payoncard"}>" id="cateId1"><p <{if $urlshort == 'member/payoncard'}> class="navLeft1_cur"<{/if}> >我要充值</p></a> 
+     				   <!--    <a class="gray_w" href="<{ofunc type=url link="/member/onlinelog"}>" id="cateId1"><p <{if $urlshort == 'member/onlinelog'}> class="navLeft1_cur"<{/if}> >在线支付记录</p></a>   -->
+     				  </div>
+     				</li>	
+     				<{/if}>
+     					<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>店铺管理</span><span class="arrow_bottom" id="cate-a2"></span></a>
+     					 <div class="navLeft2" id="a2" > 
+     				<{load_data assign="checkinfo" table="shop" type="one" where="uid='<{$member['uid']}>' and is_pass='1' " fileds="*" }>
+     				<{if !empty($checkinfo)}> 
+     				      <a class="gray_w" href="<{ofunc type=url link="/shop/mangeshop/id/<{$checkinfo['id']}>"}>" id="cateId1"><p <{if $urlshort == 'shop/openshop'}> class="navLeft1_cur"<{/if}> target="_blank" >我的店铺</p></a> 
+     				<{else}> 
+     				        <a class="gray_w" href="<{ofunc type=url link="/shop/openshop"}>" id="cateId1"><p <{if $urlshort == 'shop/openshop'}> class="navLeft1_cur"<{/if}> >我要开店</p></a> 
+     				<{/if}> 
+     					  </div>
+     				</li>	
+     				
+     			</ul>
+     </div>
+	</div>
+ 
+	
+	 <{block name=membercenter}><{/block}> 
+
+
+ <script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+ </div>
+<{/block}>

@@ -1,0 +1,109 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>优惠券</b></span></p>
+								
+						</div><!--title end-->
+
+						<div class="mr-middle content"><!--mr-middle-->
+							<div class="user-addr m2-user-addr"><!--useraddr-->
+								  
+								<div class="addr-list m2-addr-list" id="addrInfos">
+									<table class="di_table">	
+									<tbody>
+									  <tr>       
+									    <th style="width:37%;">卡号</th>
+		                  <th style="width:16%;">有效截止时间</th>
+		                  <th style="width:10%;">优惠金额</th>
+		                  <th style="width:10%;">状态</th>
+		                  <th style="width:16%;">订单金额底线</th>
+									  </tr>	 
+									    <{load_data assign="list" table="juan" showpage="true"  fileds="*"  where="uid='<{$member['uid']}>'" }>
+									  <{foreach from=$list['list'] item=items}>
+		                   <tr class="my_addr" id="my_addr_<{$items.id}>"> 
+							              <td><{$items.name}></td>
+							              <td><{$items['endtime']|date_format:"%Y-%m-%d"}></td>
+							              <td><{$items['cost']}>元</td>
+							              <td><{if $items['status']==1}>未使用<{elseif $items['status']==2}>已使用<{else}><{/if}></td>
+							              <td><{$items['limitcost']}>元</td>
+							              
+		                  </tr>
+		               <{/foreach}>
+									</tbody>
+									</table>
+									<div class="clear"></div>
+									
+									<p style="float:left; color:#f60; margin:10px 0px 0px 165px;">	<a href="#add" style="color:#f60; " onclick="addAddr()" class="apanel">绑定优惠券</a></p>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+								 	</div>
+							 
+							</div><!--useraddr end-->
+
+							
+							</div><!-- m2-addr-modify end-->
+						</div><!--mr-middle end-->
+						
+						
+						
+						<div class="user-addr m2-addr-modify" id="createorupdate" style="display:none"><!--m2-addr-modify-->
+							   <form id="adfrom">
+								<div class=" m2-addr-title">
+									<ul>
+										<li class="c"><h3 class="" id="addModTitle">绑定优惠券</h3></li>
+									</ul>
+									<div class="clear"></div>
+								</div>
+
+								<div class="ms-addr-form"><!--ms-addr-form-->
+									<div class="field">
+										<label class="m2-field">卡号</label>
+										<input type="text" class="inputtext a1" name="card" id="card" >
+										<label class="tip right" id="cardlDiv"></label>
+									</div>
+									 
+									<div class="field">
+										<label class="m2-field">密码</label>
+										<input type="text" class="inputtext a1" id="password" name="password" >
+										<label class="tip" id="phonediv"></label>
+									</div>
+									 
+
+									 <div class="field Btns">
+									
+                                        <!--onclick="postAdrTab()"-->
+										<input type="button" value="保&nbsp;存" class="weight" id="saveAddr" onclick="newAddr();">
+									 <input type="hidden" name="addressid" value="">
+										
+									</div>
+									</form>
+								</div><!--ms-addr-form end-->
+								
+								
+								
+								
+								
+					</div><!--mc-right end-->
+				</div>
+<script>
+function addAddr()
+	{
+		$('#createorupdate').show(); 
+	}
+	
+	function newAddr()
+	{
+		var info = $('#adfrom').serialize();
+		 
+		var url = '<{ofunc type=url link="/card/exchangjuan/datatype/json"}>';
+		myajax(url,info);
+	}  
+</script>
+<{/block}>

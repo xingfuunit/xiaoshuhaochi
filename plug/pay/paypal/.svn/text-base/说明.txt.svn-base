@@ -1,0 +1,10 @@
+里面的内容都是使用的 模拟数据提交
+
+
+正式运行  将  pay.php里  https://www.sandbox.paypal.com/cgi-bin/webscr  修改   https://www.paypal.com/cgi-bin/webscr
+
+
+
+
+
+          将  notify_url.php  里   https://www.sandbox.paypal.com/cgi-bin/webscr  修改   https://www.paypal.com/cgi-bin/webscr

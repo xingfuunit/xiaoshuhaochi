@@ -1,0 +1,222 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberCenter.css"> 
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/json2.js"> </script>
+
+<div class="box950 pad_tb_20" id="main"><!--main-->
+			<div class="membercenter"><!--membercenter-->
+				<div class="mc-left box150"><!--mc-left-->
+					 <{include file="<{$tempdir}>/membercenter/usermenu.html"}> 
+	
+				</div><!--mc-left end-->			
+
+				<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>配送资料</b></span></p>
+						</div><!--title end-->
+
+						<div class="mr-middle content"><!--mr-middle-->
+							<div class="user-addr m2-user-addr"><!--useraddr-->
+								<div class="addr-title m2-addr-title">
+									<ul>
+										<li class="c"><h3 class="addborder">已保存的配送资料</h3></li>
+										<li class="a"><a href="#add" onclick="addAddr()" class="apanel">新增配送资料</a></li>
+									</ul>
+									<div class="clear"></div>
+								</div> 
+								<div class="addr-list m2-addr-list" id="addrInfos">
+									<table>	
+									<tbody>
+									  <tr>       
+									   <th class="alist1">客户姓名</th>       
+									   <th class="alist2">所属城市</th>      
+									   <th class="alist3">配送地址</th>		
+									   <th class="alist4">手机号码</th>		
+									   <th class="alist5">操作</th>		
+									   <th class="alist6">快速入口</th>	
+									  </tr>	 
+									  <{foreach from=$list item=items}>
+									  <tr>		
+									  	<td><{$items['contactname']}></td>		
+									  	<td><{$areatoname[$items['areaid1']]}><{$areatoname[$items['areaid2']]}><br><{$areatoname[$items['areaid3']]}></td>		
+									  	<td><{$items['address']}></td>		
+									  	<td><{$items['phone']}></td>		
+									  	<td>
+									  		  <a href="#add" id="edit_<{$items['id']}>" onclick="editaddress(this);" class="apanel" data='<{$items|@json_encode}>'>修改</a> 
+									  		| <a href="javascript:void(0)" class="apanel" onclick="delAddrs('363668')">删除</a> 
+									  	| <{if $items['default'] == 1}><span class="money">默认</span><{else}><a class="apanel" onclick="changeAddr(<{$items['id']}>);">设置默认</a><{/if}>
+									  	</td>		
+									  	<td>
+									  		<a href="javascript:void(0)" onclick="gotoaddr('363668','D','120160162','30265680')" class="apanel">以此地址点餐</a>
+									  	</td>	
+									  </tr>
+									  <{/foreach}>
+									</tbody>
+									</table>
+								</div>
+								<p class="m2-addr-list-foot">最多保存<{$addresslimit}>条配送资料</p>
+							</div><!--useraddr end-->
+
+							<div class="user-addr m2-addr-modify" id="createorupdate" style="display:none"><!--m2-addr-modify-->
+							   <form id="adfrom">
+								<div class="addr-title m2-addr-title">
+									<ul>
+										<li class="c"><h3 class="addborder" id="addModTitle">新增配送资料</h3></li>
+									</ul>
+									<div class="clear"></div>
+								</div>
+
+								<div class="ms-addr-form"><!--ms-addr-form-->
+									<div class="field">
+										<label class="m2-field">客户姓名</label>
+										<input type="text" class="inputtext a1" name="contactname" id="contact" onblur="name_verify_onblur(this)">
+										<label class="tip right" id="contactDetailDiv"></label>
+									</div>
+									<div class="field">
+										<label class="m2-field">美女帅哥</label>
+										<input class="check" name="sex" id="female" type="radio" value="1" checked="">&nbsp;美女
+										<input class="check" name="sex" id="male" type="radio" value="0">&nbsp;帅哥
+										<label class="tip"></label>
+									</div>
+									<div class="field">
+										<label class="m2-field">手机号码</label>
+										<input type="text" class="inputtext a2" id="phone" name="phone" onblur="phone_verify_onblur(this)">
+										<label class="tip" id="phonediv"></label>
+									</div>
+									<div class="field">
+										<label class="m2-field">区域</label>
+									   <select name="farea" id="farea" style="height:30px;width:75px;overflow:hidden;" <{if $area_grade >  1 }>onchange="nextarea();"<{/if}>>
+		           		  	<{foreach from=$arealist item=items}>
+		           		  	    <option value="<{$items['id']}>" data="<{$items['id']}>"><{$items['name']}></option>	
+		           		  	 <{/foreach}> 
+		           		   </select> 
+		              </div>
+		              <div  class="field" id="sareadiv" <{if $area_grade < 2 }> style="display:none;" <{/if}>>
+		              	<label class="m2-field">区域</label>
+		           		   <select name="sarea" id="sarea"   <{if $area_grade >  2 }>onchange="nextareab();"<{/if}>>
+		           		   	
+		           		   </select> 
+		           	  </div>
+		           	  <div class="field" id="tareadiv" <{if $area_grade < 3 }> style="display:none;" <{/if}>>
+		           	  	<label class="m2-field">区域</label>
+		           		      <select name="tarea" id="tarea"  >
+		           		   	
+		           		     </select> 
+		           		</div>  
+								 
+									<div class="field">
+										<label class="m2-field">配送地址</label>
+										<textarea name="add_new" cols="" rows="2" class="inputarea" id="position"></textarea>
+                                        <span class="checkA" id="checkA">点击识别位置坐标</span>
+										<label class="tip" id="addressTip">
+										示例：22号楼312室
+                                        </label>
+									</div>
+
+								   
+
+									 <div class="field Btns">
+									
+                                        <!--onclick="postAdrTab()"-->
+										<input type="button" value="保&nbsp;存" class="weight" id="saveAddr" onclick="newAddr();">
+									 <input type="hidden" name="addressid" value="">
+										
+									</div>
+									</form>
+								</div><!--ms-addr-form end-->
+							</div><!-- m2-addr-modify end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end-->
+				</div><!--manageBox end-->
+			</div><!--membercenter end-->                   
+		</div>
+ 
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		var showaddressid = '<{$addressid}>';
+		if(showaddressid > 0){
+		   $('#edit_'+showaddressid).trigger('click');
+	   }
+	});
+	function addAddr()
+	{
+		$('#createorupdate').show();
+		$('#addModTitle').text('新增配送资料');
+		 defaultid = '';
+		 $('#farea').trigger('change');
+		 initfrom(false);
+	}
+	function newAddr()
+	{
+		var info = $('#adfrom').serialize();
+		 
+		var url = '<{ofunc type=url link="/membercenter/addaddress/random"}>';
+		myajax(url,info);
+	}
+	function changeAddr(uid)
+	{
+		 
+		var info = {'tijiao':'do','default':'1','addressid':uid,'what':'default'};
+		var url = '<{ofunc type=url link="/membercenter/editaddress/random"}>';
+		 myajax(url,info);
+	}
+	function delAddr(uid){
+		if(confirm('确定操作吗？')){
+		var info = {'tijiao':'del','addressid':uid};
+		var url = '<{ofunc type=url link="/membercenter/deladdress/random"}>';
+		myajax(url,info);
+	 }
+	}
+	function editaddress(obj){
+		$('#addModTitle').text('修改配送资料');
+			$('#createorupdate').show();
+			var tempinfo = $(obj).attr('data'); 
+      tempinfo = strToJson(tempinfo); 
+      defaultid = tempinfo.areaid1+','+tempinfo.areaid2+','+tempinfo.areaid3;
+      $("#farea").val(tempinfo.areaid1)
+      $('#farea').trigger('change'); 
+      initfrom(tempinfo);
+	}
+	function initfrom(jsondata){
+		$("input[name='contactname']").val(jsondata.contactname);
+		$("input[name='phone']").val(jsondata.phone);
+		if(jsondata.sex == 1){
+			$('#female').attr('checked',true);
+		}else{
+			$('#male').attr('checked',true);
+		}
+		$('textarea[name="add_new"]').val(jsondata.address);
+		$('input[name="addressid"]').val(jsondata.id); 
+	}
+	var defaultid = '';
+	$(document).ready(function(){
+		<{if $area_grade > 1}>
+		$('#farea').trigger('change');
+		<{/if}>
+	});
+	
+	function nextarea(infoob){ 
+		var kk= $("#farea").find('option:selected').attr('data');  
+		 var url = '<{ofunc type=url link="/membercenter/getparentarea"}>';
+		 $('#sarea').html('');
+		 $.post(url, {areaid:kk,defaultid:defaultid},function (data, textStatus){ 
+		 	$('#sarea').append(data); 
+		 	<{if $area_grade > 2}>
+		         $('#sarea').trigger('change');
+		   <{/if}>
+			}, 'html');
+	}
+	function nextareab(){
+		var kk= $("#sarea").find('option:selected').attr('data');  
+		 var url = '<{ofunc type=url link="/membercenter/getparentarea"}>'; 
+		 $('#tarea').html('');
+		 $.post(url, {areaid:kk,defaultid:defaultid},function (data, textStatus){ 
+		 	$('#tarea').append(data); 
+			}, 'html');
+	} 
+ function strToJson(str){ 
+  return JSON.parse(str); 
+  }
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

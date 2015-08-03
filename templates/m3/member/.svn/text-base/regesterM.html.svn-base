@@ -1,0 +1,151 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+ <{block name=sitetitle}>用户注册<{/block}>
+ <{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberlogin.css"><{/block}>
+  <{block name=extendjs}><script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/regestercode.js" type="text/javascript" language="javascript"></script> <{/block}>
+ <{block name=shophide}><{/block}>
+ <{block name=bgshow}><div class="mmbg" style="background:url(../upload/images/regesterbk.jpg) no-repeat;"></div> <{/block}>
+ <{block name=bodylist}> 
+ 
+ <div class="reg_conten_15">
+  <div class="cont3_15">
+  <form id="regForm" method="post" action="<{ofunc type=url link="/member/saveregester/datatype/json"}>">
+     <div class="left01">
+	   <div style=" margin-bottom:10px;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/regester_top.png" /></div>
+	   <ul class="ul01">
+	   
+		 <li>
+		  <dl>
+		    <dt>邮箱</dt>
+			<dd><input placeholder="邮箱/用于找回密码（必填）" type="text" name="email"  class="input1" value=""/></dd>
+		  </dl>
+		 </li>
+         <li>
+		  <dl>
+		    <dt>账号</dt>
+			<dd><input placeholder="账号" type="text" name="tname" class="input1" value=""/></dd>
+		  </dl>
+		 </li>
+          <li>
+		  <dl>
+		    <dt>手机号码</dt>
+			<dd><input placeholder="手机号码"  name="phone" type="text"  class="input1" value="" /></dd>
+		  </dl>
+		 </li>
+          
+		 <li>
+		  <dl>
+		    <dt>密码</dt>
+			<dd><input placeholder="密码" type="password" name="pwd"  class="input1" value=""/></dd>
+		  </dl>
+		 </li>
+		 <li>
+		  <dl>
+		    <dt>重复密码</dt>
+			<dd><input placeholder="重复密码" name="pwd2" type="password"  class="input1" value=""/></dd>
+		  </dl>
+		 </li>
+          <{if $allowedcode == 1}>
+		 <li style="margin-bottom:20px">
+		  <dl>
+		    <dt>验证码</dt>
+			<dd><input  placeholder="验证码" name="Captcha"  class="input1 input2" value=""/><img src="<{ofunc type=url link="/site/getCaptcha"}>"   id="captchaimg" /><span class="span1"><a href="javascript:freshcode();">换一张</a></span></dd>
+		  </dl>
+		 </li>
+         <{/if}>
+		  <li style="margin-top:20px">
+		  <dl>
+		    <dt style="background:none">&nbsp;</dt>
+            <input name="tijiao" type="hidden" value="do"> 
+			<dd><input name="" type="button" class="input3 login-button" value=""/></dd>
+            
+		  </dl>
+		 </li>
+		 <li><span style="padding-left:81px"><label class="checkbox" style="margin-left: 16px;">
+					      <input name="reg[agree]" type="checkbox" checked="" disabled> 我接受<a target="_blank" href="<{ofunc type=url link="/single/xieyi"}>"><{$sitename}>服务协议</a>	
+					    </label></span></li>
+	   </ul>
+	 </div>
+     
+   </form>
+   
+   
+   <script type="text/javascript">
+
+$('.login-button').click(function(){ 
+
+	subform('<{ofunc type=url link="/member/base"}>',$('#regForm'));
+})
+$(".input1").change(function(j){
+	
+		var v=$(this).val();
+		var p=$(this).attr("name"); 
+		switch(p){
+		case "email":
+			var patrn= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if(!patrn.exec(v)){ 
+				 alert('邮箱格式错误'); 
+			}else{ 
+				$.ajax({
+				type: "POST",
+				url: "<{ofunc type=url link="/member/checkemail/datatype/json"}>",
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){     
+					if(msg.error ==true){ 
+						$('[name="email"]').val('');
+						alert(msg.msg);
+					 } 
+					}
+				});				
+			}
+		break;
+		case "tname":
+		 	var patrn=/[u4e00-u9fa5]/;  
+			if(v == '' ||v == null){
+			  alert('账号不能为空'); 
+			}else{
+					$.ajax({
+				type: "POST",
+				url: "<{ofunc type=url link="/member/checkname/datatype/json"}>",
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){ 
+					if(msg.error==true){ 
+						$('[name="tname"]').val('');
+						alert(msg.msg);
+					  //alert('此用户名已注册过'); 
+					 }
+					}
+				});	
+			}
+		break;
+		case "phone":
+			var patrn= /(.){4,16}/;
+			if(!patrn.exec(v)){ 
+				 alert('手机格式错误'); 
+			}
+		break; 
+		case "pwd":
+			var patrn=/(.){4,16}/;  
+			if(!patrn.exec(v)){
+				 alert('密码是4-16位的字母、数字,区分大小写');  
+			 } 
+		break;
+		}
+	});
+
+</script>
+	 <div class="rihgt01">
+	   <h1>已有<{$sitename}>账号</h1>
+	   <div class="div1"><a href="<{ofunc type=url link="/member/login"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/img/reg_r9_c17.jpg" /></a></div>
+       <!--
+	   <h2>你可以使用以下账号登陆</h2>
+	   <h4 style="width:300px;"> 
+       <{foreach from=$apiloginlist item=items}>
+						     <a href="<{ofunc type=url link="/member/linktest/logintype/<{$items['loginname']}>"}>" target="_blank"><img src="<{$items['logourl']}>"></a> 
+						<{/foreach}></h4>-->
+	 </div> 
+  </div>
+</div> 
+  
+<{/block}>

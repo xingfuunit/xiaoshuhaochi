@@ -1,0 +1,207 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/membercenter.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+						<{if empty($orderinfo)}>
+						订单获取失败或者订单不属于您
+						<{else}>
+					<table class="table table-bordered" width=100%>
+						
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr>
+		                 <th style="width:18%">订单号</th>
+		                  <th style="width:10%;">总价</th>
+		                  <th style="width:23%;">下单时间</th>
+		                  <th style="width:18%;">备注</th>
+		                  <th style="width:14%;">状态</th> 
+		                </tr>
+		              </thead>
+		              <tbody>
+		          
+		        <tr id="order_<{$orderinfo['id']}>">
+						<td><{$orderinfo['dno']}></td>
+							<td><{$orderinfo['allcost']}></td>
+							<td><{$orderinfo['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+							<td><{$orderinfo['content']}></td>
+							<td>
+							     <div><{$buyerstatus[$orderinfo['status']]}></div>
+						  </td>
+							 
+						</tr>  
+						<tr id="orderdet_<{$items['id']}>" >
+						<td colspan="5"> 
+							<table style="width:700px;border:1px solid #ccc;">
+								<tr>
+									<td>店铺名称：</td> <td><{$orderinfo['shopname']}></td><td>店铺电话：</td><td><{$orderinfo['shopphone']}></td><td>配送费用：</td><td><{$orderinfo['sendcost']}></td>
+									</tr> 
+									<tr>
+									<td>支付方式：</td> <td><{$paytypearr[$items['paytype']]}></td><td>支付状态：</td><td><{if $items['paystatus']==1}>已支付<{else}>未支付<{/if}></td><td>订单总费用：</td><td><{$items['allcost']}></td>
+									</tr> 
+								<tr>
+										<td >我的信息：</td> <td colspan="5"><{$orderinfo['buyername']}>,<{$orderinfo['buyeraddress']}>,<{$orderinfo['buyerphone']}></td>
+								</tr>
+							</table> 
+						</td> 
+						</tr>  
+					  <tr style="background:#eee;">
+					     <td colspan="5" style="text-align: left;">订单详情 </td> 
+						</tr>  
+						 <{foreach from=$orderdet item=items}>  
+						 <tr>    
+						  <td colspan="2" style="text-align: left;">
+						  	 <div>名称:<{$items['goodsname']}></div>
+						  	 <div>数量:<{$items['goodscount']}>份</div>
+						  	 <div>单价:<{$items['goodscost']}>元</div>
+						  	</td>
+						  	<td colspan="3" style="text-align: left;">
+						  	<{if $orderinfo['status'] == 2}>
+						  	     <{if $items['status'] == 0}>
+						  	  <form method="post" name="form1" action="<{ofunc type=url link="/membercenter/saveping"}>" onsubmit="return subform('',this);">
+						  		    <input type="hidden" value="<{$items['id']}>" name="orderdetid">
+						  		   <div>评分：
+						  		   	<input type="radio" value="1" name="point">1分
+						  		   	<input type="radio" value="2" name="point">2分
+						  		   	<input type="radio" value="3" name="point">3分
+						  		   	<input type="radio" value="4" name="point">4分
+						  		   	<input type="radio" value="5" name="point" checked >5分
+						  		   </div>
+						  		   <div>评论：
+						  		         <textarea name="pointcontent" style="height:50px;width:200px;"></textarea>
+						  		  </div>
+						  		  <div>
+						  		  	<input type="submit" class="btn_wuxiao hc_listfoods_menus_foods"  style="border:none;margin-left:50px;" value="提交">
+						  		  </div>
+						  	</form>
+						  	    <{else}>
+						  		  <div>评分：<{$items['point']}></div>
+						  	    <div>评论：<{$items['pingcontent']}></div>
+						  	    <div>时间：<{$items['pingtime']|date_format:"%Y-%m-%d %H:%M:%S"}></div>
+						         <{/if}>
+						  	<{elseif $orderinfo['status'] == 3}>
+						  	 <{if $items['status'] == 0}>
+						  	  <form method="post" name="form1" action="<{ofunc type=url link="/membercenter/saveping"}>" onsubmit="return subform('',this);">
+						  		    <input type="hidden" value="<{$items['id']}>" name="orderdetid">
+						  		   <div>评分：
+						  		   	<input type="radio" value="1" name="point">1分
+						  		   	<input type="radio" value="2" name="point">2分
+						  		   	<input type="radio" value="3" name="point">3分
+						  		   	<input type="radio" value="4" name="point">4分
+						  		   	<input type="radio" value="5" name="point" checked >5分
+						  		   </div>
+						  		   <div>评论：
+						  		         <textarea name="pointcontent" style="height:50px;width:200px;"></textarea>
+						  		  </div>
+						  		  <div>
+						  		  	<input type="submit" class="btn_wuxiao hc_listfoods_menus_foods"  style="border:none;margin-left:50px;" value="提交">
+						  		  </div>
+						  	</form>
+						  	    <{else}>
+						  		  <div>评分：<{$items['point']}></div>
+						  	    <div>评论：<{$items['pingcontent']}></div>
+						  	    <div>时间：<{$items['pingtime']|date_format:"%Y-%m-%d %H:%M:%S"}></div>
+						         <{/if}>
+						  	<{else}>
+						  	<{/if}>
+						  	</td> 
+						</tr>  
+					  <{/foreach}>
+						
+						
+							    </tbody>
+		            </table>
+		          <{/if}>
+		        </div> 
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	function addAddr()
+	{
+		$('#newAddr_1').show();
+	}
+	function getOrderDetail(obj)
+	{ 
+		var showtext = $(obj).text();
+		if(showtext == '详细')
+		{
+		  var findobj = $('#orderDetail_'+$(obj).attr('data'));
+		  if($(findobj).html() == undefined)
+		  {
+	        var info = {'orderid':$(obj).attr('data')};
+	      	var backmes =   ajaxback('<{ofunc type=url link="/membercenter/orderdet"}>',info); 
+	      	if(backmes.flag == false)
+	      	{
+	      	 
+	      		var showcent = '<tr id="orderDetail_'+$(obj).attr('data')+'">';
+	      				showcent += '<td colspan="6">';
+	      			  showcent += '<table style="width:700px;border:1px solid #ccc;">';
+	      				showcent += '<tbody><tr style="border:1px solid #ccc;"><td height=37px>名称</td><td>价格</td>';
+	      				showcent += '<td>数量</td><td>操作</td></tr>'; //after() 
+	      				$.each(backmes.content,function(i,field){
+	      					var biaoqian = '';
+	      				  
+	      			   	if(field.is_send == 1){
+	      			   	 biaoqian ='<font color=red>[赠]</font>';
+	      			   	}
+                  showcent += '<tr id="food_tr_3245"><td height=37px>'+field.goodsname+biaoqian+'</td><td>'+field.goodscost+'</td><td>'+field.goodscount+'</td><td></td></tr>';
+                })
+	      				showcent += '</tbody></table></td></tr>';
+	      				$('#orderdet_'+$(obj).attr('data')).after(showcent);
+	      				var newheigt = $('#orderDetail_'+$(obj).attr('data')).css('height');
+	      				 newheigt = newheigt.split('px');
+	                newheigt = newheigt[0];
+	      				autoaddheight(newheigt);
+	      				$('#orderdet_'+$(obj).attr('data')).show();
+	      				$(obj).text('收起');
+	      			// autosize();
+	      	    // alert(backmes.content);
+	      	}else{
+	      		diaerror(backmes.content); 
+	      	} 
+	      }else{
+	      	var newheigt = $('#orderDetail_'+$(obj).attr('data')).css('height');
+	      				 newheigt = newheigt.split('px');
+	                newheigt = newheigt[0];
+	      				autoaddheight(newheigt);
+	      				$('#orderdet_'+$(obj).attr('data')).show();
+	      	$(obj).text('收起');
+	      	$(findobj).show();
+	      	
+	      }
+	  }else{
+	  	var newheigt = $('#orderDetail_'+$(obj).attr('data')).css('height');
+	      				 newheigt = newheigt.split('px');
+	                newheigt = newheigt[0];
+	      				autoaddheight(-newheigt);
+	  	$('#orderDetail_'+$(obj).attr('data')).hide();
+	  	$('#orderdet_'+$(obj).attr('data')).hide();
+	  	$(obj).text('详细');
+	  }
+		
+	}
+	function unorder(orderid)
+	{
+		if(confirm('确定取消订单吗？')){
+		   myajax('<{ofunc type=url link="/membercenter/unorder"}>',{'orderid':orderid});
+		}
+	}
+	function delorder(orderid)
+	{
+		if(confirm('确定删除订单吗？')){
+		   myajax('<{ofunc type=url link="/membercenter/delorder"}>',{'orderid':orderid});
+		}
+	}
+	 
+	 
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

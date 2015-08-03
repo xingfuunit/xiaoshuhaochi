@@ -1,0 +1,666 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=extendcss}><!-- <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shouye.css">  -->
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/food_menu.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/floor.css"> <{/block}>
+
+<{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/v5_plugin.js.pagespeed.jm.inM6bedmF7.js"></script>
+
+
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script> 
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/slides.jquery.js"> </script>
+ <script>
+	$(function(){
+			$('#bannerBox').slides({
+				preload: true,
+				preloadImage: '/upload/images/shop/loading.gif',
+				play: 5000,
+				pause: 2500,
+				hoverPause: true,
+				generatePagination:false
+			});
+		});
+
+</script>
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+ 
+  
+ 
+ <script>$(window).load(function(){$('#v3Slider').focusImg();});</script>
+<div class="n_slider" id="v3Slider"> 
+	 <ul class="imgList" >
+      <{load_data assign="lunbo" table="adv"    fileds="*"  limit="5" where="advtype='lunbo' and  module='<{$sitetemp}>'"}>  
+							<{foreach from=$lunbo['list'] item=items}>
+        <li style="background-image: url(<{$items['img']}>); z-index: 1; opacity: 0;">
+             <p><a target="_blank" href="<{$items['linkurl']}>"></a></p>
+        </li>     
+     <{/foreach}> 
+   </ul>
+   
+</div>   
+   
+
+
+ 
+
+ 
+ <div class="wrapper"> 
+ <div class="learn"> 
+	      <h1> <a href="<{ofunc type=url link="/news/15"}>" style="color:#fff;">订餐流程</a></h1>
+		  <dl class="dl1">
+          
+		     <dt>订餐流程<a href="<{ofunc type=url link="/news/1"}>" target="_blank">  <span style="margin-left:80px; color:#fff;">&gt;&gt;</span></a></dt>
+             <{load_data assign="list" table="news" where="typeid = 8"  fileds="*"   limit="6"}> 
+             <{foreach from=$list['list'] item=items}>
+             	 <dd><a href="<{ofunc type=url link="/site/news/id/<{$items['id']}>"}>"><{$items['title']}></a><span><{$items['addtime']|date_format:"%Y-%m-%d"}></span></dd>
+             <{/foreach}> 
+              
+		  </dl>
+		  <div class="bot01">
+		    <a title="新浪微博" href="#"></a><a title="QQ微博" href="#"></a><a title="微信" href="#"></a>
+		  </div>
+	   </div> 
+</div> 
+ <script>
+ 	$(function(){ 
+ 		$('#box3').show();
+ 	}); 
+ 	</script>
+<!--区域店铺-->
+<div class="wrapper"> 
+
+
+
+ 	
+ 	
+ 	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+		<h2 class="index-floor-title"><i class="yule"></i><a class="yule" href="javascript:void(0);" cate="<{$mykey}>">推荐商家</a></h2>
+		
+		<div class="floor-warp">
+		
+			<div class="floor-content" style="max-height:504px; overflow:hidden;">
+				
+				<div class="floor-con0 floor-con-show">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['is_recom'] == 1 }>
+					 <div class="floor-goods">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3>
+						  	<a class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['limitstro']}>"><{$items['limitstro']}></a>
+						  </h3>
+						  <div class="floor-goods-info">
+							        <span class="price"><em>起送</em><{$items['limitcost']}>元</span>
+							                   <span class="money"><del></del></span>
+																<span class="number">已评论<i><{$items['pointcount']}></i>次</span> 
+						   </div>
+					</div>
+					<{/if}>
+				<{/foreach}>	
+					
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+	
+ 	
+ 	  
+	<!---循环体-->
+ 	
+ 	
+ 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+		<h2 class="index-floor-title"><i class="yule"></i><a class="yule" href="javascript:void(0);" cate="<{$mykey}>">营业商家</a></h2>
+		
+		<div class="floor-warp">
+		
+			<div class="floor-content" style=" height:auto;">
+				
+				<div class="floor-con0 floor-con-show">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				
+				<{if $items['opentype'] == 2 }>
+					 <div class="floor-goods">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3>
+						  	<a class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['limitstro']}>"><{$items['limitstro']}></a>
+						  </h3>
+						  <div class="floor-goods-info">
+							         <span class="price"><em>起送</em><{$items['limitcost']}>元</span>
+							                   <span class="money"><del></del></span>
+																<span class="number">已评论<i><{$items['pointcount']}></i>次</span>
+						   </div>
+					</div>
+				<{/if}>
+				<{/foreach}>	
+					
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+	
+	
+	
+	 	
+ 	<div style="clear:both;"></div>
+	
+	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+		<h2 class="index-floor-title"><i class="yule"></i><a class="yule" href="javascript:void(0);" cate="<{$mykey}>">打烊商家</a></h2>
+		
+		<div class="floor-warp">
+		
+			<div class="floor-content"  style=" height:auto;">
+				
+				<div class="floor-con0 floor-con-show">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['opentype'] != 2 }>
+					 <div class="floor-goods">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3>
+						  	<a class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['limitstro']}>"><{$items['limitstro']}></a>
+						  </h3>
+						  <div class="floor-goods-info">
+							        <span class="price"><em>起送</em><{$items['limitcost']}>元</span>
+							                   <span class="money"><del></del></span>
+															<span class="number">已评论<i><{$items['pointcount']}></i>次</span>
+						   </div>
+					</div>
+					<{/if}>
+				<{/foreach}>	
+					
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+ 	
+ 	
+ 	
+ 	 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	
+</div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+		
+<script type="text/javascript">
+  $(function(){
+		var lng = '<{$lng}>';
+		
+		if(lng == 0 ){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	});$(document).ready(function(){
+	var newCell = $('#shopList').html();
+	$('#shopList2').append($(newCell));
+	$('#shopList2 .menu-list-box').mouseenter(function(){
+		$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+		$(this).find('.fav_font_div').show();
+		$(".cuSelBox2").removeClass("cuSelBox2");
+		$(this).addClass("cuSelBox2");
+		$(this).find('.hc_shop_list_box .hcl_collection_btn').find('.hcl_collection_btn').addClass('hcl_collection_btn_hover');
+		var item = $(this);
+		setTimeout(function(){show_shop_view2(item);},500);
+	});
+	$('#shopList2 .menu-list-box').mouseleave(function(){	
+		$(this).removeClass("cuSelBox2");	
+		$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+		$(this).find('.fav_font_div').hide();
+		$(this).find('.hc_shop_list_box .hcl_collection_btn').find('.hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+		hide_shop_view2($(this));
+	});
+
+	shopheight();
+})
+function shopheight(){
+	var numshopli = $('#shopList li').length;
+	var numa = Math.ceil(numshopli/4); 
+	$('#shopList').css('height',Number(numa)*170);
+	numshopli = $('#shopList2 li').length;
+	 numa = Math.ceil(numshopli/4);
+	$('#shopList2').css('height',Number(numa)*170);
+}
+/*
+$('#shopList .menu-list-box').mouseenter(function(){
+	$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+	$(this).find('.fav_font_div').show();
+	$(this).find('.hc_shop_list_box .hcl_collection_btn').addClass('hcl_collection_btn_hover');
+	$(".cuSelBox").removeClass("cuSelBox");
+	$(this).addClass("cuSelBox");
+	var item = $(this);
+	setTimeout(function(){show_shop_view1(item);},500);
+});
+
+
+$('#shopList .menu-list-box').mouseleave(function(){
+	$(this).removeClass("cuSelBox");
+	$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+	$(this).find('.fav_font_div').hide();
+	$(this).find('.hc_shop_list_box .hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+	hide_shop_view1($(this));
+});
+*/
+$('#shopList .menu-list-box .hc_shop_list_box_img_div').mouseenter(function(){ 
+	var doobj = $('#menu-list-box_'+$(this).attr('shop_id'));
+	$(doobj).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+	$(doobj).find('.fav_font_div').show();
+	$(doobj).find('.hc_shop_list_box .hcl_collection_btn').addClass('hcl_collection_btn_hover');
+	$(".cuSelBox").removeClass("cuSelBox");
+	$(doobj).addClass("cuSelBox");
+	var item=$(this);
+		setTimeout(function(){show_shop_view1(item);},500);
+});
+$('#shopList .menu-list-box .hc_shop_list_box_img_div').mouseleave(function(){
+		var doobj = $('#menu-list-box_'+$(this).attr('shop_id'));
+	$(doobj).removeClass("cuSelBox");
+	$(doobj).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+	$(doobj).find('.fav_font_div').hide();
+	$(doobj).find('.hc_shop_list_box .hcl_collection_btn').removeClass('hcl_collection_btn_hover');
+	hide_shop_view1($(doobj));
+});
+$('#shopList .hc_shop_list_div').mouseleave(function(){
+	$('#shopList .hc_shop_list_div .shopview_div').hide();
+});
+
+$('#shopList2 .hc_shop_list_div').mouseleave(function(){
+	$('#shopList2 .hc_shop_list_div .shopview_div').hide();
+});
+
+function show_shop_view1(obj) {	
+	var shop_id = $(obj).attr('shop_id');
+	var cur_shop_id = $(".cuSelBox").attr('shop_id'); 
+	if (shop_id != cur_shop_id) {
+		return;
+	}
+	 
+	var offset = $(obj).offset();
+	//$(obj).addClass('blurborder');
+	var windowWidth = $(window).width();
+	var windowHeight = $(window).height();
+
+	var shopviewHeight = $('#shopList #shopview_div_'+shop_id).height();
+
+	 $('#shopList .shopview_div').hide();
+	 $('#shopList .shopview_div .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_left').removeClass('hc_popups_sanjiao_right').addClass('hc_popups_sanjiao_top'); 
+	 if(windowWidth-offset.left > 600)
+	 {
+		 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_left');
+		 $('#shopList #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left+100);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+	 else
+	 {
+		 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_right');
+		 $('#shopList #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left-350);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 } 
+
+	 $('#shopList #shopview_div_'+shop_id).show();
+	
+	if($('#shopList #ShopView_'+shop_id).length == 0) {
+	 
+		 var url = '<{ofunc type=url link="/site/ajaxshopinfo"}>'; 
+		 $('#shopList .loading').show();
+		 $.post(url, {shop_id:shop_id},function (data, textStatus){ 
+			 if($('#shopList #ShopView_'+shop_id).length == 0) {
+				 $('#shopList .loading').hide();
+			 	 $('#shopList #shopview_div_'+shop_id).append(data);
+			 	show_shop_view1(obj);
+			 }
+			}, 'html');
+			 
+	}
+}
+
+function hide_shop_view1(obj) {
+	$('#shopList .shopview_div').hide();
+	var shop_id = $(obj).attr('shopid');
+	$('#shopList #shopview_div_'+shop_id).hide();
+}
+
+$('.menu-xuanze-img').click(function(){
+	fenweiChange($(this));
+});
+
+function fenweiChange(obj){
+	$('.menu-xuanze-img').removeClass('hc_changes_menu_div_active_hover');
+
+	$(obj).addClass('hc_changes_menu_div_active_hover');
+
+	updateFengwei();
+}
+
+function updateFengwei()
+{
+	$('#all').removeClass('hc_changes_menu_div_active_hover');
+	
+	$('#shopList .menu-list-box').each(function(i){
+		$(this).hide();
+	});
+
+	var qisongjia = $('#qisongjia').attr('qisongjia_val');
+	
+	var bool = false;
+
+	var selected_style_id = '';
+
+	$('.menu-xuanze-img').each(function(i){
+		var style_id = $(this).attr('style_id');
+		
+		if($(this).hasClass('hc_changes_menu_div_active_hover'))
+		{
+			selected_style_id = style_id;
+			bool = true;
+			
+			$('#shopList .menu-list-box').each(function(j){
+				var fengwei_id = $(this).attr('fengwei_id').split(',');
+				var my_qisongjia = $(this).attr('qisongjia');
+				
+				if(in_array(style_id,fengwei_id))
+				{
+					if(qisongjia == 4){
+						$(this).show();
+					}
+					else
+					{
+						if(parseInt(my_qisongjia)<=qisongjia)
+						{
+							$(this).show();
+						}
+						else
+						{
+							$(this).hide();
+						}
+					}
+				}
+			})
+		}
+		else
+		{
+			$('#shopList .menu-list-box').each(function(j){
+				var fengwei_id = $(this).attr('fengwei_id').split(',');
+				if(!in_array(selected_style_id,fengwei_id))
+				{
+					$(this).hide();
+				}
+			})
+		}
+	})
+	if(bool==false)
+	{
+		allChange($("#all"));
+	}
+	showOtherArea();
+}
+
+function in_array(e,arr)
+{
+	for(i=0;i<arr.length;i++)
+	{
+		if(arr[i] == e)
+		return true;
+	}
+	return false;
+}
+
+function showOtherArea()
+{
+	var ids = new Array();
+	 
+	$('#shopList .menu-list-box').each(function(i){
+		if($(this).is(":hidden")){
+			ids.push($(this).attr('id'));
+		}
+	});
+	var allnum = $('#shopList li').length;//总数量
+	var downnum = ids.length;//下移数量
+	var numshopli = Number(allnum) - Number(downnum);
+	var numa = Math.ceil(numshopli/5); 
+	$('#shopList').css('height',Number(numa)*170); 
+	 numa = Math.ceil(downnum/5);
+	$('#shopList2').css('height',Number(numa)*170);
+	 
+	if(ids.length > 0)
+	{
+		$('#hc_shop_list2').hide();
+		$('#shopList2 .menu-list-box').hide();
+		for(var j=0;j<ids.length;j++){
+			$('#shopList2 #'+ids[j]).show();
+		}
+	}
+	else
+	{
+		$('#hc_shop_list2').hide();
+	}
+	/***自动计算高度***/
+}
+
+$("#all").click(function(){
+	allChange($(this));
+});
+
+function allChange(obj)
+{
+	if(!$(obj).hasClass('hc_changes_menu_div_active_hover'))
+	{
+		$(obj).addClass('hc_changes_menu_div_active_hover');
+	}
+	$(".menu-xuanze-img").removeClass('hc_changes_menu_div_active_hover');
+		
+		var qisongjia = $('#qisongjia').attr('qisongjia_val');
+		$('#shopList .menu-list-box').each(function(i){
+			var my_qisongjia = $(this).attr('qisongjia');
+			
+			if(qisongjia == 4){
+				$(this).show();
+			}
+			else
+			{
+				if(parseInt(my_qisongjia)<=qisongjia)
+				{
+					$(this).show();
+				}
+				else
+				{
+					$(this).hide();
+				}
+			}
+				
+		});
+	showOtherArea();
+}
+
+function getNowData()
+{
+	if($('#all').hasClass('hc_changes_menu_div_active_hover'))
+	{
+		return '2';
+	}
+	else
+	{
+		return '3';
+	}
+}
+
+$('.qisongjia_click').click(function(){
+	var qisongjia = $(this).attr('qisongjia_val');
+	$('#qisongjia').attr('qisongjia_val',qisongjia);
+	
+	$('.hc_shop_scale_img').removeClass('hc_shop_scale_images');
+	$('.hc_shop_scale_price').removeClass('hc_shop_scale_price_hover');
+
+	$('.hc_shop_scale_img').each(function(){
+		if($(this).attr('qisongjia_val')==qisongjia)
+		{
+			$(this).addClass('hc_shop_scale_images');
+		}
+	})
+	$('.hc_shop_scale_price').each(function(){
+		if($(this).attr('qisongjia_val')==qisongjia)
+		{
+			$(this).addClass('hc_shop_scale_price_hover');
+		}
+	})
+
+	var type = getNowData();
+	if(type=='2')
+	{
+		allChange($('#all'));
+	}
+	else
+	{
+		updateFengwei();
+	}
+})
+
+function show_shop_view2(obj) {
+	var shop_id = $(obj).attr('shop_id');
+	var cur_shop_id = $(".cuSelBox2").attr('shop_id');
+	if (shop_id != cur_shop_id) {
+		return;
+	}
+	var offset = $('#shopList2 #menu-list-box_'+shop_id).offset();
+	var windowWidth = $(window).width();
+	var windowHeight = $(window).height();
+
+	var shopviewHeight = $('#shopList2 #shopview_div_'+shop_id).height();
+
+	 $('#shopList2 .shopview_div').hide();
+	 $('#shopList2 .shopview_div .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_left').removeClass('hc_popups_sanjiao_right').addClass('hc_popups_sanjiao_top');
+
+	 if(windowWidth-offset.left > 600)
+	 {
+		 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_left');
+		 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left+$('#shopList2 #menu-list-box_'+shop_id).width());
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+	 else
+	 {
+		 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').addClass('hc_popups_sanjiao_right');
+		 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top).css('left',offset.left-350);
+
+		 if(windowHeight - offset.top < shopviewHeight)
+		 {
+			 $('#shopList2 #shopview_div_'+shop_id+' .hc_popups_sanjiao').removeClass('hc_popups_sanjiao_top').addClass('hc_popups_sanjiao_bottom');
+			 $('#shopList2 #shopview_div_'+shop_id).css('top',offset.top - shopviewHeight + 100);
+		 }
+	 }
+
+	 $('#shopList2 #shopview_div_'+shop_id).show();
+	
+	if($('#shopList2 #ShopView_'+shop_id).length == 0) {
+		 var url = '<{ofunc type=url link="/site/ajaxshopinfo"}>';  
+		 $('#shopList2 .loading').show();
+		 $.post(url, {shop_id:shop_id},function (data, textStatus){
+			 if($('#shopList2 #ShopView_'+shop_id).length == 0) {
+				 $('#shopList2 .loading').hide();
+			 	 $('#shopList2 #shopview_div_'+shop_id).append(data);
+			 	show_shop_view2(obj);
+			 }
+			}, 'html');
+	}
+}
+
+function hide_shop_view2(obj) {
+	$('#shopList2 .shopview_div').hide();
+	var shop_id = $(obj).attr('shopid');
+	$('#shopList2 #shopview_div_'+shop_id).hide();
+} 
+</script>
+
+
+
+
+</div>
+	
+</div>
+</div>
+</div>
+<div style="height:20px;"></div>
+<{/block}>

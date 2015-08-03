@@ -1,0 +1,219 @@
+@charset "utf-8";
+body, ol, ul, li, div, iframe, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, input, textarea, fieldset, legend, img, select {
+margin: 0;
+padding: 0;
+}
+#banner { 
+width: 1001px;
+margin: 0 auto;
+font: 12px/1.5 "微软雅黑",tahoma,arial,'宋体',sansserif;
+}
+#banner a {
+color: #666;
+text-decoration: none;
+}
+.goodsClassWarp {
+position: relative;
+width: 186px;
+float: left;
+}
+#banner .goodsClassWarp {
+width: 184px;
+float: left;
+z-index: 9;
+}
+.first-class {
+box-shadow: 0px 3px 3px #d4d3d4;
+width: 184px;
+position: absolute;
+top: 28px;
+left: 0;
+background: #fff;
+border: 1px solid #ebeaeb;
+border-top: none;
+}
+#banner .goodsClassWarp .first-class {
+top: -1px;
+}
+ 
+.first-class h4 {
+position: relative;
+line-height: 36px;
+height: 36px;
+text-indent: 21px;
+font-size: 12px;
+}
+.first-class .double h4 {
+background: #f2f2f2;
+position: relative;
+}
+.second-class {
+display: none;
+box-shadow: 0px 3px 3px #d4d3d4;
+border: 1px solid #ebeaeb;
+border-left: none;
+position: absolute;
+z-index: 3;
+background: #fff;
+left: 186px;
+width: 262px;
+padding: 9px 20px 9px;
+margin:0;
+}
+.second-class h5 {
+font-size: 14px;
+border-bottom: 2px solid #f87206;
+color: #f87206;
+height: 24px;
+line-height: 24px;
+}
+.third-class {
+overflow: hidden;
+margin-bottom: 8px;
+padding: 5px 0;
+}
+.third-class dd {
+line-height: 28px;
+word-wrap: break-word;
+word-break: break-all;
+white-space: nowrap;
+font-size: 12px;
+float: left;
+color: #dedede;
+padding-right: 5px;
+}
+#banner .bannerWarp {
+float: right;
+height:351;
+width:807px;
+overflow:hidden;
+}
+.goodsList .goodsShow .active {
+border-color: #f87206;
+}
+.goodsList {
+width: 981px;
+margin: 10px auto 0;
+background-color:#fff;
+padding-top:5px;
+padding-bottom:5px;
+padding-right:5px;
+padding-left:5px;
+}
+.goodsList h2 {
+height: 25px;
+border-bottom: 3px solid #4c4c4c;
+padding-right: 4px;
+position: relative;
+}
+.goodsList .bg {
+background: url('../images/market/super-index-spri.png') no-repeat 956px -30px;
+}
+.goodsList .goodsListTitle {
+font-size: 16px;
+text-indent: 9px;
+position: absolute;
+left: 0;
+bottom: -3px;
+_bottom: -4px;
+height: 21px;
+background: #fff;
+border-left: 3px solid #f87206;
+padding: 0 14px 0 0;
+}
+.goodsList .small-goodslist {
+overflow: hidden;
+background: #4c4c4c url('../images/market/super-index-spri.png') no-repeat 0 0;
+padding-left: 12px;
+line-height: 25px;
+float: right;
+height: 25px;
+font-size: 12px;
+color: #717171;
+}
+.goodsList .small-goodslist a {
+font-size: 12px;
+display: inline-block;
+height: 25px;
+zoom: 1;
+color: #fff;
+padding: 0 15px 0 11px;
+background: #4c4c4c;
+}
+.goodsList .goodsShow {
+margin-top: 18px;
+overflow: hidden;
+}
+.good-item {
+float: left;
+width: 181px;
+border: 2px solid #eaeaea;
+margin-right: 9px;
+}
+.good-item .img {
+width: 181px;
+height: 207px;
+overflow: hidden;
+}
+.good-item .goodInfo {
+height: 69px;
+padding: 0 10px 10px;
+}
+.good-item .goodName {
+text-align: center;
+padding: 5px 0 0;
+margin-bottom: 5px;
+height: 36px;
+word-break: break-all;
+word-wrap: break-word;
+overflow: hidden;
+}
+.good-item .addCart {
+height: 26px;
+}
+.good-item .addCart span {
+color: #e00d00;
+float: left;
+height: 26px;
+line-height: 26px;
+}
+.good-item .addCart button {
+text-indent: -9999px;
+width: 110px;
+float: right;
+cursor: pointer;
+height: 26px;
+background: url('../images/market/super-index-spri.png') no-repeat right -90px;
+border: none;
+}
+.goodsList .goodsShow .last {
+margin-right: 0;
+}
+.first-class h4.hover {
+background: #f87206;
+z-index: 1;
+width: 185px;
+border-top: 1px solid #f2f2f2;
+}
+#banner .first-class h4.hover a {
+color: #fff;
+}
+.first-class h4.hover span {
+background: url('../images/market/super-index-spri.png') no-repeat -20px -30px;
+width: 8px;
+height: 12px;
+right: 9px;
+top: 13px;
+overflow: hidden;
+position: absolute;
+}
+.SelectedState {
+display: block;
+width: 64px;
+height: 64px;
+background: url(../images/shop/SelectedState.gif) no-repeat left top;
+position: absolute;
+left: 200px;
+top: 20px;
+z-index: 1;
+}

@@ -1,0 +1,311 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=extendcss}>
+ <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberCenter.css">  
+ <{/block}>
+ <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ajaxfileupload.js"> </script> 
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/comment.js"> </script>
+<{/block}>
+ <{block name=membercenter}> 
+	<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>我的私信</b></span></p>
+						</div><!--title end-->
+
+						<div class="mr-middle"><!--mr-middle-->
+							<div class="account_sixin"><!--account_sixin-->
+								<div id="content"><!--content-->
+								<div id="s_main">
+								<div id="ss_main" class="clearfix">
+								<div class="ss_box">
+										
+									<textarea id="microbolg_message" onfocus="sixinfocus(this)" placeholder="说说您想对我们说的……">说说您想对我们说的……</textarea>
+									<p class="word_num">你还可以输入<span id="fontcount">420</span>个字</p>
+									<ul class="bqtp">
+										<li><a href="javascript:void(0)" class="icon_bq">表情</a></li>
+										<li><a href="javascript:void(0)" class="icon_tp">图片</a></li>
+									</ul>
+									<input type="hidden" id="msgImage" value="">
+									<input type="button" value="发布" class="btn_fb" id="btn_fb"  >
+									
+								</div><!--dpdiv end-->
+								
+								<div id="publisher_emotion" style="display:none" onblur="hiddenthis(this)">
+										<ul>
+											<li><a href="javascript:;"><img title="大笑" alt="大笑" src="/upload/emotion/16.gif?ver=1" emotion="(大笑)"></a> </li>
+											<li><a href="javascript:;"><img title="微笑" alt="微笑" src="/upload/emotion/1.gif?ver=1" emotion="(微笑)"></a> </li>
+											<li><a href="javascript:;"><img title="哭" alt="哭" src="/upload/emotion/3.gif?ver=1" emotion="(哭)"></a> </li>
+											<li><a href="javascript:;"><img title="惊讶" alt="惊讶" src="/upload/emotion/10.gif?ver=1" emotion="(惊讶)"></a> </li>
+											<li><a href="javascript:;"><img title="生气" alt="生气" src="/upload/emotion/5.gif?ver=1" emotion="(生气)"></a> </li>
+											<li><a href="javascript:;"><img title="难过" alt="难过" src="/upload/emotion/6.gif?ver=1" emotion="(难过)"></a> </li>
+											<li><a href="javascript:;"><img title="害羞" alt="害羞" src="/upload/emotion/15.gif?ver=1" emotion="(害羞)"></a> </li>
+											<li><a href="javascript:;"><img title="困" alt="困" src="/upload/emotion/9.gif?ver=1" emotion="(困)"></a> </li>
+											<li><a href="javascript:;"><img title="书呆子" alt="书呆子" src="/upload/emotion/7.gif?ver=1" emotion="(书呆子)"></a> </li>
+											<li><a href="javascript:;"><img title="调皮" alt="调皮" src="/upload/emotion/4.gif?ver=1" emotion="(调皮)"></a> </li>
+											<li><a href="javascript:;"><img title="谄笑" alt="谄笑" src="/upload/emotion/11.gif?ver=1" emotion="(谄笑)"></a> </li>
+											<li><a href="javascript:;"><img title="生病" alt="生病" src="/upload/emotion/8.gif?ver=1" emotion="(生病)"></a> </li>
+											<li><a href="javascript:;"><img title="尴尬" alt="尴尬" src="/upload/emotion/17.gif?ver=1" emotion="(尴尬)"></a> </li>
+											<li><a href="javascript:;"><img title="汗" alt="汗" src="/upload/emotion/18.gif?ver=1" emotion="(汗)"></a> </li>
+											<li><a href="javascript:;"><img title="惊恐" alt="惊恐" src="/upload/emotion/19.gif?ver=1" emotion="(惊恐)"></a> </li>
+											<li><a href="javascript:;"><img title="囧-窘迫" alt="囧-窘迫" src="/upload/emotion/20.gif?ver=1" emotion="(囧)"></a> </li>
+											<li><a href="javascript:;"><img title="呕吐" alt="呕吐" src="/upload/emotion/21.gif?ver=1" emotion="(吐)"></a> </li>
+											<li><a href="javascript:;"><img title="酷" alt="酷" src="/upload/emotion/22.gif?ver=1" emotion="(酷)"></a> </li>
+											<li><a href="javascript:;"><img title="流口水" alt="流口水" src="/upload/emotion/23.gif?ver=1" emotion="(流口水)"></a> </li>
+											<li><a href="javascript:;"><img title="猫猫笑" alt="猫猫笑" src="/upload/emotion/24.gif" emotion="(猫猫笑)"></a> </li>
+											<li><a href="javascript:;"><img title="晕" alt="晕" src="/upload/emotion/25.gif?ver=1" emotion="(晕)"></a> </li>
+											<li><a href="javascript:;"><img title="色迷迷" alt="色迷迷" src="/upload/emotion/26.gif?ver=1" emotion="(色)"></a> </li>
+											<li><a href="javascript:;"><img title="可爱" alt="可爱" src="/upload/emotion/27.gif?ver=1" emotion="(可爱)"></a> </li>
+											<li><a href="javascript:;"><img title="吃饭" alt="吃饭" src="/upload/emotion/28.gif?ver=1" emotion="(吃饭)"></a> </li>
+											<li><a href="javascript:;"><img title="防流感" alt="防流感" src="/upload/emotion/29.gif" emotion="(口罩)"></a> </li>
+											<li><a href="javascript:;"><img title="淘气" alt="淘气" src="/upload/emotion/30.gif" emotion="(淘气)"></a> </li>
+											<li><a href="javascript:;"><img title="吻" alt="吻" src="/upload/emotion/31.gif" emotion="(吻)"></a> </li>
+											<li><a href="javascript:;"><img title="住嘴" alt="住嘴" src="/upload/emotion/32.gif" emotion="(住嘴)"></a> </li>
+											<li><a href="javascript:;"><img title="抠鼻" alt="抠鼻" src="/upload/emotion/33.gif" emotion="(kb)"></a> </li>
+											<li><a href="javascript:;"><img title="烧香" alt="烧香" src="/upload/emotion/34.gif" emotion="(sx)"></a> </li>
+											<li><a href="javascript:;"><img title="织毛衣" alt="织毛衣" src="/upload/emotion/35.gif" emotion="(zmy)"></a> </li>
+											<li><a href="javascript:;"><img title="秋菊" alt="秋菊" src="/upload/emotion/36.gif" emotion="(jh)"></a> </li>
+											<li><a href="javascript:;"><img title="降温" alt="降温" src="/upload/emotion/37.gif" emotion="(cold)"></a> </li>
+											<li><a href="javascript:;"><img title="暖暖被窝" alt="暖暖被窝" src="/upload/emotion/38.gif" emotion="(bw)"></a> </li>
+											<li><a href="javascript:;"><img title="给力" alt="给力" src="/upload/emotion/39.gif" emotion="(gl)"></a> </li>
+											<li><a href="javascript:;"><img title="不给力" alt="不给力" src="/upload/emotion/40.gif" emotion="(bgl)"></a> </li>
+											<li><a href="javascript:;"><img title="花儿" alt="花儿" src="/upload/emotion/41.gif?ver=1" emotion="(花)"></a> </li>
+											<li><a href="javascript:;"><img title="小蜜蜂" alt="小蜜蜂" src="/upload/emotion/42.gif" emotion="(蜜蜂)"></a> </li>
+											<li><a href="javascript:;"><img title="雪花" alt="雪花" src="/upload/emotion/43.gif" emotion="(sn)"></a> </li>
+											<li><a href="javascript:;"><img title="默哀" alt="默哀" src="/upload/emotion/44.gif" emotion="(qf)"></a> </li>
+										</ul>
+								</div>
+								
+								<div id="div-messagepicUpload" style="display:none">
+<form id="form2" name="form2" method="post" action="#" enctype="multipart/form-data" target="ifr-msg-upload" onsubmit="return checkImagetype('2');">    
+	<div class="">
+		<input name="head" type="file" id="imgFile" style="margin-left:15px;" name="imgFile" onchange="$('#input1').val($(this).val())">
+		               		<input id="submitImg" type="button" value="上传" class="ss_sc">   
+	</div>
+	
+	<div id="msgfileup_success_tip"></div>
+	<div class="ok">
+		<p>仅支持<font color="red">GIF,JPG,PNG</font>格式  
+		<a href="javascript:void(0)" onclick="closeLayer('div-messagepicUpload')">关闭</a></p><p>
+	</p></div>
+</form>
+ 
+								</div>
+
+								</div>
+								</div>
+								</div><!--content end-->
+								
+								<div class="m10-sixin-list" id="m10-sixin-list">
+									 <{load_data assign="list" table="pmes" showpage="true"  fileds="*"  where="uid in(0,<{$member['uid']}>) or  backuid = '<{$member['uid']}>' " orderby="creattime desc " }> 
+									<{foreach from=$list['list'] item=items}> 
+									<{if $items['uid'] == 0}>
+									<div class="dwb-sixin-list" id="li_s_<{$items['id']}>">
+										   <ul>	
+										   	  <li>		
+										   	   	<div class="dp_left">			
+										   	   		<div class="dp_left_img">				
+										   	   			<img src="<{$userlogo}>"> 			
+										   	   		</div>			
+										   	   		<p style="border:1px solid #f0f0f0;font-size:11px;"></p>		
+										   	    </div>	
+										   	    <div class="dp_right">			
+										   	    	<div class="bgimg"></div>			
+										   	    	<ul>				
+										   	    		<li class="stitle">                   
+										   	    			<p>系统消息</p>				
+										   	    		</li>				
+										   	    		<li class="intime">					
+										   	    			<p><{$items['creattime']|date_format:"%Y-%m-%d %H:%M:%S"}></p>
+										   	 				</li>			
+										   	 		  </ul>			
+										   	 		  <div class="clear"></div>			
+										   	 		  <p class="scontent"><{$items['usercontent']|htmlspecialchars_decode}></p> 
+										   	 		  <{if !empty($items['userimg'])}>
+										   	 		  <p class="image" id="image_content<{$items['id']}>"><a id="image_link<{$items['id']}>" href="javascript:void(0);"><img _src="/userimages/404117/20140109111709835c774.png" src="<{$items['userimg']}>"></a></p>
+										   	 		  <{/if}>
+										   	 		</div>		
+										   	    <div class="clear"></div>	
+										   	  </li>
+										   </ul>
+									</div> 
+									<{else if $items['uid'] == $member['uid']}>
+									<{if $items['backtime'] > 0}>
+									<div class="dwb-sixin-list" id="li_ssss_<{$items['id']}>">
+										   <ul>	
+										   	  <li>		
+										   	   	<div class="dp_left">			
+										   	   		<div class="dp_left_img">				
+										   	   			<img src="<{$member['logo']|default:$userlogo}>"> 			
+										   	   		</div>			
+										   	   		<p style="border:1px solid #f0f0f0;font-size:11px;"></p>		
+										   	    </div>	
+										   	    <div class="dp_right">			
+										   	    	<div class="bgimg"></div>			
+										   	    	<ul>				
+										   	    		<li class="stitle">                   
+										   	    			<p><{$items['backusername']}> 对我说</p>				
+										   	    		</li>				
+										   	    		<li class="intime">					
+										   	    			<p><{$items['backtime']|date_format:"%Y-%m-%d %H:%M:%S"}></p>
+										   	 				</li>			
+										   	 		  </ul>			
+										   	 		  <div class="clear"></div>			
+										   	 		  <p class="scontent"><{$items['backcontent']|htmlspecialchars_decode}></p> 
+										   	 		  <{if !empty($items['backimg'])}>
+										   	 		  <p class="image" id="image_content<{$items['id']}>"><a id="image_link<{$items['id']}>" href="javascript:void(0);"><img _src="/userimages/404117/20140109111709835c774.png" src="<{$items['backimg']}>"></a></p>
+										   	 		  <{/if}>
+										   	 		</div>		
+										   	    <div class="clear"></div>	
+										   	  </li>
+										   </ul>
+									</div> 
+									<{/if}>
+									<div class="my-sixin-list" id="li_s_<{$items['id']}>">
+										<ul>	
+											<li>		
+									        <div class="dp_left">		 
+									         	<div class="dp_left_img">				
+									         		<img src="<{$member['logo']|default:$userlogo}>"> 			
+									         	</div>			
+									         	<p style="border:1px solid #f0f0f0;font-size:11px;"><{$items['username']}></p>		
+									        </div>		
+									        <div class="dp_right">			
+									        	<div class="bgimg"></div>			
+									        	<ul>				
+									        		<li class="stitle">					
+									        			<p>我对 <{$items['backusername']}> 说</p>				
+									        	  </li>				
+									        	  <li class="intime">				
+									        				<p><{$items['creattime']|date_format:"%Y-%m-%d %H:%M:%S"}></p>				
+									        		</li>		
+									        	</ul>		
+									          <div class="clear"></div>		
+									        	  <p class="scontent"><{$items['usercontent']|htmlspecialchars_decode}></p> 
+										   	 		  <{if !empty($items['userimg'])}>
+										   	 		  <p class="image" id="image_content<{$items['id']}>"><a id="image_link<{$items['id']}>" href="javascript:void(0);"><img _src="/userimages/404117/20140109111709835c774.png" src="<{$items['userimg']}>"></a></p>
+										   	 		  <{/if}>
+									        	<p class="replysixin"><a href="javascript:void(0);" onclick="deleteSixin('<{$items['id']}>')">删除</a></p>		
+									        </div>		
+									        <div class="clear"></div>	
+									    </li>
+									  </ul>
+									</div>
+									<{else}>
+									<{if $items['backtime'] > 0}>
+									<div class="dwb-sixin-list" id="li_s_<{$items['id']}>">
+										   <ul>	
+										   	  <li>		
+										   	   	<div class="dp_left">			
+										   	   		<div class="dp_left_img">				
+										   	   			<img src="<{$userlogo}>"> 			
+										   	   		</div>			
+										   	   		<p style="border:1px solid #f0f0f0;font-size:11px;"></p>		
+										   	    </div>	
+										   	    <div class="dp_right">			
+										   	    	<div class="bgimg"></div>			
+										   	    	<ul>				
+										   	    		<li class="stitle">                   
+										   	    			<p><{$items['username']}> 对我说<</p>				
+										   	    		</li>				
+										   	    		<li class="intime">					
+										   	    			<p><{$items['backtime']|date_format:"%Y-%m-%d %H:%M:%S"}></p>
+										   	 				</li>			
+										   	 		  </ul>			
+										   	 		  <div class="clear"></div>			
+										   	 		  <p class="scontent"><{$items['usercontent']|htmlspecialchars_decode}></p> 
+										   	 		  <{if !empty($items['userimg'])}>
+										   	 		  <p class="image" id="image_content<{$items['id']}>"><a id="image_link<{$items['id']}>" href="javascript:void(0);"><img _src="/userimages/404117/20140109111709835c774.png" src="<{$items['userimg']}>"></a></p>
+										   	 		  <{/if}>
+										   	 		</div>		
+										   	    <div class="clear"></div>	
+										   	  </li>
+										   </ul>
+									</div> 
+									<{/if}>
+									<div class="dwb-sixin-list" id="li_s_<{$items['id']}>">
+										   <ul>	
+										   	  <li>		
+										   	   	<div class="dp_left">			
+										   	   		<div class="dp_left_img">				
+										   	   			<img src="<{$member['logo']|default:$userlogo}>"> 			
+										   	   		</div>			
+										   	   		<p style="border:1px solid #f0f0f0;font-size:11px;"><{$items['backusername']}></p>		
+										   	    </div>	
+										   	    <div class="dp_right">			
+										   	    	<div class="bgimg"></div>			
+										   	    	<ul>				
+										   	    		<li class="stitle">                   
+										   	    			<p><{$items['username']}> 对我说</p>				
+										   	    		</li>				
+										   	    		<li class="intime">					
+										   	    			<p><{$items['backtime']|date_format:"%Y-%m-%d %H:%M:%S"}></p>
+										   	 				</li>			
+										   	 		  </ul>			
+										   	 		  <div class="clear"></div>			
+										   	 		   <p class="scontent"><{$items['usercontent']|htmlspecialchars_decode}></p> 
+										   	 		  <{if !empty($items['userimg'])}>
+										   	 		  <p class="image" id="image_content<{$items['id']}>"><a id="image_link<{$items['id']}>" href="javascript:void(0);"><img _src="/userimages/404117/20140109111709835c774.png" src="<{$items['userimg']}>"></a></p>
+										   	 		  <{/if}>
+									         	
+										   	 		</div>		
+										   	    <div class="clear"></div>	
+										   	  </li>
+										   </ul>
+									</div> 
+									<{/if}>
+									
+									<{/foreach}>
+									   <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div> 
+							 </div>
+							</div><!--account_sixin end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end-->
+				</div>
+<script>
+	function tijiaoneirong(message,image){
+	$.ajax({
+	  	url:'<{ofunc type=url link="/ask/saveuserpmes/datatype/json"}>',
+	  	data:{message:message,image:image},
+	  	dataType: 'json',
+	  	success:function (data, status)
+	  	{
+	  		if(typeof(data.error) != 'undefined')
+				{
+					if(data.error == false)
+					{
+					   location.reload();  
+					 }else{
+					 		alert(data.msg);
+					}
+				}else{
+					alert(data.msg);
+				} 
+	  		$("#msgImage").val("");
+	  		$("#microbolg_message").val("") 
+	  	},
+		  error: function (data, status, e)
+		  {
+					alert('提交连接失败');
+		  }
+	  }); 
+	}
+	function deleteSixin(dis){
+   	var bakmess = ajaxback('<{ofunc type=url link="/ask/deluserpms/datatype/json"}>',{'id':dis});
+   	if(bakmess.flag == false){
+   		$('#li_s_'+dis).remove();
+   		$('#li_ssss_'+dis).remove();
+   	}else{
+   	   alert(bakmess.content);
+   	}
+	}
+</script>
+
+<{/block}>

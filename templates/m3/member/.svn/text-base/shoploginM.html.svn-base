@@ -1,0 +1,49 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+ 
+ <{block name=sitetitle}>商家登陆<{/block}>
+ <{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberlogin.css"><{/block}>
+<{block name=shophide}><{/block}>
+<{block name=bgshow}><{/block}>
+ <{block name=bodylist}>  
+ 
+ <div class="shop_login" >
+ 	 <div style="height:40px;"></div>
+   <div class="shop_login_center">
+   	        <h3>商家登陆</h3>
+   	         	<form id="loginForm" method="post" action="<{ofunc type=url link="/member/shoploginin/datatype/json"}>">
+   	        <div class="shop_login_inputdiv">
+   	  	   	  <label>登陆帐号：</label>
+   	  	   	  <input type="text" name="uname" id="uname" style="width:300px;" value=""> 
+   	  	   </div>
+   	  	     <div class="shop_login_inputdiv">
+   	  	   	  <label>登陆密码：</label>
+   	  	   	  <input type="password" name="pwd" id="pwd" style="width:300px;" value=""> 
+   	  	   </div>
+   	  	   
+   	  	    <{if $allowedcode == 1}>
+   	   	   <div class="shop_login_inputdiv">  
+   	   		  	  <label>验 证 码：</label>
+   	  	   	    <input type="text" placeholder="验证码" name="Captcha" style="width:100px;float:left;" > <div style="width:200px;float:left;padding-left:30px;"> <img src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg" style="height:40px;line-height:40px;"><a href="javascript:freshcode();" >刷新图片</a> </div>
+   	   	    </div>
+   	   	   <{/if}>
+   	   	    <div class="shop_login_inputdiv">  
+   	   		  	  <label>&nbsp;</label>
+   	  	   	    <div class="button_new_regester   login-button">提交登陆</div>
+   	   	    </div>
+   	   	  </form>
+   </div>
+   
+   	      
+ 
+</div> 
+ 
+ 
+ <script type="text/javascript">
+	$('.login-button').click(function(){
+	    subform('<{ofunc type=url link="/shop/useredit"}>',$('#loginForm'));
+	})
+</script>
+  
+ 
+ 
+<{/block}>

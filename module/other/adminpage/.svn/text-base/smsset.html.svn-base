@@ -1,0 +1,179 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>短信设置<{/block}>
+ <{block name=bodylist}>
+
+       <div style="width:auto;overflow-x:hidden;overflow-y:auto;">
+
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/other/module/smssetsave/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+              	<table border="0" cellspacing="2"   class="list" name="table" id="table1" width="100%">
+                  <tbody>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" width="20%">选择短信发送类型</td>
+                      <td>
+                      	<select name="smstype" id="smstype" onchange="doinfo();">
+                      	    <option value="1">亿美短信接口 </option>
+                      		   <option value="2"<{if $smstype==2}> selected<{/if}>>sms-10086.cn </option>
+                       </select>
+                       </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table3" width="100%">
+                  <tbody>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">账号</td>
+                      <td><input type="text" name="sms86ac" id="sms86ac" value="<{$sms86ac}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">密码</td>
+                      <td><input type="password" name="sms86pd" id="sms86pd" value="<{$sms86pd}>" class="skey" style="width:250px;"></td>
+                    </tr>
+
+                  </tbody>
+                </table>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table2" width="100%">
+                  <tbody>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">帐号</td>
+                      <td><input type="text" name="smacount" id="smacount" value="<{$smacount}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">密码</td>
+                      <td><input type="password" name="smpassword" id="smpassword" value="<{$smpassword}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">KEY</td>
+                      <td><input type="password" name="smkey" id="smkey" value="<{$smkey}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <{if !empty($smeName)}>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" ></td>
+                      <td>&nbsp;<a  onclick="return remind(this);" href="<{ofunc type=url link="/admin/unmobile"}>">取消此卡</a></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" ><a href="#" onclick="getfee();">查看余额</a></td>
+                      <td id="showacountdet">&nbsp;</td>
+                    </tr>
+
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">&nbsp;</td>
+                      <td><a href="#" onclick="topay();">账号充值</a></td>
+                    </tr>
+                    <{/if}>
+                    <{if empty($smeName)}>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">&nbsp;</td>
+                      <td>以下信息首次注册需要填写</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">公司名称</td>
+                      <td><input type="text" name="smeName" id="smkey" value="<{$smeName}>" class="skey" style="width:250px;">个人则填写个人名称</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">个人姓名</td>
+                      <td><input type="text" name="smlinkMan" id="smlinkMan" value="<{$smlinkMan}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">联系电话</td>
+                      <td><input type="text" name="smphoneNum" id="smphoneNum" value="<{$smphoneNum}>" class="skey" style="width:250px;">带区号010-1111111</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">手机号</td>
+                      <td><input type="text" name="smmobile" id="smmobile" value="<{$smmobile}>" class="skey" style="width:250px;">135*********</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">电子邮件</td>
+                      <td><input type="text" name="smemail" id="smemail" value="<{$smemail}>" class="skey" style="width:250px;">xx@yy.com</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">传真</td>
+                      <td><input type="text" name="smfax" id="smfax" value="<{$smfax}>" class="skey" style="width:250px;">010-1111111</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">联系地址</td>
+                      <td><input type="text" name="smaddress" id="smaddress" value="<{$smaddress}>" class="skey" style="width:250px;">xx路</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">邮政编码</td>
+                      <td><input type="text" name="smpostcode" id="smpostcode" value="<{$smpostcode}>" class="skey" style="width:250px;">123456</td>
+                    </tr>
+                     <{/if}>
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">
+
+            </form>
+          </div>
+
+         </div>
+     </div>
+     <div class="show_content_m_t2"  style="display:none;" id="shocart">
+          <div style="width:auto;overflow-x:hidden;overflow-y:auto;">
+
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/other/module/smtopay/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">&nbsp;</td>
+                      <td>以下是充值提交内容</td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">充值卡号：</td>
+                      <td><input type="text" name="smcard" id="smcard" value="" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">充值密码：</td>
+                      <td><input type="password" name="smpwd" id="smpwd" value="" class="skey" style="width:250px;"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="提交充值" class="button">
+            </form>
+          </div>
+
+         </div>
+     </div>
+
+<!--newmain 结束-->
+<script>
+	$(function(){
+		$('#smstype').trigger('change');
+	});
+	function doinfo(){
+		var findvalue = $('#smstype').find("option:selected").val();
+		if(findvalue == 1){
+			 $('#table2').show();
+			 $('#table3').hide();
+		}else{
+			$('#table2').hide();
+			 $('#table3').show();
+		}
+	}
+      	function topay(){
+      		$('#shocart').show();
+      	}
+      	function getfee(){
+      		var url = '<{ofunc type=url link="/adminpage/other/module/smgetbalance"}>';
+		     $.post(url, {},function (data, textStatus){
+			              $('#showacountdet').text(data);
+			     }, 'html');
+      	}
+</script>
+<{/block}>

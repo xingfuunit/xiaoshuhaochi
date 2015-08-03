@@ -1,0 +1,58 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/membercenter.css">   
+<{/block}>
+ <{block name=extendjs}>  
+ <script>
+ 	$(function(){
+    $('#btnExit').click(function(){ 
+
+ 	  	 var url =siteurl+'/index.php?controller=html5&action=loginout&random=@random@';
+
+ 	     	  	   url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+
+ 	    window.location.href=url;
+
+    });
+  });
+ </script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist">
+
+  <header><div class="return"></div>基础资料</header> 
+
+  <div class="container">
+
+  	<section>
+
+  		<div class="account" style="background-image: url(<{$member['logo']|default:$userlogo}>);"><img src="" alt="">用户帐号：<span class="colred fontbold"><{$member['username']}></span></div>
+
+  		<section>
+
+  			<a href="<{ofunc type=url link="/html5/order"}>"><div id="myWaiMaiOrderList" class="clkitm">我的外卖</div>  </a>
+
+  		</section>
+
+  		<section>
+
+  			<a href="<{ofunc type=url link="/html5/collect"}>"><div id="myFavourite" class="clkitm">商户收藏</div></a>
+
+  			<a href="<{ofunc type=url link="/html5/address"}>"><div id="myAddress" class="clkitm">地址管理</div></a>
+
+  			<a href="<{ofunc type=url link="/html5/modifypwd"}>"><div id="myChangePwd" class="clkitm">密码修改</div></a>
+
+  		</section>
+
+  		<section>
+
+  			<a href="<{ofunc type=url link="/html5/about"}>"><div id="aboutUs" class="clkitm">关于我们</div></a>
+
+  		</section>
+
+    	<div><input type="button" class="inputBtn" id="btnExit" value="退出"></div>
+
+   </section>
+
+<{/block}>

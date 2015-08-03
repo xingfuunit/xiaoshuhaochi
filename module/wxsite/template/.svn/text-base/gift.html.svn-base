@@ -1,0 +1,52 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/gift.css">
+<{/block}>
+ <{block name=extendjs}> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/template.min.js"></script>   
+ 
+ <script>  
+  function showorder(obj){
+
+  	window.location.href=siteurl+'/index.php?controller=wxsite&action=ordershow&orderid='+$(obj).attr('orderid')+'&random=@random@';  //'ordershow.html?orderid='+$(obj).attr('orderid');//  	alert($(obj).attr('orderid')); 
+
+  } 
+</script>
+
+<{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 我的积分 </header><{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div style="height:44px;"></div>
+ 
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist"> 
+  			   
+  		    <li class="list box_inline"  onclick="dolink('<{ofunc type=url link="/wxsite/giftlist"}>');">
+  			  	 <div class="colomns liwd90">
+  			  	 	 兑换礼品
+  			    	</div>
+  			    	 <div class="colomns liwd10"> <div  class="leftarry"></div> 
+  			    	</div>
+  			    	  
+  			  </li>
+  			  <li class="list box_inline" onclick="dolink('<{ofunc type=url link="/wxsite/giftlog"}>');">
+  			  	 <div class="colomns liwd90">
+  			  	 	 兑换记录
+  			    	</div>
+  			    	 <div class="colomns liwd10" style="text-align:right;"> <div  class="leftarry"></div> 
+  			    	</div>
+  			    	  
+  			  </li>
+  			   
+  			    
+  			</ul> 
+    </section>
+ 
+ <div style="clear:both;height:40px;"></div>
+ 
+ <div class="cart_tj">  帐号积分<span id="total_count"><{$member['score']}></span>个 </div>
+ 
+  
+<{/block}>

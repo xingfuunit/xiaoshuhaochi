@@ -1,0 +1,148 @@
+ <{extends file="<{$tempdir}>/public/app.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/app/css/shopshow.css">   
+<{/block}>
+ <{block name=extendjs}>  
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/wxshop.js"></script>  
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/template.min.js"></script> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/cart.js"></script>  
+<script>
+    var shopid = <{$id}>;
+    var cartbagcost =0;
+    var cartpscost = 0;
+    var  cartsum = 0;
+    var cxcost = 0;
+    var surecost = 0;
+    var juanlist = <{$juanlist|json_encode}>;
+    var checknext = false;
+    $(function(){ 
+    	 freshcart();
+    });
+    function myyanchi(){
+  		
+  		  checknext = false;
+  	}
+ </script>
+  <script id="cartlist" type="text/html">     
+	  	  		 <li>
+		 	    
+		 	     <h4><^%=list.name%^></h4>
+		 	     
+		       <div class="order_btn">   <span class="order_btn_left"   data-id="<^%=list.id%^>" data-shopid="<^%=list.shopid%^>"></span> <span class="order_btn_nub"><^%=list.count%^></span><span class="order_btn_right"   data-id="<^%=list.id%^>" data-shopid="<^%=list.shopid%^>">¥<^%=list.cost%^></span> </div><div class="clear"></div></li>  
+ </script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=myScrolljs}>
+<script> 
+		var myScroll;
+function loaded() {
+	myScroll = new iScroll('wrapper', {
+		useTransform: false,
+		hScrollbar:false, 
+		vScrollbar:false,
+		fixedScrollbar:false,
+		bounce:false,
+		onBeforeScrollStart: function (e) {
+			var target = e.target;
+			while (target.nodeType != 1) target = target.parentNode;
+
+			if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA')
+				e.preventDefault();
+		}
+	});
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false); 
+document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+<{/block}>
+<{block name=blockcontent}> 
+
+
+<section class="cartchangetop" id="header"> 
+  			<ul class="box_inline"> 
+  				<li class="liwd50 redli" onclick="delbackshop('<{ofunc type=url link="/app/shopshow/id/<{$id}>"}>');">
+  					 重新点餐
+  			  </li>
+  				<li class="liwd50" onclick="dolink('<{ofunc type=url link="/app/shopshow/id/<{$id}>"}>');">
+  					 再加点
+  			  </li> 
+  			</ul> 
+ </section> 
+	 <div id="wrapper" style="top:40px;">
+	<div id="scroller">
+<div class="order">
+	<!--菜品列表-->
+	<ul class="order_list" id="shocart">
+		<!--  
+		 <li id="2302">
+		 	     <img src="http://www.weitaotong.cn/Content/piclibrary/UserImg_916/840120140611170732040.jpg" class="order_img">
+		 	     <h4>胡萝卜</h4>
+		 	     <p class="order_jiage">¥<lable>1.5(3份起送)</lable></p>
+		       <div class="order_btn">   <span class="order_btn_left"></span> <span class="order_btn_nub">1</span><span class="order_btn_right"></span> </div><div class="clear"></div></li>    -->
+		       
+		     	
+		     	
+		     	
+		     	</ul>
+		     	<p class="order_text">总价：¥<label><font id="cart_total">0</font></label>,打包：￥<font id="bagcost">0</font>优惠:￥<font id="cxcost">0</font></p>
+	<!--菜品结束-->
+	<!--用户录入信息-->
+	<ul class="order_feedback">
+       <li><input  type="text"  name="username" id="username" value="<{$deaddress['contactname']|default:''}>" placeholder="联系人" >
+         <p id="errname" style=" display:none;">请输入姓名</p>
+       </li>
+        
+       <li><input   type="text" name="mobile" id="mobile" value="<{$deaddress['phone']|default:''}>" placeholder="联系电话">
+         <p id="errphone" style=" display:none;">请输入联系电话</p>
+       </li>
+       <li><input   type="text"  name="addressdet" id="addressdet" value="<{$deaddress['address']|default:$appmapname}>" placeholder="详细地址" data="<{$appmapname}>">
+         <p id="errsend2place" style=" display:none;">请输入收货地址/店内位置号</p>
+       </li>
+       <li><textarea name="remark" id="remark"  onfocus="if(this.value==&quot;备注:&quot;){this.value=&quot;&quot;};" onblur="if(this.value==&quot;&quot;){this.value=&quot;备注:&quot;;};">备注:</textarea> </li>
+       <li >
+       	<input type="hidden" name="jifen" id="jifen" value="0">
+  			  	 <font id="jifenshuoming">未选择</font><span id="jifenchoice" onclick="doselectjifen('<{$scoretocost}>','<{$domember['score']|default:0}>');">选择金额</span> 
+       </li>
+       <li><input type="hidden" name="juanid" id="juanid" value="0"><input type="hidden" name="juancost" id="juancost" value="0">
+  			  	 <font id="juanshuoming">未选择</font><span id="youhuichoice" onclick="doselectjuan();">选择优惠券</span> 
+       </li>
+       <li>
+       	<select name="DeliveryTime" id="DeliveryTime" class="mFlex1">
+       		<option value="0">选择送货时间</option>
+  		    	<{foreach from=$timelist item=items}> 
+  		    	<option value="<{$items}>"><{$items}></option>
+  		    	<{/foreach}> 
+  		    	</select> 
+      </li>
+    </ul>
+   <!--用户录入信息结束-->
+</div>
+  
+  
+  
+  
+ <div id="mask1">
+	  </div>
+	  <div id="popup1" class="popup1">
+	  	 <div class="popu1top"><div style="margin-right:5px;text-align:right;"><span onclick="closeout();">×关闭</span></div></div>
+	  	 <div class="popcontent" id="popcontent">
+	  	 	    
+	  	 	  
+	  	 	   
+	  	 </div>
+	  </div>
+	   <{if $is_open== 1}>
+ <div class="next_btn"  onclick="orderSubmit();">确认下单</div>
+ <{else}>
+ <div class="next_btn"  >停止下单</div>
+  <{/if}>
+ </div>
+</div>
+<!--区域信息-->
+  
+  
+  
+ 
+ 
+<{/block}>

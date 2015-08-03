@@ -1,0 +1,81 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/shopshow.css">   
+<{/block}>
+ <{block name=extendjs}>  
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/wxshop.js"></script>  
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=blockcontent}> 
+ <section class="listselect" style="margin-top:0px;">
+ 	    
+  			<ul class="liststyle1">
+  			 
+  			  <li class="touchend">
+  			  	<div style="width:90%;"><div style="font-weight:bold;font-size:15px;"><{$member['username']}></div>
+  			  	    <div>用户ID: <{$member['uid']}></div>	
+  			  	</div>
+  			  	<div class="leftarry"></div>
+  			  </li>
+  			  <li class="redbottom" style="border-bottom:1px solid red;">
+  			  	 <div class="usertj"><div class="usertj_r"><{$member['cost']}></div><div class="usertj_n">余额</div></div>
+  			  	 <div class="usertj"><div class="usertj_r"><{$member['score']}></div><div class="usertj_n">积分</div></div>
+  			  	 <div class="usertj"><div class="usertj_r"><{$juanshu}></div><div class="usertj_n">优惠券</div></div>
+  			  </li>
+  			   
+  			</ul> 
+ </section>
+ 
+ <section class="listselect" >
+ 	    
+  			<ul class="liststyle3">
+  			 
+  			  <li class="touchend" onclick="dolink('<{ofunc type=url link="/wxsite/address"}>');">
+  			  	<div style="width:90%;">
+  			  		  <div class="imgshow"><p class="bk1"></p></div> 地址管理
+  			  	</div>
+  			  	<div  class="leftarry"></div>
+  			  </li>
+  			  <li class="redbottom" onclick="dolink('<{ofunc type=url link="/wxsite/order"}>');">
+  			  	 <div style="width:90%;">
+  			  		  <div class="imgshow oaddimgshow"><p class="bk2"></p></div> 我的订单
+  			  	</div>
+  			    <div  class="leftarry"></div> 
+  			  </li>
+  			   
+  			</ul> 
+ </section>
+  <section class="listselect" >
+ 	    
+  			<ul class="liststyle3">
+  			 
+  			  <li class="touchend" onclick="dolink('<{ofunc type=url link="/wxsite/gift"}>');">
+  			  	<div style="width:90%;">
+  			  		  <div class="imgshow "><p class="bktext">积</p></div> 我的积分
+  			  	</div>
+  			  	<div  class="leftarry"></div>
+  			  </li>
+  			  <li class="redbottom"  onclick="dolink('<{ofunc type=url link="/wxsite/juan"}>');">
+  			  	 <div style="width:90%;">
+  			  		  <div class="imgshow oaddimgshow"><p class="bktext">券</p></div> 优惠券
+  			  	</div>
+  			    <div  class="leftarry"></div> 
+  			  </li>
+  			  <{if $member['group'] == 3}>
+  			   <li class="redbottom"  onclick="dolink('<{ofunc type=url link="/wxsite/shop"}>');">
+  			  	 <div style="width:90%;">
+  			  		  <div class="imgshow "><p class="bktext">商</p></div> 销售管理
+  			  	</div>
+  			    <div  class="leftarry"></div> 
+  			  </li>
+  			  <{/if}>
+  			</ul> 
+ </section>
+  <div style="clear:both;height:55px;"></div>
+ <div id="footer" class="box_inline">
+      <div class="home " onclick="dolink('<{ofunc type=url link="/wxsite/shoplist"}>');" href="#"><p>首页</p></div><div class="recommend " onclick="dolink('<{ofunc type=url link="/wxsite/index"}>');" href="#"><p>区域</p></div><div class="mine "  onclick="dolink('<{ofunc type=url link="/wxsite/member/id/<{$id}>"}>');" href="#"><p>我的</p></div>
+</div>
+  
+ 
+<{/block}>

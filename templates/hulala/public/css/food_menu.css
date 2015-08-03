@@ -1,0 +1,520 @@
+ @CHARSET "UTF-8";
+ /* cai dan ye */
+ .hc_menu_food_addClass_positions{
+	bottom: -57px;
+ }
+ 
+ 
+ .hc_menu_foods_div{
+ 	padding: 5px 20px;
+ 	background: url(../images/foods01.png) repeat-y;
+ 	border-bottom: 1px solid #ddd;
+ 	
+ }
+ .hc_menu_foods_div a,.hc_menu_foods_div a:hover{
+	text-decoration: none;
+ }
+ .hc_menu_foods_div ul, .hc_menu_foods_div li{
+ 	list-style: none;
+ 	padding: 0;
+ 	margin: 0;
+ }
+ .hc_menu_foods_div li{
+ 	float: left;
+ 	margin-top: 5px;
+ 	color: #d0cfcf;
+ }
+
+
+.hc_foodmenu_head_left{
+	float: left;
+	height: 54px;
+	width: 750px;
+	background: url(../images/commentr02.png) repeat-x;
+
+}
+.hc_foodmenu_head_right{
+	float: left;
+	height: 54px;
+	width: 10px;
+	background: url(../images/commentl02.png) no-repeat;
+
+}
+
+.hc_menu_foods_div ul li a{
+	color: #94856d;
+	text-decoration: none;
+	padding: 2px 5px;
+	margin: 0 5px;
+}
+.hc_menu_foods_div ul li a:hover{
+	color: #fff;
+	background: #a59d8d;
+}
+.hc_menu_foods_div_ul{
+	float: left;
+	margin-bottom: 10px;
+	width: 640px;
+	word-break: keep-all; white-space: nowrap; overflow:auto!important; 
+}
+.hc_menu_all_foods{
+	float: left;
+	width: 78px;
+	height: 100%;
+	color: #94856D;
+	cursor: pointer;
+	font-weight: 600;
+	line-height: 30px;
+}
+
+.hc_menu_all_foods_sapn:hover{
+	padding: 2px 5px;
+	background: #a59d8d;
+	color: #fff;
+}
+
+.hc_list_foodsmenu_div{
+	min-height: 255px;
+	border-bottom: 1px solid #ddd; 
+}
+.hc_list_foodsmenu_div_box{
+	float: left;
+	padding: 15px 15px;
+	width: 222px;
+	height: 225px; 
+	
+	color: #8c8c8c;
+}
+.hc_list_foodsmenu_div_box:hover{
+	background: #fffdf4;
+	cursor: pointer;
+}
+.hc_list_foodsmenu_div_box_border{
+	border-right:  1px solid #ddd;
+}
+
+.hc_list_foodsmenu_div_box_name{
+	float: left;
+	line-height: 28px;
+}
+.hc_list_foodsmenu_div_box_imgs{
+	float: left;
+	margin-left: 10px;
+	margin-top: 3px;
+}
+.hc_list_foodsmenu_div_box_price{
+	float: right;
+	line-height: 28px;
+	margin-right: 8px;
+}
+.hc_list_foodsmenu_divbox{
+	margin-top: 5px;
+	margin-left: 8px;
+}
+.hc_food_comment_imgs_div{
+	float: left;
+	margin-top: 2px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.hc_foods_font_div{
+	float: left;
+	color: #ea8a03;
+	margin-left: 2px;
+	margin-top: 3px;
+}
+.hc_listfoods_menus_xinxin{
+	margin-left:8px;
+}
+.hc_listfoods_menus_span{
+	margin-left: 8px;
+}
+.hc_listfoods_menus_span_left{
+	float: left;
+}
+
+.hc_listfoods_menus_span_right{
+	float: right;
+}
+
+.hc_listfoods_menus_foods{
+	width: 47px;
+	height: 18px;
+	text-align: center;
+	line-height: 18px;
+	font-size: 12px;
+	font-size: "微软雅黑","宋体";
+	/* color: #999; */
+	color: #6F6F6F;
+	cursor: pointer;
+	background: url(../images/chiyifen.png) no-repeat;
+/* 	border: 1px solid #d5d5d5;
+	border-radius: 2px 2px 2px 2px; */
+}
+.hc_listfoods_menus_foods2{
+	width: 65px;
+	background: url(../images/queren2.png) no-repeat;
+}
+.hc_listfoods_menus_foods_addborder{
+/* 	border: 1px solid #a2d388;
+	border-radius: 2px 2px 2px 2px; */
+	color: #479c1a;
+	font-size: 12px;
+/* 	background: #fdfefc; */
+	background: url(../images/chiyifenh.png) no-repeat;
+}
+
+.hcl_food_lists{
+	position: relative;
+}
+.hcl_food_lists_head{
+	height: 60px;
+	border-bottom: 1px solid #ddd;
+	position: relative;
+}
+
+.hcl_food_lists_head_font{
+	float: left;
+	font-size: 16px;
+	color: #666;
+	font-family: "宋体";
+	margin-left: 20px;
+	margin-top: 30px;
+	height:20px;
+	overflow : hidden;
+}
+
+.hcl_food_lists_head_btns{
+	position: absolute;
+	width: 280px;
+	height: 31px;
+	top: 35px;
+	right: 145px;
+	z-index: 100;
+}
+.hcl_food_lists_head_btns_div{
+	float: left;
+	height: 31px;
+	width: 57px;
+	margin-left: 18px;
+	margin-right: 18px;
+	background: url(../images/btns01.png) no-repeat;
+	line-height: 26px;
+	cursor: pointer;
+}
+.hcl_food_lists_head_btns_div_hover{
+	background: url(../images/btns02.png) no-repeat;
+}
+.hcl_food_lists_head_btns_div_price{
+	float: left;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.hcl_food_lists_head_btns_div_up_price{
+	float: left;
+	width: 13px;
+	height: 15px;
+	margin-top: 6px;
+	background: url(../images/btns03.png) no-repeat;
+}
+
+.hcl_food_lists_head_btns_div_up_price_hover{
+	background: url(../images/btns04.png) no-repeat;
+}
+.hcl_food_lists_head_btns_div_down_comment{
+	float: left;
+	width: 13px;
+	height: 15px;
+	margin-top: 6px;
+	background: url(../images/btns05.png) no-repeat;
+}
+
+.hcl_food_lists_head_btns_div_down_comment_hover{
+	background: url(../images/btns06.png) no-repeat;
+}
+
+.hcl_food_lists_contents_div{
+	height: 60px;
+	border-bottom: 1px dashed #ddd; 
+	
+	position:relative;
+}
+.hcl_food_lists_contents_div_float{
+	float: left;
+}
+.hcl_food_lists_contents_div_information{
+	position: absolute;
+	width: 720px;
+	height:20px;
+	line-height:20px;
+	left:20px;
+	bottom:0;
+	font-size:10pt;
+	overflow: hidden;
+	color: #999;
+}
+.hcl_food_lists_cont_div_name{
+	position: relative;
+	width: 200px;
+	padding-left: 20px;
+}
+.hcl_collection_btn{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 41px;
+	height: 40px;
+}
+.hcl_collection_btn_hover{
+	background: url(../images/collection_btn.png) no-repeat;
+	cursor: pointer;
+}
+.hcl_cursor{
+	cursor: pointer;
+}
+
+.hcl_food_lists_cont_div_dagou{
+	width: 45px;
+}
+.hcl_food_lists_cont_dagou_box{
+	width: 24px;
+	height: 20px;
+	margin-top: 18px;
+	
+}
+.hcl_food_lists_cont_dagou_box_hover{
+	background: url(../images/gouxuan.png) no-repeat;
+}
+
+.hcl_food_lists_cont_div_new_img{
+	margin-top: 22px;
+	width: 80px
+}
+.hcl_food_lists_cont_div_prices{
+	line-height: 60px;
+	width: 70px;
+	text-align: center;
+}
+.hcl_food_lists_cont_div_num{
+	line-height: 60px;
+	width: 120px;
+	text-align: center;
+	color: #999;
+}
+.hcl_food_lists_cont_div_xinxins{
+	margin-top: 18px;
+	width: 125px;
+}
+
+.hcl_food_lists_cont_div_order{
+	margin-top: 21px;
+}
+ .hcl_food_lists_cont_div_order2{
+	margin-left: 17px;
+}
+.hcl_food_lists_cont_div_order3{
+	margin-left: 8px;
+	margin-top:5px;
+}
+.hcl_food_lists_cont_div_order4{
+	margin-left: 12px;
+	margin-top:5px;
+}
+.hcl_food_lists_contents_div_hover{
+	background: #fffdf4;
+}
+
+.hcl_btm_box{
+	width: 1000px;	
+	margin: 0 auto;	
+	/* bottom: -1px; */
+	font-family: "宋体","微软雅黑";
+}
+.hcl_btm_boxs{
+	width:100%;
+}
+.hcl_btm_boxs_position{
+	bottom: -57px;
+}
+
+.hcl_btm_box_top{
+	height: 3px;
+	background: url(../images/btm01_01.png) no-repeat;
+}
+.hcl_btm_box_cont{
+	display: none;
+	min-height: 80px;
+	width: 1000px;
+	background: url(../images/btm02.png) repeat-y;
+}
+.hcl_btm_box_btm{
+	height: 55px;
+	/* background: #f49800; */
+	background: url(../images/btm003.png) no-repeat;
+	/* border-bottom: 1px solid #bf7801; */
+	color: #fff;
+	line-height: 55px;
+	font-weight: 600;
+	padding-left: 20px;
+}
+.hcl_btm_box_btm a{
+	color:#fff;
+}
+.hcl_btm_box_cont_td{
+	width: 105px;
+	border-left: 1px solid #ddd;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+}
+
+.hcl_btm_box_cont_td_head{
+	width: 431px;
+	height: 40px;
+	padding-left: 20px;
+	line-height: 40px;
+}
+ .hcl_btm_box_cont_td_delete_font{
+ 	color: #a59d8d;
+ }
+ .hcl_btm_box_cont td{
+	vertical-align: top;
+	color: #777;
+}
+.hcl_btm_box_cont_delete{
+	margin: 0 auto;
+	width: 17px;
+	height: 17px;
+	background: url(../images/delete1.png) no-repeat;
+	cursor: pointer;
+}
+.hcl_btm_box_cont_delete_hover{
+	background: url(../images/delete2.png) no-repeat;
+}
+.hcl_btm_box_cont_td_minus{
+	float: left;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	margin-top: 5px;
+	margin-left: 18px;
+	background: url(../images/minus01.png) no-repeat;
+}
+.hcl_btm_box_cont_td_minus_hover{
+		background: url(../images/minus02.png) no-repeat;
+}
+.hcl_btm_box_cont_td_add{
+	float: left;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	margin-top: 5px;
+	background: url(../images/add01.png) no-repeat;
+}
+.hcl_btm_box_cont_td_add_hover{
+	background: url(../images/add02.png) no-repeat;
+}
+.hcl_btm_box_cont_td_math_box{
+	float: left;
+	width: 38px;
+	margin-left: 5px;
+	margin-right: 5px;
+	height: 23px;
+	background: url(../images/numbox.png) no-repeat;
+}
+
+
+.hcl_btm_box_btm_shopname{
+	float: left;
+	width: 660px;
+	margin-left: 20px;
+	line-height: 50px;
+	cursor: pointer;
+}
+.hcl_btm_box_btm_shoping{
+	float: right;
+	line-height: 50px;
+}
+.hcl_btm_box_btm_shoping a{
+	text-decoration: none;
+	color: #fff;
+	padding: 0 10px;
+}
+.hcl_btm_box_btm_shop_btn{
+	float: right;
+	width: 104px;
+	margin: 0px 20px;
+}
+.hcl_btm_box_btm_shop_btn_img{
+	width: 104px;
+	margin-top: 8px;
+	height: 36px;
+	cursor: pointer;
+	background: url(../images/maidan.png) no-repeat;
+}
+.hc_color_Tag{
+	width: 15px;
+	height: 15px;
+	color: #fff;
+	font-size: 12px;
+	margin-right: 3px;
+	display: block;
+	text-align: center;
+	float: right;
+	line-height: 15px;
+	border-radius: 2px 2px 2px;
+}
+
+.Red_Tag{
+	background: #EC3939;
+}
+.Yellow_Tag{
+	background: #ffa900;
+}
+.Green_Tag{
+	background: #59a82c;
+}
+.Blue_Tag{
+	background: #2389d6;
+}
+										
+.hc_list_cont_div_loading{
+	position: absolute;
+	display: none;
+	margin: 300px 355px;
+}
+
+.hc_list_cont_div_loading2{
+	position: absolute;
+	display: none;
+	margin: 300px 355px;
+}
+.hc_list_cont_div_loading3{
+	position: absolute;
+	display: none;
+	margin: 300px 355px;
+}
+.hc_list_cont_div_loading4{
+	position: absolute;
+	display: none;
+	margin: 300px 355px;
+}
+
+.hc_list_content{
+	display: none;
+}
+ 
+.lanziDiv{
+width: 31px;
+height: 36px;
+margin-top: 16px;
+margin-left: 10px;
+}
+ 
+.lanziDiv1{
+background: url(../images/lanzhi.png) no-repeat;
+}
+ 
+ .lanziDiv2{
+background: url(../images/lanzhi2.png) no-repeat;
+}

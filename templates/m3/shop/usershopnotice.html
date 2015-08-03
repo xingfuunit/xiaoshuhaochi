@@ -1,0 +1,46 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>   
+ <{block name=extendjs}>
+  <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+  <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+    <script>
+  	var mynomenu='baseset';
+  	</script>
+ <{/block}>
+ <{block name=bodylist}> 
+    <div class="conWaiSet fr">
+        	
+            <div class="shopSetTop">
+            	<span>店铺设置</span>
+            </div> 
+            	  <{include file="<{$tempdir}>/shop/usereditmenu.html"}>  
+             <div class="cl"></div>  
+             
+             	<form id="loginForm" method="post" action="<{ofunc type=url link="/shop/usershopnotice"}>" >
+             	<div class="jutiSet">
+             
+       
+       		  
+       		       <table width="100%" border="0"> 
+                      <tr> 
+                        <td><script>KE.show({id:'notice_info',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/other/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/other/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="notice_info" id="notice_info" style='width:700px; height:300px;'><{$shopinfo['notice_info']}></textarea></td>
+                      </tr> 
+                      <tr>
+                      	 <input type="hidden" name="uid" value="<{$shopinfo['id']}>">
+                        <td >&nbsp; </td>
+                      </tr>
+                 </table>
+       		  	
+       		  	   <div class="settijiao"> 
+                    <input class="xuanze_right" type="submit" name=""  value="" style="margin-left:0px;" />
+                     
+                        <div class="cl"></div>
+                 </div>
+       		 
+ 
+              </div>
+              
+          </form>
+          <div class="cl"></div>
+</div>
+ 
+ <{/block}>

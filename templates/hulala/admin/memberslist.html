@@ -1,0 +1,141 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">普通会员列表</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+   	        	 	
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	
+      	 <div class="search">
+      		 
+            
+            <div class="search_content">
+            	 
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/admin/memberlist"}>">
+            	  
+            	  <label>用户名：</label>
+            	   <input type="text" name="username" value="<{$username}>"> 
+            	   <label>邮箱：</label>
+            	   <input type="text" name="email" value="<{$email}>">                 
+
+            	  
+            	    <input type="submit" value="提交查询" class="button">  
+            	 </form>
+            </div>
+        
+      	</div>
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+           <div class="tags">
+
+      	  
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td"  >
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">用户名称</th>
+
+                        <th align="center">登陆时间</th> 
+
+                        <th align="center">创建时间</th> 
+                        <th align="center">登陆IP</th>
+                        <th align="center">余额</th>
+                        <th align="center">积分</th>
+                        <th align="center">会员类型</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['uid']}>"></td> 
+                        <td align="center"><{$items['username']}></td> 
+                        <td align="center"> <{$items['creattime']|date_format:"%Y-%m-%d %H:%M:%S"}> </td> 
+                        <td align="center"><{$items['logintime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>  
+                        <td align="center"><{$items['loginip']}></td> 
+                        <td align="center"><{$items['cost']}></td> 
+                        <td align="center"><{$items['score']}></td> 
+                         <td align="center"><{if $items['usertype']==1}>商家<{/if}>会员</td> 
+                        <td align="center"><a href="<{ofunc type=url link="/admin/editmember/id/<{$items['uid']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delmember/id/<{$items['uid']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div> 
+                </form>
+                 <div class="page_newc">
+                 	     <div class="select_page">
+                 	      
+                 	     	</div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+        
+        
+        
+        
+
+        
+ </div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

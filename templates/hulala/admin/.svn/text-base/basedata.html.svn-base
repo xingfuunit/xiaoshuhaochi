@@ -1,0 +1,166 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">数据库备份</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	 	<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	  <div class="search">
+      		 
+            
+            <div class="search_content">
+            	 
+            	   <div class="select_page">
+                 	      	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a> 
+                 	     <a  onclick="bkbase();" href="#"   class="delurl">备份数据</a>
+                 	     <span id="showstatus">showinfo</span>
+                 	     
+                 </div>
+            </div>
+        
+      	</div>
+      	 
+      	
+           <div class="tags">
+ 
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">表名</th> 
+                        <th align="center">&nbsp;</th>
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items}>" ></td> 
+                        <td align="center"><{$items}></td> 
+                        <td id="table_<{$items}>">&nbsp;</td>
+                        
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                <div class="page_newc">
+                 	     
+                       
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+</div> 
+
+
+
+
+
+
+
+
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	//空气开始结束
+	//时间间隔
+	function bkbase(){
+		var dotable = '';
+		$("input[name='id[]']").each(function(){ 
+		 if($(this).is(":checked")){
+		 	 if($(this).attr('disabled')==false){
+		 	 	dotable = $(this).val();
+		 	 	$(this).attr('disabled',true);
+		 	 	 return false;
+		 	 } 
+		 	}
+	 });	
+	 if(dotable !=''){
+	 	 $('#showstatus').text('备份'+dotable+'表');
+	 	$.ajax({
+     type: 'post',
+     async:false,
+     data:{'tabelname':dotable,'dirname':<{$dirname}>},
+   url: '<{ofunc type=url link="/admin/savedata"}>', 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){
+     		$('#table_'+dotable).text('ok');
+     	}else{
+     		if(content.error == true)
+     		{ 
+     			$('#showstatus').text(content,msg);
+     			 $('#table_'+dotable).text(content.msg);
+     		}else{
+     			//diaerror(content); 
+     			$('#showstatus').text(content);
+     			 $('#table_'+dotable).text(content);
+     		}
+     	}
+     	setTimeout("bkbase()",200);  
+	   },
+     error: function(content) { 
+     	 $('#showstatus').text('数据获取失败');
+       $('#table_'+dotable).text('数据获取失败');
+       setTimeout("bkbase()",200); 
+	     }
+     });
+	 	
+	 	 
+	 }else{
+	 	 $('#showstatus').text('备份完成表');
+	 }
+	 
+		//	
+	}
+</script>
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

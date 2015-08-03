@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> -外卖人网上订餐系统</title>
+ 
+ </head> 
+<body>
+<table width="300" border="0" bordercolor="#333333">
+  <tr>
+    <td>商品名称</td>
+    <td><div align="center">商品单价</div></td>
+    <td><div align="center">商品数量</div></td>
+    <td><div align="center">小计</div></td>
+  </tr>
+  <{foreach from=$goodslist item=items}>
+  <tr>
+    <td><{$items['name']}></td>
+    <td><div align="center"><{$items['cost']}></div></td>
+    <td><div align="center"><{$items['shuliang']}></div></td>
+    <td><div align="center"><{$items['xiaoij']}></div></td>
+  </tr>
+  <{/foreach}>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td colspan="4"> 打包费:<{$bagcost}></td>
+  </tr>
+   <tr>
+    <td colspan="4"> 总价:<{$sumcost}></td>
+  </tr>
+  <{if !empty($phone)}>
+  <tr>
+     <td colspan="4"> 联系电话:<{$phone}></td>
+  </tr>
+  <{/if}>
+  <{if !empty($address)}>
+  <tr>
+     <td colspan="4"> 地址:<{$address}></td>
+  </tr>
+  <{/if}>
+  <{if !empty($contactname)}>
+  <tr>
+     <td colspan="4"> 联系人:<{$contactname}></td>
+  </tr>
+  <{/if}>
+</table> 
+</body>
+</html>

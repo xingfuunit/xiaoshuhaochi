@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> <{$sitetitle}>-<{$sitename}></title>
+<meta name="Keywords" content="<{$keywords}>" />
+<meta name="description" content="<{$description}>" />
+<{$metadata|stripslashes}>
+<link rel="shortcut icon" href="<{$siteurl}>/templates/<{$tempdir}>/public/images/favicon.ico" />
+  
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/common.css"> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/server.css"> 
+ <script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+</script>
+<!--[if lte IE 6]>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/DD_belatedPNG_0.0.8a.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('div, ul, img, li, input , a'); 
+    </script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ie6.js" type="text/javascript"></script>
+<![endif]--> 
+</head>
+<body> 
+ <div id="toTop" style="left: 1212.5px; display: none;"></div>
+<div class="top" style="display:none;">
+	  
+</div> 
+<header id="topbar" role="banner">
+  <div class="container clearfix">
+
+            <a id="logo" href="<{$siteurl}>" title="<{$sitename}>" alt="<{$sitename}>" role="logo">
+            <i class="default-logo"></i>
+                </a>
+
+    <a class="m-apps" href="/mobile" target="_blank" style="display:none;"><i class="icon-mobile"></i>手机客户端</a>
+    <div id="topbar_search" class="topbar-search" role="search">
+      <form id="tsearch_form" class="tsearch-form clearfix" action="#" method="get">
+                  <i class="icon-tsearch"></i>
+          <input id="tsearch_input" class="tsearch-input" type="text" name="kw" onkeydown="if(event.keyCode==13)search();" autocomplete="off" placeholder="搜索餐厅，美食…">
+                <i id="ts_loading" class="icon-tloading hide"></i>
+        <a id="ts_clear" class="icon-tclear hide"></a>
+      </form>
+      <div id="tsearch_autocomplete" class="tsearch-autocomplete" style="display: none;"></div>
+
+    </div>
+
+    <nav class="topbar-nav" role="navigation">
+      <ul class="topbar-site-nav">
+      	<{foreach from=$footlink key=myid item=items}>  
+			    <li><a class="tnav-link" rel="nofollow" href="<{$items['typeurl']}>"><{$items['typename']}></a></li>
+			   <{/foreach}> 
+      </ul>
+
+      <div id="topbar_cart" class="eleme_dropdown topbar-widget topbar-cart empty">
+        <a class="e_toggle twidget-toggle" href="<{ofunc type=url link="/site/cart"}>">
+          <span id="lanzi" class="tcart-total twidget-total" data="<{$cartcount}>"><{$cartcount}></span>
+          <i class="icon-tcart"></i>
+        </a>
+        <div class="e_dropdown twidget-dropdown">
+          <div id="tcart_loading" class="twidget-loading"></div>
+          <div id="tcart_wrapper"></div>
+        </div>
+      </div>
+       <{if !empty($member)}> 
+      <div class="eleme_dropdown topbar-user-nav">
+        <a class="e_toggle tnav-link tnav-username" href="javascript:dropdowns();"><{$member['username']}><i class="caret"></i></a>
+        <ul class="e_dropdown topbar-user-dropdown">
+          <li><a rel="nofollow" href="<{ofunc type=url link="/membercenter/index"}>"><i class="icon-profile"></i>个人中心</a></li>
+          <li><a rel="nofollow" href="<{ofunc type=url link="/membercenter/myFavorite"}>"><i class="icon-fav"></i>我的收藏</a></li>
+          <li><a rel="nofollow" href="<{ofunc type=url link="/membercenter/address"}>"><i class="icon-address"></i>我的地址</a></li>
+          <li><a rel="nofollow" href="<{ofunc type=url link="/membercenter/modify"}>"><i class="icon-config"></i>修改密码</a></li>
+          <li class="divider"></li>
+          <li><a rel="nofollow" href="<{ofunc type=url link="/member/loginout"}>"><i class="icon-logout"></i>退出登录</a></li>
+        </ul>
+      </div>
+      <{else}>
+      <div class="topbar-user-nav tnav-link">
+        <a rel="nofollow" href="<{ofunc type=url link="/member/login"}>">登录</a> /
+        <a rel="nofollow" href="<{ofunc type=url link="/member/regester"}>">注册</a>
+      </div>
+      <{/if}>
+    </nav>
+   
+  </div>
+  
+</header>
+<div id="showselectad"> 
+      <a style="color:#fff;" href="<{$siteurl}>"><{$myaddressname}></a>   <a style="color:#fff;" href="<{ofunc type=url link="/site/guide"}>">[切换地址]</a>
+   </div>
+<script type="text/javascript">
+	
+	function dropdowns(){
+		//$(obj).parent().addClass('open');
+		$('.eleme_dropdown').addClass('open');
+		//alert($(obj).text());
+	}
+  function search()
+	{
+							var name = $('#search_input').val();
+							if(name != '' && name != $('#search_input').attr('text')) 
+							{
+								var url = siteurl+'/index.php?controller=site&action=index&shopsearch='+name; 
+								location.href=url;
+							}
+	 }
+	 $(document).ready(function(){
+		  $(document).click(function(){
+		   	if($('.eleme_dropdown').hasClass('open'))
+			  {
+			   	$('.eleme_dropdown').removeClass('open'); 
+			  }
+			});
+	});
+	 
+</script>	
+<div class="mmbg" <{if !empty($sitebk)}>style="background:url(<{$sitebk}>)"<{/if}>></div> 
+
+	
+ 

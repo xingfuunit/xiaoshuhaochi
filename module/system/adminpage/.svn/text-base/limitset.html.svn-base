@@ -1,0 +1,83 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+  
+ <{block name=controlname}>后台菜单设置<{/block}>
+ <{block name=bodylist}>
+  <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+  	    <div class="search"> 
+            <div class="search_content"> 
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/<{$Taction}>/module/limitset"}>">
+            	  
+            	  <label>选择用户组：</label>
+            	   <select name="usergrade">
+            	   	 <{load_data assign="grouplist" table="group"  fileds="*"  where="type='admin'" limit="6"}>  
+            	   	<{foreach from=$grouplist['list'] key=myid  item=items}>  
+                      	   <option value="<{$items['id']}>" <{if $groupid==$items['id']}>selected<{/if}>><{$items['name']}></option> 
+                	<{/foreach}>            
+                 </select>
+            	  
+            	    <input type="submit" value="提交查询" class="button">  
+            	 </form>
+            </div>
+        
+      	</div>
+  	
+  	
+  	  <{if !empty($groupinfo)}>
+          <div class="tags">
+       
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/<{$Taction}>/module/savelimit/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	<{if $groupinfo['type'] == 'admin'}> 
+                  	
+                  	<{foreach from=$modelist item=items}>
+                  	
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left"><{$items['cnname']}></td>
+                      <td> 
+                      	
+                      <{if count($items['det']) > 0}>
+                        <{foreach from=$items['det'] key=mykey item=itv}> 	
+                             <input type="checkbox" name="<{$items['name']}>[]" value="<{$mykey}>" <{if in_array($mykey,$items['menuarray'])}>checked<{/if}>><{$itv}> 
+                        <{/foreach}> 
+                       <{/if}>
+                      	</td>
+                      </tr> 
+                      
+                      
+                     <{/foreach}>
+                      
+                      
+                    <{else}>
+                    <{/if}>
+                     
+                    <input type="hidden" name="groupid" id="groupid" value="<{$groupid}>" class="skey" style="width:150px;">
+                   
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+             
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+      <{/if}> 
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+   
+   
+    </div> 
+<script>	 
+function checkword(flag)
+{ 
+	 
+	$("input[name='limit[]']").attr("checked",flag); 
+}
+</script>
+<{/block}>

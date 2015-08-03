@@ -1,0 +1,215 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/ask.css"> 
+
+<div class="MsgFrm">
+	<div class="MsgLeftFrm">
+		 
+		<div class="NewJoinFrm">
+			<div class="SubTitle">最新加入</div>
+			<div class="JoinList">
+				<ul style="float:left;"> 
+					<{foreach from=$userlist item=items}>
+					<li>
+						<a class="JoinHead" href="#"><img src="<{$items['logo']|default:$userlogo}>"></a>
+						<div class="JoinName" ><a href="#"><{$items['username']|default:"游客"}></a></div>
+					</li>
+					<{/foreach}>
+				</ul>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		 
+	</div>
+	<div class="MsgRightFrm">
+		<div class="MsgTitle" style="background:url(<{$shoplogo}>) no-repeat 10px 10px #fff;">弹指间，美食现！ 给我们留下宝贵意见吧</div>
+		<div class="MsgLeaveForm">
+			<div class="MsgLeaveHead"><img src="<{$member['logo']|default:$userlogo}>"   width="50" height="50"></div>
+			<div class="MsgForm">
+                <form action="" method="post" id="saveform" name="saveform">
+				<textarea datatype="*1-200" nullmsg="请输入留言信息！" errormsg="留言信息最多200个字符！" class="MsgTxt" name="content" id="liuyan_textarea"></textarea>
+				<a href="javascript:fabu();" class="BtnSubMsg"></a>
+				<div style="clear:both;"></div>
+                </form>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<!-- MsgList start -->
+		<div class="MsgList">
+			<ul id="MList" scrollpagination="enabled"> 
+			
+			<{foreach from=$list item=items}>
+				<li id="M_599" u="690" rel="loaded">
+					<div class="UserHead"><a href="#"><img src="<{$items['logo']|default:$userlogo}>"></a></div>
+					<div class="MsgInfo">
+						<div class="MITitle">
+                        <a href="javascript:;" <a="" class="Name" id="N_599"><{$items['username']|default:"游客"}></a> <span class="Levels l03" title="经验值：401点"></span> — <{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}>
+                        </div>
+						<div class="MILeave" id="C_599"><{$items['content']}></div>
+                        <div id="MRList_599"> 
+                        	<{if !empty($items['replycontent'])}>
+                        <div id="MR_65" class="MsgReply">
+                        	<a href="#" class="MsgCustomerService">
+                              (<b style="color:Red;"><{$sitename}>客服</b>)</a>发表于: <{$items['replytime']|date_format:"%Y-%m-%d %H:%M:%S"}>
+                            <br>
+                            <{$items['replycontent']}><span class="MsgReplyIcon"></span>
+                        </div>
+                         <{/if}> 
+                        </div>
+					</div>
+           <div style="clear:both;"></div>
+				</li>
+				<{/foreach}> 
+				
+				 </ul>
+		</div>
+        <div class="MoreMsg">
+        	<div class="loading" id="loading" style="display: show;">加载中... 请稍候 &gt;&gt;</div>
+            <div class="loading" id="nomoreresults" style="display: none;">亲。已经到底啦！</div>
+        </div>
+       <input type="hidden" name="pageshow" id="pageshow" value="1" data="1">
+		<!-- MsgList end -->
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+
+
+<script>
+	function fabu()
+	{
+		var shopid = $('#nowshopid').val();
+		if(shopid == undefined)
+		{
+			shopid = 0;
+		
+		}
+		if($('#liuyan_textarea').val() == '')
+		{
+			diaerror('留言内容不能为空'); 
+				return '';
+		}
+		var info = {'content':$('#liuyan_textarea').val(),'shopid':'0','Captcha':'','typeid':'5'};
+		var backmes =   ajaxback('<{ofunc type=url link="/ask/saveask"}>',info); 
+		if(backmes.flag == false)
+		{
+			location.reload();  
+		}else{
+			diaerror(backmes.content); 
+		} 
+	}
+var myobj = new Object(); 
+myobj.IsGetData = false; //是否存在数据加载     
+myobj.Time = 0; //时间声明(模拟)   
+// 描 述：游缆器滚动事件     
+window.onscroll = function() {   
+    if (uiIsPageBottom() && !myobj.IsGetData) {//状态;  
+        myobj.IsGetData = true;      //模拟Ajax加载;  
+        myobj.Time = window.setTimeout('GetAjaxData()', 1000); //模拟Ajax加载;使用Ajax数据注释掉本行  
+    } 
+} 
+ 
+// 描 述：模式Ajax加载数据     
+function GetAjaxData() {     
+	var pagenum = Number($('#pageshow').val())+1;
+	$('#pageshow').val(pagenum);
+	var panduan = $('#pageshow').attr('data');
+	$('#pageshow').attr('data','0');
+	if(panduan == 1)
+	{
+		   var backinfo = ajaxback('<{ofunc type=url link="/ask/findask"}>',{'page':pagenum});
+		   if(backinfo.flag == true)
+		   { 
+		   	   $('#loading').hide();
+		   	   $('#nomoreresults').html(backinfo.content);
+		   	   $('#nomoreresults').show();
+		    }else{
+		    	 
+		    	$('#pageshow').attr('data','1');
+		    	//alert(backinfo.content[0].id);   
+		    	var det1 = backinfo.content; 
+		    	$.each(backinfo.content,function(k,submen){ 
+		    	 
+		    		var showdo = '<li id="M_599" u="690" rel="loaded">';
+		    		    showdo +='<div class="UserHead"><a href="#"><img src="'+submen.logo+'"><\/a><\/div>';
+					      showdo +='<div class="MsgInfo">';
+						    showdo +='<div class="MITitle">';
+                showdo +='<a href="javascript:;" <a="" class="Name" id="N_599">'+submen.username+'<\/a> <span class="Levels l03" title="经验值：401点"><\/span> — '+submen.addtime+'';
+                showdo +='<\/div>';
+						    showdo +='<div class="MILeave" id="C_599">'+submen.content+'<\/div>';
+                showdo +='<div id="MRList_599">';
+                if(submen.replycontent != null && submen.replycontent != '')
+                {
+                	  
+                	 var huifuzhe = '<{$sitename}>'; 
+                	 if(submen.replyname != '' && submen.replyname != null){
+                	    huifuzhe = submen.replyname;
+                	 }
+                	 showdo +='<div id="MR_65" class="MsgReply">';
+                    showdo +='<a href="#" class="MsgCustomerService">';
+                    showdo +='(<b style="color:Red;">'+huifuzhe+'客服<\/b>)<\/a>发表于: '+submen.replytime+'';
+                     showdo +='<br>';
+                     showdo +=''+submen.replycontent+'<span class="MsgReplyIcon"><\/span>';
+                     showdo +='<\/div>';
+                 }
+                        	 
+              
+               showdo +='</div><\/div><div style="clear:both;"><\/div><\/li>';
+				
+				      $('#MList').append(showdo); 
+		    	});
+		    		 
+		    }	
+	}
+	
+ 
+	  window.clearTimeout(myobj.Time);     
+
+      
+    myobj.IsGetData = false;  
+
+}    
+
+// 描 述：判断是滚动到页面底部    
+function uiIsPageBottom() {     
+    var scrollTop = 0;     
+    var clientHeight = 0;     
+    var scrollHeight = 0;     
+    if (document.documentElement && document.documentElement.scrollTop) {   
+        scrollTop = document.documentElement.scrollTop;  
+    } else if (document.body) {     
+        scrollTop = document.body.scrollTop;     
+    }     
+    if (document.body.clientHeight && document.documentElement.clientHeight) {     
+        clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;   
+    } else {     
+        clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;     
+    }     
+    scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);     
+    if (scrollTop + clientHeight == scrollHeight) {    
+        return true;  
+    } else {     
+        return false;    
+    }   
+} 
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<{include file="<{$tempdir}>/public/foot.html"}>

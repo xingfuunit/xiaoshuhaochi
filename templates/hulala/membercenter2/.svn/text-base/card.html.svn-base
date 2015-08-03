@@ -1,0 +1,78 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}> 
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+				<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table id="myAddr_table" class="table table-bordered">
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr> 
+		                  <th style="width:100%;" colspan="2">&nbsp;使用充值卡充值</th>
+		                  
+		                </tr>
+		              </thead>
+		              <tbody>
+		               
+		              <form id="adfrom" action="<{ofunc type=url link="/membercenter/exchangcard"}>">
+		               <tr class="my_addr" id="newAddr_1"  > 
+		           	        <td style="width:15%;"> 卡号： </td><td><input class="hc_UserInfoTdInput  hc_UserInfoTdInputAddr" id="addr_new_1" name="card" type="text8"> </td>
+		           	   </tr>
+		           	   <tr> 
+		           	        <td >密码：</td><td><input class="hc_UserInfoTdInput hc_UserInfoTdInputAddr" id="phone_new_1" name="password" type="password"></td>
+		               </tr>
+		                <tr> <td>&nbsp;</td> <td ><a href="javascript:newAddr();">确认提交</a></td></tr>
+		           		
+		           			</form> 
+		           			</tbody>
+		           	
+		            </table> 
+		        </div>
+		        
+		        
+		        <div class="hc_userinfo_content_div_box">
+					     <table id="payonline" class="table table-bordered">
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr> 
+		                  <th style="width:100%;" colspan="2">&nbsp;在线充值</th>
+		                  
+		                </tr>
+		              </thead>
+		              <tbody>
+		               
+		              <form id="adfrom">
+		               <tr class="my_addr" id="newAddr_1"  > 
+		           	        <td style="width:15%;"> 金额： </td><td><input class="hc_UserInfoTdInput" id="addr_new_1" name="card" type="text8"> </td>
+		           	   </tr>
+		           	    
+		                <tr> <td>&nbsp;</td> <td ><a href="javascript:newAddr();">提交支付</a></td></tr>
+		           		
+		           			</form> 
+		           			</tbody>
+		           	
+		            </table> 
+		        </div>
+		        
+		        
+		        
+		        <div class="page"><{$pagecontent}></div>
+				</div>	
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	 
+	function newAddr()
+	{
+		 
+		subform('',$('#adfrom'));
+	}
+	 
+	 
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

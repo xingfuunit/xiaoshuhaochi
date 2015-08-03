@@ -1,0 +1,161 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>保存超市商品<{/block}>
+ <{block name=bodylist}>
+   <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	 <div class="search"> 
+            <div class="search_content"> 
+            	    <input type="button" value="添加一级商品分类" class="button" onclick="addgoodstype(0,'',0);">  
+            </div>
+        
+      	</div>
+      	
+         <div class="tags">
+ 
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" >
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="0" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr> 
+                      	<th align="center">商品分类</th>
+                        <th align="center">下级分类</th>   
+                      </tr>
+
+                    </thead> 
+
+                     <tbody> 
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">  
+                        <td align="center" width="300px"><a href="#" onclick="addgoodstype(<{$items['parent_id']}>,'<{$items['name']}>',<{$items['id']}>);"><{$items['name']}></a><input type="button" value="添加下级分类" class="button" onclick="addgoodstype(<{$items['id']}>,'',0);"> 
+                        	<a href="#" onclick="addgoodstype(<{$items['parent_id']}>,'<{$items['name']}>',<{$items['id']}>);"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                          <a onclick="return remind(this);" href="<{ofunc type=url link="/market/delmarkettype/id/<{$items['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a>
+                        	 </td>  
+                        <td style="">
+                        		<{if is_array($items['det'])}>
+                        	<{foreach from=$items['det'] item=ite}> 
+                        	  <table>
+                        	  	<tr>
+                        	  		<td width="300px" style="border-bottom:none;border-top: 1px solid #e8eef6;border-left:1px solid #e8eef6;"><a href="#" onclick="addgoodstype(<{$ite['parent_id']}>,'<{$ite['name']}>',<{$ite['id']}>);"><{$ite['name']}></a><input type="button" value="添加下级分类" class="button" onclick="addgoodstype(<{$ite['id']}>,'',0);"> 
+                        	  			
+                        	  			<a href="#" onclick="addgoodstype(<{$ite['parent_id']}>,'<{$ite['name']}>',<{$ite['id']}>);"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                        	               <a onclick="return remind(this);" href="<{ofunc type=url link="/market/delmarkettype/id/<{$ite['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a>
+                        	  			</td>
+                        	  		 <td width="250px" style="border-bottom:none;border-top: 1px solid #e8eef6;">
+                        	  		 	<{if is_array($ite['det'])}>
+                        	  		 	<{foreach from=$ite['det'] item=itec}> 
+                        	          <table>
+                        	  	       <tr>
+                        	  		      <td style="border-left:1px solid #e8eef6;border-bottom:none;"><a href="#" onclick="addgoodstype(<{$itec['parent_id']}>,'<{$itec['name']}>',<{$itec['id']}>);"><{$itec['name']}></a>
+                        	  		      	<a href="#" onclick="addgoodstype(<{$itec['parent_id']}>,'<{$itec['name']}>',<{$itec['id']}>);"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                        	               <a onclick="return remind(this);" href="<{ofunc type=url link="/market/delmarkettype/id/<{$itec['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a> </td> 
+                        	  		      </tr> 
+                        	  	       </table> 
+                        	        <{/foreach}> 
+                        	        <{else}>
+                        	         <table>
+                        	  	       <tr>
+                        	  		      <td style="border-left:1px solid #e8eef6;border-bottom:none;">&nbsp; </td> 
+                        	  		      </tr> 
+                        	  	       </table> 
+                        	        <{/if}>
+                        	  		 	
+                        	  		 	</td>
+                        	  		</tr> 
+                        	  	</table> 
+                        	  <{/foreach}> 
+                        	   <{else}>
+                        	   <table>
+                        	  	<tr>
+                        	  		<td width="300px" style="border-bottom:none;">&nbsp;</td>
+                        	  		 <td style="border-bottom:none;">
+                        	  		   
+                        	         <table>
+                        	  	       <tr>
+                        	  		      <td style="border-left:1px solid #e8eef6;">&nbsp; </td> 
+                        	  		      </tr> 
+                        	  	       </table> 
+                        	        
+                        	  		 	
+                        	  		 	</td>
+                        	  		</tr> 
+                        	  	</table> 
+                        	   
+                        	    <{/if}>
+                        </td>
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                  
+
+                </form>
+
+                <div class="page_newc">
+                 	     
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  
+
+
+
+</div> 
+
+<script id="addtype" type="text/html">
+<form method="post" name="form1" action="<{ofunc type=url link="/market/savemarkettype/datatype/json"}>" onsubmit="return subform('',this);">
+  <table width=300px> 
+  	<tr><td height=25px width=30%>分类名称:</td>  <td width=70%><input type="text" name="typename" value="<^%=itemname%^>"></td></tr>
+  	<tr><td height=25px>&nbsp;</td> <input type="hidden" name="parent_id" value="<^%=parent_id%^>"> <td><input type="hidden" name="typeid" value="<^%=itemid%^>"><input type="submit" value="<^%=btnname%^>" class="button"></td></tr>
+  </table> 
+</form>
+</script>
+<script>
+function addgoodstype(parent_id,itemname,itemid){ 
+	var showtitle = '';
+	var btnname= '';
+  if(itemname == ''){
+  	showtitle = '添加商城商品分类';
+  	btnname = '确认添加';
+  }else{
+  	showtitle = '编辑商城商品分类';
+  	btnname = '确认修改';
+  }
+ var datas = {parent_id: parent_id,itemname:itemname,itemid:itemid,btnname:btnname};
+	var html = template.render('addtype', datas); 
+	 var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:showtitle,
+        content: html
+   });
+}
+
+</script>
+<{/block}>

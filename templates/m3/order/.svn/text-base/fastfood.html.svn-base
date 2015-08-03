@@ -1,0 +1,355 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>  
+ <{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+   <script>
+  	 
+  	</script>
+ <{/block}> 
+ <{block name=bodylist}>
+   <!---content right start---> 
+        <div class="conRight fr">
+        	<!---账单明细 start---> 
+        	<div class="menu fl">
+            	<div class="menuTitle">
+                	<span>账单明细</span>
+                </div>
+              
+                    <div class="goodshow" >
+                    
+                        <div class="goodli">
+                            <div class="xh"> 
+                                <span>数量</span>
+                            </div>
+                            <div class="cm">
+                                 <span>菜名</span>
+                            </div>
+                            <div class="dj">
+                                 <span>单价</span>
+                            </div>
+                            <div class="je">
+                                 <span>金额</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cl"></div>
+                    	<div class="menugoodlist" id="cartshow">
+                    		
+                    		
+                    		
+                    		<!---
+                       		 <div class="goodlist">
+                            <div class="goodnum">
+                               <div class="btniput">
+                               <span class="right_l_btn_left" data-id="109" data-shopid="30"></span>
+                               <span class="right_l_btn_nub" id="gshu_109">1</span>
+                               <span class="right_l_btn_right" id="gid_109" data-price="5.00" typeid="34" data-id="109" data-shopid="30"></span>	
+                               </div> 
+                            </div>
+                            <div class="goodname">
+                                 <span>揽锅菜</span>
+                            </div>
+                            <div class="goodcost">
+                                 <span>15</span>
+                            </div>
+                            <div class="goodallcost">
+                                 <span>15</span>
+                            </div>
+                        </div>
+                        --->
+                        
+                     
+                        
+                        
+                        
+                        </div>
+                        <div class="cl"></div>
+                        
+                        <div class="cdjs">
+                        	<span class="span1">打包费:<font color="#ec7501" size="2" style="font-weight:bold;">¥<font id="bagcost">0</font></font></span>
+                            <span class="span2">小计：<font color="#ec7501" size="2" style="font-weight:bold;">¥<font id="sumcost">0</font></font></span>
+                        </div>
+                    </div>
+               
+                
+                
+                <div class="xxqq">
+                	<form>
+                    	<div class="xiangqing" id="contactname">
+                        	<div class="xingming fl">姓名</div>
+                            <div class="inputtext fl"><input type="text" name="contactname" value="" /></div>
+                        </div>
+                        <div class="xiangqing" id="phone">
+                        	<div class="xingming fl">电话</div>
+                            <div class="inputtext fl"><input type="text" name="phone" value="" /></div>
+                        </div>
+                        <div class="xiangqing" id="address">
+                        	<div class="xingming fl">地址</div>
+                            <div class="inputtext fl"><input type="text" name="address" value="" /></div>
+                        </div>
+                        
+                    </form>
+                    
+                </div>
+                <div class="leftBot">
+                <div class="fl curbtn" onclick="dayindata();">
+                	<img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/dayin.png" />
+                 </div>
+                  <div class="fr curbtn" onclick="clearcart();">
+                    <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/qingkong.png" />
+                    
+                  </div>
+                  <div class="cl"></div>
+                </div>
+                
+            </div>
+             <!---账单明细 end---> 
+             
+             
+             <!---账单列表 start---> 
+        	<div class="conList fl">
+            	<div class="listTitle">
+                	<ul>
+                    
+                       <li  class="cur curbtn" data="a">点餐</li> 
+                       <li class="curbtn" data="b">结账</li> 
+                    </ul>
+                  
+                </div>
+                
+                <div class="fenlei">
+                	 
+                    <div class="new_caidan" id="caidanlist">
+                    	<ul>
+                    		<li class="on" onclick="showtype(0,this);">全部</li>
+                    		<{if $shopinfo['shoptype'] == 0}>
+                    		 <{load_data assign="menutype" table="goodstype"  where="shopid='<{$shopinfo['id']}>'"  fileds="*"  limit="20" }> 
+                    		 <{foreach $menutype['list'] item=items}>
+                        	<li onclick="showtype('<{$items['id']}>',this);"><{$items['name']}></li>
+                        	<{/foreach}>
+                        	<{else}> 
+                        	 <{load_data assign="menutype" table="marketcate"  where="shopid='<{$shopinfo['id']}>' and parent_id != 0"  fileds="*"  limit="20" }> 
+                    		 <{foreach $menutype['list'] item=items}>
+                        	<li onclick="showtype('<{$items['id']}>',this);"><{$items['name']}></li>
+                        	<{/foreach}>
+                        	<{/if}>
+                            
+                        </ul>
+                        <div class="cl"> </div>
+                    </div>
+                    <div class="cl"> </div>
+                </div>
+                
+                <div class="caidanList">
+                	<div class="mealsList" id="goodslist">
+                    	<ul>
+                    		 <{load_data assign="menulist" table="goods"  where="shopid='<{$shopinfo['id']}>'"  fileds="id,name,cost,count,shopid,typeid,bagcost"  limit="1000" }> 
+                    		  <{foreach $menulist['list'] item=items}>
+                        	<li <{if $items['count'] < 1}>style=" background:#b5b4b4;"<{else}> onclick="addtocart('<{$items['id']}>','<{$items['cost']}>','<{$items['bagcost']}>','<{$items['name']}>');" <{/if}>class="litype<{$items['typeid']}>" id="goodsid_det<{$items['id']}>">
+                            	<p class="danjia">¥<span><{$items['cost']}></span></p>
+                                <p class="caidanName"><{$items['name']}></p>
+                                <div class="mealsok "></div> 
+                            </li>
+                         <{/foreach}>    
+                        </ul>
+                  <script>
+				  
+                    $(function(){
+						//菜单列表自动适应的最小高度
+						var num = $('.fenlei li').length ;						
+						var fenleiHeight = Math.ceil(num/7)*43+10;
+						
+						//菜单列表背景自动适应的高度
+						var caidanListHeight = 830 - 42 - fenleiHeight - 50;
+						$(".caidanList").css('min-height',Number(caidanListHeight));
+						
+											
+						
+						//菜单列表超出最小的高度后自动适应的高度
+						var cou = $('.caidanList li').length ;
+						var caidanHeight = Math.ceil(cou/7)*97;
+						$(".caidanList").css('height',Number(caidanHeight));
+						
+						
+						//右边内容自动适应的高度
+						var conRightHeight = caidanHeight + fenleiHeight +50 +42 ;
+						$(".conRight").css('height',Number(conRightHeight));
+					
+					
+				});
+                </script>
+                        <div class="cl"></div>
+                    </div>
+                </div>
+                
+            </div>
+             <!---账单列表 end---> 
+              <div class="cl"></div>
+        </div>
+        <div class="cl"></div>
+        
+        <!---content right end---> 
+ <script>
+  function showtype(typeid,obj){
+  	if(typeid == 0){
+  	  $('#goodslist').find('li').show();
+  	  
+  	}else{
+  	    $('#goodslist').find('li').hide();
+  	    $('#goodslist').find('.litype'+typeid).show();
+  	}
+  	$(obj).addClass('on').siblings().removeClass('on');
+  }
+  var sumcost = 0;//总价等于0
+  var bagcost = 0;
+  var checkuser = true;
+   
+  function addtocart(goodsid,goodscost,bagcost,goodsname){
+  	var checkhtml = $('#cart_id'+goodsid).html();
+  	if(checkhtml == undefined){
+  		var newzongjiage = Number(goodscost)*1;
+  		var htmls = '<div class="goodlist" id="cart_id'+goodsid+'" data="'+goodsid+'">';
+          htmls += '          <div class="goodnum">';
+          htmls += '             <div class="btniput">';
+          htmls += '            <span class="right_l_btn_left" onclick="deltocart(\''+goodsid+'\',\''+goodscost+'\',\''+bagcost+'\')"></span>';
+         htmls += '            <span class="right_l_btn_nub" id="gshu_'+goodsid+'">1</span>';
+          htmls += '            <span class="right_l_btn_right" onclick="addtocart(\''+goodsid+'\',\''+goodscost+'\',\''+bagcost+'\')"></span>	';
+          htmls += '           </div> ';
+         htmls += '         </div>';
+         htmls += '          <div class="goodname">';
+         htmls += '              <span>'+goodsname+'</span>';
+         htmls += '        </div>';
+         htmls += '        <div class="goodcost">';
+         htmls += '              <span >'+goodscost+'</span>';
+         htmls += '         </div>';
+         htmls += '         <div class="goodallcost">';
+         htmls += '              <span id="gzj_'+goodsid+'">'+newzongjiage+'</span>';
+         htmls += '          </div>';
+         htmls += '    </div>'; 
+         $('#cartshow').append(htmls); 
+         $('#goodsid_det'+goodsid).find('.mealsok').show();
+  	}else{
+  		$('#gshu_'+goodsid).text(Number($('#gshu_'+goodsid).text())+1); 
+  		$('#gzj_'+goodsid).text(Number($('#gzj_'+goodsid).text())+Number(goodscost)); 
+  	} 
+  	var tempcost = Number(goodscost)+Number(bagcost);
+  	bagcost = Number(bagcost)+Number(bagcost);
+  	$('#bagcost').text(bagcost);
+  	sumcost = Number(sumcost)+Number(tempcost.toFixed(2));
+  	$('#sumcost').text(sumcost);
+  }
+  function deltocart(goodsid,goodscost,bagcost){
+  	var checkhtml = $('#cart_id'+goodsid).html();
+  	if(checkhtml != undefined){
+  		  var shangpinzongshu = $('#gshu_'+goodsid).text(); 
+  		  if(shangpinzongshu == 1){
+  		     $('#cart_id'+goodsid).remove();
+  		     $('#goodsid_det'+goodsid).find('.mealsok').hide();
+  		  }else{
+  		      $('#gshu_'+goodsid).text(Number($('#gshu_'+goodsid).text())-1); 
+  		      $('#gzj_'+goodsid).text(Number($('#gzj_'+goodsid).text())-Number(goodscost)); 
+  		  }
+  	    var tempcost = Number(goodscost)+Number(bagcost);
+  	bagcost = Number(bagcost)-Number(bagcost);
+  	$('#bagcost').text(bagcost);
+  	sumcost = Number(sumcost)-Number(tempcost.toFixed(2));
+  	$('#sumcost').text(sumcost);
+  	}
+  }
+  function clearcart(){
+     sumcost = 0;
+     bagcost = 0;
+     $('#bagcost').text(0);
+     $('#sumcost').text(0);
+     $('#cartshow').html('');
+     $('.mealsok').hide();
+  }
+  $(function(){
+					$(".listTitle ul li").click(function(){
+						    $(this).addClass('cur').siblings().removeClass('cur');
+						    clearcart();
+						    var checkdata = $(this).attr('data');
+						     $('input[name="contactname"]').val('');
+						       $('input[name="phone"]').val('');
+						       $('input[name="address"]').val('');
+						    if(checkdata == 'a'){
+						       checkuser = true;
+						        $('#contactname').show();
+						       $('#phone').show();
+						       $('#address').show();
+						    }else{
+						       checkuser = false;
+						       $('#contactname').hide();
+						       $('#phone').hide();
+						       $('#address').hide();
+						      
+						    }
+						
+					});	 
+ });
+ function dayindata(){
+   //在新仓库中打开网页
+   var shopid = '<{$shopinfo['id']}>';
+   var allobj = $('.goodlist');
+   if(allobj.length < 1){
+     alert('购物车中无数据');
+     return false;
+   }
+   var contactname =  $('input[name="contactname"]').val();
+	 var phone = $('input[name="phone"]').val();
+	 var address = $('input[name="address"]').val();
+   if(checkuser == true){
+       if(contactname == ''){
+         alert('联系人部能为空 ');
+         return false;
+       }
+       if(phone == ''){
+         alert('联系电话不能为空');
+         return false;
+       }
+       if(address == ''){
+         alert('联系地址不能为空');
+         return false;
+       }
+       
+   }
+   var newids = new Array();//存放ID
+   var newnum = new Array();//存放数量
+   for(var i=0;i<$(allobj).length;i++){
+   	var goodsid = $(allobj).eq(i).attr('data'); 
+      newids.push(goodsid);
+      newnum.push($('#gshu_'+goodsid).text()); 
+   }
+   //构造参数量
+   var checklingk = '<{$siteurl}>/index.php?ctrl=order&action=printbyshop';
+   var idsm = newids.join(",");
+   var num = newnum.join(",");
+   checklingk +='&ids='+idsm+'&nums='+num+'&shopid='+shopid+'&contactname='+contactname+'&phone='+phone+'&address='+address; 
+	   window.open(checklingk);  
+ 
+}
+   //cartshow   alert($('#goodlist').html());
+   //	var num=22.127456; alert( num.toFixed(2));
+</script> 
+   <!---
+                       		 <div class="goodlist">
+                            <div class="goodnum">
+                               <div class="btniput">
+                               <span class="right_l_btn_left" data-id="109" data-shopid="30"></span>
+                               <span class="right_l_btn_nub" id="gshu_109">1</span>
+                               <span class="right_l_btn_right" id="gid_109" data-price="5.00" typeid="34" data-id="109" data-shopid="30"></span>	
+                               </div> 
+                            </div>
+                            <div class="goodname">
+                                 <span>揽锅菜</span>
+                            </div>
+                            <div class="goodcost">
+                                 <span>15</span>
+                            </div>
+                            <div class="goodallcost">
+                                 <span>15</span>
+                            </div>
+                        </div>
+                        --->
+                        
+ <{/block}>

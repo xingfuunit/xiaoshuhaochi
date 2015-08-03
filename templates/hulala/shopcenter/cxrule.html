@@ -1,0 +1,108 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       <div class="editcontent">
+       	
+       	
+       	
+       	
+       	 <div class="clearfix menu_title" style="padding-top:10px;border:none;">
+        
+        <p class="clear">
+            <a class="button" href="<{ofunc type=url link="/shopcenter/addcxrule"}>" >添加规则</a></p>
+         
+        </div>
+       	
+       	
+       	
+       	<div class="br4 st_box" style="margin-top:10px;">
+         
+        <div class="st_body">
+            <table cellpadding="0" cellspacing="0" width="95%">
+                <tbody><tr>
+                     <th style="width:20%;">促销名称</th>  
+                     <th style="width:30%;">规则说明</th>
+		                  <th style="width:10%;">开启时间</th>
+		                  <th style="width:10%;">结束时间</th> 
+		                   <th style="width:10%;">状态</th> 
+		                  <th style="width:10%;">操作</th>
+                </tr>
+                <{foreach from=$rulelist key=myid item=items}> 
+                    <tr>
+                    	<td><{$items['name']}></td>
+                      <td id="showrule_<{$items['id']}>" data=""></td>
+                    
+                      <td><{$items['starttime']|date_format:"%Y-%m-%d"}></td>
+                      <td><{$items['endtime']|date_format:"%Y-%m-%d"}></td>
+                      <td><{if $items['status'] == 1}>开启中<{else}>未开启<{/if}></td>
+                      <td> 
+                        <a    class="button" href="<{ofunc type=url link="/shopcenter/editcxrule/id/<{$items['id']}>"}>">编辑</a>
+                      	<a  onclick="return remind(this);"  class="button" href="<{ofunc type=url link="/shopcenter/delcxrule/cxid/<{$items['id']}>"}>">删除</a>
+                      </td>
+                    </tr>
+                     
+                 <{/foreach}>
+                  
+            </tbody></table>
+        </div>
+    </div>
+    
+    
+    
+     
+       	
+       	
+       	
+       	
+       	
+       </div>
+</div>
+<script>
+	var alllist = <{$rulelist|@json_encode}>;
+$(function(){  
+	$.each(alllist,function(i,field){ 
+		var showcontent = '';
+		
+		if(field.limitcontent > 0){
+			showcontent += '订单总价大于'+field.limitcontent+'元';
+		}else{
+			showcontent +='所有订单';
+		} 
+		if(field.limittype ==  2){
+			showcontent ='每周(星期'+field.limittime+'),'+showcontent;
+		} 
+		if(field.limittype == 3){
+			showcontent ='每天在'+field.limittime+'时间段，'+showcontent;
+		}
+		if(field.controltype ==  1){
+			showcontent +='赠送:'+field.presenttitle+'库存还剩'+field.controlcontent+'件';
+		}
+		if(field.controltype ==  2){
+			showcontent +='优惠:'+field.controlcontent+'元';
+		}
+		if(field.controltype ==  3){
+			var times = field.controlcontent*0.1;
+			showcontent +='折扣:'+times+'折';
+		}
+		 
+		
+		 $('#showrule_'+field.id).text(showcontent);
+	});
+	
+});
+	
+	
+	
+	
+	
+	
+</script>
+
+ 
+
+<{include file="<{$tempdir}>/public/shopfooter.html"}> 

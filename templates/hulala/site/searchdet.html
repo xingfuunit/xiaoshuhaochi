@@ -1,0 +1,43 @@
+ 
+<div class="hc_login_pupopsBox_content_index">
+	<div class="hc_login_pupopsBox_content_index_div">
+		<ul>
+			<li class="hc_login_pupopsBox_content_index_div_li_hover">
+				<a class="hc_pchoose hc_login_pupopsBox_content_index_div_li_a_hover sel_fa_lm" href="javascript:void(0)">全部</a>
+			</li>
+			 
+			<{foreach from=$yin item=items}> 
+							<li><a class="hc_pchoose sel_fa_lm" href="javascript:void(0)"><{$items['pin']}></a></li>
+	   <{/foreach}>		
+			<div class="clear"></div>
+			</ul>
+		</div>
+	</div>
+
+
+<div class="hc_PupopsLists">
+	<div class="hc_PupopsLists_div" style="overflow-y: auto;">
+		<ul id="item_list_ul_lm">
+				
+			
+			<{foreach from=$list key=myid item=items}>
+				 <li <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}>> <a <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}> class="pos_lmc_li" href1="<{ofunc type=url link="/site/setmyaddress/id/<{$items['id']}>"}>" href="javascript:void(0)" lm_id="<{$items['id']}>" fa="<{$items['pin']}>"><{$items['name']}></a></li>
+		  <{/foreach}>
+	  </ul>
+
+	</div>
+
+		<ul id="item_list_ul_lm_data" class="hidden">
+			
+				<{foreach from=$list key=myid item=items}>
+				        <li <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}>> 
+				          <a <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}> class="pos_lmc_li" href="javascript:void(0)" href1="<{ofunc type=url link="/site/setmyaddress/id/<{$items['id']}>"}>" fa="<{$items['pin']}>">
+				          	<{$items['name']}>
+				          </a>
+				        </li>
+		          <{/foreach}>
+	  </ul>
+</div>
+
+
+ 

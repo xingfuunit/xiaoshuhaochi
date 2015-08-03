@@ -1,0 +1,76 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+ <{block name=navhide}><{/block}>
+ <{block name=sitetitle}>用户登陆<{/block}>
+ <{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberlogin.css"><{/block}>
+<{block name=shophide}><{/block}>
+<{block name=bgshow}><{/block}>
+ <{block name=bodylist}> 
+  <div class="login01_bg">
+ <form id="loginForm" method="post" action="<{ofunc type=url link="/member/login"}>">
+   <div class="try_3">
+      <div class="zt_login">
+	   
+	  </div>
+	   <div class="zt_login_conten">
+		  <div class="div1">
+		    <h1>登陆</h1>
+			<span class="right">还没注册任我点,30秒<a href="<{ofunc type=url link="/member/regester"}>">注册</a></span>
+		  </div>
+		  <ul class="ul01">
+		    <li>
+			  <dl>
+			    <dt>用户名</dt>
+				<dd><input name="uname" type="text"  class="input1"  placeholder="请输入用户名" value=""/></dd>
+			  </dl>
+			</li>
+			<li>
+			  <dl>
+			    <dt>密码</dt>
+				<dd><input placeholder="请输入密码" name="pwd" type="password"  class="input1" value=""/></dd>
+			  </dl>
+			</li>
+             <{if $allowedcode == 1}>
+             <li>
+			  <dl>
+			    <dt>验证码</dt>
+				<dd><input name="Captcha" type="text"  class="inputOne"  placeholder="验证码" value=""/><img style="margin-left:10px;" width="90" height="45" src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg"><a style="color:#fff;" href="javascript:freshcode();" >刷新图片</a>
+						<p class="tip"></p></dd>
+			  </dl>
+			</li>
+            <{/if}>
+			<li class="li1">
+			  <dl>
+			    <dt>&nbsp;</dt>
+				<dd><input name="LoginForm[rememberMe]" type="checkbox" checked="" value="1" /> 三十天内自动登录&nbsp;&nbsp;&nbsp;<a href="<{ofunc type=url link="/member/findpwd"}>">忘记密码</a></dd>
+			  </dl>
+			</li>
+			<li class="li1">
+			  <dl>
+			    <dt>&nbsp;</dt>
+				<dd>
+                <input type="hidden" value="do" name="tijiao">
+                
+                <input name="" type="button"  class="input025"/>
+                
+                
+                <a href="<{ofunc type=url link="/member/regester"}>"><input name="" type="button"  class="input026"/>
+                </a></dd>
+			  </dl>
+			</li>
+		  </ul>
+		</div>
+	  <a  class="a1" href="<{$siteurl}>/upload/renwodian.apk"></a>
+	  <div class="zt_login_bottom">
+     
+	  </div>
+   </div>
+   </form>
+ </div>
+   
+<script type="text/javascript">
+	$('.input025').click(function(){
+		$('#loginForm').submit();
+	})
+</script>     
+ 
+<{/block}>

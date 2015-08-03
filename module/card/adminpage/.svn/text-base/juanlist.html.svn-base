@@ -1,0 +1,128 @@
+<{extends file="<{$tempdir}>/public/admin.html"}>
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>优惠券列表<{/block}>
+ <{block name=bodylist}>
+    <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+
+      	    <div class="search">
+
+
+            <div class="search_content">
+
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/card/module/juanlist"}>">
+
+            	  <label>优惠劵限制金额：</label>
+            	   <input type="text" name="searchvalue" value="<{$searchvalue}>" style="width:30px;">元
+            	   <select name="orderstatus">
+            	   	  <option value="all">选择优惠劵状态</option>
+			   		 	  	  <option value="1" <{if $orderstatus == '1'}>selected<{/if}>>未使用</option>
+			   		 	  	  <option value="2" <{if $orderstatus == '2'}>selected<{/if}>>已绑定未使用</option>
+			   		 	      <option value="3" <{if $orderstatus == '3'}>selected<{/if}>>已使用</option>
+			   		 	  	  <option value="3" <{if $orderstatus == '3'}>selected<{/if}>>失效</option>
+            	  </select>
+            	  ,生成时间
+            	   从<input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+			   		 	  到<input class="Wdate datefmt" type="text" name="endtime" id="endtime" value="<{$endtime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+
+
+            	    <input type="submit" value="提交查询" class="button">
+            	 </form>
+            </div>
+
+      	</div>
+
+
+           <div class="tags">
+
+
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">id</th>
+                         <th align="center">卡号</th>
+                        <th align="center">卡号密码</th>
+                        <th align="center">最低限制金额</th>
+                        <th align="center">优惠金额</th>
+                         <th align="center">使用者</th>
+                         <th align="center">状态</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+                      <{load_data assign="list" table="juan" showpage="true"  fileds="*" where="<{$where}>"  }>
+                      <{foreach from=$list['list'] item=items}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td>
+                        <td align="center"><{$items['id']}></td>
+                        <td align="center"> <{$items['card']}> </td>
+                        <td align="center" ><{$items['card_password']}></td>
+                         <td align="center"><{$items['limitcost']}>元</td>
+                        <td align="center"><{$items['cost']}>元</td>
+                        <td align="center"><{if empty($items['username'])}>未绑定用户<{else}><{$items['username']}><{/if}></td>
+                        <td align="center">
+                        	        <{if $items['status']==0}><{if $items['endtime'] > $nowtime}> 未使用<{else}>已失效<{/if}><{else}>
+
+                        	        <{$statustype[$items['status']]}>
+
+                        	        <{/if}>
+
+
+
+                         </td>
+                        <td align="center">
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/card/module/deljuan/id/<{$items['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+
+                </form>
+
+                <div class="page_newc">
+                 	      <div class="select_page"><a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a>
+                 	     <a onclick="return remindall(this);" href="<{ofunc type=url link="/adminpage/card/module/deljuan/datatype/json"}>" class="delurl">删除</a>
+                 	     <a  onclick="outchoice(this);" href="#"  data="<{ofunc type=url link="/adminpage/card/module/outjuan"}>" class="delurl">导出选择项</a>
+                 	     <a  href="<{$outlink}>" target="_blank" class="delurl">导出查询结果</a></div>
+                       <div class="show_page"><ul><{$list['pagecontent']}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+  </div>
+
+</div>
+<{/block}>

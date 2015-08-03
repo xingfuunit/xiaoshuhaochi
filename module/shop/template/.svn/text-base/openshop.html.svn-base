@@ -1,0 +1,155 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ 
+<{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shop.css"><{/block}>
+<{block name=extendjs}> 
+ 
+<{/block}>
+<{block name=bodylist}>  
+ 
+<div id="content">
+	<form id="regForm" method="post" action="<{ofunc type=url link="/shop/saveopen/datatype/json"}>">
+<div class="hc_content">
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span">我要开店</span></div>
+			<div class="hc_login_content">
+				<div class="hc_login_content_left">
+					<div style="height:75px;">
+					</div>
+					<{load_data assign="shopinfo" table="shop" type="one" where="uid='<{$member['uid']}>' " fileds="*" }>  
+					<{if empty($shopinfo)}>
+					<div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>店铺名称：</span>
+						<input   class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" placeholder="店铺名称" type="text" name="shopname" value="">
+						<p class="tip2">填写中文名称</p>
+					</div>
+					<div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>联系电话：</span>
+						<input   class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" placeholder="负责人联系电话" type="text" name="maphone" value="">
+						<p class="tip2">联系电话</p>
+					</div>		
+					
+					<div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>联系地址：</span> 
+						<input   class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" placeholder="店铺位置的详细信息" type="text" name="address" value="">
+						<p class="tip2">请录入店铺详细地址</p>	
+					</div>
+					<div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>店铺类型：</span>
+					  <select name="shoptype" style="height:40px;">
+					  	<{foreach from=$shoptype key=mykey item=items}>
+					  	<option value="<{$mykey}>"><{$items}></option>
+					  	<{/foreach}>
+					  </select>
+						<p class="tip2">联系电话</p>
+					</div>	
+
+					<div class="hc_login_div">
+						<label class="checkbox" style="margin-left: 160px;">
+					      <input name="reg[agree]" type="checkbox" checked="" disabled> 我接受<a target="_blank" href="<{ofunc type=url link="/single/xieyi"}>"><{$sitename}>开店协议</a>。
+					    </label>
+					    <p class="tip2"></p>											
+					</div>
+					<div class="hc_login_btn">
+						<input name="tijiao" type="hidden" value="do"> 
+						<div id="te_reg_btn" class="login-button hc_login_btn_div hc_login_btn_margin_left1">提交申请</div>
+						<div class="clear"></div>
+					</div>
+          <{else}>
+          <div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>申请店铺名称：</span>
+						<{$shopinfo['shopname']}>
+						<p class="tip2"></p>
+					</div>
+					<div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>申请联系电话：</span>
+						<{$shopinfo['maphone']}>
+					</div>		
+					
+					<div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>申请联系地址：</span> 
+							<{$shopinfo['address']}>
+					</div>
+					
+					<div class="hc_login_div">
+						<span class="hc_login_div_span hc_login_zhuce_margin"><span class="hc_login_div_span_span">*</span>申请处理状态：</span> 
+							处理中
+					</div>
+				  <{/if}>
+
+				</div>
+
+				<div class="hc_login_content_right">
+					<div style="margin-left:10px;margin-top:10px;width:450px;height:450px;overflow-x:visible;overflow-y:scroll;"> 
+						<{load_data assign="xieyi" table="single" type="one" where="code='xieyi'" fileds="*" }>  
+			         <{$xieyi['content']|htmlspecialchars_decode}> 
+            </div>
+					 
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+
+</form>
+
+<script type="text/javascript">
+
+$('.login-button').click(function(){ 
+	subform('',$('#regForm'));
+})
+$(".hc_login_input").change(function(j){
+		var v=$(this).val();
+		var p=$(this).attr("name"); 
+		switch(p){
+		case "shopname":
+			if(v == '' ||v == null){
+			  alert('店铺名不能为空'); 
+			}else{
+				$.ajax({
+				type: "POST",
+				url: '<{ofunc type=url link="/shop/checkshopname/datatype/json"}>',
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){     
+					if(msg.error == true){ 
+						$('[name="email"]').val('');
+					  alert(msg.msg); 
+					 }
+					}
+				});			
+			}
+		break;
+		case "maphone":
+		 	var patrn=/[u4e00-u9fa5]/;  
+			if(v == '' ||v == null){
+			  alert('用户名不能为空'); 
+			}else{
+				$.ajax({
+				type: "POST",
+				url: '<{ofunc type=url link="/shop/checkshopphone/datatype/json"}>',
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){ 
+					if(msg.error==true){ 
+						$('[name="tname"]').val('');
+					  alert(msg.msg); 
+					 }
+					}
+				});	
+			}
+		break; 
+		case "address":
+			var patrn=/(.){6,50}/;  
+			if(!patrn.exec(v)){
+				 alert('联系地址大于6小于50');  
+			 } 
+		break;
+		}
+	});
+
+</script></div>
+<{/block}>

@@ -1,0 +1,116 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">店铺标签列表</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+
+
+
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	 
+      	
+           <div class="tags">
+ 
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">ID</th>
+
+                        <th align="center">标签名称</th>  
+                        <th align="center">标签图标</th> 
+                        <th align="center">说明</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td> 
+                        <td align="center"><{$items['id']}></td> 
+                        <td align="center"> <{$items['name']}> </td> 
+                         <td align="center"><img src="<{$items['imgurl']}>" width=15px height=15px></td>  
+                         <td align="center" width=400px><{$items['instro']}></td> 
+                        <td align="center"><a href="<{ofunc type=url link="/admin/editshosign/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delgoossign/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                <div class="page_newc">
+                 	     <div class="select_page">
+                 	     	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a>
+                 	     <a onclick="return remindall(this);" href="<{ofunc type=url link="/admin/delgoossign"}>" class="delurl">删除</a> 
+                 	     	</div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+
+
+
+
+
+
+
+
+
+
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

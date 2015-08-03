@@ -1,0 +1,98 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<{/block}>
+ <{block name=controlname}>发布任务<{/block}>
+ <{block name=bodylist}>
+        	 	 <{load_data assign="info" table="task" type="one" where="id=0" fileds="*" }> 
+     <div style="width:98%;overflow-y:auto;white-space:nowrap;">  
+      	
+          <div class="tags"> 
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/card/module/savesendtask"}>" onsubmit="">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	 
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">任务标题</td>
+                      <td><input type="text" name="taskname" id="taskname" value="<{$info['taskname']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">任务类型</td>
+                      <td>
+                      	 <input type="radio" name="tasktype" value="1" checked >邮件群发 <input type="radio" name="tasktype" value="2" >短信群发
+                      	</td>
+                    </tr> 
+                    <tr  onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">任务对象来源</td>
+                      <td>
+                      	 <input type="radio" name="taskusertype" value="1" checked onclick="show(1);">用户表获取 <input type="radio" name="taskusertype" value="2" onclick="show(2);">指定对象
+                      	</td>
+                    </tr> 
+                     <tr class="show_1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">用户类型</td>
+                      <td><select name="usertype">
+                      	<option value="0">不指定</option>
+                      	<option value="1">普通会员</option>
+                      	<option value="2">商加会员</option>
+                      	<select></td>
+                    </tr> 
+                    <tr class="show_1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">用户积分限制</td>
+                      <td><input type="text" class="skey" style="width:150px;" name="userscore">不指定为空，例如填写 3 则条件是用户积分大于3</td>
+                    </tr> 
+                    <tr class="show_1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">用户注册时间</td>
+                      <td>从<input class="Wdate datefmt" type="text" name="creattime_starttime" id="creattime_starttime" value=""  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />  
+			   		 	            到<input class="Wdate datefmt" type="text" name="creattime_endtime" id="creattime_endtime" value=""  onFocus="WdatePicker({isShowClear:false,readOnly:true});" /> 为空不限制 </td>
+                    </tr> 
+                    <tr class="show_1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">用户最近登陆时间</td>
+                      <td>从<input class="Wdate datefmt" type="text" name="logintime_starttime" id="logintime_starttime" value=""  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />  
+			   		 	            到<input class="Wdate datefmt" type="text" name="logintime_endtime" id="logintime_endtime" value=""  onFocus="WdatePicker({isShowClear:false,readOnly:true});" /> 为空不限制 </td>
+                    </tr>
+                     <tr class="show_2" style="display:none;" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">对象ID集</td>
+                      <td>
+                      	 <textarea name="objcontent" style="width:550px;"></textarea>邮箱/手机号使用,分割  
+                      	</td>
+                    </tr> 
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                      <td class="left">发送内容</td> 
+                      <td>  
+                      <div class='nop'><script>KE.show({id:'content',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/other/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/other/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="content" id="content" style='width:550px; height:260px;'></textarea></div>           </td>
+
+                    </tr>
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;">
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    
+   
+ 
+    
+</div> 
+<script>
+ 
+   function show(a){
+   	$('.show_1').hide();
+   	$('.show_2').hide();
+   	$('.show_'+a).show();
+   }
+</script>
+<{/block}>

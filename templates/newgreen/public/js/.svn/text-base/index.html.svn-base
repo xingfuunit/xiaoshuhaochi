@@ -1,0 +1,60 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market-index.css">  
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/market.js"> </script>
+<div style="margin-top:10px;"></div> 
+ <div id="banner" class="clearfix">
+			<div class="goodsClassWarp">
+				<ul class="first-class" index="1">
+					<{foreach from=$catlist item=items}>
+					<li> 
+						<h4 class=""><a href="<{ofunc type=url link="/market/marketshow/cat1/<{$items['id']}>"}>" title=""><{$items['name']}></a><span class="tips" style="border-color: rgb(51, 51, 51);"></span> </h4> 
+						<div class="second-class" style="display: none;"> 
+							<h5><{$items['name']}></h5>
+							<dl class="third-class">
+							 <{foreach from=$items['det'] item=itv}>
+								<dd><a href="<{ofunc type=url link="/market/marketshow/cat1/<{$items['id']}>/cat2/<{$itv['id']}>"}>" title=""><{$itv['name']}></a>|</dd>
+							 <{/foreach}> 
+							</dl>
+						</div> 
+					</li> 
+					<{/foreach}> 
+				</ul>
+			</div>
+			<!--幻灯片-->
+			<div class="bannerWarp">
+				<script src="<{ofunc type=url link="/adv/lunbo/type/market/shuliang/10/height/351/width/807"}>" ></script> 
+			</div>  
+</div>
+<div style="clear:both;"></div>
+<{foreach from=$catlist item=items}>
+<{if is_array($goodslist[$items['id']]['list'])}>
+<div class="goodsList">
+	<h2 class="bg">
+		 <p class="goodsListTitle"><{$items['name']}></p>
+     <div class="small-goodslist">
+     	 <{foreach from=$items['det'] item=itv}>
+   	   <a href="<{ofunc type=url link="/market/marketshow/cat1/<{$items['id']}>/cat2/<{$itv['id']}>"}>" title=""><{$itv['name']}></a>|
+   	    <{/foreach}>  
+     </div>
+  </h2>
+  <ul class="goodsShow">
+  	<{foreach from=$goodslist[$items['id']]['list'] key=mykey item=itv}>
+     <li class="good-item <{if $mykey%5==4 && $mykey > 0}>last<{/if}>"> 
+        <div class="img"><img   alt="" width="181" heihgt="207" title="" src="<{$itv['img']}>"></div>
+        <div class="goodInfo">
+           <p class="goodName" title="<{$itv['name']}>"><{$itv['name']}></p>
+           <p class="addCart">
+         	   <span>￥<{$itv['cost']}></span>
+             <button class="addgoods" item-id="<{$itv['id']}>"   item-type="market">加入购物车</button>
+           </p>
+          <div> </div>
+         </div>
+	  </li><!-- last -->
+	<{/foreach}> 
+ 
+</ul></div>
+<{/if}>
+<{/foreach}> 
+
+ <span id="addload" class="SelectedState" style="left: 1153px; top: 444px; opacity: 1;display:none;"></span>
+<{include file="<{$tempdir}>/public/foot.html"}> 

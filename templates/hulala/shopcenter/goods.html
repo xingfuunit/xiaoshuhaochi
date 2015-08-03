@@ -1,0 +1,91 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/membercenter.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/shopcenter/usermenu.html"}>
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			   <div class="hc_userinfo_content_div">
+			   	<div class="search">
+			   		 <form action="<{ofunc type=url link="/shopcenter/goods"}>" method="get" id="regfrom">
+			   		 	  <select name="typeid" onchange="doquery();" style="line-height: 30px;  border: 1; width: 140px; height: 30px; outline: none;">
+			   		 	  	<option value="0">选择商品所在分类</option>
+			   		 	  	
+			   		 	  	<{foreach from=$typelist key=myid item=items}> 
+			   		 	  	<option value="<{$items['id']}>" <{if $typeid == $items['id']}>selected<{/if}>><{$items['name']}></option>
+			   		 	  	<{/foreach}> 
+			   		 	  </select>
+			   		 	  <select name="cxtype" onchange="doquery();" style="line-height: 30px;  border: 1; width: 140px; height: 30px; outline: none;">
+			   		 	  	<option value="0">选择商品促销类型</option>
+			   		 	  	  <{foreach from=$signtypelist key=myid item=items}> 
+			   		 	  	   <option value="<{$items['id']}>" <{if $cxtype == $items['id']}>selected<{/if}>><{$items['name']}></option>
+			   		 	  	  <{/foreach}>  
+			   		 	  	</select>
+			   		 	  	<select name="order" onchange="doquery();" style="line-height: 30px;  border: 1; width: 100px; height: 30px; outline: none;">
+			   		 	  	       <option value="id" <{if $order == 'id'}>selected<{/if}>>根据ID排序</option>
+			   		 	  	       <option value="cost" <{if $order == 'cost'}>selected<{/if}>>单价排序</option>
+			   		 	  	       <option value="sellcount" <{if $order == 'sellcount'}>selected<{/if}>>销量排序</option>
+			   		 	  	       <option value="count" <{if $order == 'count'}>selected<{/if}>>库存排序</option>
+			   		 	    </select>
+			   		 	    <select name="ordertype" onchange="doquery();" style="line-height: 30px;  border: 1; width: 80px; height: 30px; outline: none;">
+			   		 	  	       <option value="asc" <{if $ordertype == 'asc'}>selected<{/if}>>升序</option>
+			   		 	  	       <option value="desc" <{if $ordertype == 'desc'}>selected<{/if}>>降序</option> 
+			   		 	    </select>
+			   		</form>
+			   		
+			   	</div>
+					<div class="hc_userinfo_content_div_box">
+						
+					<table class="table table-bordered" width=100%>
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr>
+		                  <th style="width:20%;">美食</th>
+		                  <th style="width:20%;">所在分类</th>
+		                  <th style="width:20%;">单价/库存</th>
+		                  <th style="width:20%;">促销标签</th>
+		                  <th style="width:20%;">删除</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		              	<{foreach from=$list key=myid item=items}> 
+		              	 <tr id="fav_245611">
+		                  <td><{$items['name']}>(<font color=green>评分等级:<{$items['point']}></font>)</td>
+		                  <td><{$items['typename']}></td>
+		                  <td><{$items['cost']}>元/<{$items['count']}>份<br>已售<{$items['sellcount']}>份</td>
+		                  <td> 
+		                  	<{assign var=foo value=","|explode:$items['signid']}> 
+						              <{foreach from=$foo item=v}>
+						                   <{$signlist[$v]}>
+						              <{/foreach}>       
+						           </td>
+		                  <td>
+		                      <a href="<{ofunc type=url link="/shopcenter/editgoods/id/<{$items['id']}>"}>">编辑</a>
+		                  		<a  onclick="return remind(this);" href="<{ofunc type=url link="/shopcenter/delgoods/id/<{$items['id']}>"}>">删除</a>
+		                  		
+		                  		</td>
+		                </tr>
+		                <{/foreach}>
+		                
+		                
+		                
+		                		              </tbody>
+		            </table>
+		        </div>
+		        <div class="page"><{$pagecontent}></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	function doquery()
+	{
+		$('#regfrom').submit();
+	}
+	 
+	 
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

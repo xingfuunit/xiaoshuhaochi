@@ -1,0 +1,95 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>退款申请列表<{/block}>
+ <{block name=bodylist}>
+    <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	 
+           <div class="tags"> 
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" >
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>  
+                        <th align="center">会员名</th>
+
+                        <th align="center">退款原因</th> 
+
+                        <th align="center">金额</th> 
+                        <th align="center">收款信息</th>
+                        <th align="center">联系电话</th>
+                        <th align="center">联系人</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+ 
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        
+                        <td align="center"><{$items['username']}></td> 
+                        <td align="center"> <{$items['reason']}> </td> 
+                        <td align="center"><{$items['cost']}></td>  
+                        <td align="center"><{$items['content']}></td> 
+                        <td align="center"><{$items['phone']}></td> 
+                        <td align="center"><{$items['contactname']}></td>
+                        <td align="center"> 
+                        	 <{if empty($items['status'])}>
+                        	    <a href="<{ofunc type=url link="/adminpage/order/module/showdrawbacklog/id/<{$items['id']}>"}>">处理</a>
+                        	 <{elseif $items['status'] == 1}>
+                        	     已退款
+                        	    <br> <a href="<{ofunc type=url link="/adminpage/order/module/showdrawbacklog/id/<{$items['id']}>"}>">查看详细</a>
+                        	 <{elseif $items['status'] ==  2}>
+                        	     退款失败
+                        	      <br> <a href="<{ofunc type=url link="/adminpage/order/module/showdrawbacklog/id/<{$items['id']}>"}>">查看详细</a>
+                        	 <{/if}>
+                        	</td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div> 
+
+                </form>
+
+                <div class="page_newc">
+                 	      <div class="select_page">  </div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div> 
+
+        </div>
+
+        
+  </div>
+  
+  
+  
+  
+ 
+ </div> 
+  
+<{/block}>

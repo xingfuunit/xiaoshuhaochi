@@ -1,0 +1,65 @@
+
+<script>
+//刷新 界面显示	
+<{assign var=goodsids  value=json_encode($carinfo['goods']['id'])}> 
+var cartids = <{$goodsids}>;
+</script>
+<div class="hcl_btm_boxs navbar-fixed-bottom" style="position: fixed;">
+	<div class="hcl_btm_box">
+		
+		<div class="hcl_btm_box_top"></div>
+		
+		<div class="hcl_btm_box_cont" style="display: none;">
+			<div style="width:994px; margin: 0 auto;">
+				<table border="0" cellspacing="0" cellpadding="0" class="table" style="margin-bottom:0px; width:994px;">
+				  <tbody>
+				  <tr style="height: 40px; border-bottom: 1px dashed #ddd; font-size: 16px; color: #777;" id="item-tables-mark" class="xian1">
+					<td style="width: 577px; border-right:1px solid #ddd; vertical-align: middle;"><span class="selList-span" style="padding-left:10px; font-weight: 600;">美食篮子</span></td>
+					<td style="width: 107px; text-align:center; border-right:1px solid #ddd; vertical-align: middle; font-weight: 600;">单价</td>
+					<td style="width: 165px; text-align:center; border-right:1px solid #ddd; vertical-align: middle;"><span style="text-align:center; height:24px; display: block; font-weight: 600;">数量<span></span></span></td>
+					<td style="width: 125px; text-align:center;  vertical-align: middle;"><span style="text-align:center; height:24px; display: block; font-weight: 600;" onclick="clearcart();">清空</span></td>
+				  </tr>
+				 <{foreach from=$carinfo['goods']['data'] item=value}> 
+				  <tr shop_id="<{$value['shopid']}>" id="xian2_<{$value['shopid']}>" class="xian2" style="display: table-row;">
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle;"><span class="selList-span" style="padding-left:10px;"><{$value['name']}><{if $value['store_num']< $value['count']}><font color=red>库存不足</font><{/if}></span></td>
+				  	<td style="text-align: center; border-right:1px solid #ddd; vertical-align: middle;">￥<{$value['cost']}></td>
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle; text-align:center;" class="quantity">
+				  		<a class="addBtn" onclick="reduce(this);" href="#" shopid="<{$value['shopid']}>" food_id="<{$value['goods_id']}>" cost="<{$value['cost']}>"></a>
+				  		<input style="width:40px;float: left;" readonly shopid="<{$value['shopid']}>" food_id="<{$value['goods_id']}>" cost="<{$value['cost']}>" class="order-item" type="text" id="cartfood_id_<{$value['goods_id']}>" value="<{$value['count']}>" autocomplete="off">
+				  		<a class="reduceBtn" onclick="upadd(this);" href="#" shopid="<{$value['shopid']}>" food_id="<{$value['goods_id']}>" cost="<{$value['cost']}>" ></a></td>
+				  	<td style=" text-align:center; vertical-align: middle;">
+				  		<a onmouseover="deleteBtn_huaguo(this);" onmouseout="deleteBtn_moren(this);" class="deleteBtn deleteBtn_moren" onclick="delcart(<{$value['goods_id']}>);" href="javascript:void(0);"></a>
+				  	</td>
+				  </tr>
+				  <{/foreach}> <!-- deleteBtn_huaguo  deleteBtn_moren-->
+				</tbody></table>
+			</div>
+		</div>
+		
+		
+		<div class="hcl_btm_box_btm">
+			<div class="shopNameStr hc_order_foods_shop_name">
+				<div class="clear"></div>
+				<div class="clear"></div>
+				<{if isset($carinfo['shopinfo']['shopname'])}>
+				   <a id="shopname_<{$carinfo['shopinfo']['id']}>" class="shopName" href="javascript:showBottom();"><{$carinfo['shopinfo']['shopname']}></a>
+			  <{/if}>
+				
+				<div class="clear"></div>
+			</div>
+			<div id="te_shop_buy_btn" class="hcl_btm_box_btm_shop_btn">
+				<a href="<{ofunc type=url link="/site/cart"}>"><div class="hcl_btm_box_btm_shop_btn_img"></div></a>
+			</div>
+			<div class="hcl_btm_box_btm_shoping">
+				<a class="showBottomCart total-quantity" href="javascript:showBottom();">查看</a>
+				<b>共 <strong id="total_quantity_2" class="total-quantity"><{$carinfo['count']}></strong> 份美食</b> |  
+				<b>合计 <strong id="total_price_2" class="total-price"><{$carinfo['sum']}></strong>元</b>
+			</div>
+			<div class="hcl_btm_box_btm_shop_btn" style="margin-right: 1px; width:31px;">
+				<a href="javascript:showBottom();"><div class="lanziDiv lanziDiv1"></div></a>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+	</div>
+</div>

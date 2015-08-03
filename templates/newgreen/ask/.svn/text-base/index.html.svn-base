@@ -1,0 +1,126 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=extendcss}>
+ <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/ask.css"> 
+ <{/block}>
+ <{block name=sitetitle}>在线留言<{/block}>
+ <{block name=shophide}><{/block}>
+<{block name=bodylist}>
+<div style="height:15px;"></div>
+<div class="Announce hc_content"  ><{$notice}></div> 
+<div class="MsgFrm">
+	<div class="MsgLeftFrm">
+		 
+		<div class="NewJoinFrm">
+			<div class="SubTitle">最新加入</div>
+			<div class="JoinList">
+				<ul style="float:left;"> 
+				 <{load_data assign="userlist" table="member"   limit="28"  orderby="uid desc" }> 
+					<{foreach from=$userlist['list'] item=items}>
+					<li>
+						<a class="JoinHead" href="#"><img src="<{$items['logo']|default:$userlogo}>"></a>
+						<div class="JoinName" ><a href="#"><{$items['username']|truncate:5:"...":true}></a></div>
+					</li>
+					<{/foreach}>
+				</ul>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		 
+	</div>
+	<div class="MsgRightFrm">
+		<div class="MsgTitle" style="background:url(<{$shoplogo}>) no-repeat 10px 10px #fff;">弹指间，美食现！ 给我们留下宝贵意见吧</div>
+		<div class="MsgLeaveForm">
+			<div class="MsgLeaveHead"><img src="<{$member['logo']|default:$userlogo}>"   width="50" height="50"></div>
+			<div class="MsgForm">
+                <form action="" method="post" id="saveform" name="saveform">
+				<textarea datatype="*1-200" nullmsg="请输入留言信息！" errormsg="留言信息最多200个字符！" class="MsgTxt" name="content" id="liuyan_textarea"></textarea>
+				<a href="javascript:fabu();" class="BtnSubMsg"></a>
+				<div style="clear:both;"></div>
+                </form>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<!-- MsgList start -->
+		<div class="MsgList">
+			<ul id="MList" scrollpagination="enabled"> 
+			 <{load_data assign="list" table="ask" showpage="true" where="typeid = 5"  orderby = "id desc"}> 
+			<{foreach from=$list['list'] item=items}>
+			<{load_data assign="userinfo" table="member" type="one" where="uid='<{$items['uid']}>'" fileds="username" }> 
+				<li id="M_599" u="690" rel="loaded">
+					<div class="UserHead"><a href="#"><img src="<{$userinfo['logo']|default:$userlogo}>"></a></div>
+					<div class="MsgInfo">
+						<div class="MITitle">
+                        <a href="javascript:;" <a="" class="Name" id="N_599"><{$userinfo['username']|default:"游客"}></a> <span class="Levels l03" title="经验值：401点"></span> — <{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}>
+                        </div>
+						<div class="MILeave" id="C_599"><{$items['content']}></div>
+                        <div id="MRList_599"> 
+                        	<{if !empty($items['replycontent'])}>
+                        <div id="MR_65" class="MsgReply">
+                        	<a href="#" class="MsgCustomerService">
+                              (<b style="color:Red;"><{$sitename}>客服</b>)</a>发表于: <{$items['replytime']|date_format:"%Y-%m-%d %H:%M:%S"}>
+                            <br>
+                            <{$items['replycontent']}><span class="MsgReplyIcon"></span>
+                        </div>
+                         <{/if}> 
+                        </div>
+					</div>
+           <div style="clear:both;"></div>
+				</li>
+				<{/foreach}> 
+				
+				 </ul>
+		</div>
+        <div class="MoreMsg">
+        	<div class="show_page">
+        		 <ul>
+             <{$list['pagecontent']}>
+           </ul>
+          </div>
+        </div>
+       <input type="hidden" name="pageshow" id="pageshow" value="1" data="1">
+		<!-- MsgList end -->
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+
+
+<script>
+	function fabu()
+	{
+		var shopid = $('#nowshopid').val();
+		if(shopid == undefined)
+		{
+			shopid = 0; 
+		}
+		if($('#liuyan_textarea').val() == '')
+		{
+			diaerror('留言内容不能为空'); 
+				 
+		}else{
+		var info = {'content':$('#liuyan_textarea').val(),'shopid':'0','Captcha':'','type':'5'};
+		var backmes =   ajaxback('<{ofunc type=url link="/ask/saveask/datatype/json"}>',info); 
+		if(backmes.flag == false)
+		{
+			 $('#liuyan_textarea').val('');
+		   location.reload();  
+		}else{
+			diaerror(backmes.content); 
+			 
+		} 
+	 }
+	}
+  
+
+    
+
+ 
+</script>
+ <script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+<{/block}>

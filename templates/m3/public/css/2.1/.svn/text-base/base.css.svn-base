@@ -1,0 +1,64 @@
+@charset "gb2312";
+
+/**
+ * Created with JetBrains WebStorm.
+ * User: zhoulang
+ * Date: 13/3/28
+ * Time: 下午4:08
+ * 网站重置CSS 和 整站基础架构模块CSS
+ */
+
+/*样式重置和基础原子类*/
+body,input,textarea{font: 12px/1.5 "微软雅黑",tahoma,arial,'宋体',sansserif;}
+body, ol, ul,li,div,iframe, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, input,textarea,fieldset, legend,img, select {margin: 0;padding: 0;}
+body{ background:#f8f8f8;}
+input{line-height:1; resize:none; outline:none;}
+textarea{ overflow:auto;  line-height:1; resize:none; outline:none;}
+textarea{  border:1px solid #ccc;}
+li{ list-style: none;}
+a{color: #666;text-decoration: none;}  /*网站整体连接字体颜色*/
+.a:hover{ color: #f60;}/*网站整体连接移入字体颜色*/
+a.blue12, a.blue12:visited{ color:#4a84af; }
+a.gray666, a.gray666:visited{ color:#666; }
+a img,button{border: none;}
+button{ outline:none;}
+b,i,address,em{ font-style: normal; font-weight:normal;}
+input,img{border:none;   outline:none;resize:none;}
+.clearfix:after{content:"";display:block; clear:both;}  /*清除浮动*/
+.clearfix{zoom:1;}
+.center{ margin: 0 auto;}
+button{text-align:center; cursor:pointer;}
+.publicBg{} /*全站通用背景图*/
+.webMainModel{position:relative; width:1160px; margin:0 auto;} /*居中的主模块模块*/
+
+
+/*整站架构 通用css*/
+#header,#webFooter,#warp,#nav,#banner{ width: 100%;}  /*网站基础架构模块*/
+#nav li{ float: left;}
+.header,.footer,.content{ width: 1170px; margin: 0 auto;}           /*基础架构模块中间居中层*/
+.sideBar,.mainBar{float: left;}                    /*两栏布局 左右模块*/
+.mainBar{ }
+.list{ width: 100%;}
+h1,h2,h3,h4,h5,h6{ line-height:1.2;}
+.list h2{ height: 20px; line-height: 20px; border-left:4px solid #f87206; padding:9px; font-size: 16px; }
+
+
+/*表单样式*/
+.middle label{ display:inline-block; zoom:1; vertical-align:middle; height:100%;}
+
+/*一像素边框表格*/
+table{  border-collapse:collapse; border-spacing:0; table-layout:fixed;  }
+.table tr,.table td,.table th{ border:1px solid #9CC2EF ; text-align:center; height:24px; line-height:24px;}
+
+
+/*小三角*/
+.triangle,.triangle2{ height:0; overflow:hidden; cursor:pointer;  border-width:5px; border-color:#fff transparent transparent; border-style:solid dashed dashed;}
+.triangle2{  border-width:4px; border-color:#da603b transparent transparent #da603b; border-style:solid dashed dashed solid;}
+
+/*删除层*/
+.del{ cursor:pointer; width:11px; height:11px; overflow:hidden; background:url(../../images/web/v13/super-index-spri.pngg') no-repeat -45px -62px;}
+
+/*模块层的标题*/
+
+
+

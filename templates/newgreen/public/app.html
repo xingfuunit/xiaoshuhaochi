@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">  
+    
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<title><{block name=sitetitle}><{/block}></title> 
+	 
+	<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/app/css/public.css">    
+<{block name=extendcss}><{/block}>
+	<script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/jquery.js"></script> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/public.js"></script>  
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/swipe.js"></script> 
+    <script src="<{$siteurl}>/templates/<{$tempdir}>/public/app/js/iscroll.js"></script> 
+<{block name=extendjs}><{/block}>
+<script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	var taction = "<{$Taction}>"; 
+	
+</script>
+<{block name=myScrolljs}>
+<script> 
+		var myScroll;
+		
+function loaded() {
+	myScroll = new iScroll('wrapper', {
+		useTransform: false,
+		onBeforeScrollStart: function (e) {
+			var target = e.target;
+			while (target.nodeType != 1) target = target.parentNode;
+
+			if (target.tagName != 'a' && target.tagName != 'span')
+				e.preventDefault();
+		}
+	});
+	 
+
+}
+$(function(){ 
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false); 
+document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+});
+</script>
+<{/block}>
+ 
+
+ 
+</head>
+<body> 
+<div id="loading" style="display: block;"><div class="loadingbox"><section class="ffffbox"><div class="loadingpice"></div></section></div></div> 
+<div id="hallist"> 
+	<{block name=hearnav}><header   id="header"><div class="return"></div> 标题 </header><{/block}>
+	
+	<{block name=blockcontent}>  
+  <{/block}> 
+  
+  
+</div>
+ <script>
+ 	$(function(){  
+ 	   $('#loading').hide(); 
+  });
+  </script>
+</body>
+</html>
+ 

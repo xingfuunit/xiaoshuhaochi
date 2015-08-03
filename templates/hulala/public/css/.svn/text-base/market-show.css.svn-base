@@ -1,0 +1,219 @@
+@charset "utf-8";
+body, ol, ul, li, div, iframe, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, input, textarea, fieldset, legend, img, select {
+margin: 0;
+padding: 0;
+}
+#list-main {
+width:1002px;
+margin: 0 auto;
+min-height: 520px;
+_height: 520px;
+}
+.list-goods {
+width: 185px;
+float: left;
+background: #f2f2f2;
+}
+.first-class {
+box-shadow: 0px 3px 3px #d4d3d4;
+width: 184px;
+position: absolute;
+top: 28px;
+left: 0;
+background: #fff;
+border: 1px solid #ebeaeb;
+border-top: none;
+}
+#list-main .first-class {
+top: 0;
+}
+#list-main .list-list1 {
+position: static;
+width: 185px;
+float: left;
+background: #f2f2f2;
+padding-bottom: 6px;
+}
+.list-goods h4 {
+text-indent: 0;
+height: 36px;
+line-height: 36px;
+padding: 0 0 0 41px;
+position: relative;
+}
+.list-goods a {
+color: #666;
+text-decoration: none;
+}
+.list-goods h4 span {
+overflow: hidden;
+font-size: 12px;
+cursor: pointer;
+position: absolute;
+left: 20px;
+bottom: 12px;
+width: 9px;
+height: 9px;
+border: 1px solid #333;
+text-align: center;
+line-height: 9px;
+}
+#list-main .list-list2 {
+display: none;
+padding: 10px 0 7px 40px;
+background: #fff;
+overflow: hidden;
+}
+.list-goods .active {
+background: #f60;
+}
+.list-goods .active a {
+color: #fff;
+}
+.goodsList .goodsShow .active {
+border-color: #f87206;
+}
+#list-main .list-list2 a {
+text-overflow: ellipsis;
+overflow: hidden;
+word-break: break-all;
+white-space: nowrap;
+line-height: 24px;
+width: 71px;
+color: #333;
+float: left;
+}
+#list-main .goodsList {  
+background-color:#fff;
+float: right;
+width: 787px;
+margin:0;
+padding: 10px 10px 10px 10px ;
+}
+#list-sort {
+height: 25px;
+border-bottom: 3px solid #f87206;
+margin-top: 20px;
+}
+#list-sort p {
+height: 24px;
+border-left: 1px solid #dcdcdc;
+border-top: 1px solid #dcdcdc;
+float: left;
+}
+#list-sort a {
+float: left;
+padding: 0 22px 0 10px;
+border-right: 1px solid #dcdcdc;
+line-height: 24px;
+height: 24px;
+background: #f4f4f4 url('../images/market/super-index-spri.png') no-repeat 40px -92px;
+}
+#list-sort .active {
+border: 1px solid #f87206;
+position: relative;
+z-index: 3;
+left: -1px;
+padding: 0 13px;
+top: -1px;
+background: #f3f3f3;
+}
+.goodsList .goodsShow {
+margin-top: 18px;
+overflow: hidden;
+}
+.good-item {
+float: left;
+width: 181px;
+border: 2px solid #eaeaea;
+margin-right: 9px;
+}
+#list-main .goodsList li {
+margin-bottom: 20px;
+}
+.goodsList .goodsShow .last {
+margin-right: 0;
+}
+.good-item .img {
+width: 181px;
+height: 207px;
+overflow: hidden;
+}
+.good-item .goodInfo {
+height: 69px;
+padding: 0 10px 10px;
+}
+.good-item .goodName {
+text-align: center;
+padding: 5px 0 0;
+margin-bottom: 5px;
+height: 36px;
+word-break: break-all;
+word-wrap: break-word;
+overflow: hidden;
+}
+.good-item .addCart {
+height: 26px;
+}
+.good-item .addCart span {
+color: #e00d00;
+float: left;
+height: 26px;
+line-height: 26px;
+}
+.good-item .addCart button {
+text-indent: -9999px;
+width: 110px;
+float: right;
+cursor: pointer;
+height: 26px;
+background: url('../images/market/super-index-spri.png') no-repeat right -90px;
+border:none;
+}
+#list-main .list-list2 .active {
+color: #f64500;
+background: none;
+}
+.page li{
+display: inline-block;
+color: #666;
+zoom: 1;
+width:19px;
+height: 19px;
+line-height: 19px;
+border: 1px solid #cecece;
+}
+.page {
+width: 100%;
+overflow: hidden;
+text-align: center;
+}
+.page li.current a{
+	border-color: #f87206;
+color: #f87206;
+}
+.page li a{
+ color:#666;
+} 
+.page li a:hover {
+border-color: #f87206;
+color: #f87206;
+}
+.noResult {
+padding: 15px 0 0;
+}
+.noResult p {
+line-height: 24px;
+text-align: center;
+font-size: 14px;
+}
+.SelectedState {
+display: block;
+width: 64px;
+height: 64px;
+background: url(../images/shop/SelectedState.gif) no-repeat left top;
+position: absolute;
+left: 200px;
+top: 20px;
+z-index: 1;
+}

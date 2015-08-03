@@ -1,0 +1,183 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       	<div class="editcontent">
+       		  <div class="edittop">
+       		  	  <ul>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/base"}>">基本信息</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/fastfood"}>">外卖设置</a></li>
+       		  	  	  <li  class="on"><a href="<{ofunc type=url link="/shopcenter/waitfood"}>">订台设置</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/notice"}>">首页公告</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/cxset"}>">店铺促销</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/instro"}>">店铺介绍</a></li>
+       		  		</ul>
+       		  </div>
+       		 <div class="editcenter">
+       		  	<form id="loginForm" method="post" action="<{ofunc type=url link="/shopcenter/savewaitfood"}>" >
+       		       <table width="600" border="0">
+       		       	
+       		       	     <{if empty($shopwait)}>
+       		       	      <tr>
+                      	     <td class="tname">&nbsp;开启外卖店铺：</td>
+                             <td colspan="3">&nbsp;<input type="checkbox" name="openshopfast" value="1" onclick="openfast();"></td>
+                         </tr>
+       		       	     <{else}>
+       		       	      <tr>
+                      	     <td class="tname">&nbsp;关闭外卖店铺：</td>
+                             <td colspan="3">&nbsp;<input type="checkbox" name="openshopfast" value="1" onclick="closefast();" checked></td>
+                       </tr> 
+                       
+                        <tr>
+                        <td class="tname">&nbsp;可预定天数：</td>
+                        <td colspan="3">&nbsp;<input type="text"  name="befortime" value="<{$shopwait['befortime']}>" class="ttext" style="width:50px;">最小值1，表示当天</td>
+                         </td>
+                      </tr>
+                      
+                       <tr>
+                        <td class="tname">&nbsp;预定时间间隔：</td>
+                        <td colspan="3">&nbsp;<input type="text"  name="timesplit" value="<{$shopwait['timesplit']}>" class="ttext" style="width:50px;">15表示间隔15分钟</td>
+                         </td>
+                      </tr>
+                      
+                       <tr>
+                        <td class="tname">&nbsp;起订价：</td>
+                        <td colspan="3">&nbsp;<input type="text"  name="limitcost" value="<{$shopwait['limitcost']}>" class="ttext" style="width:50px;">元</td>
+                         </td>
+                      </tr>
+                      <tr>
+                        <td class="tname">&nbsp;人均消费：</td>
+                        <td colspan="3">&nbsp;<input type="text"  name="personcost" value="<{$shopwait['personcost']}>" class="ttext" style="width:50px;">元</td>
+                         </td>
+                      </tr>
+                      <tr>
+                        <td class="tname">&nbsp;每桌最大座位数：</td>
+                        <td colspan="3">&nbsp;<input type="text"  name="maxperson" value="<{$shopwait['maxperson']}>" class="ttext" style="width:50px;">个</td>
+                         </td>
+                      </tr>
+                      <tr>
+                      	<td class="tname" valign="top">&nbsp;座位位置：</td>
+                        <td colspan="3"> 
+                        	<div id="addposition">
+                        		 <{assign var=foo value=","|explode:$shopwait['position']}> 
+                        	    <{foreach from=$foo key=myid item=items}> 
+                        		    <div><input type="text" name="position[]" value="<{$items}>" class="ttext" style="width:100px;"><input type="button" name="psitiondo" value="移除" onclick="removeposition(this);"></div>
+                        		   <{/foreach}>
+                        	  	</div>
+                        	 
+                        	   
+                        	  <input type="button" name="psitiondo" value="添加位置" onclick="addposition();">
+                        	
+                        	</td>
+                         </td>
+                      </tr>
+                       
+                      <{foreach from=$attrlist item=items}>
+                       <tr>
+                        <td class="tname">&nbsp;<{$items['name']}>：</td>
+                        <td colspan="3"> 
+                        	<{foreach from=$items['det'] item=itv}> 
+                        	      <{if $items['type'] ==  'input'}>
+                        	         <{assign var=shownow value=$items['id']|cat:'-0'}>   
+                        	         <input type="input" value="<{$myattr[$shownow]|default:''}>" name="mydata<{$items['id']}>" class="ttext">
+                        	      <{elseif $items['type'] == 'img'}>
+                        	        <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>  
+                        	         <input type="checkbox" value="<{$itv['id']}>" name="mydata<{$items['id']}>"  <{if isset($myattr[$shownow1])}>checked<{/if}> ><img src="<{$itv['name']}>" width=30px> 
+                        	      <{elseif $items['type'] == 'checkbox'}>
+                        	         <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>
+                        	         <input type="checkbox" value="<{$itv['id']}>" name="mydata<{$items['id']}>[]" <{if isset($myattr[$shownow1])}>checked<{/if}> ><{$itv['name']}> 
+                        	      <{elseif $items['type']=='radio'}>
+                        	           <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>  
+                        	           <input type="radio" value="<{$itv['id']}>" name="mydata<{$items['id']}>" <{if isset($myattr[$shownow1])}>checked<{/if}>><{$itv['name']}>  
+                        	      <{/if}>
+                        	      
+                        	<{/foreach}> 
+                        	</td>
+                         </td>
+                      </tr>
+                      <{/foreach}>
+                      
+                      
+                      
+                      
+                      
+                     
+                      <tr>
+                      	<td class="tname">&nbsp;</td> 
+                        <td colspan="3">&nbsp;<div class="hc_login_btn_div hc_UserInfoChangepwd">点击提交</div></td>
+                      </tr>
+       		       	     
+       		       	     <{/if}>
+       		       	
+                 </table>
+       		  	
+       		  	</form>
+       		  </div>
+       	</div>
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+    
+</div>
+ 
+ 
+ 
+ 
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript">
+	function openfast(){
+	  if(confirm('确定开启订台操作吗？')){
+	  	$("input[name='openshopfast']").attr("checked",false);
+	  	myajax('<{ofunc type=url link="/shopcenter/startshop"}>',{opentype:'shopwait'})
+	   }else{
+	   	$("input[name='openshopfast']").attr("checked",false);
+	  }
+	}
+	function closefast(){
+		if(confirm('确定关闭订台操作吗？\n 对应商品数据将会清空')){
+	  	$("input[name='openshopfast']").attr("checked",true);
+	  	myajax('<{ofunc type=url link="/shopcenter/closeshop"}>',{opentype:'shopwait'})
+	   }else{
+	   	$("input[name='openshopfast']").attr("checked",true);
+	  }
+	}
+	$("input[name='is_orderbefore']").click(function(){
+		 //befortime
+		 if($(this).is(':checked')){
+		 	$('#befortime').show();
+		 }else{
+		 	 $('#befortime').hide();
+		 	 $("input[name='befortime']").val('0');
+		 }
+		  
+	}); 
+	function addposition(){
+		$('#addposition').append('<div><input type="text" name="position[]" value="" class="ttext" style="width:100px;"><input type="button" name="psitiondo" value="移除" onclick="removeposition(this);"></div>'); 
+	}
+	$('.hc_login_btn_div').click(function(){
+		$('#loginForm').submit(); 
+	}) 
+	function removeposition(obj){
+	  $(obj).parent().remove();
+	}
+</script> 
+<{include file="<{$tempdir}>/public/shopfooter.html"}>
+
+
+
+
+
+
+
+ 

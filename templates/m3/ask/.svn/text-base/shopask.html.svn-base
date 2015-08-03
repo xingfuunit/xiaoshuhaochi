@@ -1,0 +1,168 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>  
+ <{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+  <script>
+  	  var mynomenu='baseask';
+  </script>
+ <{/block}> 
+ <{block name=bodylist}>
+  <!---content right start--->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>留言/评价管理</span> </div>
+    <div class="messageset">
+      <div class="message_btn">
+        <div class="liuyanGl messageCur fl" onclick="openlink('<{ofunc type=url link="/ask/shopask"}>');"><span >留言管理</span></div>
+        <div class="pingjiaGl fl" onclick="openlink('<{ofunc type=url link="/order/comment"}>');"> <span >评价管理</span> </div>
+      </div>
+     
+      <div class="cl"></div>
+    </div>
+    <div class="cl"></div>
+    <div class="caidanSet"> 
+      
+      <!---留言管理----->
+    
+        <div class="mes_box" style="display:block;" id="liuyan">        
+            <table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <th width="40%"> 留言内容 </th>
+                  <th width="20%"> 留言者/时间 </th>
+                  <th width="20%"> 留言者/时间 </th>
+                  <th width="20%"> 回复 </th>
+                </tr>
+                
+                
+                
+                <{load_data assign="list" table="ask" showpage="true" where="shopid = <{$shopinfo['id']}>"  orderby = "id desc"}> 
+			           <{foreach from=$list['list'] item=items}>
+		            	<{load_data assign="userinfo" table="member" type="one" where="uid='<{$items['uid']}>'" fileds="username" }>  
+                
+                <tr id="fav_<{$items['id']}>">
+                  <td><{$items['content']}></td>
+                  <td><{if $items['uid'] ==  0}>游客<{else}><{$userinfo['username']|default:'游客'}><{/if}><br><{$items['addtime']|date_format:"%Y-%m-%d"}></td>
+                  <td id="showreplya_<{$items['id']}>"> <{if !empty($items['replycontent'])}><{$items['replycontent']}><br><{$items['replyname']}>:<{$items['replytime']|date_format:"%Y-%m-%d"}>
+		                  	  <{else}>未回复<{/if}>  </td>
+                  <td id="reload<{$items['id']}>">
+                  <{if empty($items['replycontent'])}> 	<span style=" background:#27a9e3; padding:8px; color:#fff;"><a href="#reload<{$items['id']}>" class="button hui" onclick="replay(this);" data="<{$items['id']}>">回复</a></span> <{/if}>
+                  	<span style=" background:#ec7501; padding:8px; color:#fff;"> <a  onclick="javascript:;" data="<{$items['id']}>" class="button delask">删除</a></span></td>
+                </tr> 
+                 <{/foreach}>
+                 <tr>
+                	<td align="right" style=" padding-right:50px;" colspan="4"><div class="show_page"><ul><{$list['pagecontent']}></ul></div></td>
+                </tr>
+              </tbody>
+            </table>
+         
+        </div>
+        
+        
+        
+        
+   
+    </div>
+  </div>
+  <div class="cl"></div>
+  
+  <!---content right end---> 
+ 
+       	
+       	
+       	
+       	
+       
+       	
+       	
+       	
+ <input type="hidden" name="pageshow" id="pageshow" value="1" data="1">  
+<script type="text/javascript">
+ 
+$(".delask").live("click", function() {  
+	if(confirm('确定操作吗？')){ 
+	    var backinfo = ajaxback('<{ofunc type=url link="/ask/delask/datatype/json"}>',{'id':$(this).attr('data')});
+	  if(backinfo.flag == true)
+	  { 
+		  diaerror(backinfo.content); 
+	  }else{
+	  	 
+	  	 $('#fav_'+$(this).attr('data')).remove();
+	  	 artsucces('删除成功');  //delask
+	 }  
+	}
+});
+	 function replay(obj){
+	 	var showcontent ='<div class="replayask" >';
+        showcontent +='<table border=0 width="200">';
+        showcontent +='<tbody>';
+        showcontent +='<tr> ';
+        showcontent +='<td style="border:none;text-align:left;"><textarea style="width:100%;height:100px;color:#ddd;" name="replycontent" id="replycontent" placeholder="回复内容">回复内容</textarea></td> </tr> '; 
+
+        showcontent +='<tr>   <td style="border:none;"><a href="#reload'+$(obj).attr('data')+'" class="button fr saveImgInfo" style="margin-right:10px;" onclick="reply();">提交回复</a></td>';
+        showcontent +='<input type="hidden" name="askid" id="askid" value="'+$(obj).attr('data')+'"> </tr>  </tbody> </table> </div> '; 
+	 	art.dialog({
+		id:'showchangdia',
+		title:'回复客户咨询', 
+    content:showcontent
+  });  
+}
+ $('#replycontent').live("click", function() {   
+ 	 var checka = $(this).attr('placeholder');
+ 	 var checkb = $(this).val();
+ 	 if(checka == checkb){
+ 	    $(this).val('');
+ 	    $(this).css('color','#333');
+ 	 }
+ });
+ $('#replycontent').blur(function(){
+ 	     var checka = $(this).attr('placeholder');
+ 	    var checkb = $(this).val();
+ 	    if(checka == checkb){
+ 	      $(this).css('color','#ddd');
+ 	    }else{
+ 	       if(checkb == ''){
+ 	          $(this).val(checka);
+ 	           $(this).css('color','#ddd');
+ 	       }else{
+ 	       	$(this).css('color','#333');
+ 	      }
+ 	    }
+ 	    
+  });
+
+function reply(){ 
+	var checka = $('#replycontent').val();
+	var checkb = $('#replycontent').attr('placeholder');
+	if(checka == checkb){
+	   alert('请录入回复内容');
+	   return false;
+	}
+  var backinfo = ajaxback('<{ofunc type=url link="/ask/backask/datatype/json"}>',{'askbackid':$('#askid').val(),'askback':$('#replycontent').val()});
+	  if(backinfo.flag == true)
+	  { 
+		 alert(backinfo.content);
+	  }else{
+	   
+	  	 $('#showreplya_'+$('#askid').val()).html($('#replycontent').val());
+	  	 $('#fav_'+$('#askid').val()).find('.hui').remove();
+	  	 closeart();
+	  	// artsucces('回复成功');  
+	 }  
+}
+
+
+
+function closeart()
+{
+	art.dialog({id: 'showchangdia'}).close(); 
+}
+  
+  
+</script>
+<script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+ <{/block}>

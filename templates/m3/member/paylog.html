@@ -1,0 +1,184 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+<{block name=extendjs}><script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script><{/block}>
+<{block name=extendnewcss}><{/block}>
+ <{block name=membercenter}> 
+<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>充值账户</b></span></p>
+						</div><!--title end-->
+           
+           <div style="background-color:#fff;border:1px solid #ccc;margin-bottom:10px;">
+            	<div class="account_current_wrap"><!--account_current-->
+									<div id="account_current" class="account_current">
+										<p class="accinfo">
+											<span id="account" style="font-size:12px;color:#4d4d4d;font-family:tahoma;margin-right:20px;display:none"><{$member['email']}></span>
+										   <span class="title">账户余额：</span><span id="acc_balance"><{$member['cost']}></span>元 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										   <a href="<{ofunc type=url link="/member/payoncard"}>"><img src="/upload/shop/mc_btn1.gif"></a>
+										   &nbsp;&nbsp;&nbsp;&nbsp;<span class="title">充值直扣支付次数：</span>
+										   <span id="chongzhiOrderCount" style="font-size:14px;color:#666;font-weight:bold">0</span> 次
+										   &nbsp;&nbsp;&nbsp;
+										<!--    
+										   <a id="setPayPwd" href="javascript:void(0)" onclick="$('#setpaypwd').css('display','block');$('#findpaypwd').css('display','none')" class="apanel">设置支付密码</a> 
+										   <{if empty($member['safepwd'])}>
+										   <span id="paypdwtip" style="color: rgb(242, 123, 4);">
+										   	       （未设置，请 <a href="javascript:void(0)" onclick="$('#setpaypwd').css('display','block');$('#findpaypwd').css('display','none')" class="apanel">设置</a>）
+										   	</span> 
+										   	<{/if}>
+										    -->
+										   </p>
+										<div id="chongzhitip" style="display: block;">
+											<p class="acctip">为了您更好更方便地点餐，请您及时<a href="<{ofunc type=url link="/member/payoncard"}>">充值</a>。</p>
+										</div>
+									</div>
+								</div><!--account_current end-->
+								
+								<div class="account_paypwd" id="account_paypwd" style="display:block"><!--modifypwd-->
+									<div id="setpaypwd" style="display:none">
+										<div class="regtitle m6-regtitle">
+											<h1>修改支付密码</h1> <span class="close"><a href="javascript:void(0)" class="apanel" onclick="$('#setpaypwd').hide()">关闭</a></span>
+										</div>
+
+										<div class="field" <{if empty($member['safepwd'])}> style="display: none;"<{/if}>>
+											<label class="wd3">原密码</label>
+											<input type="password" id="oldpaypwd" onfocus="focusoldpaypwd()">
+											<label class="tip" id="oldpaypwddiv"></label>
+										</div>
+
+										<div class="field">
+											<label class="wd3">新密码</label>
+											<input type="password" id="newpaypwd" onfocus="focuspaypwd()" onblur="verifypaypwd(0)">
+											<label class="tip" id="newpaypwderror"></label>
+										</div>
+
+										<div class="field">
+											<label>确认密码</label>
+											<input type="password" id="verifynewpaypwd" onblur="verifypaypwd(1)">
+											<label class="tip" id="newverifypaypwderror"></label>
+										</div>
+
+										<div class="field">
+											<p style="text-indent:160px;">&nbsp;
+												<input type="button" class="weight" id="postsetpaypwdbutton" onclick="postsetpaypwd();" value="确认">&nbsp;&nbsp;
+												 
+											</p>
+										</div>
+									</div> 
+
+								</div><!--modifypwd end-->
+							
+								
+            </div>
+           
+           <div style="background-color:#fff;border:1px solid #ccc;margin-bottom:10px;">
+           		<div id="account_paylist" class="account_paylist" style="margin-top:5px;"><!--account_paylist-->
+									<div class="">
+										<p><span class="title">充值消费明细：</span> <span><span>
+											<select name="select" id="paytype" class="searchstatus">
+												<option selected="selected" value="1">全部</option>
+												<option value="2">消费记录</option>
+												<option value="3">充值记录</option>
+											</select>
+											</span> 从 
+											  <input type="text" style="width:80px;color:#666;" id="stime" value="<{$nowdate}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});">&nbsp;至&nbsp;
+											  <input type="text" width="100" style="width:80px;color:#666;" id="etime" value="<{time()|date_format:"%Y-%m-%d"}>" onFocus="WdatePicker({isShowClear:false,readOnly:true});">&nbsp;&nbsp;
+											  <input type="image" src="/upload/shop/search.jpg" class="searchs" onclick="searchAccountList()">
+											</span>									 
+										</p>
+										<div class="clear"></div>
+									</div>
+								</div>
+          </div>
+           
+           
+						<div class="mr-middle"><!--mr-middle-->
+							<div id="account_balance" class="account_balance"><!--account_balance-->
+								
+								
+								
+								
+
+								
+
+									<div id="acc_paymentlist">
+										<table cellpadding="0" cellspacing="0" id="acc_paymentlistTable">
+											<tbody>
+										   <tr style="background-color: rgb(238, 238, 238);">
+										   	   
+										   	  <th width="207">时间</th>
+										   	  <th width="100">收支</th>
+										   	  <th width="347">事件</th>
+										   	  <th width="99">余额</th>
+										   	</tr>
+										   	 <{load_data assign="list" table="memberlog" showpage="true"  fileds="*" where="<{$where}>" orderby="id desc" }> 
+										   	 <{if count($list['list']) == 0}>
+										   	<tr style="background-color: rgb(255, 255, 255);"> <td colspan="4">暂无相关记录。</td></tr>
+										   	<{else}>
+										   	 <{foreach from=$list['list'] item=items}>
+										   	 <tr style="">
+										   	 	
+                             <td><{$items['addtime']}></td>
+                      <td><{if $items['addtype']  != 1}>-<{/if}><{$items['result']}></td>
+                 <td><{$items['content']}></td>
+                         <td><{$items['acount']}></td>
+                                   </tr>		
+                           <{/foreach}>
+										   	<{/if}>
+										   			
+										   			
+										   	</tbody>
+										 
+										 </table>
+										  
+										  <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+										  
+										  
+										  
+										  
+									</div>
+									<div class="clear"></div>
+								</div><!--account_paylist end-->
+
+								 	
+							</div><!--account_balance end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end-->
+				</div>
+	
+ 
+ 
+<script>
+	function postsetpaypwd(){
+	 var url = siteurl+'/index.php?ctrl=member&action=safepwd&@random@&datatype=json'; 
+	$.ajax({
+     type: 'post',
+     async:true, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)),
+     data:{'oldpaypwd':$('#oldpaypwd').val(),'newpaypwd':$('#newpaypwd').val(),'verifynewpaypwd':$('#verifynewpaypwd').val()}, 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){ 
+           window.location.reload();
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });    
+	} 
+</script>
+</script>
+<{/block}>

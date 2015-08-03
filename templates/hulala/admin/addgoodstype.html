@@ -1,0 +1,69 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname"><{if !empty($info)}>编辑店铺类型<{else}>添加店铺类型<{/if}></div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+   	        	 	
+   	        	 	
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags"> 
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/admin/savegoodstype"}>" onsubmit="return subform('<{ofunc type=url link="/admin/goodstype"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">店铺名称</td>
+                      <td><input type="text" name="shopname" id="shopname" value="<{$info['shopname']}>" class="skey" style="width:150px;" ></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">类型名称</td>
+                      <td><input type="text" name="name" id="name" value="<{$info['name']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">排序ID</td>
+                      <td><input type="text" name="orderid" id="orderid" value="<{$info['orderid']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;">
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div> 
+    
+    
+    
+    
+    
+    
+    
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

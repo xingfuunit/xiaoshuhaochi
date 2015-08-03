@@ -1,0 +1,205 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market.css">  
+<{/block}>
+ 
+<{block name=extendjs}> 
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/slides.jquery.js"> </script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js" type="text/javascript" language="javascript"></script>
+<script>
+		var shopid = "<{$shopinfo['id']}>"; 
+	$(function(){
+			$('#bannerBox').slides({
+				preload: true,
+				preloadImage: '/upload/images/shop/loading.gif',
+				play: 5000,
+				pause: 2500,
+				hoverPause: true,
+				generatePagination:false
+			});
+		}); 
+		var findtype = '<{$findtype}>';
+		
+		if(findtype == 1){
+			alert('你选择的区域范围内无小卖铺');
+			window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+		
+		
+		var locationfalse = false;
+</script>
+ 
+<{/block}>
+<{block name=bgshow}><div class="mmbg" style="background:url(../upload/shop/page_bg.png)"></div><{/block}>
+<{block name=shophide}><{/block}>
+<{block name=sitetitle}>零食铺<{/block}>
+ <{block name=bodylist}> 
+ <!--头部-->
+  <div  class="market_index">
+  	<!--绝对路径的分类-->
+  	  <div class="cateList">
+  	  	
+      	  <{foreach from=$catlist item=items}>
+      	 <dl>
+            <dt><a href="<{ofunc type=url link="/market/cat/id/<{$items['id']}>"}>"><{$items['name']}></a></dt>
+            <dd>
+            	<{foreach from=$items['det'] item=itv}>
+            	     <a href="<{ofunc type=url link="/market/cat/id/<{$itv['id']}>"}>"><{$itv['name']}></a> 
+            	 <{/foreach}>
+            </dd>
+         </dl>
+        <{/foreach}> 
+    
+     </div>
+  		<!--绝对路径的分类结束-->
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容-->
+   
+  	<div class="homeCover">
+  		  <div class="width700  fl">
+  		     
+  		  	   	<div id="bannerBox">
+					    <div  class="slides_container" style="height:210px;">
+					 	     <{load_data assign="lunbo" table="adv"    fileds="*"  limit="5" where="advtype='market'"}>  
+							   <{foreach from=$lunbo['list'] item=items}>
+							  
+			        	   <a href="<{$items['linkurl']}>" target="_blank"><img   src="<{$items['img']}>" style="width:700px;height:210px;" ></a> 
+				          <{/foreach}> 
+				       </div>
+					 
+				      </div>
+  		  	   <div class="topgoods">  
+  		  	   	   	<ul>
+  		  	   	   	 <{load_data assign="toplist" table="goods"   where="shopid='<{$shopinfo['id']}>' and img !='' and is_com =1" fileds="*"  limit="4" }> 
+  		  	   	   		<{foreach from=$toplist['list'] item=items}>
+                         <li id="goods_113"><a href="<{ofunc type=url link="/market/showgoods/id/<{$items['id']}>"}>" title="<{$items['name']}>" target="_blank">
+                               <div class="thumb"><img class="lazy"  src="../upload/shop/grey.gif" data-original="<{$items['img']}>" alt="<{$items['name']}>"></div>
+                               <div class="info">
+                                  <h4 class="name"><{$items['name']}></h4>
+                                  <div class="price">￥<{$items['cost']}> </div>
+                               </div>
+                           </a></li>
+                    <{/foreach}> 
+                </ul>
+  		  	  </div>
+  		  </div>
+  		  <div class="width225 fl">
+  		  	<div class="hcright">
+  		  	   
+  		   <div class="storeInfo">
+            <i class="entity"></i>
+            <h3><{$shopinfo['shopname']}></h3>
+            <p>门店营业：<{$shopinfo['starttime']}></p>
+            <p><{$shopinfo['address']}> </p> 
+            <p>售后电话：<{$shopinfo['phone']}> </p>
+        </div>
+
+        <div id="homeNotice">
+               <ul class="text_list_1">
+                <h3>本店公告</h3>
+                <{$shopinfo['notice_info']|htmlspecialchars_decode}> 
+              </ul>
+        </div> 
+  		  	 <div id="homeNewArticle">
+              <ul class="text_list_1">
+                 <h3><a href="#"><{$sitename}>最新动态</a></h3>
+                <{load_data assign="newlist" table="news"    fileds="*"  limit="5" orderby="id desc" }> 
+                <{foreach $newlist['list'] item=items}>
+                   <li><a href="<{ofunc type=url link="/site/news/id/<{$items['id']}>"}>" title="<{$items['title']}>" target="_blank"><{$items['title']|truncate:15:"...":true}></a></li> 
+                <{/foreach}> 
+              </ul>
+           </div>     
+  		  	   
+  		   </div>
+  		  </div>
+  		
+  	</div>
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容结束-->
+  </div> 
+ 
+  <!---头结束-->
+    <div  class="market_index">
+ <!---猪页独立结构---> 
+  
+   <{foreach from=$catlist item=items}>
+  	<{if !empty($items['ids'])}>     	  
+   <div id="floor_<{$items['id']}>" class="home_block home_block_common" style="border-top-color:;"> 
+       <h2><a href="<{ofunc type=url link="/market/cat/id/<{$items['id']}>"}>" target="_blank" style="color:"><span class="floor"></span><{$items['name']}></a> <a class="more" href="<{ofunc type=url link="/market/cat/id/<{$items['id']}>"}>">[更多商品]</a></h2>
+       <div class="goods_list_1">
+           <ul>
+        	 <{load_data assign="listdet" table="goods"   where="shopid = '<{$shopinfo['id']}>' and typeid in(<{$items['ids']}>) and is_hot =1"   limit="12" }> 
+        	 <{foreach from=$listdet['list'] item=itk}>
+        	 
+                  <li id="goods_<{$itk['id']}>">
+                                <div class="box">
+                    <div class="thumb">
+                        <div class="thumb_box">
+                                 <a onclick="addonedish('<{$itk['id']}>','<{$itk['shopid']}>',1,this);" ><img  class="lazy"  src="../upload/shop/grey.gif"  data-original="<{$itk['img']}>" alt="<{$itk['name']}>" style="display: inline;"><div class="addtocart"></div></a>
+                         </div>
+                    </div>
+                    <h4 class="name"><a href="<{ofunc type=url link="/market/showgoods/id/<{$itk['id']}>"}>" title="<{$itk['name']}>" target="_blank"><{$itk['name']|truncate:13:"...":true}></a></h4>
+                    <div class="price">
+                                                ￥<{$itk['cost']}>                                         </div>
+                </div>
+             </li> 
+             
+           <{/foreach}> 
+            </ul>
+       </div>
+  </div>
+  <{/if}>
+  <{/foreach}>
+ 
+<!--- 循环结束-->
+</div>
+ 
+<!--购物车-->
+ <div class="mini-container" id="smallcatinfo">
+ 	   <div class="mini-cart-count" style="width: 66px;">
+ 	   	<a class="mini-buy" href="#" target="_self" onclick="ajaxdoorder(<{$shopinfo['id']}>);"></a>
+ 	   	<div class="mini-cart-open" style="display: none;">
+ 	   		<div class="mini-cart-cover">
+ 	   			<div class="cart-tip ks-clear">
+ 	   			   <div class="cart-num"><em class="J_CartNum">0</em></div>
+ 	   		     <div class="cart-price"><em class="J_CartPrice">0</em></div>
+ 	   		   	 <div class="cart-weight"><em class="J_CartWeight">0</em></div>
+ 	   		  </div>
+ 	   		  <div class="warn-msg">
+ 	   				<span href="满69免运费" target="_blank" class="J_CartMsg" title=""></span>
+ 	   			</div>
+ 	   	  </div>
+ 	   	  <s class=""></s>
+ 	   	</div>
+ 	   </div>
+ 	   <div class="mini-cart-close" style="display:block;" onclick="hidedetas();"><div class="mini-cate J_CartNum">0</div></div> 
+ 	   <div class="mini-bd sc-non-empty" style="width: 722px;display:none;">
+ 	   	    <div class="mini-clear ks-clear">
+ 	   	    	<div class="mini-bd-lf">
+ 	   	    		<a href="javascript:hidedeta();" class="mini-tringer" target="_self"></a>
+ 	   	    		<div class="mini-bd-content">
+ 	   	    			<p class="sc-notice J_CartNotice">您推的是空车子，赶快去购物吧！</p>
+ 	   	    			<div class="mini-bor">
+ 	   	    				<div class="mini-prev"><a class="disable" target="_self" href="javascript:goupcart();">上一页</a></div>
+ 	   	    				<div class="mini-next"><a class="disable" target="_self" href="javascript:gonextcart();">下一页</a></div>
+ 	   	    				<div class="mini-switch-container">
+ 	   	    					<div class="mini-switch-content" style="left:0;" id="cartinfodet">
+ 	   	    					    
+ 	   	    				    	<!--产品循环--> 
+ 	   	    				  </div>
+ 	   	    				</div></div></div></div><s></s></div>
+ 	   </div>
+ 	
+</div>
+<!--购物车结束-->
+
+
+
+  <div style="clear:both;"></div>
+  <script>
+  $('.box').hover(function(){
+  	 $(this).css('background-color','rgb(241, 241, 241)');
+  });
+  $('.box').mouseleave(function(){
+  	 $(this).css('background-color','');
+  });
+  	</script>
+<{/block}>

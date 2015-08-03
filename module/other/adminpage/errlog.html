@@ -1,0 +1,156 @@
+   <{extends file="<{$tempdir}>/public/admin.html"}>
+ <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>错误日志<{/block}>
+ <{block name=bodylist}>
+
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+           <div class="tags">
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"></th>
+
+                        <th align="center">文件夹名称</th>
+
+                        <th align="center">操作</th>
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                        <td align="center" ><input type="checkbox" name="<{$items}>" value="<{$items}>" ></td>
+                        <td align="center">/log/<{$items}></td>
+
+                        <td align="center"><a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/other/module/delerrlog/dirname/<{$items}>/datatype/json"}>">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<{ofunc type=url link="/adminpage/other/module/download/dirname/<{$items}>"}>">下载</a></td>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                </form>
+
+                <div class="page_newc">
+
+
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+	var tablist=	<{$tablist|@json_encode}>;
+	//空气开始结束
+	//时间间隔
+
+	function bkbase(dirname){
+		if(confirm('确定操作吗？')){
+		$("input[name='"+dirname+"']").attr('checked',true);
+		$("input[name='name22']").attr('disabled',true);
+		trancert(dirname,'<{$deftb}>');
+	}
+	}
+	function trancert(dirname,tbname){
+		//tablist
+		var nowtb = tbname;
+		var nexttab =
+		 $('#showstatus').text('还原'+tbname+'表');
+		 $.ajax({
+     type: 'post',
+     async:false,
+     data:{'tabelname':tbname,'dirname':dirname},
+     url: '<{ofunc type=url link="/adminpage/other/module/savebkdata"}>',
+     dataType: 'json',success: function(content) {
+     	if(content.error == false){
+
+     	}else{
+     		if(content.error == true)
+     		{
+     			$('#showstatus').text(content,msg);
+     		}else{
+
+     			$('#showstatus').text(content);
+
+     		}
+     	}
+     	 gettb(dirname,tbname);
+	   },
+     error: function(content) {
+     	 $('#showstatus').text('数据获取失败');
+
+        gettb(dirname,tbname);
+	     }
+     });
+
+
+
+
+
+
+
+	}
+	function gettb(dirname,tbname){
+    	var k=0;
+		 var d=0;
+		 var newxtb = '';
+		$.each(tablist,function(i,field){
+			if(field == tbname)
+			{
+				d=k+1;
+			}
+			if(d > 0 && d== k){
+				newxtb = field;
+				return false;
+			}
+			k++;
+
+		});
+		if(newxtb == ''){
+			$('#showstatus').text('还原完成');
+		}else{
+			setTimeout("trancert('"+dirname+"','"+newxtb+"')",200);
+		}
+	}
+</script>
+<!--newmain 结束-->
+ <{/block}>

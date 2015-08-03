@@ -1,0 +1,8 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.arealist{padding:0px 0px 0px 0px;}
+.guidetitle{background: #4B99C7;height:40px;border: 1px solid #E6E6E6;color:#fff;font-weight:bold;line-height:40px;padding-left:20px;font-size:20px;}
+.guidecontent{width:100%;background:#E6E6E6;float:left;}
+.guidecontent li{float:left;height:40px;padding-left:20px;width:100px;line-height:40px;font-weight:bold;}
+.guidecontent li a{color:#000;text-decoration: underline;}
+.guidecontent li a:hover{color:#F97859;}

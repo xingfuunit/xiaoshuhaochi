@@ -1,0 +1,245 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+<{block name=extendjs}><script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script><{/block}>
+ <{block name=membercenter}> 
+<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>在线支付退款记录</b></span></p>
+								
+						</div><!--title end-->
+           
+           <div style="background-color:#fff;border:1px solid #ccc;margin-bottom:10px;padding-bottom:10px;">
+            	 
+								
+								<div class="account_paypwd" id="account_paypwd" style="display:block"><!--modifypwd-->
+									<div id="setpaypwd" style="display:block">
+										<div class="regtitle m6-regtitle" style="width:900px;">
+											<h1>提交退款申请</h1>  
+										</div>
+
+										<div class="field" >
+											<label class="wd3">订单号:</label>
+											<input type="text" id="dno" value="" name="dno">
+											<label class="tip" id="oldpaypwddiv"></label>
+										</div>
+										
+										<div class="field" >
+											<label class="wd3">退款原因:</label>
+											<textarea name="reason" id="reason" style="height:40px;width:200px;"></textarea>
+											<label class="tip" id="oldpaypwddiv"></label>
+										</div>
+										
+										
+										<div class="field" >
+											<label class="wd3">收款信息:</label>
+											<textarea name="content" id="content" style="height:40px;width:200px;"></textarea> 
+											<label class="tip" id="oldpaypwddiv" style="width:500px;">例如：农业银行，开户地:xxxxx街  帐号:61112*******,姓名:杨某某<br>支付宝，帐号:132213@163.com 姓名:张**</label>
+										</div>
+										
+										
+										<div class="field" >
+											<label class="wd3">联系电话:</label>
+											<input type="text" id="phone" value="" name="phone">
+											<label class="tip" id="oldpaypwddiv"></label>
+										</div>
+                   <div class="field" >
+											<label class="wd3">联系人:</label>
+											<input type="text" id="contactname" value="" name="contactname">
+											<label class="tip" id="oldpaypwddiv"></label>
+										</div>
+ 
+
+										<div class="field">
+											<p style="text-indent:160px;">&nbsp;
+												<input type="button" class="weight" id="postsetpaypwdbutton" onclick="postsetpaypwd();" value="确认">&nbsp;&nbsp;
+												 
+											</p>
+										</div>
+									</div> 
+
+								</div><!--modifypwd end-->
+							
+								
+            </div>
+           
+          
+           
+           
+						<div class="mr-middle"><!--mr-middle-->
+							<div id="account_balance" class="account_balance"><!--account_balance-->
+								
+								
+								
+								
+
+								
+
+									<div id="acc_paymentlist">
+										<table cellpadding="0" cellspacing="0" id="acc_paymentlistTable" class="di_table">
+											<tbody>
+										   <tr style="background-color: rgb(238, 238, 238);">
+										   	   
+										   	  <th width="107">时间</th>
+										   	  <th width="100">状态</th>
+										   	  <th width="100">金额</th>
+										   	  <th width="347">原因</th>
+										   	  <th width="99">查看订单</th>
+										   	</tr>
+										   	 <{load_data assign="list" table="drawbacklog" showpage="true"  fileds="*" where="uid = <{$member['uid']}>" orderby="id desc" }> 
+										   	 <{if count($list['list']) == 0}>
+										   	<tr style="background-color: rgb(255, 255, 255);"> <td colspan="4">暂无相关记录。</td></tr>
+										   	<{else}>
+										   	 <{foreach from=$list['list'] item=items}>
+										   	 <tr style="">
+										   	 	  <td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+										   	 	  <td><{if $items['status'] ==0}>申请中<{elseif $items['status']==1}>退款成功<{elseif $items['status'] == 2}>取消<{/if}>
+                            <td><{$items['cost']}></td>
+                        <td><{$items['reason']}></td>
+                         <td><a href="#" class="apanel" onclick="getOrderDetail(<{$items['orderid']}>);">查看订单</a> </td>
+                                   </tr>		
+                           <{/foreach}>
+										   	<{/if}>
+										   			
+										   			
+										   	</tbody>
+										 
+										 </table>
+										  
+										  <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+										  
+										  
+										  
+										  
+									</div>
+									<div class="clear"></div>
+								</div><!--account_paylist end-->
+
+								 	
+							</div><!--account_balance end-->
+						</div><!--mr-middle end-->
+						
+						
+										
+		 <div style="background-color:#fff;border:1px solid #ccc;margin-top:10px;display:none;" id="tempordershow">
+		 	<a name="orderview" id="orderview"></a>
+								<div class="m3-order-detail" id="m3-order-detail">
+									
+									
+								</div>
+		 </div>
+						
+						
+						
+					</div><!--mc-right end-->
+				</div>
+	
+ 
+ <script id="trgoodlist" type="text/html"> 
+<div class="m3-order-detail-left">	
+										<ul>		
+											<li><span>订单编号：</span><^%=order.dno%^></li>		
+											<li><span>下单时间：</span><^%=order.addtime%^></li>		
+											<li><span>要求时间：</span><^%=order.posttime%^></li>		
+											<li><span>完成时间：</span><^%=order.suretime%^></li>		
+											<li><span>配送方式：</span><^%if(order.pstype==1){%^>店铺自送<^%}else{%^>平台配送<^%}%^></li>		
+											<li><span>支付方式：</span><^%if(order.paytype=='outpay'){%^>餐到付款<^%}else{%^>在线支付<^%if(order.paystatus=='1'){%^>(已付)<^%}else{%^> (未付) <^%}%^><^%}%^></li>		
+											<li><span>客户姓名：</span><^%=order.buyername%^></li>		
+											<li><span>手机号码：</span><^%=order.buyerphone%^></li>		
+											<li><span>配送地址：</span><^%=order.buyeraddress%^></li>		
+											<li><span>订单备注：</span><^%=order.excontent%^></li>	
+										</ul>	
+										<div class="clear"></div>
+									</div>
+									<div class="m3-order-detail-right">	
+										<table>		
+											<tbody>
+												<tr>			
+													<th class="m3-odetail1 ">订单商家：<^%=order.shopname%^></th>			
+													<th class="m3-odetail2">订单状态：<^%=order.status%^>   <^%if(order.is_make==1){%^>商家确认制作<^%}else{%^> <^%if(order.is_make==2){%^>商家不制作该订单<^%}else{%^><^%}%^><^%}%^></th>		
+												</tr>	
+											</tbody>
+										</table>	
+										<div class="menulist">	
+										
+											<table>		
+												<tbody>
+													<^%for(i = 0; i < orderdet.length; i ++) {%^>
+													<tr>			
+														<td class="m3-odetail1"><^%=orderdet[i].goodsname%^></td>			
+														<td class="m3-odetail2">￥<^%=orderdet[i].goodscost%^>*<^%=orderdet[i].goodscount%^></td>			
+														<td class="m3-odetail3"><span class="money">￥<^%=orderdet[i].sum%^></span></td>		
+													</tr>		
+												  <^%}%^> 
+					  
+												</tbody>
+											</table>	
+										</div>	
+										<table>		
+											<tbody>
+												<tr>			
+													<th class="m3-odetail1">菜单总价：￥<^%=order.goodscost%^></th>			
+													<th class="m3-odetail2">配送费：￥<^%=order.pscost%^></th>			
+													<th class="m3-odetail3">打包费：￥<^%=order.bagcost%^></th>		
+												</tr>	
+												<tr>			
+													<th class="m3-odetail1">积分抵扣：<^%=order.scoredown%^>个</th>			
+													<th class="m3-odetail2">优惠金：<^%=order.yhjcost%^>(券)+<^%=order.cxcost%^>(促销)</th>			
+													<th class="m3-odetail3">订单应付：<span class="money">￥<^%=order.allcost%^></span></th>		
+												</tr>	
+											</tbody>
+										</table>
+									</div>
+							<div class="clear"></div>
+</script>
+<script>
+	function getOrderDetail(orderid)
+	{  
+	        var info = {'orderid':orderid};
+	      	var backmes =   ajaxback('<{ofunc type=url link="/order/userorderdet/datatype/json"}>',info); 
+	      	if(backmes.flag == false)
+	      	{
+	      		// $backinfo['order'] = $orderinfo;
+		        //$backinfo['orderdet'] = $orderdetinfo;
+		         $('#tempordershow').show();
+	      		 var htmls = template.render('trgoodlist', {order:backmes.content.order,orderdet:backmes.content.orderdet});
+	      	   $('#m3-order-detail').html(htmls); 
+	      	}else{
+	      		diaerror(backmes.content); 
+	      	}  
+	}
+	</script>
+<script>
+	function postsetpaypwd(){
+	 var url = siteurl+'/index.php?ctrl=member&action=savedrawbacklog&@random@&datatype=json'; 
+	$.ajax({
+     type: 'post',
+     async:true, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)),
+     data:{'dno':$('#dno').val(),'reason':$('#reason').val(),'content':$('#content').val(),'phone':$('#phone').val(),'contactname':$('#contactname').val()}, 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){ 
+           window.location.reload();
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });    
+	} 
+</script>
+</script>
+<{/block}>

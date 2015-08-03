@@ -1,0 +1,68 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+ 
+ <{block name=sitetitle}>用户登陆<{/block}>
+ <{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberlogin.css"><{/block}>
+<{block name=shophide}><{/block}>
+<{block name=bgshow}><{/block}>
+ <{block name=bodylist}>  
+ <div class="new_login">
+   <div class="mem_login">
+   <h3>用户登录</h3>
+   	    <div class="mem_login_form">  
+   	   	<form id="loginForm" method="post" action="<{ofunc type=url link="/member/login"}>">
+              <ul>
+   	   		<li>  
+   	   		  	   <input type="text" placeholder="请输入用户名/邮箱" name="uname" >  
+   	   	  </li>
+   	   		<li>  
+   	   		  	   <input type="password" placeholder="请输入密码" name="pwd" >  
+   	   	  </li>
+   	     <{if $allowedcode == 1}>
+   	   	  <li>  
+   	   		  	   <input type="text" placeholder="验证码" name="Captcha" style="width:50px;" >  <img src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg" style="height:24px;"><a href="javascript:freshcode();" >刷新图片</a>
+   	   	  </li>
+   	   	   <{/if}>
+   	   	    <li> 
+                 <span> 
+                    <label>
+                     <input name="LoginForm[rememberMe]" value="1" type="checkbox" checked="checked">三十天内自动登录
+                    </label>
+   	   	    	</span>
+                  <span>
+   	   	      <a href="<{ofunc type=url link="/member/findpwd"}>">找回密码?</a>
+                  </span>
+   	   	    </li>
+   	   	    <li class="button_new_login login-button">登陆</li>
+   	   	    
+   	   	     <li>  
+   	   	    <{load_data assign="apiloginlist" table="otherlogin"  fileds="*"  limit="10" }> 
+					 <{if count($apiloginlist['list']) > 0}>
+				 
+						<{foreach from=$apiloginlist['list'] item=items}>
+						     <a href="<{ofunc type=url link="/member/linktest/logintype/<{$items['loginname']}>"}>" target="_blank"><img src="<{$items['logourl']}>"></a> 
+						<{/foreach}>
+				 
+					 <{/if}>
+   	   	    </li>
+   	   	       <li>  
+   	   	       	 没有帐号？<a href="<{ofunc type=url link="/member/regester"}>">立即注册</a>
+   	   	      </li>
+   	   	   </ul> 
+   	   	</form>
+   	   	</div>
+   </div>
+</div>
+ 
+ 
+ 
+  
+<script type="text/javascript">
+setInterval(function(){ 
+     $('body').height($(window).height());
+    },100);
+	$('.login-button').click(function(){
+		$('#loginForm').submit();
+	})
+</script>
+ 
+<{/block}>

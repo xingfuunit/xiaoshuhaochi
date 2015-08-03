@@ -1,0 +1,46 @@
+<div class="hc_menu_foods_div">
+					<table style="width:100% margin-bottom:0;">
+								<tbody><tr style="height:30px;text-align:left;color: #666;">
+									<th style="width:105px;padding-left:20px;"><b>评价</b></th>
+									<th style="width:278px;"><b>点评</b></th>
+									<th style="width:102px;"><b>食客</b></th>
+									<th style="width:148px;"><b>美食</b></th>
+									 
+								</tr>
+							 
+							</tbody>
+						</table>
+						
+ </div>
+						
+						
+						<table style="width:100% ; color: #666;">
+						<tbody>
+							
+							
+							
+							<{foreach from=$list item=items}>
+				    <tr style="border-bottom:1px dashed #ccc;height:85px;">
+							<td style="width:123px;padding-left:20px;">
+								 
+								<div>  <{section name=loop loop=$items['point']}> 
+												    <div class="star_div"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png" width="13" height="13"></div>
+												    <{/section}> 
+												  
+												 	<div class="clear"></div>
+								</div>							
+							</td>
+							<td style="width:268px;">
+								<div style="padding: 0 10px 0 0; margin-top:20px;"><{$items['content']}></div>
+								<div class="hc_comment_time">[<{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}>]</div>
+							</td>
+							<td style="width:100px; margin-top:20px;"><{$items['username']}></td>
+							<td style="width:148px; margin-top:20px;"><{$items['goodsname']}>[<{$items['goodscount']}>]</td>
+							 
+						</tr>
+						 <{/foreach}>
+						
+						</tbody></table>
+				<div class="pagination pagination-centered" style="padding: 20px;margin:0px;">
+        <{$pagecontent}>
+</div>

@@ -1,0 +1,17 @@
+<{if $type== 'tr'}> 
+  
+<{foreach from=$list  item=items}> 
+document.write('<td class="tdcls3"><{ofunc type=url link="/news/<{$itv['id']}>"}>" target="_blank"><{$items['title']}></a></td><td class="tdcls4"><{$items['addtime']|date_format:"%Y-%m-%d"}></td></tr>')
+<{/foreach}>  
+<{elseif $type == "li"}>
+<{foreach from=$list  item=items}> 
+document.write('<li><a href="<{ofunc type=url link="/news/<{$itv['id']}>"}>" target="_blank"><{$items['title']}></a><span><{$items['addtime']|date_format:"%Y-%m-%d"}></span></li>')
+<{/foreach}> 
+<{else}>
+<{foreach from=$list  item=items}> 
+document.write('<a href="<{ofunc type=url link="/news/<{$itv['id']}>"}>" target="_blank"><{$items['title']}></a><span><{$items['addtime']|date_format:"%Y-%m-%d"}></span><br>')
+<{/foreach}> 
+
+
+
+<{/if}> 

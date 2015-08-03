@@ -1,0 +1,236 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=sitetitle}>
+  会员中心
+  <{/block}> 
+  <{block name=extendcss}> <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberCenter.css"><{/block}>
+  <{block name=shophide}><{/block}>
+  <{block name=bgshow}><{/block}>
+  <{block name=bodylist}> 
+ 
+ <div class="box950 pad_tb_20" id="main" >
+	<div class="box150">
+	  <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/base.css"> 
+     <div class="title">
+     		<span class="colortip"></span><span class="title_name"><b><a href="#">游客订单</a></b></span>
+      </div>
+     <div class="content"><!-- 左侧菜单 -->
+     		<ul class="navLeft1">
+       		 
+     				<li class="light">
+     					<a class="supervise" href="javascript:void(0)"><span class="square"></span><span>订单管理</span><span class="arrow_bottom" id="cate-a1"></span></a>
+     				  <div class="navLeft2" id="a1" > 
+     				      <a class="gray_w" href="<{ofunc type=url link="/order/guestorderlist/phone/<{$phone}>/Captcha/<{$Captcha}>"}>" id="cateId1"><p <{if empty($type)}> class="navLeft1_cur"<{/if}> >外卖订单</p></a>
+     				      <a class="gray_w" href="<{ofunc type=url link="/order/guestorderlist/phone/<{$phone}>/Captcha/<{$Captcha}>/type/1"}>" id="cateId1"><p <{if !empty($type)}> class="navLeft1_cur"<{/if}> >超市订单</p></a> 
+     				  </div>
+     				</li>	 
+     			 
+     				
+     			</ul>
+     </div>
+	</div>
+ 
+	
+	 <div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>手机<{$phone}>-下单记录</b></span></p>
+						</div><!--title end-->
+<div class="searchTab">
+                            <div class="tabTitleWarp clearfix" id="jifen-title">
+                               <ul>
+									<li class="c"><h3 <{if empty($type)}> class="addborder"<{/if}>><a  href="<{ofunc type=url link="/order/guestorderlist/phone/<{$phone}>/Captcha/<{$Captcha}>"}>">餐厅订单</a></h3></li>
+										<li class="c"><h3 <{if !empty($type)}> class="addborder"<{/if}>><a href="<{ofunc type=url link="/order/guestorderlist/phone/<{$phone}>/Captcha/<{$Captcha}>/type/1"}>">超市订单</a></h3></li>
+									</ul>
+                            </div>
+                            <div class="clear"></div>
+         </div>
+						<div class="mr-middle content"><!--mr-middle-->
+							<div class="user-order m3-user-order"><!-- m3-user-order -->
+								 
+								 
+ 
+								<div class="order-list m3-order-list"><!-- m3-order-list -->
+									 
+
+									<div class="m3-order-list-view" id="m3-order-list"><table class="di_table">	<tbody>
+										<tr>
+											<th class="m3-olist1">订单号</th>  
+											<th class="m3-olist2">订单商家</th>  
+											<th class="m3-olist3">下单时间</th>		
+											<th class="m3-olist4">订单总额</th>		
+											<th class="m3-olist5">订单状态</th>	
+											<th class="m3-olist6">完成时间</th>
+											<th class="m3-olist7">操作</th>	
+										</tr>	
+										<{load_data assign="list" table="order" showpage="true"  fileds="*" where="<{$where}>" orderby=" id desc"  }> 
+										<{if count($list) > 0}>
+										<{foreach from=$list['list'] item=items}>
+										<tr>		
+											<td><a href="#orderview" onclick="getOrderDetail(<{$items['id']}>);"><{$items['dno']}></a></td>		
+											<td><a <{if $items['shopid']==0}>href="<{ofunc type=url link="/market"}>"<{else}>href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>"}>"<{/if}>target="_blank" class="apanel"><{$items['shopname']}></a></td>		
+											<td><p>订：<{$items['addtime']|date_format:"%Y-%m-%d %H:%M"}></p><p>配：<{$items['posttime']|date_format:"%Y-%m-%d %H:%M"}></p></td>		
+											<td><p>￥<{$items['allcost']}></p><p><{if $items['paytype']=='outpay'}>到付<{else}>在线支付<{if $items['paystatus']==1}>(已付)<{else}>(未付)<{/if}><{/if}></p></td>	
+											<td class="money"><{$buyerstatus[$items['status']]}></td>		<td><{if $items['status'] ==3}> <{$items['suretime']|date_format:"%Y-%m-%d %H:%M"}><{else}>---<{/if}></td>		
+											<td><a href="#orderview" class="apanel" onclick="getOrderDetail(<{$items['id']}>);">查看</a></td>	
+										</tr>
+										<{if $items['status'] < 4 && $items['posttime'] > time()}>
+										<tr class="proleng">
+											<td colspan="7">
+												<div class="progress" pro="1">
+													<p class="bg"></p><p class="pro" style="width:0px;"></p>
+											   <ul name="pro_loading">
+												<li class="p1  b hover"><span>预定中</span></li>
+												<li class="p2  b <{if $items['status'] > 0}>hover<{/if}>""><span>已预订</span></li>
+												<li class="p3 s ">
+													<a href="javascript:void(0)" style="cursor: default;"><span>取餐中</span></a>
+													<a href="javascript:void(0)" style="cursor: default;"></a></li>
+												<li class="p4 b <{if $items['status'] > 1}>hover<{/if}>"><span>配送中</span></li>
+												<li class="p5 s"><a href="javascript:void(0)" style="cursor: default;"><span>送餐中</span></a></li>
+												<li class="p6 b"><span>已到达</span></li>
+											</ul>
+										   </div>
+										 </td>
+										</tr>	
+										<{/if}>
+										<{/foreach}>
+										<{else}>
+										<tr>
+											<td colspan="7" align="center">
+												 暂无数据
+											</td>
+										</tr>
+									  <{/if}>
+										</tbody></table>
+								 <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+								</div>
+								</div>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							</div>
+						</div>
+					</div>
+			</div>
+			<a name="orderview" id="orderview"></a>
+								<div class="m3-order-detail" id="m3-order-detail">
+									
+									
+								</div>
+<script id="trgoodlist" type="text/html"> 
+<div class="m3-order-detail-left">	
+										<ul>		
+											<li><span>订单编号：</span><^%=order.dno%^></li>		
+											<li><span>下单时间：</span><^%=order.addtime%^></li>		
+											<li><span>要求时间：</span><^%=order.posttime%^></li>		
+											<li><span>完成时间：</span><^%=order.suretime%^></li>		
+											<li><span>配送方式：</span><^%if(order.pstype==1){%^>店铺自送<^%}else{%^>平台配送<^%}%^></li>		
+											<li><span>支付方式：</span><^%if(order.paytype=='outpay'){%^>餐到付款<^%}else{%^>在线支付<^%if(order.paystatus=='1'){%^>(已付)<^%}else{%^> (未付) <^%}%^><^%}%^></li>		
+											<li><span>客户姓名：</span><^%=order.buyername%^></li>		
+											<li><span>手机号码：</span><^%=order.buyerphone%^></li>		
+											<li><span>配送地址：</span><^%=order.buyeraddress%^></li>		
+											<li><span>订单备注：</span><^%=order.excontent%^></li>	
+										</ul>	
+										<div class="clear"></div>
+									</div>
+									<div class="m3-order-detail-right">	
+										<table>		
+											<tbody>
+												<tr>			
+													<th class="m3-odetail1 ">订单商家：<^%=order.shopname%^></th>			
+													<th class="m3-odetail2">订单状态：<^%=order.status%^></th>		
+												</tr>	
+											</tbody>
+										</table>	
+										<div class="menulist">	
+										
+											<table>		
+												<tbody>
+													<^%for(i = 0; i < orderdet.length; i ++) {%^>
+													<tr>			
+														<td class="m3-odetail1"><^%=orderdet[i].goodsname%^></td>			
+														<td class="m3-odetail2">￥<^%=orderdet[i].goodscost%^>*<^%=orderdet[i].goodscount%^></td>			
+														<td class="m3-odetail3"><span class="money">￥<^%=orderdet[i].sum%^></span></td>		
+													</tr>		
+												  <^%}%^> 
+					  
+												</tbody>
+											</table>	
+										</div>	
+										<table>		
+											<tbody>
+												<tr>			
+													<th class="m3-odetail1">菜单总价：￥<^%=order.goodscost%^></th>			
+													<th class="m3-odetail2">配送费：￥<^%=order.pscost%^></th>			
+													<th class="m3-odetail3">打包费：￥<^%=order.bagcost%^></th>		
+												</tr>	
+												<tr>			
+													<th class="m3-odetail1">积分抵扣：<^%=order.scoredown%^>个</th>			
+													<th class="m3-odetail2">优惠金：<^%=order.yhjcost%^>(券)+<^%=order.cxcost%^>(促销)</th>			
+													<th class="m3-odetail3">订单应付：<span class="money">￥<^%=order.allcost%^></span></th>		
+												</tr>	
+											</tbody>
+										</table>
+									</div>
+							<div class="clear"></div>
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		for(var i=0;i< $('.proleng').length;i++){
+			var whatobj = $('.proleng').eq(i).find('.hover').length;
+			whatobj = Number(whatobj)-1;
+			var myobj =  $('.proleng').eq(i).find('.hover').eq(whatobj);
+			//计算位置
+			var cobj = $('.proleng').eq(i).find('.hover').eq(0);
+				var menupos =$(myobj).offset();
+        var leftend = menupos.left;
+        var startpost = $(cobj).offset();
+        var leftstart = startpost.left;
+        var widths = Number(leftend)-Number(leftstart);
+        $('.proleng').eq(i).find('.pro').eq(0).css('width',widths+'px'); 
+		} 
+	});
+	function addAddr()
+	{
+		$('#newAddr_1').show();
+	}
+	function getOrderDetail(orderid)
+	{  
+	        var info = {'orderid':orderid};
+	      	var backmes =   ajaxback('<{ofunc type=url link="/order/userorderdet/datatype/json"}>',info); 
+	      	if(backmes.flag == false)
+	      	{
+	      		// $backinfo['order'] = $orderinfo;
+		        //$backinfo['orderdet'] = $orderdetinfo;
+		        
+	      		 var htmls = template.render('trgoodlist', {order:backmes.content.order,orderdet:backmes.content.orderdet});
+	      	   $('#m3-order-detail').html(htmls); 
+	      	}else{
+	      		diaerror(backmes.content); 
+	      	}  
+	}
+	
+</script>
+
+
+ <script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+ </div>
+<{/block}>

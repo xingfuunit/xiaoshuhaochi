@@ -1,0 +1,175 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+  <{block name=extendjs}><script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/json2.js"> </script><{/block}>
+ <{block name=membercenter}> 
+ <div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>配送资料</b></span></p>
+							<p style="float:right;">	<a href="#add" onclick="addAddr()" class="apanel">新增配送资料</a></p>
+						</div><!--title end-->
+
+						<div class="mr-middle content"><!--mr-middle-->
+							<div class="user-addr m2-user-addr"><!--useraddr-->
+								 
+								<div class="addr-list m2-addr-list" id="addrInfos">
+									<table class="di_table">	
+									<tbody>
+									  <tr>       
+									   <th class="alist1">客户姓名</th>       
+									   
+									   <th class="alist3">配送地址</th>		
+									   <th class="alist4">手机号码</th>		
+									   <th class="alist5">操作</th>		
+									  
+									  </tr>	 
+									  <{load_data assign="list" table="address"    fileds="*"  limit="15" where="userid = '<{$member['uid']}>'"}> 
+									  <{foreach from=$list['list'] item=items}>
+									  <tr>		
+									  	<td><{$items['contactname']}></td>		
+									  	 	
+									  	<td><{$items['address']}></td>		
+									  	<td><{$items['phone']}></td>		
+									  	<td>
+									  		  <a href="#add" id="edit_<{$items['id']}>" onclick="editaddress(this);" class="apanel" data='<{$items|@json_encode}>'>修改</a> 
+									  		| <a href="javascript:void(0)" class="apanel" onclick="delAddrs('<{$items['id']}>')">删除</a> 
+									    	| <{if $items['default'] == 1}><span class="money">默认</span><{else}><a class="apanel" onclick="changeAddr(<{$items['id']}>);">设置默认</a><{/if}>
+									  	</td>		
+									  	 
+									  </tr>
+									  <{/foreach}>
+									</tbody>
+									</table>
+								</div>
+								<p class="m2-addr-list-foot">最多保存<{$addresslimit}>条配送资料</p>
+							</div><!--useraddr end-->
+
+							
+							</div><!-- m2-addr-modify end-->
+						</div><!--mr-middle end-->
+						
+						
+						
+						
+						
+						<div class="user-addr m2-addr-modify" id="createorupdate" style="display:none"><!--m2-addr-modify-->
+							   <form id="adfrom">
+								<div class="m2-addr-title">
+									<ul>
+										<li class="c"><h3 class="" id="addModTitle">新增配送资料</h3></li>
+									</ul>
+									<div class="clear"></div>
+								</div>
+
+								<div class="ms-addr-form"><!--ms-addr-form-->
+									<div class="field">
+										<label class="m2-field">客户姓名</label>
+										<input type="text" class="inputtext a1" name="contactname" id="contact" onblur="name_verify_onblur(this)">
+										<label class="tip right" id="contactDetailDiv"></label>
+									</div>
+									<div class="field">
+										<label class="m2-field">美女帅哥</label>
+										<input class="check" name="sex" id="female" type="radio" value="1" checked="">&nbsp;美女
+										<input class="check" name="sex" id="male" type="radio" value="0">&nbsp;帅哥
+										<label class="tip"></label>
+									</div>
+									<div class="field">
+										<label class="m2-field">手机号码</label>
+										<input type="text" class="inputtext a2" id="phone" name="phone" onblur="phone_verify_onblur(this)">
+										<label class="tip" id="phonediv"></label>
+									</div>
+									 
+								 
+									<div class="field">
+										<label class="m2-field">配送地址</label>
+										<textarea name="add_new" cols="" rows="2" class="inputarea" id="position"></textarea>
+                                        <span class="checkA" id="checkA">点击识别位置坐标</span>
+										<label class="tip" id="addressTip">
+										示例：请录入准确的联系地址包含街道等信息
+										</label>
+									</div>
+
+								   
+
+									 <div class="field Btns">
+									
+                                        <!--onclick="postAdrTab()"-->
+										<input type="button" value="保&nbsp;存" class="weight" id="saveAddr" onclick="newAddr();">
+									 <input type="hidden" name="addressid" value="">
+										
+									</div>
+									</form>
+								</div><!--ms-addr-form end-->
+						
+						
+						
+						
+						
+						
+						
+					</div><!--mc-right end-->
+				</div>
+	
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		var showaddressid = '<{$addressid}>';
+		if(showaddressid > 0){
+		   $('#edit_'+showaddressid).trigger('click');
+	   }
+	});
+	function addAddr()
+	{
+		$('#createorupdate').show();
+		$('#addModTitle').text('新增配送资料');
+		 defaultid = '';
+		 
+		 initfrom(false);
+	}
+	function newAddr()
+	{
+		var info = $('#adfrom').serialize();
+		 
+		var url = '<{ofunc type=url link="/area/saveaddress/random/@random@/datatype/json"}>';
+		myajax(url,info);
+	}
+	function changeAddr(uid)
+	{
+		 
+		var info = {'tijiao':'do','default':'1','addressid':uid,'what':'default'};
+		var url = '<{ofunc type=url link="/area/editaddress/random/@random@/datatype/json"}>';
+		 myajax(url,info);
+	}
+	function delAddrs(uid){
+		if(confirm('确定操作吗？')){
+		var info = {'tijiao':'del','addressid':uid};
+		var url = '<{ofunc type=url link="/area/deladdress/random/@random@/datatype/json"}>';
+		myajax(url,info);
+	 }
+	}
+	function editaddress(obj){
+		$('#addModTitle').text('修改配送资料');
+			$('#createorupdate').show();
+			var tempinfo = $(obj).attr('data'); 
+      tempinfo = strToJson(tempinfo); 
+      defaultid = tempinfo.areaid1+','+tempinfo.areaid2+','+tempinfo.areaid3; 
+      initfrom(tempinfo);
+	}
+	function initfrom(jsondata){
+		$("input[name='contactname']").val(jsondata.contactname);
+		$("input[name='phone']").val(jsondata.phone);
+		if(jsondata.sex == 1){
+			$('#female').attr('checked',true);
+		}else{
+			$('#male').attr('checked',true);
+		}
+		$('textarea[name="add_new"]').val(jsondata.address);
+		$('input[name="addressid"]').val(jsondata.id); 
+	}
+	 
+	
+	 
+ function strToJson(str){ 
+  return JSON.parse(str); 
+  }
+</script>
+<{/block}>

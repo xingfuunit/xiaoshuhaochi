@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>商家登陆-<{$sitename}></title>
+<{block name="seokey"}><meta name="Keywords" content="<{$keywords}>" /><{/block}>
+<{block name="seodes"}><meta name="description" content="<{$description}>" /><{/block}>
+<{$metadata|stripslashes}>
+<meta charset="utf-8" />
+<link rel="shortcut icon" href="<{$siteurl}>/templates/<{$tempdir}>/public/images/favicon.ico" /> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shangjialogin.css"> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.lazyload.min.js" type="text/javascript" language="javascript"></script>
+  <script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	var controllername= '<{$controlname}>';
+</script>
+<script>
+	$(function(){
+		var cilentHeight = document.documentElement.clientHeight;
+		var topheight = cilentHeight-50;
+		$("#sjfooter").css("top",topheight+"px");
+
+       $('#sjloginin').click(function(){
+	    subform('<{ofunc type=url link="/shop/useredit"}>',$('#loginForm'));
+	})
+	});
+</script>
+</head>
+<body>
+<!--
+<div id="sjtop">
+
+</div>
+
+<div id="sjloginBg">	</div>-->
+<div id="sjlogin">
+	<h3>商家管理后台登陆系统</h3>
+<!--	<div class="sj_cont">
+		<div class="sj_cont_left">
+			<div class="sj_cont_title">
+				<span><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/sjzizhuloginBg1.png" /></span>
+			</div>
+			<div class="sj_cont_bot">
+				<span>
+					<img width="30" height="30" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/welcome.png" />
+				</span>
+				<span>欢迎使用商家自助管理系统后台，请在右边输入用户名和密码登入系统，如账号遇见问题，请联系管理员。</span>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		
+		<div class="sj_cont_right">-->
+		<form id="loginForm" method="post" action="<{ofunc type=url link="/member/shoploginin/datatype/json"}>">
+		  <ul>
+			<li>
+			  <input class="unameinput" placeholder="请输入用户名" type="text" name="uname" id="uname" value="" />
+			</li>
+			<li>
+			 <input class="upasinput" placeholder="请输入密码"  type="password" name="pwd" id="pwd" value="" />
+			</li>
+			  <{if $allowedcode == 1}>
+				<li>
+					<input name="Captcha" placeholder="验证码" type="text" name="" value="" />
+					<div> <img title="点击可更换验证码" onclick="javascript:freshcode();" src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg" style=" width:80px;height:38px;line-height:38px;">
+					<a href="javascript:freshcode();" >刷新图片</a> </div>
+					<div style="clear:both;"></div>
+					<br>
+				</li>
+			<{/if}>
+		 	<li>
+		 	  <label>
+		 	  	<input type="checkbox" value="" name="" checked="checked" />
+				<span class="remme">记住用户名和密码</span> 
+		 	  </label>
+			</li>
+			<li>
+			   <input id="sjloginin" type="button" value="登录">
+				<!--<img id="sjloginin" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/sj_login_bg.png" /> -->
+			</li>
+		  </ul>	
+		</form>
+	</div>
+ <!-- </div>	
+		
+	
+
+<div id="sjfooter" >
+	
+</div>
+<div id="sjzztop">
+	<span class="topfont"><a href="<{$siteurl}>"><{$sitename}></a></span>
+</div>
+<div id="sjzzdibu">
+<div style="height:20px;"></div>
+	<center><span class="footerfont" style="">@2008-2014 <{$sitename}>版权所有
+</span></center>
+</div>-->
+</body>
+</html>

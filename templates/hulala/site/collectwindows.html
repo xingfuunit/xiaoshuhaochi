@@ -1,0 +1,100 @@
+
+            <div class="tabbable tabs-up">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#A" data-toggle="tab">最新餐厅</a></li>
+                <li><a href="#B" data-toggle="tab">最热餐厅</a></li>
+                <li><a href="#C" data-toggle="tab">推荐餐厅</a></li>
+              </ul>
+             
+              <{assign var=oldids value=join(',',$shoucids)}> 
+             <input type="hidden" name="oldids" id="oldids" value="<{$oldids}>">
+              <div class="tab-content">
+              	
+                <div class="tab-pane active" id="A"> 
+                <ul class="collection2_ul">
+                	
+                	
+                	<{foreach from=$shoplist  item=items}> 
+                	 	<li class="menu-list-box">
+						<div style="float:left;" class="hc_shop_list_box">
+							<div class="hc_shop_list_box_left">
+								<div class="hc_shop_list_box_img">
+								<div class="hc_shop_list_box_img_div">
+									<a href="<{ofunc type=url link="/<{$items['shortname']|default:$item['id']}>"}>"><img src="<{$items['shoplogo']}>" /></a>
+								</div>
+								</div>
+								<div class="hc_shop_list_box_span"><{$items['sendtime']}>分钟</div>
+							</div>
+							<div class="hc_shop_list_box_right">
+								<div class="hc_list_box_head" style="width: 80px;overflow: hidden;height: 20px;">
+								<a class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/<{$items['shortname']|default:$item['id']}>"}>"><{$items['shopname']}></a>
+								</div>
+	
+								
+
+
+							<div class="hc_xinxin">
+								<div class="hc_xinxin_div">
+									
+									 <{section name=loop loop=$items['point']}> 
+                  	 <div class="hc_xinxin_div_float"><img alt="star" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png"></div>
+                     <{/section}> 
+								   <div class="clear"></div>
+								</div>
+								<div class="hc_comment"> 
+								<div class="hc_xinxin_div_float"><img alt="评论" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/comment.png"></div>
+									<div class="hc_xinxin_div_float"><span style="margin-left:3px;"><{$items['pointcount']}></span></div>  
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+
+	
+								<div class="hc_action">
+</div>
+
+														
+<div class="hc_order"><span class="gray_font">	<{assign var=alltype value=","|explode:$items['servertype']}> 
+						<{foreach from=$shoptypelist  item=v}> 
+						   <{if in_array($v['id'],$alltype)}> <{$v['name']}> <{/if}>
+						<{/foreach}></span></div>
+								
+							</div>
+							<div class="clear"></div>
+							</div>
+						<div style="float:left;margin-top:35px;margin-left: 10px;" class="combox">
+							
+												                  <input type="checkbox" id="fav_<{$items['id']}>" value="<{$items['id']}>" class="collectionInput" <{if in_array($items['id'],$shoucids)}>checked<{/if}>/>
+				       </div>
+				        <div class="clear"></div>
+					</li>
+					  <{/foreach}>
+										<div class="clear"></div>
+				</ul>
+              
+                </div>
+                <div class="tab-pane" id="B">
+                
+                   <ul class="collection2_ul">
+										 
+										 
+										 
+										 
+										 
+										 
+										 
+										         <div class="clear"></div>
+				            </ul>
+                
+                </div>
+                <div class="tab-pane" id="C">
+                
+                <ul class="collection2_ul">
+									 
+									 
+										<div class="clear"></div>
+				         </ul>
+                
+                </div>
+              </div>
+            </div>

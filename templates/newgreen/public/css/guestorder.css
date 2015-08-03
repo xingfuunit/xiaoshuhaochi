@@ -1,0 +1,129 @@
+@charset "utf-8";
+/**游客订单查询样式**/
+.check-main {
+width: 1100px;
+min-height: 600px;
+_height: 600px;
+margin: 0px auto;
+}
+
+.check-order-wrap, .check-login-wrap {
+height: 300px;
+overflow: hidden;
+border-radius: 5px;
+background: #fff;
+box-shadow: 3px 2px 12px #dfdede;
+}
+.check-order-wrap {
+float: left;
+width: 760px;
+}
+.check-order-title, .login-check-order {
+padding-left: 20px;
+height: 50px;
+border-bottom: #eeeeee solid 1px;
+line-height: 50px;
+color: #333;
+font-size: 16px;
+font-weight:normal;
+}
+.check-order-title span {
+font: 12px/1.5 '宋体';
+color: #999;
+}
+.order-number-check {
+padding: 30px 20px;
+}
+.order-number-check li {
+margin-bottom: 20px;
+}
+.number-title {
+width: 90px;
+text-align: right;
+color: #333;
+display: inline-block;
+vertical-align: middle;
+}
+
+.large-check-input, .mid-check-input {
+padding: 0 5px;
+height: 32px;
+line-height: 32px;
+font-size: 12px;
+border: 1px solid #ccc;
+color: #999;
+vertical-align: middle;
+}
+.large-check-input {
+width: 320px;
+}
+.c-hint {
+position: relative;
+padding-left: 20px;
+color: #ff0000;
+font-size: 12px;
+overflow: hidden;
+vertical-align: middle;
+}
+.mid-check-input {
+width: 152px;
+}
+
+.submit-wrap {
+overflow: hidden;
+margin-top: 15px;
+}
+.ml94 {
+margin-left: 94px;
+}
+.submit, .see-affirm, .contactLandord {
+display: inline-block;
+height: 38px;
+text-align: center;
+line-height: 38px;
+border: #3ba202 solid 1px;
+border-radius: 5px;
+background-repeat: repeat-x;
+background-position: 0 0;
+font-size: 16px;
+color: #fff;
+background-color:#0f8b67;
+padding:0px 30px 0px 30px;
+}
+.submit:hover{
+	background-color:#037b00;
+}
+.check-order-title em {
+color: #ffae00;
+font-style:normal;
+}
+
+.check-login-wrap {
+position: relative;
+width: 320px;
+float: right;
+}
+.c-btn {
+position: absolute;
+display: block;
+top: 145px;
+left: 70px;
+width: 154px;
+height: 49px;
+line-height: 49px;
+color: #fff;
+font-size: 20px;
+border: 1px solid #e89f02;
+border-radius: 2px;
+text-align: center;
+}
+.yellow {
+background: #ffae00;
+background: linear-gradient(#ffae00, #ff9900) repeat scroll 0 0 transparent;
+background: -webkit-gradient(linear,0% 0,0% 100%,from(#ffae00),to(#ff9900));
+}
+.yellow:hover {
+background: #ff9900;
+background: linear-gradient(#ff9900, #ffae00) repeat scroll 0 0 transparent;
+background: -webkit-gradient(linear,0% 0,0% 100%,from(#ff9900),to(#ff9900));
+}

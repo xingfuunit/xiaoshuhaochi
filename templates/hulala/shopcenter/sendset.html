@@ -1,0 +1,175 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	<div class="editcontent">
+       		 <div class="setpeisong">
+       		 	  <{if !empty($shopfast)}>
+       		 	   <table width="100%" border="1" bordercolor="#c6c5c5">
+                 <tr><th colspan="3">默认配送费用<input type="text" name="sendcost" id="sendcost" value="0" style="width:30px;" onchange="setdefault(this);">元&nbsp;&nbsp;&nbsp;&nbsp; </th></tr>
+                 
+                 
+                 <{if $area_grade ==  1}>  
+                  <{foreach from=$list key=myid item=items}>  
+                 <tr>
+                   <td colspan="3" height=40px>&nbsp; 
+                   	<div style="padding-top:5px;padding-left:5px;width:200px;float:left;" >
+                   	    <input type="checkbox" value="<{$items['id']}>" name="areaid[]" class="mycheckbox" onclick="changinput(this);" <{if in_array($items['id'],$areaids)}>checked<{/if}>><{$items['name']}>:
+                   	    <input type="text" name="areacost<{$items['id']}>" id="areacost<{$items['id']}>" <{if isset($areatoshop[$items1['id']])}> value="<{$areatoshop[$items1['id']]}>" <{else}> value=""<{/if}>   onchange="modifydo('<{$items['id']}>',this);"  maxlength=2 <{if !in_array($items['id'],$areaids)}> class="myinput" disabled<{else}> class="myinputon"<{/if}>>元
+                   	    </div>
+                   	 </td>
+                   
+                 </tr> 
+                <{/foreach}>  
+                 
+                 
+                 
+                 <{elseif $area_grade ==  2}>
+                 
+                 <{foreach from=$list key=myid item=items}>  
+                 <tr>
+                   <td width=100px>&nbsp;<{$items['name']}></td>
+                   <td colspan="2" height=40px> 
+                   	    
+                   	    	<{foreach from=$items['det1']  item=items1}>  
+                   	    	     	 <div style="padding-top:5px;padding-left:5px;width:200px;float:left;" >
+                   	    	     	 	<input type="checkbox" value="<{$items1['id']}>" name="areaid[]" class="mycheckbox" onclick="changinput(this);" <{if in_array($items1['id'],$areaids)}>checked<{/if}>><{$items1['name']}>:
+                   	    	     	 	<input type="text" name="areacost<{$items1['id']}>" id="areacost<{$items1['id']}>" <{if isset($areatoshop[$items1['id']])}> value="<{$areatoshop[$items1['id']]}>" <{else}> value=""<{/if}>onchange="modifydo('<{$items1['id']}>',this);"  maxlength=2 <{if !in_array($items1['id'],$areaids)}> class="myinput" disabled<{else}> class="myinputon"<{/if}>>元</div>
+                   	    	     	 
+                   	    	 <{/foreach}>
+                   	     
+                   </td>
+                    
+                 </tr> 
+                <{/foreach}> 
+                 
+                 <{else}>
+                 
+                 
+                 
+                 
+                 
+                 
+                <{foreach from=$list key=myid item=items}>  
+                 <tr>
+                   <td width=100px>&nbsp;<{$items['name']}></td>
+                   <td> 
+                   	   <table width="100%" >
+                   	    	<{foreach from=$items['det1']  item=items1}> 
+                   	    	  <tr >
+                   	    	 	 <td height=40px width=100px style="border-left:1px solid #c6c5c5;border-bottom:1px solid #c6c5c5;">&nbsp;<input type="checkbox" name="checkid" value="<{$items1['id']}>" onclick="selall(this);"><{$items1['name']}></td>
+                   	    	     <td style="border-left:1px solid #c6c5c5;border-bottom:1px solid #c6c5c5;" id="checkboxdiv<{$items1['id']}>"> 
+                   	    	     	<{foreach from=$items1['det2']  item=items2}> 
+                   	    	     	 <div style="padding-top:5px;padding-left:5px;width:200px;float:left;" >
+                   	    	     	 	<input type="checkbox" value="<{$items2['id']}>" name="areaid[]" class="mycheckbox" onclick="changinput(this);" <{if in_array($items2['id'],$areaids)}>checked<{/if}>><{$items2['name']}>:
+                   	    	     	 	<input type="text" name="areacost<{$items2['id']}>" id="areacost<{$items2['id']}>" <{if isset($areatoshop[$items2['id']])}> value="<{$areatoshop[$items2['id']]}>" <{else}> value=""<{/if}>  onchange="modifydo('<{$items2['id']}>',this);"  maxlength=2 <{if !in_array($items2['id'],$areaids)}> class="myinput" disabled<{else}> class="myinputon"<{/if}>>元</div>
+                   	    	     	<{/foreach}>
+                   	    	     	</td> 
+                   	    	  </tr>
+                   	    	 <{/foreach}>
+                   	    </table>    
+                   </td>
+                    
+                 </tr> 
+                <{/foreach}> 
+                
+                <{/if}> 
+                
+                
+                  
+               </table>
+               <{else}>
+                 未启用外卖店铺不需要设置配送区域
+               <{/if}>
+       		 	</div>
+       		
+       	</div>
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+    
+</div>
+<script>
+	//选择地址
+ function changinput(obj){
+ 	if($(obj).is(':checked')){
+ 		$('#areacost'+$(obj).val()).attr('disabled',false);
+ 		$('#areacost'+$(obj).val()).removeClass('mycheckbox').addClass('myinputon');//('class',''); 
+ 		$('#areacost'+$(obj).val()).val($('#sendcost').val());
+ 		shopidtoad(1,$(obj).val(),$('#areacost'+$(obj).val()).val(),1);
+ 	}else{
+ 		$('#areacost'+$(obj).val()).attr('disabled',true);
+ 		$('#areacost'+$(obj).val()).removeClass('myinputon').addClass('myinput');
+ 		$('#areacost'+$(obj).val()).val('');
+ 		shopidtoad(1,$(obj).val(),0,2);
+ 	}
+ }
+function selall(obj){
+	var findobj = $('#checkboxdiv'+$(obj).val()).find("[name='areaid[]']");
+	var findobj2 = $('#checkboxdiv'+$(obj).val()).find("[type='text']");
+	if($(obj).is(':checked')){  
+		 $(findobj).attr('checked',true);
+		 $(findobj2).removeClass('myinput').addClass('myinputon');
+		 $(findobj2).attr('disabled',false); 
+		 $(findobj2).attr('value',$('#sendcost').val());
+		 shopidtoad(2,$(obj).val(),$('#sendcost').val(),1);
+	}else{
+		$(findobj).attr('checked',false);
+		 $(findobj2).removeClass('myinputon').addClass('myinput');
+		 $(findobj2).attr('disabled',true);
+		 $(findobj2).attr('value','');
+		 shopidtoad(2,$(obj).val(),$('#areacost'+$(obj).val()).val(),2);
+	}
+}
+function modifydo(areaid,obj)
+{
+	shopidtoad(1,areaid,$(obj).val(),1); 
+}
+function setdefault(obj){ 
+	/*
+	showop('店铺默认配送费用修改保存中');
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/setdefaultsend"}>',{'sendcost':$(obj).val()});
+	if(backinfo.flag == true)
+	{
+		hideop();
+		diaerror(backinfo.content); 
+	}else{
+		hideop();
+		artsucces('保存成功');
+	}*/
+}
+//店铺ID到地址ID关联保存
+function shopidtoad(controltype,areaid,cost,limitdo)
+{ 
+	 showop('保存配送区域信息');
+	var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/shopidtoad"}>',{'controltype':controltype,'areaid':areaid,'cost':cost,'limitdo':limitdo});
+	if(backinfo.flag == true)
+	{
+		hideop();
+		diaerror(backinfo.content); 
+	}else{
+		hideop();
+		artsucces('保存成功');
+	}
+}
+ 
+</script>
+
+<{include file="<{$tempdir}>/public/shopfooter.html"}>
+
+
+
+
+
+
+
+ 

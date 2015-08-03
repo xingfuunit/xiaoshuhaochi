@@ -1,0 +1,82 @@
+  <html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Language" content="zh-CN"> 
+<meta content="all" name="robots"> 
+<meta name="description" content=""> 
+<meta content="" name="keywords"> 
+<title>后台管理中心 </title>  
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin1.css"> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/public.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+ <script>
+	var menu = null;
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	if(screen.width > 1359){
+		
+		$('.newtop').css('width',screen.width);
+		$('.newmain').css('width',screen.width);
+		$('.newfoot').css('width',screen.width);
+	}  
+	
+</script> 
+<style>
+  #content{left:50%;top:30%;position:absolute;width:400px;margin-left:-200px;height:300px;margin-top:-150px;background-color:#ffffff;}
+  .newfoot{bottom:0px;position:absolute;}
+  .hc_login_head{height:40px;line-height:40px;background-color:#0076cf;color:#ffffff;font-weight:bold;padding-left:30px;}
+  .hc_login_content{padding-top:30px;padding-left:30px;}
+  .hc_login_div_span{color:#dddddd;font-weight:bold;}
+
+</style>
+</head> 
+<body> 
+<div id="content">
+	<form id="loginForm" method="post">
+<div class="hc_content">
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span"><{$sitetitle}></span></div>
+			<div class="hc_login_content">
+					<div class="findPassWordDiv">
+						<div style="float:left;margin-right: 10px;">
+							<p style="padding-bottom:30px;"><span class="hc_login_div_span">错误提示信息：</span> <font style="color:#000000"><{$msg}></font></p>
+							<p class="tip" style="margin-left:50px;"><a href="<{$errorlink}>">返回上一页</a>  <span style="margin-left:100px;"><a href="<{$siteurl}>">返回首页</a></span></p>
+						</div>
+						 
+						<div class="clear"></div>
+					</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</form>
+
+<script type="text/javascript">
+$('.login-button').click(function(){
+	$('#loginForm').submit();
+})
+
+</script></div> 
+
+
+
+<div style="clear:both;"></div>
+<div class="newfoot">
+	
+	  版权所有@外卖人网上订餐系统
+</div>	
+<script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+</body>
+</html>
+ 

@@ -1,0 +1,179 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/goodslist.css">   
+<{/block}>
+ <{block name=extendjs}> 
+ 	<script src="<{$siteurl}>/templates/<{$tempdir}>/public/html5/js/cart.js"></script> 
+ <script>
+ 	$(function(){ 
+   if($('.sortbox ul').children().length ==1){
+        $('.sortbox ul').children().css({
+                                      'box-flex':'1',
+                                      '-moz-box-flex':'1',
+                                      '-webkit-box-flex':'1'
+                                    });
+      }
+      if($('.sortbox ul').children().length ==2){
+        $('.sortbox ul').css('display','block');
+        $('.sortbox ul').children().css({
+                                      'width':'50%',
+                                      'float':'left'
+                                    });
+        $('.sortbox ul').children().eq(0).css({
+                    'border-right':'1px solid rgb(37,37,47)',
+                    'margin-right':'-1px'
+                                      });
+      }
+      if($('.sortbox ul').children().length ==3){
+        $('.sortbox ul').children().css({
+                                      'box-flex':'3',
+                                      '-moz-box-flex':'3',
+                                      '-webkit-box-flex':'3'
+                                    });
+        $('.sortbox ul').children().eq(1).css({
+                    'border-right':'1px solid rgb(37,37,47)',
+                    'border-left':'1px solid rgb(37,37,47)'                  });
+      }
+      if($('.sortbox ul').children().length ==4){
+        $('.sortbox ul').children().css({
+                                      'box-flex':'4',
+                                      '-moz-box-flex':'4',
+                                      '-webkit-box-flex':'4'
+                                    });
+        $('.sortbox ul').children().eq(1).css({
+                    'border-left':'1px solid rgb(37,37,47)'
+                  });
+        $('.sortbox ul').children().eq(2).css({
+                    'border-right':'1px solid rgb(37,37,47)'
+                  });
+      }
+      if($('.sortbox ul').children().length ==5){
+        $('.sortbox ul').children().css({
+                                      'box-flex':'5',
+                                      '-moz-box-flex':'5',
+                                      '-webkit-box-flex':'5'
+                                    });
+        $('.sortbox ul').children().eq(1).css({
+                    'border-left':'1px solid rgb(37,37,47)'
+                  });
+        $('.sortbox ul').children().eq(2).css({
+                    'border-right':'1px solid rgb(37,37,47)',
+                    'border-left':'1px solid rgb(37,37,47)',
+                  });
+        $('.sortbox ul').children().eq(3).css({
+                    'border-right':'1px solid rgb(37,37,47)'
+                  });
+      }
+      if($('.sortbox ul').children().length >=6){
+        $('.sortbox ul').children().css({
+                                      'box-flex':'1',
+                                      '-moz-box-flex':'1',
+                                      '-webkit-box-flex':'1'
+                                    });
+        $('.sortbox ul').children().eq(0).css({
+                    'border-right':'1px solid rgb(37,37,47)'
+                  });
+      }
+
+
+ 		$('.sortbox li').bind("click", function() {   
+	    $(this).addClass('active').siblings().removeClass('active');
+	    var typeid = $(this).attr('dataid');
+	     if(typeid !== undefined){ 
+	        $.each($('#scrollLoading').find('li'), function(i,val){  
+	      	  if($(val).attr('data-categoryid') == typeid){
+	      	   $(val).show();
+	         	}else{
+	      	   $(val).hide();
+	         	} 
+          });   
+	     }
+    });
+   // $('.qipao').hide();
+    $('.sortbox li').eq(0).trigger('click');
+    $('.clkitm').bind("click", function() {   
+	     // $('#loading').show();
+	    
+	       var gid = $(this).attr('data-supplierdishid'); 
+	       var tempshopid = $(this).attr('data-shopid');
+	       addonedish(gid,tempshopid,1,this);
+	      //  var url = siteurl+'/index.php?controller=html5&action=addcart&goods_id='+gid+'&shopid='+shopid+'&num=1&random=@random@';
+	      //   url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+	      //  $.getScript(url);
+	   
+    });
+    $('#addShopping').bind("click",function(){ 
+    	window.location.href=siteurl+"/index.php?controller=html5&action=buycart&id=<{$id}>";
+    });
+    freshcart();
+ 	});
+ 	var shopid = '<{$id}>';
+ 	var shoplimitcost = '<{$shopinfo['limitcost']}>';
+ 	</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="takeout"> 
+  	<header style="display:none;"><div class="return"></div><a href="<{$siteurl}>/index.php?controller=html5&action=shopshow&id=<{$id}>"><{$shopinfo['shopname']}></a></header> 
+  	<div class="wm-container"> 
+  		<div style="display:block;" id="shopinfo"> 
+  		</div> 
+  		   <section>
+
+  		   	   <div class="sortbox"> 
+  		   	   	    <ul> 
+  		   	   	    	  <{load_data assign="list" table="goodstype" where="shopid='<{$id}>'" fileds="*"  limit="20" }>  
+  		   	   	    	  <{foreach from=$list['list'] item=items}>
+                       <li id="cp_<{$items['id']}>" dataid="<{$items['id']}>"><{$items['name']}></li>
+                       <{/foreach}>
+                       
+  		   	   	    </ul> 
+  		   	   </div>
+
+  		   	   <div class="listbox" id="scrollLoading">
+
+  		   	   	   <ul class="mVer w100w" style="display: -webkit-box;">  
+  		   	   	   	<{foreach from=$list['list'] item=items}>
+  		   	   	   	<{load_data assign="menulist" table="goods" where="shopid='<{$id}>' and typeid='<{$items['id']}>'" fileds="*"  limit="100" }>  
+  		   	   	      	<{foreach from=$menulist['list'] item=itv}>
+  		   	   	   	    <li class="mBxMid clkitm"  id="gid_<{$itv['id']}>" data-shopid="<{$itv['shopid']}>" data-categoryid="<{$itv['typeid']}>" data-categoryname="<{$itv['name']}>" data-supplierdishid="<{$itv['id']}>" data-supplierdishname="<{$itv['name']}>" data-packagingfee="<{$itv['bagcost']}>" data-price="<{$itv['cost']}>" data-recipe="<{$itv['instro']}>" buydata="0">
+ 
+  		   	   	   		<div class="mBxCm listnumber">
+
+  		   	   	   			<span class="listshu mBxCm">0</span>
+
+  		   	   	   		</div>
+
+  		   	   	   		<div class="mFlex1">
+
+  		   	   	   			<h3><strong><{$itv['name']}></strong></h3>
+
+  		   	   	   			<div><span><{$itv['cost']}></span>元/份</div>
+
+  		   	   	   		</div>
+
+  		   	   	   		<div> 
+  		   	   	   			<{if !empty($itv['img'])}>
+  		   	   	   		    	<img class="scrollLoading" alt="" src="<{$itv['img']}>">  
+  		   	   	   		   <{/if}>
+  		   	   	   		</div> 
+                    </li>  
+                    <{/foreach}>
+  		   	   	   	<{/foreach}>
+  		   	   	   	
+  		   	   	   	
+  		   	   	   	
+  		   	   	   	
+
+  		   	   	  </ul>
+
+  		   	   </div> 
+  		  </section>
+
+<{/block}>
+<{block name=footer}> 
+ </div> 
+  </div> 
+  <footer><div><div class="pie"><span id="buy-DishCaiCount">0</span>共计: <span id="buy-paycount">0.00</span>元 <span id="shoplimitcost"></span></div><div id="addShopping"><b></b>立即购买</div></div></footer>
+ 
+<{/block}>

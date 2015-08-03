@@ -1,0 +1,260 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>店铺属性<{/block}>
+ <{block name=bodylist}>
+ <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	<div class="search"> 
+            <{load_data assign="defaulttype" table="shoptype"   where="id='0'" type="one"}> 
+            <div class="search_content">  
+            	    <input type="button" value="添加属性" class="button" onclick="addhtmlss(<{$defaulttype|@json_encode}>);">   
+            </div> 
+      	</div>
+      	
+      	
+      	
+           <div class="tags"> 
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+                       <th align="center">ID</th>
+                        <th align="center">属性名称</th>
+                         <th align="center">所属对象</th>
+                         <th align="center">值</th>
+                        <th align="center">排序ID</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+                      <{load_data assign="list" table="shoptype" showpage="true"  where="parent_id='0'" }> 
+                      <{foreach from=$list['list'] item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td> 
+                         <td align="center"><{$items['id']}></td>  
+                        <td align="center"><{$items['name']}></td>  
+                        <td align="center"><{$shoptype[$items['cattype']]}></td>  
+                        <td align="center">
+                        	 <{load_data assign="detlist" table="shoptype"    where="parent_id='<{$items['id']}>'" limit="10" }> 
+                        	<{foreach from=$detlist['list'] key=mykey item =itv}>
+                        	 <{if $mykey < 5}> 
+                        	     <{if $items['type'] == 'img'}>
+                        	      <img src="<{$itv['name']}>" width=30px>
+                        	      <{else}>
+                        	      <{$itv['name']}>
+                        	      <{/if}>
+                        	 <{/if}>
+                          <{/foreach}>
+                          <{$items['det'] =$detlist['list']}>
+                        	<a href="#" onclick='setattr(<{$items|@json_encode}>);'>设置</a>
+                        	</td>  
+                        <td align="center"><{$items['orderid']}></td>  
+                        <td align="center"><a href="#" onclick='addhtml(<{$items|@json_encode}>);' ><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a> 
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/shop/module/delshoptype/id/<{$items['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div> 
+
+                </form>
+
+                <div class="page_newc">
+                 	     <div class="select_page">
+                 	     	   	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a>
+                 	         <a onclick="return remindall(this);" href="<{ofunc type=url link="/adminpage/shop/module/delshoptype/datatype/json"}>" class="delurl">删除</a> 
+                 	     	</div>
+                       <div class="show_page"><ul><{$list['pagecontent']}></ul></div>
+                 </div>
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+</div> 
+
+
+
+
+<script id="addtype" type="text/html">
+<form method="post" name="form1" action="<{ofunc type=url link="/adminpage/shop/module/saveshoptype/datatype/json"}>" onsubmit="return subform('',this);">
+  <table width=300px> 
+  	<tr><td height=25px width=30%>属性名称:</td><td width=70%><input type="text" name="name" value="<^%=name%^>"></td></tr>
+  	<tr><td height=25px width=30%>数据类型:</td><td width=70%><select name="type">
+  		                                                        <option value="checkbox" <^% if(type == 'checkbox'){%^>selected<^%}%^>>多选</option>
+  		                                                        <option value="radio" <^% if(type == 'radio'){%^>selected<^%}%^>>单选</option>
+  		                                                        <option value="input" <^% if(type == 'input'){%^>selected<^%}%^>>输入框</option>
+  		                                                        <option value="img" <^% if(type == 'img'){%^>selected<^%}%^>>图片</option> 
+  		                                                        </select></td></tr>
+  	<tr>
+  		<td height=25px width=30%>对应对象:</td>
+  		<td width=70%>
+  			<^% for(var i=0;i<typearr.length;i++) {%^>
+  			<input type="radio" name="cattype" value="<^%=i%^>" <^% if(cattype == i){%^>checked<^%}%^>>  <^%=typearr[i]%^> 
+  			<^%}%^>
+  		 </td> 
+    </tr>
+  	<tr><td height=25px width=30%>是否搜索:</td>
+  		<td width=70%><input type="radio" name="is_search" value="0" <^% if(is_search == 0){%^>checked<^%}%^>>否<input type="radio" name="is_search" value="1" <^% if(is_search == 1){%^>checked<^%}%^>>是</td> </tr>
+  	<tr><td height=25px width=30%>展示列表中:</td>
+  		<td width=70%><input type="radio" name="is_main" value="0" <^% if(is_main == 0){%^>checked<^%}%^>>否<input type="radio" name="is_main" value="1" <^% if(is_main == 1){%^>checked<^%}%^>>是</td> </tr>
+  	<tr><td height=25px width=30%>设置位置:</td>
+  		<td width=70%><input type="radio" name="is_admin" value="0" <^% if(is_admin == 0){%^>checked<^%}%^>>前台<input type="radio" name="is_admin" value="1" <^% if(is_admin == 1){%^>checked<^%}%^>>后台</td> </tr>		
+  	<tr><td height=25px width=30%>简单说明:</td>
+  		<td width=70%><textarea name="instro"><^%=instro%^></textarea></tr>		 
+  	<tr><td height=25px width=30%>排序ID:</td><td width=70%><input type="text" name="orderid" value="<^%=orderid%^>"></td></tr>
+  	<tr><td height=25px>&nbsp;</td> <input type="hidden" name="id" value="<^%=id%^>"> <td><input type="submit" value="提交保存" class="button"></td></tr>
+  </table> 
+</form>
+</script>
+<script id="addtypess" type="text/html">
+<form method="post" name="form1" action="<{ofunc type=url link="/adminpage/shop/module/saveshoptype/datatype/json"}>" onsubmit="return subform('',this);">
+  <table width=300px> 
+  	<tr><td height=25px width=30%>属性名称:</td><td width=70%><input type="text" name="name" value="<^%=name%^>"></td></tr>
+  	<tr><td height=25px width=30%>数据类型:</td><td width=70%><select name="type">
+  		                                                        <option value="checkbox" <^% if(type == 'checkbox'){%^>selected<^%}%^>>多选</option>
+  		                                                        <option value="radio" <^% if(type == 'radio'){%^>selected<^%}%^>>单选</option>
+  		                                                        <option value="input" <^% if(type == 'input'){%^>selected<^%}%^>>输入框</option>
+  		                                                        <option value="img" <^% if(type == 'img'){%^>selected<^%}%^>>图片</option> 
+  		                                                        </select></td></tr>
+  	<tr>
+  		<td height=25px width=30%>对应对象:</td>
+  		<td width=70%>
+  		<{foreach from=$shoptype key=mykey item=items}>
+  			<input type="radio" name="cattype" value="<{$mykey}>" >  <{$items}>
+  		<{/foreach}>
+  		 </td> 
+    </tr>
+  	<tr><td height=25px width=30%>是否搜索:</td>
+  		<td width=70%><input type="radio" name="is_search" value="0" <^% if(is_search == 0){%^>checked<^%}%^>>否<input type="radio" name="is_search" value="1" <^% if(is_search == 1){%^>checked<^%}%^>>是</td> </tr>
+  	<tr><td height=25px width=30%>展示列表中:</td>
+  		<td width=70%><input type="radio" name="is_main" value="0" <^% if(is_main == 0){%^>checked<^%}%^>>否<input type="radio" name="is_main" value="1" <^% if(is_main == 1){%^>checked<^%}%^>>是</td> </tr>
+  	<tr><td height=25px width=30%>设置位置:</td>
+  		<td width=70%><input type="radio" name="is_admin" value="0" <^% if(is_admin == 0){%^>checked<^%}%^>>前台<input type="radio" name="is_admin" value="1" <^% if(is_admin == 1){%^>checked<^%}%^>>后台</td> </tr>		
+  	<tr><td height=25px width=30%>简单说明:</td>
+  		<td width=70%><textarea name="instro"><^%=instro%^></textarea></tr>		 
+  	<tr><td height=25px width=30%>排序ID:</td><td width=70%><input type="text" name="orderid" value="<^%=orderid%^>"></td></tr>
+  	<tr><td height=25px>&nbsp;</td> <input type="hidden" name="id" value="<^%=id%^>"> <td><input type="submit" value="提交保存" class="button"></td></tr>
+  </table> 
+</form>
+</script>
+<script id="adddet" type="text/html"> 
+	<form method="post" name="form1" action="<{ofunc type=url link="/adminpage/shop/module/saveshopdettype/datatype/json"}>" onsubmit="return subform('',this);">
+	<table width=300px id="dovalueid"> 
+	   <tr><th height=25px width=70%>数据值</th><th width=30%>操作</th></tr>
+	   	
+	   	
+	   <^% if(det.length > 0){%^> 
+	   <^% for(var i=0;i< det.length;i++){%^> 
+	         <^% if(type == "img"){%^> 
+	           <tr class="shujudata"><td height=25px width=70%><img src="<^%=det[i].name%^>" width=15px height=15px class="imgshow"   ><input type="hidden" name="ids[]" value="<^%=det[i].id%^>"><input type="hidden"   name="name[]" value="<^%=det[i].name%^>"><input type="text" name="instro[]" value="<^%=det[i].instro%^>"><span onclick="uploads(this);" style="font-size:12px;">上传</span></td><td width=30%><a href="#" onclick="delhang(this);">delete</a></td></tr>
+	        <^%}else{%^>   
+	           <tr class="shujudata"><td height=25px width=70%><input type="hidden" name="ids[]" value="<^%=det[i].id%^>"><input type="text" name="name[]" value="<^%=det[i].name%^>"><input type="hidden" name="instro[]" value="<^%=det[i].instro%^>"></td><td width=30%><a href="#" onclick="delhang(this);">delete</a></td></tr>
+	        <^%}%^> 
+	   <^%}%^> 
+	   <^%}%^> 
+	   <tr><td colspan="3"><input type="button" value="添加一行" class="button" onclick="addhang(this,'<^%=type%^>');"></td></tr>
+     <tr><td height=25px>&nbsp;</td> <input type="hidden" name="cattype" value="<^%=cattype%^>"><input type="hidden" name="id" value="<^%=id%^>"> <td colspan="2"><input type="submit" value="提交保存" class="button"></td></tr>
+     
+  </table>		
+	</form>
+</script>
+<script>
+	var typearr = <{$shoptype|@json_encode}>;
+	function addhtml(datas){  
+		datas.typearr  = typearr;
+	  var html = template.render('addtype', datas);  
+	  var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:'',
+        content: html
+    });
+	}
+	function addhtmlss(datas){
+		 var html = template.render('addtypess', datas);  
+	  var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:'',
+        content: html
+    });
+	}
+	function setattr(datas){
+	  var html = template.render('adddet', datas);  
+	  var dialog =  art.dialog({
+	 	   	id:'coslids',
+        title:'设置'+datas.name+'值',
+        content: html
+    });
+	}
+	function addhang(obj,types){
+	  if(types == 'input'){ 
+	     if($('#dovalueid').find('.shujudata').length > 0){
+	     	 alert('已存在默认值');
+	     	 return false;
+	    }
+	    
+	  }
+	   var html = '';
+	  if(types == 'img'){
+	  	 html= '<tr class="shujudata"><td height=25px width=70%><img src="" width=15px height=15px class="imgshow"  style="display:none;" ><input type="hidden" name="ids[]" value=""><input type="hidden"   name="name[]" value=""><input type="text" name="instro[]" value=""><span onclick="uploads(this);" style="font-size:12px;">上传</span></td><td width=30%><a href="#" onclick="delhang(this);">delete</a></td></tr>';
+	  }else{
+		    html= '<tr class="shujudata"><td height=25px width=70%><input type="hidden" name="ids[]" value=""><input type="text" name="name[]" value=""><input type="hidden" name="instro[]" value=""></td><td width=30%><a href="#" onclick="delhang(this);">delete</a></td></tr>';
+		}
+	  $(obj).parent().parent().before(html);
+	}
+	function delhang(obj){
+	  $(obj).parent().parent().remove();
+	}
+	</script> 
+<script>
+	var dialogs ;
+	var doimgid;
+ function uploads(obj){  
+ 	  var doobj = $(obj).parent().parent();
+ 	  doimgid = $('#dovalueid').find('span').index($(obj));
+ 	   
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucess"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploads();
+ 	 }else{ 
+ 		dialogs.close();
+ 	 $('#dovalueid').find('.imgshow').eq(doimgid).attr('src',linkurl);
+ 	$('#dovalueid').find("input[name='name[]']").eq(doimgid).val(linkurl);
+ 	 $('#dovalueid').find('.imgshow').eq(doimgid).show();
+   }
+ } 
+</script>    
+<!--newmain 结束-->
+<{/block}>

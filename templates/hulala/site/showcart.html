@@ -1,0 +1,184 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+<form id="cart_form" method="post" action="<{ofunc type=url link="/site/order"}>">
+<div class="ordersel">
+<div class="shopinfoHidden"></div>
+<div class="selectedShop">
+	<input id="selshopid" type="hidden" value="2350">
+</div>
+<div class="hc_order_liucheng">
+	<div class="hc_order_liucheng1"></div>
+	<div class="hc_order_liucheng2"></div>
+	<div class="hc_order_liucheng3"></div>
+	<div class="clear"></div>
+</div>
+<div class="sel-top"></div> 
+		<div class="hc_order_foods_head">我的美食篮子</div>
+		 
+    <div class="bordered-box">
+		<div class="hc_order_foods_table">
+			<{foreach from = $carinfo['goods']['shopdata'] key=shopid item=value}>
+			<div id="sel_notice" class="sel-notice" style="background-color: rgb(251, 214, 113);"> 
+			   <p class="selNotice" id="selNoticeP_<{$shopid}>"><a href="#"><{$value['shopname']}></a>，起送价为<{$shoplist[$shopid]['limitcost']}>元，
+			   	<{if  $value['sum'] > $shoplist[$shopid]['limitcost']}>已达到。<{else}>未满足配送最低价格,
+			   	    <a href="<{ofunc type=url link="/shop/index/shopid/<{$shopid}>"}>">继续购买</a> 
+			   	<{/if}>
+			   	
+			   	<span style="float:right;padding"> <a href="<{ofunc type=url link="/site/cart/type/goods/shopid/<{$shopid}>"}>" class="carttoover">结算此店铺</a> 小计：<a href="#" style="color:red;font-weight:bold;" id="shop_sum<{$shopid}>"><{$value['sum']}></a>&nbsp;元&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			   	</p>	
+			</div>
+			<table border="0" cellspacing="0" cellpadding="0" class="table" style="margin-bottom: 0px; width: 1001px;" align="center">
+              <tbody>
+              	<tr style="height: 40px; border-bottom: 1px dashed #ddd; font-size: 16px; color: #777;" id="item-tables-mark" class="xian1">
+					<td style="width: 577px;border-right:1px solid #ddd;"><span style="padding-left:10px;" class="selList-span"><b>美食篮子</b></span></td>
+					<td style="width:107px ;border-right:1px solid #ddd; text-align:center; "><b>单价</b></td>
+					<td style="width: 165px; border-right:1px solid #ddd;"><span style="text-align:center; height:24px; display: block;"><b>数量</b><span></span></span></td>
+					<td style="width:125px;"><span style="text-align:center; height:24px; display: block;"><b>清空</b></span></td>
+                </tr>
+         <{foreach from=$value['list'] item=val}>
+				  <tr shop_id="<{$carinfo['goods']['data'][$val]['shopid']}>" id="xian2_<{$carinfo['goods']['data'][$val]['shopid']}>" class="xian2" style="display: table-row;">
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle;"><span class="selList-span" style="padding-left:10px;"><{$carinfo['goods']['data'][$val]['name']}><{if $carinfo['goods']['data'][$val]['store_num'] < $carinfo['goods']['data'][$val]['count']}><font color=red>库存不足</font><{/if}></span></td>
+				  	<td style="text-align: center; border-right:1px solid #ddd; vertical-align: middle;">￥<{$carinfo['goods']['data'][$val]['cost']}></td>
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle; text-align:center;" class="quantity">
+				  		<a class="addBtn" onclick="reduce(this,'goods');" href="#" shopid="<{$carinfo['goods']['data'][$val]['shopid']}>" food_id="<{$carinfo['goods']['data'][$val]['goods_id']}>" cost="<{$carinfo['goods']['data'][$val]['cost']}>"></a>
+				  		<input style="width:40px;float: left;" readonly shopid="<{$carinfo['goods']['data'][$val]['shopid']}>" food_id="<{$carinfo['goods']['data'][$val]['goods_id']}>" cost="<{$carinfo['goods']['data'][$val]['cost']}>" class="order-item" type="text" id="cartfood_id_<{$carinfo['goods']['data'][$val]['goods_id']}>" value="<{$carinfo['goods']['data'][$val]['count']}>" autocomplete="off">
+				  		<a class="reduceBtn" onclick="upadd(this,'goods');" href="#" shopid="<{$carinfo['goods']['data'][$val]['shopid']}>" food_id="<{$carinfo['goods']['data'][$val]['goods_id']}>" cost="<{$carinfo['goods']['data'][$val]['cost']}>" ></a></td>
+				  	<td style=" text-align:center; vertical-align: middle;">
+				  		<a onmouseover="deleteBtn_huaguo(this);" onmouseout="deleteBtn_moren(this);" class="deleteBtn deleteBtn_moren" onclick="delcart(<{$carinfo['goods']['data'][$val]['goods_id']}>,'goods');" href="javascript:void(0);"></a>
+				  	</td>
+				  </tr>
+				  <{/foreach}>
+              
+			  </tbody>
+			 </table>
+			 <{/foreach}>
+			 <{if is_array($carinfo['market']['data']) && count($carinfo['market']['data']) > 0}> 
+	     <div id="sel_notice" class="sel-notice" style="background-color: rgb(251, 214, 113);">
+	     	 <p class="selNotice" id="selNoticeP_market"><a href="#">商城商品</a>
+	     	    <span style="float:right;padding"> <a href="<{ofunc type=url link="/site/cart/type/market"}>" class="carttoover">结算商城</a> 小计：<a href="#" style="color:red;font-weight:bold;" id="shop_sum"><{$carinfo['market']['sum']}></a>&nbsp;元&nbsp;&nbsp;&nbsp;&nbsp;</span></p>	
+	     	</div>
+			<table border="0" cellspacing="0" cellpadding="0" class="table" style="margin-bottom: 0px; width: 1001px;" align="center">
+              <tbody>
+              	<tr style="height: 40px; border-bottom: 1px dashed #ddd; font-size: 16px; color: #777;" id="item-tables-mark" class="xian1">
+					<td style="width: 577px;border-right:1px solid #ddd;"><span style="padding-left:10px;" class="selList-span"><b>美食篮子</b></span></td>
+					<td style="width:107px ;border-right:1px solid #ddd; text-align:center; "><b>单价</b></td>
+					<td style="width: 165px; border-right:1px solid #ddd;"><span style="text-align:center; height:24px; display: block;"><b>数量</b><span></span></span></td>
+					<td style="width:125px;"><span style="text-align:center; height:24px; display: block;"><b>清空</b></span></td>
+                </tr>
+         <{foreach from=$carinfo['market']['data'] item=val}>
+				  <tr shop_id="" id="xian2_<{$val['shopid']}>" class="xian2" style="display: table-row;">
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle;"><span class="selList-span" style="padding-left:10px;"><{$val['name']}><{if $val['store_num'] < $val['count']}><font color=red>库存不足</font><{/if}></span></td>
+				  	<td style="text-align: center; border-right:1px solid #ddd; vertical-align: middle;">￥<{$val['cost']}></td>
+				  	<td style="border-right:1px solid #ddd; vertical-align: middle; text-align:center;" class="quantity">
+				  		<a class="addBtn" onclick="reduce(this,'market');" href="#" shopid="<{$val['shopid']}>" food_id="<{$val['goods_id']}>" cost="<{$val['cost']}>"></a>
+				  		<input style="width:40px;float: left;" readonly shopid="<{$val['shopid']}>" food_id="<{$val['goods_id']}>" cost="<{$val['cost']}>" class="order-item" type="text" id="cartfood_id_<{$val['goods_id']}>" value="<{$val['count']}>" autocomplete="off">
+				  		<a class="reduceBtn" onclick="upadd(this,'market');" href="#" shopid="<{$val['shopid']}>" food_id="<{$val['goods_id']}>" cost="<{$val['cost']}>" ></a></td>
+				  	<td style=" text-align:center; vertical-align: middle;">
+				  		<a onmouseover="deleteBtn_huaguo(this);" onmouseout="deleteBtn_moren(this);" class="deleteBtn deleteBtn_moren" onclick="delcart(<{$val['goods_id']}>,'market');" href="javascript:void(0);"></a>
+				  	</td>
+				  </tr>
+				  <{/foreach}>
+              
+			  </tbody>
+			 </table>
+	    <{/if}>
+			 
+			 
+			 
+			 
+			 
+			 
+	  </div>
+			<div class="hc_order_foods_shop">
+				<div class="shopNameStr hc_order_foods_shop_name">
+					<a id="shopname_<{$carinfo['shopinfo']['id']}>" class="shopName" href="javascript:changeCartShow(<{$carinfo['shopinfo']['id']}>);"><{$carinfo['shopinfo']['shopname']}></a>
+					<div class="clear"></div>
+				</div>
+				<div class="hc_order_foods_shop_count">
+					<div class="text">
+					         <a style="margin-right:10px;" href="javascript:clearcart();">清空</a>
+	                共 <strong id="total_quantity_2" class="total-quantity"><{$carinfo['count']}></strong>
+	                 份美食 | 合计 
+	                <strong id="total_price_2" class="total-price"><{$carinfo['sum']}></strong>
+	                 元
+	        </div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			
+			 
+       
+       
+       
+            <div class="hc_order_addr">
+        		 
+            
+			 
+			<div class="clear"></div> 
+	</div>
+  <div class="clear"></div>
+  
+</div>
+
+</div>
+</form>
+ 
+<script type="text/javascript"> 
+	var cartshopid = '<{$carinfo['shopinfo']['id']}>';
+$(function(){ 
+	    freshcxinfo();
+});
+function addSend_time(obj)
+{
+	$('#send_time').val($(obj).val());
+}
+
+function submit_form() {
+
+	if($("#total_quantity_2").html() == 0){
+		alert('您的美食篮子还是空的，请继续购物！');
+		return;
+	}
+
+	
+	if($("#address").val() == "") {
+		alert('请填写您的地址！');
+		return;
+	}
+
+	if($("#phone").val() == "") {
+		alert('请填写您的联系电话！');
+		return;
+	}
+
+	if($('#recieve_name').val() == "")
+	{
+		alert('请填写您的姓名！');
+		return;
+	}
+
+	if($('#isCha').val()!=1)
+	{
+		$('#order_submit_tj_g').hide();
+		$('.hc_orderBoxDiv_btn_div_a_div').text('订单提交中...');
+		$('#cart_form').submit();
+	}
+	else
+	{
+		alert('起送价未达到，请继续购物，谢谢合作！');
+		return false;
+	}
+}
+
+$('.text-box span').click(function(){
+	var value = $('#remark').val()+$(this).text() + ',';
+	$('#remark').val(value);
+})
+</script>
+ 
+
+</div> 
+<{include file="<{$tempdir}>/public/foot.html"}>

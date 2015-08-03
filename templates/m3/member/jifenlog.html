@@ -1,0 +1,87 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+ 	<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>我的积分</b></span></p>
+						</div><!--title end-->
+            <div style="background-color:#fff;border:1px solid #ccc;margin-bottom:10px;">
+            	<div class="ai-wrap">
+									<div class="ai-left">
+										<p>可用积分 <span id="now-jifen"><{$member['score']}></span>，累计积分 <span id="leiji-jifen"><{$member['sumcore']|default:0}></span></p>
+									</div>
+			
+									<div class="ai-right">
+										<p><a href="<{ofunc type=url link="/gift/index"}>"><img src="/upload/shop/mc_duihuan.gif"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="<{ofunc type=url link="/site/single/show/jfgz"}>" target="_blank" class="apanel">查看积分规则</a></p>
+									</div>
+									<div class="clear"></div>
+								</div>
+            </div>
+            <div class="searchTab">
+                            <div class="tabTitleWarp clearfix" id="jifen-title">
+                               <ul>
+										<li class="c"><h3 data1="" data="<{ofunc type=url link="/member/jifenlog"}>" onclick="openlink(this);"  >当前积分</h3></li>
+										<li class="c"><h3 data1="in" data="<{ofunc type=url link="/member/jifenlog/what/in"}>" onclick="openlink(this);"  >积分累计</h3></li>
+										<li class="c"><h3 data1="out" data="<{ofunc type=url link="/member/jifenlog/what/out"}>"onclick="openlink(this);"  >积分使用</h3></li>
+									</ul>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+            
+            
+            
+            
+						<div class="mr-middle"><!--mr-middle-->
+							<div class="account_integral"><!--account_integral--> 
+								<div class="m-m8-jifenlist" id="m-m8-jifenlist"><table class="di_table">	<tbody><tr>     
+									  <th class="m6-ilist1">日期</th>       
+									  <th class="m6-ilist2">事件</th>      
+									 <th class="m6-ilist3">详细说明</th>	
+									 	<th class="m6-ilist4">积分增减</th>	</tr>	
+									 	
+									 	 <{load_data assign="list" table="memberlog" showpage="true"  fileds="*" where="<{$where}>" orderby="id desc" }> 
+									 	
+									 	<{if count($list['list']) > 0}>
+									 <{foreach from=$list['list'] item=items}>  
+									 		<tr>	 <td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>		<td><{$items['title']|default:'&nbsp;'}></td>		<td><{$items['content']|default:'&nbsp;'}></td>		<td><span class="money"><{if $items['addtype'] != 1}>-<{/if}><{intval($items['result'])}></span></td>	</tr>
+										   <{/foreach}>
+		               <{else}>
+										  	<tr><td colspan="4">暂无相关数据。</td></tr>
+										<{/if}>
+										 
+										 
+										 </tbody></table>
+										 
+										  <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+								 		<div class="clear">	</div>
+								 	</div>
+
+								<div id="showrecord" style="display:none;">  </div>
+							</div><!--account_integral end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end-->
+				</div>
+<script>
+	var whatdo = '<{$what}>';
+	$(document).ready(function(){ 
+		  var findobj = $('#jifen-title').find('h3');
+		  for(var i=0;i< $(findobj).length;i++){
+		  	 
+		  	if(whatdo == $(findobj).eq(i).attr('data1')){
+		  	  findobj.eq(i).addClass('addborder');
+		  	}
+		  	 
+		  }
+	});
+	function openlink(obj){
+		window.location.href=$(obj).attr('data');
+	}
+</script>
+<{/block}>

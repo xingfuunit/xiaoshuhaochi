@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Language" content="zh-CN"> 
+<meta content="all" name="robots"> 
+<meta name="description" content=""> 
+<meta content="" name="keywords"> 
+<title>店铺佣金比例</title> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin.css">
+ 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>  
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+</head>
+<body style="background:none;height:350px;">
+	 <form  method="post" name="upform" action="<{ofunc type=url link="/adminpage/shop/module/saveshoppnotice"}>" style="text-align:center;">  
+	 	<table>
+	 		
+	 		<tr>
+	 			<td  ><input type="checkbox" name="pstype[]" value="1" <{if in_array('1',$noticetype)}>checked<{/if}>> 短信<input type="checkbox" name="pstype[]" value="2"  <{if in_array('2',$noticetype)}>checked<{/if}>>邮箱 <input type="checkbox" name="pstype[]" value="3"  <{if in_array('3',$noticetype)}>checked<{/if}>>微信</td>
+	 		</tr>
+	 		<tr>
+	 			<td>打印机IMEI号<input type="text" name="IMEI" value="<{$IMEI}>" </td></tr>
+	 				<tr>
+	 			<td></td></tr>
+	 				<tr>
+	 			<td>打印机2密钥<input type="text" name="mKey" value="<{$mKey}>" </td></tr>
+	 				<tr>
+	 			<td></td></tr>
+	 				<tr>
+	 			<td>打印机2编码<input type="text" name="machine_code" value="<{$machine_code}>" </td></tr>
+	 				<tr>
+	 			<td></td></tr>
+	 		</table>     
+  
+   	说明：当网站没设置 对应的方式，  即使在店铺设置后，也不启效
+	  <input type="hidden" value="<{$shopid}>" name="shopid"> 
+	 	<input type="submit" value="确认提交" class="button">  
+	
+	 	
+	 	
+  </form>
+  <script>
+  	 
+  	</script>
+</body>
+</html>

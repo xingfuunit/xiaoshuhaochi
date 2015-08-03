@@ -1,0 +1,139 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+   	  	
+   	  	
+   	  	  <div class="showpart_1">
+   	        <div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t">快捷导航</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	    <div class="part_main_1">
+   	        	 	    	  <ul>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/admin/orderlist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj1.jpg"></div>
+	  	 	  	                     <div class="libtitle">最新订单</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/admin/shoplist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj2.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/admin/arealist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj3.jpg"></div>
+	  	 	  	                     <div class="libtitle">配送区域</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/admin/addnews"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj4.jpg"></div>
+	  	 	  	                     <div class="libtitle">添加新闻</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/admin/orderyjin"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj5.jpg"></div>
+	  	 	  	                     <div class="libtitle">商加结算</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/admin/sendtask"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj6.jpg"></div>
+	  	 	  	                     <div class="libtitle">短信群发</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/admin/loginlist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj7.jpg"></div>
+	  	 	  	                     <div class="libtitle">接口管理</div>
+	  	 	  	                </a> 
+   	        	 	    	  	</li>
+   	        	 	    	  	 
+   	        	 	    	  </ul>
+   	        	    	</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	        </div>
+   	       <!-- show_content_m结束-->
+   	        
+   	      </div>
+   	      <!-- 第一部分结束-->
+   	      <!-- 第二部分开始-->
+   	      <div class="showpart_2">
+   	      	 <div class="smallpart">
+   	      	 	   <div class="small_top"> 系统信息 </div>
+   	      	 	   <div class="small_content">
+   	      	 	   	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">服务器当前时间</td><td class="tdcls2"><{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">PHP版本</td><td class="tdcls2"><{phpversion()}></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">官方网站地址：</td><td class="tdcls2">www.waimairen.com</td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">版权所有：</td><td class="tdcls2">郑州光合科技有限公司</td>
+   	      	 	   		</tr>
+   	      	 	   	</table>
+   	      	 	   	
+   	      	 	   	</div>
+   	      	</div>
+   	      	<style>
+   	      		.tdcls1{line-height:45px;}
+   	      		.tdcls3{width:50%;font-weight:bold;text-align:right;line-height:45px;}
+   	      		.ac{border-right: 1px solid #e5e5e5;}
+   	      		.tdcls3 a{width:100px;color:#0076cf;padding-left:10px;padding-right:10px;}
+   	      		</style>
+   	      	<div class="smallpart">
+   	      		   <div class="small_top"> 数据统计 </div>
+   	      		   <div class="small_content">
+   	      		   		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+   	      	 	   		    <tr>
+   	      	 	   			  <td class="tdcls3 ac">	今日总订单<a ><{$tjdata['dayallorder']}></a></td><td class="tdcls3">已上线商家<a ><{$tjdata['onlineshop']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3 ac">今日待审核订单<a ><{$tjdata['dayworder']}></a></td><td class="tdcls3">待审核商家<a ><{$tjdata['wshop']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3 ac">今日已审核订单<a ><{$tjdata['dayporder']}></a></td><td class="tdcls3">普通会员<a ><{$tjdata['pmember']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3 ac">本月已完成订单<a ><{$tjdata['monthallorder']}></a></td><td class="tdcls3">商城订单<a ><{$tjdata['market']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   			<tr>
+   	      	 	   			  <td class="tdcls3 ac">已完成订单总量<a ><{$tjdata['allorder']}></a></td><td class="tdcls3">商品数量<a ><{$tjdata['marketg']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   	 
+
+
+
+
+   	      	 	   	  </table> 
+   	      		   	</div>
+   	      	</div>
+   	      
+
+
+
+
+
+   	      	
+   	      </div>
+   	      <!-- 第二部分结束-->
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

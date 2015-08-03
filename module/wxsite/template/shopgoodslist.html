@@ -1,0 +1,117 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/shopshow.css">   
+<{/block}>
+ <{block name=extendjs}>  
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/wxshop.js"></script>  
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/cart.js"></script>  
+<script>
+  	var shopid = <{$shopinfo['id']}>;
+  	$(function(){ 
+  		/*初始化样式*/
+  		   url = siteurl+'/index.php?controller=wxsite&action=cart&shopid='+shopid+'&datatype=json&random=@random@';
+        url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+      	var bk = ajaxback(url,''); 
+      	 initshop(bk);
+      	 
+      	  $('.goos_c_left li').bind("click", function() {   
+      	  	  var typeid = $(this).attr('data');
+      	  	  $(this).addClass('active').siblings().removeClass('active');
+      	  	  $('.dishli').hide();
+      	  	  $('.dotype'+typeid).show(); 
+          });
+      	   $('.goos_c_left').find('li').eq(0).trigger('click');
+      	 
+  	});
+  	function initshop(datas){ 
+	      if(datas.flag == false){    
+	         if($('#total_money').html() != undefined){ 
+	         	 $.each(datas.content.list, function(i,val){   
+	         	 	 
+	         	 	 if($('#gidli_'+val.id).html() != undefined){  
+	         	 	 	  var typeid = $('#gidli_'+val.id).attr('typeid');
+	                $('#typelist'+typeid).show();
+	                 $('#typelist'+typeid).text(Number($('#typelist'+typeid).text())+Number(val.count)); 
+	                 $('#gidli_'+val.id).addClass('onselect');
+	                 $('#gshu_'+val.id).text(val.count); 
+	         	 	 } 
+	          	}); 
+	          	$('#total_count').text(datas.content.sumcount);
+	          	$('#total_money').text(datas.content.sum);
+        	 }else{
+        	 }
+        }
+    }
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> <{$shopinfo['shopname']}> </header><{/block}>
+<{block name=blockcontent}> 
+ 
+<div id="goodslistcontent" style="display:block;"> 
+	<div style="height:44px;"></div>
+ <section class="listselectxx">
+		 <div class="goos_c">
+		 	  <div class="goos_c_left"> 
+		 	  	<ul>
+		 	  		<{foreach from=$goodstype item=items}>
+		 	  		  <li class="" data="<{$items['id']}>"><{$items['name']}><div class="catalogshu" id="typelist<{$items['id']}>">0</div></li>
+		 	  		<{/foreach}>
+		 	  		 
+		 	   </ul> 
+		 	  	
+		 	  </div>
+		 	  <div class="goos_c_right"> 
+		 	  	<section class="goostypeshow"> 
+  		       <ul class="dishul">
+  		       	 
+  		       	 <{foreach from=$goodslist item=items}>
+  		          <li class="dishli  dotype<{$items['typeid']}>" id="gidli_<{$items['id']}>" typeid="<{$items['typeid']}>" data-price="<{$items['cost']}>"  > 
+  		       		  <div class="dishiimg"><img src="<{$items['img']|default:'../upload/shop/grey.gif'}>"></div> 
+  		       		  <div class="goodsinfo">
+  		       		  	 <div class="goostityle">
+  		       		  	 	   <div class="goodstitle"><{$items['name']}></div>
+  		       		  	     <div><font color=red><{$items['cost']}></font> 元/份</div>
+  		       		  	   </div>
+  		       		  	 
+  		       		  </div>
+  		       		   <div class="goodscontrol">
+  		       		   	  <div class="delgoods"><p onclick="removeonedish(<{$items['id']}>,<{$items['shopid']}>,1);" ></p></div>
+  		       		   	  <div class="goodsshuliang"><p><span id="gshu_<{$items['id']}>">0</span>份</p></div>
+  		       		   	  <div class="addgoods" onclick="addonedish(<{$items['id']}>,<{$items['shopid']}>,1,this);" id="gid_<{$items['id']}>" data-price="<{$items['cost']}>" typeid="<{$items['typeid']}>"><p></p></div>  
+  		       		   	
+  		       		   </div> 
+  		       		 
+  		         </li>
+  		          <{/foreach}> 
+  		       </ul> 
+          </section> 
+		 	  </div> 
+		 	  <div class="goos_c_right2">
+		 	  	
+		 	  </div>
+		 	  
+		 	  
+		 	  
+		</div> 
+ </section>
+ 
+ <div style="clear:both;height:40px;"></div>
+ <div class="cart_tj"><div class="cats"> 您共点了<span id="total_count">0</span>例菜，共<span id="total_money">0.00</span>元</a></div><div class="catbtn"><span onclick="dolink('<{ofunc type=url link="/wxsite/shopcart/id/<{$id}>"}>');">下一步</span></div></div>
+ 
+</div>
+ 
+ <div style="clear:both;height:55px;"></div>
+ <div class="shopfootdiv">
+ 	   <ul class="listshopfoot">
+ 	       <li class="touchend" style="height:50px;" >
+  				     <div class="footico " data="shopshow" data1="home" onclick="dolink('<{ofunc type=url link="/wxsite/shopshow/id/<{$id}>"}>');"> <span class="on"></span>   </div> 
+  					   <div class="footico " data="shopgoodslist" data1="dian" onclick="dolink('<{ofunc type=url link="/wxsite/shopgoodslist/id/<{$id}>"}>');">  <span class="on"></span>  </div> 
+  					   <div class="footico " data="shopcart" data1="cart" onclick="dolink('<{ofunc type=url link="/wxsite/shopcart/id/<{$id}>"}>');"> <span class="on"></span>  </div> 
+  					   <div class="footico " data="member" data1="user" onclick="dolink('<{ofunc type=url link="/wxsite/member/id/<{$id}>"}>');">  <span class="on"></span> </div> 
+  		  </li>
+  	 </ul>
+ </div>
+  
+ 
+<{/block}>

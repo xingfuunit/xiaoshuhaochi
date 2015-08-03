@@ -1,0 +1,170 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/order.css">
+<{/block}>
+ <{block name=extendjs}> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/template.min.js"></script>   
+<script id="orderlists" type="text/html">     
+    <li class="list box_inline">
+  			  	 <div class="colomns wd1">
+  			  	 	 <^%=list.id%^>
+  			    	</div>
+  			    	 <div class="colomns wd2"><^%=list.addtime%^>
+  			    	</div>
+  			    	 <div class="colomns wd3">
+  			    	 <^% if( list.status == 0){%^> 
+            	 处理中
+             <^%}%^>
+               <^% if( list.status == 1){%^> 
+                     <span> 	已审核,待发货   </span>   
+               <^%}%^>
+               <^% if( list.status == 2){%^> 
+                  已发货
+               <^%}%^>
+                <^% if( list.status == 3){%^> 
+                	 <^% if( list.is_ping == 1){%^> 
+                	 	 <span>  已完成 </span>  
+                   <^% }else{%^>
+                   	 已完成，等待评价
+                   	<^%}%^>
+               <^%}%^>
+                <^% if( list.status == 4){%^> 
+                      关闭
+               <^%}%^>
+  			    	</div>
+  			    	 <div class="colomns wd4">
+  			    	 	<span class="btn" onclick="showorder(this);"  orderid="<^%=list.id%^>">详情</span>
+  			    	</div>
+  			  </li>
+</script> 
+ <script> 
+   var page =1; 
+ 	 var can_show = true;//控制是否翻页  
+ 	 $(function(){
+ 	 	 can_show=false; 
+ 	       getorder();
+ 	 }); 
+   function getorder(){  
+   		var url = siteurl+'/index.php?controller=wxsite&action=userorder&random=@random@';  
+   		  $.ajax({ 
+       dataType: "json", 
+       data:{page:page,datatype:'json'}, 
+       url: url.replace('@random@', 1+Math.round(Math.random()*1000)),  
+       success: function(content) {    
+       	 if(content.error == false) 
+      	{  
+      		  
+      		 if(content.msg.length > 0){ 
+  	  		 $.each(content.msg, function(i,val){    
+  	  		 	    var htmls = template.render('orderlists', {list:val}); 
+                  $('#orderlist').append(htmls); 
+  	  		 }); 
+  	  		  page =Number(page)+1; 
+  	  		  can_show = true; 
+  	     	 }else{ 
+  	  	      can_show = false;//停止翻页 
+  	       } 
+  	       
+
+      	}else{ 
+      			 can_show ==  false; 
+    	       error($('#supplierlist'),content.msg); 
+    	       $('#loading').hide();
+      	}  
+      	 
+	     }, 
+       error: function(content) {  
+        	can_show ==  false; 
+    	    error($('#supplierlist'),'店铺数据为空'); 
+    	    $('#loading').hide();
+	     }
+
+     });  
+   } 
+  $(window).scroll(function(){   //滚动获取数据 
+	   if(can_show == true){ 
+       if ($(document).height() - $(this).scrollTop() - $(this).height()<50) 
+       { 
+       	  can_show = false; 
+          getorder();
+       }  
+     } 
+   }); 
+   
+
+   function showun(datas){
+
+     if(datas.error ==  false){
+
+        $('#span_id'+datas.data).text('删除');
+
+     }
+
+   }
+
+   function showdel(datas){
+
+   	if(datas.error ==  false){ 
+
+   		 $('#gid_'+datas.data).remove();
+
+   	}
+
+  }
+
+  function showorder(obj){
+
+  	window.location.href=siteurl+'/index.php?controller=wxsite&action=ordershow&orderid='+$(obj).attr('orderid')+'&random=@random@';  //'ordershow.html?orderid='+$(obj).attr('orderid');//  	alert($(obj).attr('orderid')); 
+
+  }
+
+ 	</script>
+
+<{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 订单列表 </header><{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div style="height:44px;"></div>
+ 
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist">
+  			 
+  			  <li class="topheader box_inline">
+  			  	 <div class="colomn wd1">
+  			  	 	订单ID
+  			    	</div>
+  			    	 <div class="colomn wd2">下单时间
+  			    	</div>
+  			    	 <div class="colomn wd3">订单状态
+  			    	</div>
+  			    	 <div class="colomn wd4">
+  			    	 	详情
+  			    	</div>
+ 
+
+  			  </li>
+  			  <!--
+  		    <li class="list box_inline">
+  			  	 <div class="colomns wd1">
+  			  	 	 12345
+  			    	</div>
+  			    	 <div class="colomns wd2">2014-10-08 12:51:52
+  			    	</div>
+  			    	 <div class="colomns wd3">订单状态
+  			    	</div>
+  			    	 <div class="colomns wd4">
+  			    	 	<span class="btn">详情</span>
+  			    	</div>
+  			  </li>
+  			  -->
+  			    
+  			</ul> 
+    </section>
+ 
+ 
+ 
+ 
+ 
+  
+<{/block}>

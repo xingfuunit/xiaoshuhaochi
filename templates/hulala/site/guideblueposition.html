@@ -1,0 +1,16 @@
+
+<{if empty($list)}>
+<li>
+<div class="AddressName">暂无数据</div>
+<div class="AddressDetailed"></div>
+</li>
+<{else}>
+<{foreach from=$list item=items}>  
+	<li id="c_<{$items['id']}>" l="scdxwj">
+     <div class="AddressName"><a href="<{ofunc type=url link="/site/setmyaddress/id/<{$items['id']}>"}>"><{$items['name']}></a></div>
+      <div class="AddressDetailed"><{$items['bigname']}>-<{$items['parent_name']}></div>
+  </li>
+<{/foreach}> 
+		  	 
+	<{/if}>		
+ 

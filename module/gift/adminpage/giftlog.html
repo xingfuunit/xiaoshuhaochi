@@ -1,0 +1,131 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>礼品兑换记录<{/block}>
+ <{block name=bodylist}>
+ <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+      	 <div class="search">
+            <div class="search_content">
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/gift/module/giftlog"}>">
+            	   <select name="orderstatus">
+            	   	  <option value="all">选择兑换记录状态</option>
+			   		 	  	  <option value="1" <{if $orderstatus == '1'}>selected<{/if}>>等待审核</option>
+			   		 	  	  <option value="2" <{if $orderstatus == '2'}>selected<{/if}>>等待发货</option>
+			   		 	  	  <option value="3" <{if $orderstatus == '3'}>selected<{/if}>>等待收货</option>
+			   		 	      <option value="4" <{if $orderstatus == '4'}>selected<{/if}>>已完成</option>
+			   		 	      <option value="5" <{if $orderstatus == '5'}>selected<{/if}>>取消兑换</option>
+            	  </select>
+            	  ,兑换时间
+            	   从<input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+			   		 	  到<input class="Wdate datefmt" type="text" name="endtime" id="endtime" value="<{$endtime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />
+
+
+            	    <input type="submit" value="提交查询" class="button">
+            	 </form>
+            </div>
+
+      	</div>
+
+
+           <div class="tags">
+
+
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+
+                  <table border="0" cellspacing="0" cellpadding="0" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">id</th>
+                         <th width="200px" align="center">礼品标题</th>
+                        <th align="center">兑换会员</th>
+
+                        <th align="center">积分</th>
+                         <th align="center">兑换数量</th>
+                         <th width="300px" align="center">兑换人信息</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td>
+                        <td align="center"><{$items['id']}></td>
+                        <td width="200px" align="center"> <{$items['title']}> </td>
+                        <td align="center"><{$items['username']}></td>
+                        <td align="center"><{$items['score']}></td>
+                        <td align="center"><{$items['count']}></td>
+                        <td width="300px" align="center"><{$items['address']}>,<{$items['telphone']}>,<{$items['contactman']}></td>
+                        <td align="center">
+                        	<{if $items['status'] == 0}>
+                        	   <a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/gift/module/exgift/id/<{$items['id']}>/type/pass/datatype/json"}>">审核</a>
+                        	   <a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/gift/module/exgift/id/<{$items['id']}>/type/un/datatype/json"}>">取消</a>
+                        	<{/if}>
+                        	<{if $items['status'] == 1}>
+                        	  <a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/gift/module/exgift/id/<{$items['id']}>/type/unpass/datatype/json"}>">取消审核</a>
+                            <a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/gift/module/exgift/id/<{$items['id']}>/type/send/datatype/json"}>">发货</a>
+                          <{/if}>
+                          <{if $items['status'] == 2}>
+                        	  <a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/gift/module/exgift/id/<{$items['id']}>/type/over/datatype/json"}>">完成</a>
+                          <{/if}>
+                          <{if $items['status'] == 3}>
+                            成功
+                          <{/if}>
+                          <{if $items['status'] == 4}>
+                             失败
+                          <{/if}>
+                        	 </td>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+
+                </form>
+
+              <div class="page_newc">
+
+                 	     	 <div class="select_page"><a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a>
+                 	      <a onclick="return remindall(this);" href="<{ofunc type=url link="/adminpage/gift/module/delgiftlog/datatype/json"}>" class="delurl">删除</a>
+                 	       <a  onclick="outchoice(this);" href="#"  data="<{ofunc type=url link="/adminpage/gift/module/outgiftlog/datatype/json"}>" class="delurl">导出选择项</a>
+                 	     <a  href="<{$outlink}>" target="_blank" class="delurl">导出查询结果</a>
+                 	     	</div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+  </div>
+
+</div>
+<!--newmain 结束-->
+<{/block}>

@@ -1,0 +1,180 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/membercenter.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table class="table table-bordered" width=100%>
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr>
+		                 <th style="width:18%">订单号</th>
+		                  <th style="width:10%;">总价</th>
+		                  <th style="width:23%;">下单时间</th>
+		                  <th style="width:18%;">订单类型</th>
+		                  <th style="width:14%;">状态</th>
+		                  <th style="width:17%;">操作</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		         <{foreach from=$list item=items}>  
+		        <tr id="order_<{$items['id']}>">
+						<td><{$items['dno']}></td>
+							<td><{$items['allcost']}></td>
+							<td><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+							<td><{if $items['isbefore'] == 1}><font color=red><{if $items['status'] > 0 && $items['status'] < 4}>预定码：<{$items['buycode']}><{else}>[订台]<{/if}></font><{else}><font color=red>[外送]<font><{/if}></td>
+							<td>
+							     <div><{$buyerstatus[$items['status']]}></div>
+						  </td>
+							<td>
+								<a data="<{$items['id']}>" href="javascript:void(0);" onclick="getOrderDetail(this);">详细</a>
+								 <{if $items['status'] == 0}>
+								    <div data="<{$items['id']}>" class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" onclick="unorder(<{$items['id']}>);">取消订单</div>	
+								 <{elseif $items['status'] == 2}>
+								    <div data="<{$items['id']}>" class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" onclick="compelte(<{$items['id']}>);">评价订单</div>	
+						    <{elseif $items['status'] == 3}>
+								   <{if $items['is_ping'] == 0}> 
+								      <div data="<{$items['id']}>" class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" onclick="compelte(<{$items['id']}>);">评价订单</div>	
+						        <{/if}> 
+						    <{elseif $items['status'] == 4}>
+						      <div data="<{$items['id']}>" class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" onclick="delorder(<{$items['id']}>);">删除订单</div>	
+				        <{else}>
+								<{/if}>
+								   
+									</td>
+						</tr>  
+						<tr id="orderdet_<{$items['id']}>" style="display:none;">
+						<td colspan="6"> 
+							<table style="width:680px;border:1px solid #ccc;">
+								<tr>
+									<td>店铺名称：</td> <td><{$items['shopname']}></td><td>店铺电话：</td><td><{$items['shopphone']}></td><td>配送费用：</td><td><{$items['sendcost']}></td>
+								</tr> 
+							  <tr>
+									<td>支付方式：</td> <td><{$paytypearr[$items['paytype']]}></td><td>支付状态：</td><td><{if $items['paystatus']==1}>已支付<{else}>未支付<{/if}></td><td>订单总费用：</td><td><{$items['allcost']}></td>
+									</tr> 
+								<tr>
+										<td >我的信息：</td> <td colspan="3"><{$items['buyername']}>,<{$items['buyeraddress']}>,<{$items['buyerphone']}></td><td>使用积分：</td><td><{$items['scoredown']}></td>
+								</tr>
+								
+								
+								
+							</table>
+							
+						</td>
+						  
+						</tr>  
+					 <{/foreach}>
+							    </tbody>
+		            </table>
+		        </div>
+		        <div class="page"><{$pagecontent}></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	function addAddr()
+	{
+		$('#newAddr_1').show();
+	}
+	function getOrderDetail(obj)
+	{ 
+		var showtext = $(obj).text();
+		if(showtext == '详细')
+		{
+		  var findobj = $('#orderDetail_'+$(obj).attr('data'));
+		  if($(findobj).html() == undefined)
+		  {
+	        var info = {'orderid':$(obj).attr('data')};
+	      	var backmes =   ajaxback('<{ofunc type=url link="/membercenter/orderdet"}>',info); 
+	      	if(backmes.flag == false)
+	      	{
+	      	 
+	      		var showcent = '<tr id="orderDetail_'+$(obj).attr('data')+'">';
+	      				showcent += '<td colspan="6">';
+	      			  showcent += '<table style="width:680px;border:1px solid #ccc;">';
+	      				showcent += '<tbody><tr style="border:1px solid #ccc;"><td height=37px>名称</td><td>价格</td>';
+	      				showcent += '<td>数量</td><td>状态</td></tr>'; //after() 
+	      				$.each(backmes.content,function(i,field){
+	      					var detalcontent = '';
+	      					var biaoqian = '';
+	      				  if(field.status == 1)
+	      				  {
+	      				  	detalcontent = '<div>评分：'+field.point+'</div>  <div>评论：'+field.pingcontent+'</div>';
+						  	     
+	      			   	}
+	      			   	if(field.is_send == 1){
+	      			   	 biaoqian ='<font color=red>[赠]</font>';
+	      			   	}
+	      			   	if(field.shopid == 0){
+	      			   		biaoqian +='<font color=blue>[商城]</font>';
+	      			   	}
+	      			   	  
+                  showcent += '<tr id="food_tr_3245"><td height=37px>'+field.goodsname+biaoqian+'</td><td>'+field.goodscost+'</td><td>'+field.goodscount+'</td><td style="text-align: left;">'+detalcontent+'</td></tr>';
+                })
+	      				showcent += '</tbody></table></td></tr>';
+	      				$('#orderdet_'+$(obj).attr('data')).after(showcent);
+	      				$('#orderdet_'+$(obj).attr('data')).show();
+	      				var newheigt = $('#orderDetail_'+$(obj).attr('data')).css('height');
+	      				 newheigt = newheigt.split('px');
+	                newheigt = newheigt[0];
+	              var tnewheight = $('#orderdet_'+$(obj).attr('data')).css('height');
+	               tnewheight = tnewheight.split('px');
+	                tnewheight = tnewheight[0];
+	               newheigt = Number(newheigt)+Number(tnewheight); 
+	      				autoaddheight(newheigt);
+	      				
+	      				
+	      				$(obj).text('收起');
+	      			// autosize();
+	      	    // alert(backmes.content);
+	      	}else{
+	      		diaerror(backmes.content); 
+	      	} 
+	      }else{
+	      	var newheigt = $('#orderDetail_'+$(obj).attr('data')).css('height');
+	      				 newheigt = newheigt.split('px');
+	                newheigt = newheigt[0];
+	      				autoaddheight(newheigt);
+	      				$('#orderdet_'+$(obj).attr('data')).show();
+	      	$(obj).text('收起');
+	      	$(findobj).show();
+	      	
+	      }
+	  }else{
+	  	var newheigt = $('#orderDetail_'+$(obj).attr('data')).css('height');
+	      				 newheigt = newheigt.split('px');
+	                newheigt = newheigt[0];
+	      				autoaddheight(-newheigt);
+	  	$('#orderDetail_'+$(obj).attr('data')).hide();
+	  	$('#orderdet_'+$(obj).attr('data')).hide();
+	  	$(obj).text('详细');
+	  }
+		
+	}
+	function unorder(orderid)
+	{
+		if(confirm('确定取消订单吗？')){
+		   myajax('<{ofunc type=url link="/membercenter/unorder"}>',{'orderid':orderid});
+		}
+	}
+	function delorder(orderid)
+	{
+		if(confirm('确定删除订单吗？')){
+		   myajax('<{ofunc type=url link="/membercenter/delorder"}>',{'orderid':orderid});
+		}
+	}
+	function compelte(orderid)
+	{
+		window.location.href=siteurl+'/index.php?controller=membercenter&action=pingorder&orderid='+orderid;
+	}
+	 
+	 
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

@@ -1,0 +1,24 @@
+  
+    <{if $moduleparent > 0 }> 
+           <{load_data assign="moduleall" table="module" limit="20" orderby="id asc" where="id ='<{$moduleparent}>' or parent_id = '$moduleparent'" orderby="id asc"}> 
+          <{foreach from=$moduleall['list']   item=itv}>  
+          
+                <{load_data assign="menulist" table="menu" limit="20" orderby="id asc" where="moduleid ='<{$itv['id']}>' and `group` = <{$admininfo['group']}>" }> 
+                 <{foreach from=$menulist['list'] key=myid item=items}>   
+   	 	    	            	<li><div class="leftarrow"></div><a href="<{ofunc type=url link="/adminpage/<{$itv['name']}>/module/<{$items['name']}>"}>" <{if $Taction == $itv['name']&&$items['name'] == $tmodule}>class="on"<{/if}>><{$items['cnname']}></a></li>
+                 <{/foreach}>
+          <{/foreach}> 
+    <{else}> 
+        <{load_data assign="moduleall" table="module" limit="20" orderby="id asc" where="id ='<{$moduleid}>' or parent_id = '$moduleid'" orderby="id asc"}> 
+          <{foreach from=$moduleall['list']   item=itv}>  
+                <{load_data assign="menulist" table="menu" limit="20" orderby="id asc" where="moduleid ='<{$itv['id']}>' and `group` = <{$admininfo['group']}>" }> 
+                 <{foreach from=$menulist['list'] key=myid item=items}>   
+   	 	    	            	<li><div class="leftarrow"></div><a href="<{ofunc type=url link="/adminpage/<{$itv['name']}>/module/<{$items['name']}>"}>" <{if $Taction == $itv['name']&&$items['name'] == $tmodule}>class="on"<{/if}>><{$items['cnname']}></a></li>
+                 <{/foreach}>
+          <{/foreach}> 
+    <{/if}>
+    
+    
+    
+  
+ 

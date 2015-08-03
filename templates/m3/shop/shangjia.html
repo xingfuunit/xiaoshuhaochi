@@ -1,0 +1,77 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ 
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shop.css">
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shangjia.css">
+<{/block}>
+<{block name=extendjs}> 
+ 
+<{/block}>
+<{block name=sitetitle}>商家入驻-<{$mapname}><{/block}>
+<{block name=bodylist}>  
+ 
+
+    
+
+<div class="tonglan1">
+
+    	<div class="shangjia box-2">
+
+   			<h2>入驻外卖人-顾客在手里</h2>
+
+            <p>
+
+            	把用户带到您的眼前 ，零成本打造全方位的服务免费的互 联网方式拓宽了
+
+				宣传渠道，让店铺更加了解顾客的需
+
+				求，让用户发现店铺，让店铺留住用
+
+				户！
+
+            </p>
+
+            <div class="zhuce" style="height:480px;">
+
+           	  <h3>如有合作意向，请留下联系方式</h3>
+
+                <form  method="post" action="<{ofunc type=url link="/shop/saveshangjia/datatype/json"}>"  class="demoform" id="demoform">			
+
+		<input class="zhucexinxi1" id="username" name="username" datatype="*" value="请输入您的姓名" onfocus="if (value =='请输入您的姓名'){value =''}" onblur="if (value ==''){value='请输入您的姓名'}" type="text" />
+
+                <input class="zhucexinxi1" id="mobile" name="mobile" datatype="m" value="请输入您的手机号" onfocus="if (value =='请输入您的手机号'){value =''}" onblur="if (value ==''){value='请输入您的手机号'}" type="text" />
+
+				  <input class="zhucexinxi1" id="qq" name="qq" datatype="m" value="请输入您的QQ(选填)" onfocus="if (value =='请输入您的QQ(选填)'){value =''}" onblur="if (value ==''){value='请输入您的QQ(选填)'}" type="text" />
+				  
+                <input class="zhucexinxi1" id="resname" name="resname" datatype="*" value="请输入店铺名称" onfocus="if (value =='请输入店铺名称'){value =''}" onblur="if (value ==''){value='请输入店铺名称'}" type="text" />
+
+                <input class="zhucexinxi1" id="addr" name="addr" datatype="*" value="店铺的详细地址" onfocus="if (value =='店铺的详细地址'){value =''}" onblur="if (value ==''){value='店铺的详细地址'}" type="text" />
+ <{if $allowedcode == 1}>
+                <input class="zhucexinxi2 zhucexinxi1" id="Captcha" name="Captcha" datatype="*" value="输入验证码" onfocus="if (value =='输入验证码'){value =''}" onblur="if (value ==''){value='输入验证码'}" type="text" />
+				
+				<img style="margin-top: 13px;" src="<{ofunc type=url link="/site/getCaptcha"}>"   id="captchaimg" /><span style="margin-top: 13px;"  class="span1"><a href="javascript:freshcode();">换一张</a></span>
+  <{/if}>
+		
+
+		<input style="cursor:pointer;" value="立即入驻" id="chk_num" type="button" class="zhucexinxi3 zhucexinxi1"/>
+
+                </form>
+
+           
+
+            </div>
+
+   	  </div>
+
+    </div>
+
+ 	<div class="box-6"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/sjt_02.png" /></div>
+ <script>
+ 
+ 
+$('#chk_num').click(function(){ 
+	subform('',$('#demoform'));
+})
+ </script>
+ 
+<{/block}>

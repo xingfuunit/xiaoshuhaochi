@@ -1,0 +1,26 @@
+ <{load_data assign="list" table="comment" showpage="true"  fileds="*"  where="goodsid = '<{$id|default:0}>' and is_show=0" pagetype="getPingjia" }>  
+ <{if count($list['list'])> 0}>
+  <ul id="Comcon" scrollpagination="enabled">
+<{foreach from=$list['list'] item=items}>  
+<{load_data assign="userinfo" table="member" type="one" where="uid='<{$items['uid']}>'" fileds="*" }> 
+<{load_data assign="orderdetinfo" table="orderdet" type="one" where="id='<{$items['orderdetid']}>'" fileds="goodsname" }> 
+<li id="Com_203">
+       <div class="COBLeft"><a href="#"><img src="<{$userinfo['logo']|default:$userlogo}>" width="50" height="50"></a></div>
+        <div class="COBRight">
+          <div class="COTitle"><a href="#"><{$userinfo['username']}></a>  <{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}> </div>
+           <div class="COLevel"><span class="Level8"></span>评分： <i><{$items['point']}></i><{section name=loop loop=$items['point']}> 
+												    <div class="star_div" style="float:left;width:15px;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png" width="13" height="13"></div>
+												    <{/section}> </div>
+           <div class="COLevel"><span class="Level8"></span>菜品：<em><{$orderdetinfo['goodsname']}></em></div>
+           <div class="COInfo"><{$items['content']}></div>
+         </div><div style="clear:both;"></div>
+</li>
+<{/foreach}>		
+ </ul>		
+  <div class="ajaxpage">
+  	<{$list['pagecontent']}>
+  </div>
+  <{else}>
+  暂无评价
+   
+  <{/if}>

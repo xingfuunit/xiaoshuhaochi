@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="zh-CN">
+<meta content="all" name="robots">
+<meta name="description" content="">
+<meta content="" name="keywords">
+<title>上传图片</title>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin.css">
+
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+</head>
+<body style="background:none;height:250px;width:400px;">
+	 <form enctype="multipart/form-data" method="post" name="upform" action="<{ofunc type=url link="/adminpage/other/module/savetpl"}>" >
+	 	<input type="hidden" value="<{$tplname}>" name="tplname">
+
+	 	<table>
+
+	 	 <tr><td><textarea name="tplcontent" style="height:130px;width:300px;"><{$tplcontent|default:''}></textarea></td></tr>
+	 	 <{if $tplname == 'emailfindtpl'}>
+	 	 <tr>
+	 	 	<td style="font-size:12px;">说明:{$username}表示用户名,{$email}表示邮箱,{$findpwdurl}找回密码链接,{$sitename}表示网站名,{$siteurl}表示网站首页访问,此内容可以嵌套网页代码用于发送邮件
+        </td>
+     </tr>
+     <{/if}>
+     <{if $tplname == 'shopphonetpl'}>
+	 	  <tr>
+	 	 	<td style="font-size:12px;">说明:{$username}表示买家用户名,{date}下单日期,{$shopname}表示商家店铺名,{$sitename}表示网站名称,{$allcost}表示订单总价,{$buyerphone}表示买家联系电话,{$shopphone}表示卖家联系电话,{$siteurl}表示网站首页访问地址,{$orderdno}订单编号,{$ordercount}表示商品总数量,{$orderdet}表示订单详情 此内容不要嵌套html代码 </td>
+     </tr>
+     <{/if}>
+     <{if $tplname == 'userbuytpl'}>
+     <tr>
+	 	 	<td style="font-size:12px;">说明:{$username}表示买家用户名,{date}下单日期,{$shopname}表示商家店铺名,{$sitename}表示网站名称,{$allcost}表示订单总价,{$buyerphone}表示买家联系电话,{$shopphone}表示卖家联系电话{$siteurl}表示网站首页访问地址,{$orderdno}订单编号,{$ordercount}表示商品总数量,{$orderdet}表示订单详情 此内容不要嵌套html代码 </td>
+     </tr>
+     <{/if}>
+     <{if $tplname == 'usercodetpl'}>
+	 	 <tr>
+	 	 	   <td style="font-size:12px;">说明:{$username}表示买家用户名,{date},{$code}表示验证码 ,{$siteurl}表示网站首页访问地址,{$sitename}表示网站名称 此内容不要嵌套html代码 </td>
+     </tr>
+     <{/if}>
+	  </table>
+	 	   <input type="submit" value="提交保存" class="button">
+
+
+  </form>
+  <script>
+
+  	</script>
+</body>
+</html>
+
+
+
+

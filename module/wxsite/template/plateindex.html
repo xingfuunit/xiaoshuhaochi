@@ -1,0 +1,292 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>
+ <{block name=extendcss}>
+ <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/plate.css">
+ <style>
+ .palte_shopcontent_ti{
+  height: 38px;
+border: 1px solid #eaeaea;
+background-color: #f9f9f9;
+
+line-height:38px;
+padding-left: 40px;
+}
+.buttonarea {
+background-color: #f04d4d;
+height: 30px;
+line-height: 30px;
+text-align:center;
+
+
+}
+.buttonarea span {
+padding:0px;
+text-align:center;
+height: 30px;
+line-height: 30px;
+color: #fff;
+cursor: pointer;
+}
+.buttonarea span:hover{
+	background-color:none;
+}
+.buttonarea:hover{
+	background-color:#d23737;
+}
+
+.palte_nav{
+	padding:0px;
+	border:1px solid   #e8e7e7;
+	background-color:#fff;
+	margin:20px 0px 0px;
+}
+.plate_nav_class li::first-child {
+border-top: 0;
+}
+.plate_nav_class{
+  width:1170px;
+  clear:both;
+  border-top: 1px solid #e8e7e7;
+  font-size: 12px;
+  padding: 15px 0;
+margin: 0 15px;
+height: 27px;
+}
+.plate_nav_class label{
+border-right: 1px solid #eaeaea;
+color: #333;
+font-size: 14px;
+width: 90px;
+height: 27px;
+margin-left:0px;
+}
+body{
+font: 12px/1.5 'Hiragino Sans GB','Microsoft YaHei',simsun;
+}
+a{ text-decoration:none;}
+a:hover {
+text-decoration: none;
+}
+.plate_nav_class ul li a {
+color: #333;
+padding: 4px 8px;
+}
+.plate_nav_class ul li:hover a, .plate_nav_class ul li.hover a{
+color: #38b!important;
+background:none;
+text-decoration: none;
+}
+ .plate_nav_class ul li.on a {
+color: #fff;
+background-color: #38b;
+text-decoration: none;
+}
+.newplateIcon{
+ margin-top:8px;margin-right:10px;float:left;background-image: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/newplateIcon.png);background-position: -5px -308px;
+background-repeat: no-repeat;
+overflow: hidden;
+display: block;
+width: 13px;
+height: 13px;
+}
+
+.newplateZWIcon{
+ margin-top:8px;margin-right:10px;float:left;background-image: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/newplateIcon.png);background-position: -5px -308px;
+background-repeat: no-repeat;
+overflow: hidden;
+display: block;
+width: 13px;
+height: 13px;
+}
+.newplateWZIcon{
+ margin-top:6px;margin-right:10px;float:left;background-image: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/newplateIcon.png);background-position: -5px -577px;
+background-repeat: no-repeat;
+overflow: hidden;
+display: block;
+width: 12px;
+height: 17px;
+}
+.plate_nav_classdet {
+background-color: #f7f7f7;
+margin-right:15px;
+margin-bottom:15px;
+margin-top: 5px;
+font-size: 12px;
+
+}
+.plate_nav_classdet {
+clear: both;
+margin-left: 167px;
+width: auto;
+}
+.plate_nav_classdet a {
+line-height: 20px;
+height: 20px;
+display: inline;
+padding: 4px 8px;
+margin: 5px 5px;
+display: inline-block;
+color: #333;
+text-decoration: none !important;
+}
+.plate_nav_classdet a:hover{
+color: #38b!important;
+background:none;
+text-decoration: none;
+}
+ .plate_nav_classdet a.active {
+background-color: #38b;
+color: #fff!important;
+}
+.buttonarea span{
+background:none;
+}
+.buttonarea span:hover  {
+color: #ffffff!important;
+}
+ </style>
+<{/block}>
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+<{block name=sitetitle}>订台-<{$sitename}><{/block}>
+<{block name=shophide}>
+<{/block}>
+<{block name=bodylist}>
+ <div class="hc_content">
+ 	  <div class="palte_nav">
+ 	  	 	<{foreach from=$attrinfo item=items}>
+ 	  	   <div class="plate_nav_class goodstype_<{$items['id']}>" data="goodstype_<{$items['id']}>" style="border-top:none;">
+ 	  	   	   <label > <i class="newplateIcon"></i> <span style=" float:left;"><{$items['name']}></span></label>
+ 	  	       <ul>
+ 	  	       	 <li  style="text-align: center;width: 86px;" data="0" <{if !isset($goodstypedoid[$items['id']])}> class="on"<{/if}>><a href="#"  >不限</a></li>
+ 	  	       	<{foreach from=$items['det'] item=itv}>
+ 	  	       	<li  data="<{$itv['id']}>"<{if isset($goodstypedoid[$items['id']])}> <{if $itv['id']==$goodstypedoid[$items['id']]}>class="on"<{/if}> <{/if}>><a href="#"  ><{$itv['name']}></a></li>
+ 	  	       	 <{/foreach}>
+ 	  	      </ul>
+ 	  	   </div>
+ 	  	  <{/foreach}>
+ 	      <div class="plate_nav_class" data="desk">
+ 	  	   	   <label> <i class="newplateZWIcon"></i>桌位大小</label>
+ 	  	       <ul>
+ 	  	       	 <li  style="text-align: center;width: 86px;" data="0" <{if $desk == 0}>class="on"<{/if}>><a href="#">不限</a></li>
+ 	  	       	 <li data="1" <{if $desk == 1}>class="on"<{/if}>><a href="#">1-4人</a></li>
+ 	  	       	 <li data="2" <{if $desk == 2}>class="on"<{/if}>><a href="#" >4-8人位</a></li>
+ 	  	       	 <li data="3" <{if $desk == 3}>class="on"<{/if}>><a href="#">9-12人位</a></li>
+ 	  	       	 <li data="4" <{if $desk == 4}>class="on"<{/if}>><a href="#">12人以上</a></li>
+ 	  	       </ul>
+ 	  	  </div>
+ 	  	    <div class="plate_nav_class" data="areaids">
+ 	  	   	   <label> <i class="newplateWZIcon"></i>位置</label>
+ 	  	       <ul>
+ 	  	       	 <li style="text-align: center;width: 86px;"  data="0" <{if empty($areaids)}> class="on"<{/if}>><a href="#">不限</a></li>
+ 	  	       	<{foreach from=$arealist item=items}>
+ 	  	       	  <{if $items['parent_id'] == 0}>
+ 	  	       	     <li data="<{$items['id']}>" <{if  $areaids==$items['id'] }> class="on"<{/if}>><a href="#"><{$items['name']}></a></li>
+ 	  	       	   <{/if}>
+ 	  	       	<{/foreach}>
+ 	  	       </ul>
+ 	  	   </div>
+
+ 	  	   <div class="plate_nav_classdet" <{if count($areadet) > 0}> style="display:block;" <{else}>style="display:none;"<{/if}>>
+ 	  	   	    <{if count($areadet) > 0}>
+ 	  	       	<{foreach from=$areadet item=items}>
+
+ 	  	       	   <a href="#" data="<{$items['id']}>" <{if $items['id'] == $areaid}>class="active"<{/if}>><{$items['name']}></a>
+
+ 	  	       	<{/foreach}>
+ 	  	       	 <{/if}>
+ 	  	   </div>
+
+
+ 	  	   <div style="clear:both;"></div>
+ 	  </div>
+
+
+</div>
+
+
+
+
+
+
+<div style="width:1200px; margin:0 auto;" class="tg-list Fix" >
+            <div class="tg-tab-box tg-floor on" data-track-lock="1">
+<ul class="tg-floor-list Fix tg-floor-list-freak">
+	<{foreach from=$shoplist key=mykey item=items}>
+<li class="tg-floor-item" >
+    <div class="tg-floor-item-wrap" style="height:261px;">
+        <a class="tg-floor-img" target="_blank" href="<{ofunc type=url link="/wxsite/plateshow/id/<{$items['id']}>"}>" >
+            <img class="lazy"  src="<{$siteurl}>/upload/shop/grey.gif" data-original="<{$items['shoplogo']|default:$shoplogo}>">
+        </a>
+        <a class="tg-floor-title" target="_blank" href="<{ofunc type=url link="/wxsite/plateshow/id/<{$items['id']}>"}>" >
+            <h3><{$items['shopname']}></h3>
+            <h4>    <{$items['address']}> </h4>
+        </a>
+           <span class="tg-floor-price">
+                 <a target="_blank" href="<{ofunc type=url link="/wxsite/plateshow/id/<{$items['id']}>"}>"><div class="buttonarea" style="margin-bottom:10px;"><span style="font-family: 'Hiragino Sans GB','Microsoft YaHei',simsun; ">订座/点菜</span></div></a>
+           </span>
+
+    </div>
+</li>
+	  <{/foreach}>
+</ul>
+            </div>
+      </div>
+
+
+
+
+
+
+<script>
+	 $('.palte_nav').find('.plate_nav_class').eq(0).addClass('noneborder');//.html());
+//$('.palte_nav')..eq(0).css({'border-top','none'});
+var arealist = <{$arealist|json_encode}>;
+$(document).ready(function(){
+	//areashow(26);
+	//plate_nav_class
+	$('.plate_nav_class li').click(function(){
+		$(this).addClass('on').siblings().removeClass('on');
+		makelink();
+  });
+  $('.plate_nav_classdet a').click(function(){
+		$(this).addClass('active').siblings().removeClass('active');
+		 makelink();
+  });
+});
+function makelink(){
+  var findobj = $('.palte_nav').find('.plate_nav_class');
+  var newstr = '';
+  $.each(findobj, function(i, newobj) {
+		 newstr +='&'+$(this).attr('data')+'=';
+			var checkid = $(this).find('li.on').length;
+			if(checkid > 0){
+				newstr+=$(this).find('li.on').eq(0).attr('data');
+			}else{
+				newstr+=0;
+			}
+
+			/*var detobj = $(this).find('li');
+			for(var i=0;i<detobj.length;i++){
+			} */
+
+	});
+	if($('.plate_nav_classdet').find('.active').attr('data') == undefined){
+		 newstr +='&areaid=0';//+$('.plate_nav_classdet').find('.active').attr('data');
+	}else{
+	  newstr +='&areaid='+$('.plate_nav_classdet').find('.active').attr('data');
+	}
+
+	 //alert(newstr);
+   window.location.href="<{$siteurl}>/index.php?ctrl=plate&action=index"+newstr;
+}
+function areashow(areaid){
+	$.each(arealist, function(i, newobj) {
+				//	alert(newobj.name);
+
+  });
+}
+
+</script>
+
+<{/block}>

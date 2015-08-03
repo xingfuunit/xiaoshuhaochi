@@ -1,0 +1,12 @@
+   <{load_data assign="modelist" table="module" limit="20" orderby="id asc" where="install=1 and parent_id=0" }> 
+   <{foreach from=$modelist['list'] key=myid item=items}>  
+    <{load_data assign="defaultmenu" table="menu" type="one" where="moduleid='<{$items['id']}>' and `group` = '<{$admininfo['group']}>'" fileds="*" orderby="id asc" }> 
+     <{if !empty($defaultmenu)}>
+  	 	  <li <{if $Taction == $items['name']||$moduleparent == $items['id']}>class="on" <{/if}>>
+  	 	  	<a href="<{ofunc type=url link="/adminpage/<{$items['name']}>/module/<{$defaultmenu['name']}>"}>">
+  	 	  	    <div class="lib ck<{$myid+1}>"></div>
+  	 	  	    <div class="libtitle"><{$items['cnname']}></div>
+  	 	  	 </a> 
+  	    </li>  
+  	   <{/if}>
+  <{/foreach}>

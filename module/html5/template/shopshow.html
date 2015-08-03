@@ -1,0 +1,65 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/shopshow.css">   
+<{/block}>
+ 
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="halldetail"> 
+  	<header><div class="return"></div><font ><{$shopinfo['shopname']}>详情</font></header> 
+  	<div class="container">
+  		<section class="banner_pice"><img src="../upload/images/banner.jpg" width="100%"><div class="bannertitle nowraps"><{$shopinfo['shopname']}></div></section>
+  		
+  		<section class="mBxCm banner_bottom">
+  			<div class="banner_logo"><img src="<{$shopinfo['shoplogo']|default:$shoplogo}>" width="75" height="75"></div>
+  			<div class="mFlex1 mVer color3236232 bannercontant">
+  				<div class="mBxLt">
+  					<p class="mr20">送达时间：<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='input'}>
+									     <{foreach from=$itat['det'] item=itcc}>
+									       
+									          <{foreach from=$shopattr item=itaa}>
+									             <{if $itcc['parent_id'] == $itaa['firstattr']}>
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}>
+									     <{/foreach}>
+									  <{/if}>     
+									<{/foreach}> </p>
+  					<p class="mFlex1 nowraps">菜系：<{foreach from=$mainattr key=mykey item=itat}>
+              
+									   <{if $itat['type'] == 'checkbox'}>
+									   <{assign var=ckey value="0"}>   
+									          <{foreach from=$shopattr key=ckey item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr'] &&$ckey < 1}> 
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}> 
+									    <{/if}>     
+									<{/foreach}></p>
+  					 
+  			  </div>
+  			  <p class="nowraps">营业时间：<{$shopinfo['starttime']}></p>
+  			</div>
+  		</section>
+  	 
+  		<section class="listwarpz">
+  			<ul class="liststyle1">
+  				<li class="touchend" onclick="location.href='tel:<{$shopinfo['phone']}>'">
+  					  <a><div class="listico leftlistico"></div><div class="listcontant mFlex1"><{$shopinfo['phone']}></div><div class="listico rightlistico"></div></a>
+  			  </li>
+  			  <li class="touchend">
+  			  	<a><div class="listico leftlistico"></div><div class="listcontant mFlex1" id="address"><{$shopinfo['address']}></div><div class="listico rightlistico"></div></a>
+  			  </li>
+  			</ul>
+  			<ul class="liststyle1">
+  				<li class="touchend" id="oth" data-suppliergroupid="2" data-supplierchanicount="34">
+  					<a><div class="listico "></div><div class="listcontant mFlex1"> <{$shopinfo['notice_info']|htmlspecialchars_decode}></div></a>
+  				</li>
+  			</ul>
+  		 </section>
+   
+ 
+<{/block}>
+
+ 

@@ -1,0 +1,120 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<{/block}>
+ <{block name=controlname}>微信用户列表<{/block}>
+ <{block name=bodylist}>
+   <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	 
+      	
+      	
+           <div class="tags">
+
+      	  
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="0" cellpadding="10" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                     
+                        <td align="center">微信号</td>
+                         <td align="center">绑定用户名</td>
+                        <td align="center">帐号信息</td> 
+                        <td align="center">发送信息</td> 
+                        
+                      
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                       
+                        <td align="center"><{$items['openid']}></td> 
+                        <td align="center"><{if $items['is_bang'] > 0}> <{$items['username']}> <{else}>未绑定<{/if}></td> 
+                        <td align="center"><a href="javascript:void(0);" onclick="showuser('<{$items['openid']}>',this);">查看微信帐号信息</a></td>  
+                       <td align="center"><a href="javascript:void(0);" onclick="sendwxtouser('<{$items['openid']}>');">发送客服信息</a></td>  
+                       
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+             
+
+                </form>
+
+                <div class="page_newc">
+                 	     
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+               <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+</div> 
+<script>
+	  function showuser(openid,obj){
+	  	$.post('<{ofunc type=url link="/adminpage/weixin/module/getoneuser/datatype/json"}>', {'openid':openid},function (data, textStatus){  
+			     if(data.error == false){
+     	     	   if(data.msg.subscribe == 1){
+     	     	   	   $(obj).parent().text('呢称:'+data.msg.nickname+',所在地'+data.msg.province+data.msg.city);
+     	     	   }else{
+     	     	     $(obj).parent().text('未关注我们');
+     	     	   }
+     	     	    
+     	     }else{
+     	     	  if(data.error == true)
+     	     	  {
+     	     	    	diaerror(data.msg); 
+     	       	}else{
+     	     		   diaerror(data); 
+     	     	  }
+     	     } 
+	    }, 'json'); 
+	  }
+	  
+	  function sendwxtouser(openid){
+   var	htmls = '<form method="post" name="form1" action="<{ofunc type=url link="/adminpage/weixin/module/sendwxmsg/datatype/json"}>" onsubmit="return subform(\'\',this);"><table>';
+	htmls += '<tbody><tr>';
+	htmls += '<td height="50px">微信内容:</td>';
+	htmls += '<td> <textarea name="content"></textarea></td></tr>';
+	htmls += '</tbody></table> ';
+  htmls += '<input type="hidden" value="'+openid+'" name="openid"> ';
+	htmls += '<input type="submit" value="确认提交" class="button" id="dosetclosetime" ></form>';
+  art.dialog({
+    id: 'testID3',
+    title:'发送客服消息',
+    content: htmls
+  });
+   }
+	</script>
+<{/block}>

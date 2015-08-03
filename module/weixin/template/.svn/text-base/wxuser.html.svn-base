@@ -1,0 +1,126 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>
+ <{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<{/block}>
+ <{block name=bodylist}>
+
+ <!--content right start-->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>微信管理</span> </div>
+    <{include file="<{$tempdir}>/weixin/weixinmenu.html"}>
+    <div class="cl"></div>
+
+      <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="0" cellpadding="10" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+
+                        <td align="center">微信号</td>
+                         <td align="center">绑定用户名</td>
+                        <td align="center">帐号信息</td>
+                        <td align="center">发送信息</td>
+                        <td align="center">设为商户订单接收账号</td>
+
+
+                      </tr>
+
+                    </thead>
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}>
+                      <tr class="s_out">
+
+                        <td align="center"><{$items['openid']}></td>
+                        <td align="center"><{if $items['is_bang'] > 0}> <{$items['username']}> <{else}>未绑定<{/if}></td>
+                        <td align="center"><a href="javascript:void(0);" onclick="showuser('<{$items['openid']}>',this);">查看微信帐号信息</a></td>
+                       <td align="center"><a href="javascript:void(0);" onclick="sendwxtouser('<{$items['openid']}>');">发送客服信息</a></td>
+                       <td align="center">
+                          <select name="is_merchant" onchange="setMerchant('<{$items['openid']}>',this.value)">
+                            <option value="0" <{if $items['is_merchant'] eq 0}>selected="selected"<{/if}>>否</option>
+                            <option value="1" <{if $items['is_merchant'] eq 1}>selected="selected"<{/if}>>是</option>
+                          </select>
+                       </td>
+                      </tr>
+                       <{/foreach}>
+
+                    </tbody>
+
+                  </table>
+
+                <div class="blank20"></div>
+
+
+
+                </form>
+<ul><{$pagecontent}></ul>
+           <!--     <div class="page_newc">
+
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>-->
+
+               <div class="blank20"></div>
+
+  </form>
+</div>
+<script>
+  function setMerchant(openid,val){
+    $.post('<{ofunc type=url link="/weixin/setmerchant/datatype/json"}>', {'openid':openid,'is_merchant':val},function (res, textStatus){
+        var data = eval("("+res+")");
+        if(data.error == false){
+            art.dialog({
+                    id: 'testID4',
+                    title:'操作结果',
+                    content: data.msg
+                  });
+        } else {
+             diaerror(data.msg);
+        }
+    });
+  }
+
+
+
+    function showuser(openid,obj){
+      $.post('<{ofunc type=url link="/weixin/getoneuser/datatype/json"}>', {'openid':openid},function (data, textStatus){
+           if(data.error == false){
+               if(data.msg.subscribe == 1){
+                   $(obj).parent().text('呢称:'+data.msg.nickname+',所在地'+data.msg.province+data.msg.city);
+               }else{
+                 $(obj).parent().text('未关注我们');
+               }
+
+           }else{
+              if(data.error == true)
+              {
+                  diaerror(data.msg);
+              }else{
+                 diaerror(data);
+              }
+           }
+      }, 'json');
+    }
+
+    function sendwxtouser(openid){
+   var  htmls = '<form method="post" name="form1" action="<{ofunc type=url link="/weixin/sendwxmsg/datatype/json"}>" onsubmit="return subform(\'\',this);"><table>';
+  htmls += '<tbody><tr>';
+  htmls += '<td height="50px">微信内容:</td>';
+  htmls += '<td> <textarea name="content"></textarea></td></tr>';
+  htmls += '</tbody></table> ';
+  htmls += '<input type="hidden" value="'+openid+'" name="openid"> ';
+  htmls += '<input type="submit" value="确认提交" class="button" id="dosetclosetime" ></form>';
+  art.dialog({
+    id: 'testID3',
+    title:'发送客服消息',
+    content: htmls
+  });
+   }
+
+
+  </script>
+ <{/block}>

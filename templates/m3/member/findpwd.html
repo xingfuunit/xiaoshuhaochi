@@ -1,0 +1,39 @@
+<{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=sitetitle}>
+找回密码
+<{/block}>
+ <{block name=bodylist}> 
+ 
+ 	<div style="height:10px;"></div>
+	<form id="loginForm" method="post" action="<{ofunc type=url link="/member/savefind/datatype/json"}>">
+  <div class="hc_content">
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span">找回密码</span></div>
+			<div class="hc_login_content">
+					<div class="findPassWordDiv">
+						<div style="height:80px;line-height:80px;">
+							<span class="hc_login_div_span">邮箱：</span>
+							<input onkeydown="if(event.keyCode==13)loginForm.submit()" class="hc_login_input" style="line-height: 39px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 39px; outline: none;" type="text" placeholder="请输入绑定邮箱" name="uname">
+							<p class="tip"></p>
+						</div>
+						<div class="login-button hc_login_btn_div "><span id="dosumittbn">确 定</span></div>
+						<div class="clear"></div>
+					</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</form>
+
+<script type="text/javascript">
+$('#dosumittbn').click(function(){
+	subform('',$('#loginForm'));
+})
+
+</script> 
+
+<{/block}>

@@ -1,0 +1,63 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+  
+ <{block name=controlname}>添加管理员<{/block}>
+ <{block name=bodylist}>
+   <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+           <{load_data assign="info" table="admin" where="`uid`=$id"  type="one"}> 
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/member/module/saveadmin/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/member/module/adminlist"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">管理员名称</td>
+                      <td><input type="text" name="username" id="username" value="<{$info['username']|default:''}>" class="skey" style="width:150px;" <{if !empty($info)}> readonly<{/if}>></td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">新密码</td>
+                      <td><input type="password" name="password" id="password" value="" class="skey" style="width:250px;"></td>
+                    </tr>
+                    
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">所在用户分组</td>
+                      <td>  
+                      <select name="groupid">
+                      	 <{load_data assign="grouplist" table="group"    fileds="*"  limit="10" }>  
+                      	<{foreach from=$grouplist['list'] key=myid  item=items}>  
+                      	<{if $items['type'] == 'admin'}>
+                      	   <option value="<{$items['id']}>" <{if $info['groupid'] == $items['id']}>selected<{/if}>><{$items['name']}></option>
+                      	<{/if}>
+                      	<{/foreach}> 
+                      </select>
+                      	</td>
+                    </tr>
+                    <input type="hidden" name="uid" id="uid" value="<{$info['uid']}>" class="skey" style="width:150px;">
+                   
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+   
+   
+    </div> 
+<script>	 
+function checkword(flag)
+{ 
+	 
+	$("input[name='limit[]']").attr("checked",flag); 
+}
+</script>
+<{/block}>

@@ -1,0 +1,127 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">店铺列表</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	<div class="search"> 
+            <div class="search_content">
+            	 
+            	 <form method="get" name="form1" action="<{ofunc type=url link="/admin/goodslist"}>">
+            	  <label>查询类型：</label>
+            	  <select name="querytype">
+            	  	<option value="0">未选择</option>
+            	  	<option value="m.username"  <{if $querytype == 'm.username'}>selected<{/if}>>会员名</option>
+            	  	<option value="b.shopname"  <{if $querytype == 'b.shopname'}>selected<{/if}>>店铺名称</option> 
+            	  </select>
+            	  <label>查询条件：</label>
+            	   <input type="text" name="searchvalue" value="<{$searchvalue}>">
+            	   <select name="cost">
+            	   	  <option value="0">未选择</option>
+            	   	  <option value="10" <{if $cost == 10}>selected<{/if}>>单价格小于10</option>
+            	   	  <option value="20" <{if $cost == 20}>selected<{/if}>>单价在10到20元</option>
+            	  </select>
+            	    <input type="submit" value="确认提交" class="button">  
+            	 </form>
+            </div>
+        
+      	</div>
+      	
+      	
+      	
+           <div class="tags">
+
+      	 
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" >
+
+              <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall(this.form, 'id')"></th>
+
+                        <th align="center">商品名称</th>
+
+                        <th align="center">所在店铺</th> 
+
+                        <th align="center">所属分类</th> 
+                        <th align="center">单价</th>
+                        <th align="center">剩余数量</th>
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['uid']}>"></td> 
+                        <td align="center"><{$items['name']}></td> 
+                        <td align="center"> <{$items['shopname']}> </td> 
+                        <td align="center"><{$items['typename']}></td>  
+                        <td align="center"><{$items['cost']}></td> 
+                         <td align="center"><{$items['count']}></td> 
+                        <td align="center"><a href="<{ofunc type=url link="/admin/editgoods/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a>
+                        	 <a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delgoods/id/<{$items['id']}>"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                 <div class="page_newc">
+                 	     <div class="select_page"><a href="#">全选</a>/<a href="#">取消</a> <a href="#" class="delurl">删除</a></div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

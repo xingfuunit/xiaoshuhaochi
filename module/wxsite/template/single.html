@@ -1,0 +1,80 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/shoplist.css">  
+<style>
+	.listselect {
+margin-top: 10px;
+margin-bottom: 10px;
+background-color: #fff;
+}
+.liststyle1 li {
+margin-left: 5px;
+margin-right: 5px;
+padding-left: 10px;
+padding-right: 10px;
+border-bottom: 1px solid #e5e5e5;
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+.listselect h1 {
+	margin-top:10px;
+color: red;
+font-weight: bold;
+padding-left: 10px;
+line-height: 40px;
+height: 40px;
+border-top: 1px solid #e5e5e5;
+border-bottom: 1px solid #e5e5e5;
+}
+	</style>
+<{/block}>
+ <{block name=extendjs}>  
+  
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=blockcontent}> 
+ <{load_data assign="info" table="single" type="one" where="id='<{$id}>'" fileds="*" }>  
+  	
+<header style="position: fixed;display:block;"><{$info['title']|default:'信息获取失败'}></header>
+  <div style="height:44px;"></div>
+  
+  
+
+    
+
+  
+
+  <div class="container" style="padding-top:0px;background:none;">
+
+  	 
+ 
+ <section class="listselect">
+ 	    
+ 	     <div style="clear:both;"></div>
+  			<ul class="liststyle1">
+  				  
+  				  <{if !empty($info)}>
+  				    
+  				     <li class="touchend">
+  			  	       <{$info['content']|htmlspecialchars_decode}> 
+  			       </li>
+  			      
+  				  <{else}>
+  				<li class="touchend" style="height:80px;">
+  					   <div style="line-height:80px;text-align:center;width:100%;">暂无信息</div>
+  			  </li>
+  			   <{/if}>
+  			 
+  			</ul> 
+ </section>
+ </div>
+<{/block}>

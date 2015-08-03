@@ -1,0 +1,153 @@
+/***幻灯片***/
+.container {
+width: 100%;
+position: relative;
+overflow: hidden;
+padding-bottom: 100px;
+min-height: 440px;
+}
+.banner_pice {
+position: relative;
+border-bottom: 1px solid #000;
+overflow: hidden;
+display: block;
+padding-bottom: 0px;
+}
+.banner_pice > img {
+display: block;
+overflow: hidden;
+vertical-align: bottom;
+}
+.bannertitle {
+font-size: 15px;
+position: absolute;
+bottom: 5px;
+text-align: left;
+color: #FFF;
+text-shadow: 1px 1px 2px #000;
+font-weight: bold;
+padding-left: 96px;
+}
+.banner_bottom {
+background: #ffffff;
+border-bottom: 1px solid #e5e5e5;
+height: 62px;
+margin-bottom: 10px;
+width: 100%;
+}
+.mVer {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-orient: vertical;
+-moz-box-orient: vertical;
+-o-box-orient: vertical;
+box-orient: vertical;
+}
+.mBxLt {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: start;
+-moz-box-pack: start;
+-o-box-pack: start;
+box-pack: start;
+}
+.mFlex1 {
+-webkit-box-flex: 1;
+-moz-box-flex: 1;
+-o-box-flex: 1;
+box-flex: 1;
+flex: 1;
+}
+.color3236232 {
+color: #323232;
+}
+.bannercontant {
+margin-right: 14px;
+}
+.banner_logo {
+width: 96px;
+position: relative;
+}
+.banner_logo img {
+position: absolute;
+top: -60px;
+left: 14px;
+}
+.mr20 {
+margin-right: 20px;
+}
+.w24 {
+width: 24px;
+}
+.scbox {
+width: 16px;
+height: 14px;
+display: block;
+background: url(../images/icos/scok.png);
+background-size: 16px 14px;
+}
+.icobox {
+background: #ffffff;
+border-top: 1px solid #e5e5e5;
+border-bottom: none;
+width: 100%;
+}
+.icobox div {
+height: 85px;
+}
+.icobox div {
+width: 25%;
+}
+.scno {
+background: url(../images/icos/scno.png);
+background-size: 16px 14px;
+}
+.liststyle1 {
+background: #ffffff;
+border-bottom: 1px solid #e5e5e5;
+border-top: 1px solid #e5e5e5!important;
+margin-bottom: 10px;
+}
+.liststyle1:nth-child(1) {
+border-top: none;
+}
+.liststyle1 li a {
+margin-left: 5px;
+margin-right: 5px;
+padding-left: 10px;
+padding-right: 10px;
+border-bottom: 1px solid #e5e5e5;
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+padding-top: 15px;
+padding-bottom: 15px;
+}
+.listico {
+width: 14px;
+height: 14px;
+}
+.leftlistico {
+margin-left: 0px;
+margin-right: 10px;
+}
+.liststyle1 li:nth-child(1) a .leftlistico {
+background: url(../images/icos/telico.png) no-repeat top;
+background-size: 14px;
+}
+.liststyle1 li:nth-child(2) a .leftlistico {
+background: url(../images/icos/positionico.png) no-repeat top;
+background-size: 14px;
+}
+
+
+

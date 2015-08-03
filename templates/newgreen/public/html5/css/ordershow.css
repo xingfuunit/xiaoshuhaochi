@@ -1,0 +1,83 @@
+.container {
+width: 100%;
+position: relative;
+overflow: hidden;
+padding-bottom: 100px;
+min-height: 440px;
+}
+.title {
+background: #fff;
+height: 50px;
+line-height: 50px;
+border-bottom: 1px solid #dcdcdc;
+}
+.titleWz {
+padding: 0px 10px;
+margin: 0px 5px;
+color: #323232;
+position: relative;
+text-align: center;
+}
+.titleWz span, .transinfo .jiantou {
+position: absolute;
+right: 15px;
+}
+.titleWz span img, .transinfo .jiantou img {
+width: 6px;
+height: 11px;
+}
+.msgorder {
+line-height: 40px;
+text-align: center;
+}
+.bgFFF {
+/* margin-top: 10px; */
+background: #fff;
+border-bottom: 1px solid #dcdcdc;
+border-top: 1px solid #dcdcdc;
+padding: 0px 10px;
+}
+.transinfo > div:nth-of-type(3) >span > a{
+	color: #ff6000;
+}
+.transinfo > div:nth-of-type(3) >span > a:hover{
+	text-decoration:underline;
+}
+.transinfo {
+position: relative;
+}
+.container > section, .bgFFF > section {
+background: #fff;
+margin: 0 auto;
+padding: 8px 0px 12px 0px;
+}
+.mBxCm {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	color: #323232;
+	text-align: center;
+}
+.mBxCm div{
+	display: inline-block;
+	overflow: hidden;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	border-bottom: 1px dashed #323232;
+	cursor:default;
+}
+.mFlex1 {
+	width: 38%;
+	text-align: left;
+}
+.w100{
+	width: 30%;
+}
+.container > section div, .bgFFF > section div .colred {
+color: #ff6000;
+}
+.msgorder {
+line-height: 40px;
+text-align: center;
+}

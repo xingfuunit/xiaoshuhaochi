@@ -1,0 +1,96 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+  <{block name=extendjs}>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/bootstrap.min.js" type="text/javascript" language="javascript"></script>
+  <{/block}>
+  <{block name=sitetitle}>礼品街<{/block}>
+ <{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/gift.css">  
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/bootstrap.min.css"> 
+ <{/block}>
+<{block name=bodylist}> 
+<div class="IntegralMall"> 
+  <div class="IntegralMallIn">
+        <div class="IMTop"> 
+       </div>
+        <div class="IMMiddle">
+            <ul> 
+            	 <{load_data assign="list" table="gift"   fileds="*"  limit="100" }> 
+            	    <{foreach from=$list['list'] item=value}>
+                  <li>
+                    <div class="IMPic"><a href="javascript:;" onclick="Pop.show(9)"><img alt="<{$value['title']}>" src="<{$value['img']}>" style="height:210px;width:210px;"></a></div>
+                    <div class="IMIntro"><{$value['title']}></div>
+                    <div class="IMOperate">
+                        <div class="IMIntegral">积分 <span><{$value['score']}></span> 点</div>
+                       
+                        <a href="javascript:;" onclick="duihuan('<{$value['id']}>','<{$value['score']}>','<{$value['title']}>','<{$value['sell_count']}>','<{$value['stock']}>','<{$value['img']}>')" class="IMBtn">查看详情</a>
+                        <div id="content_shoid_<{$value['id']}>" style="display:none;">
+                        	<{$value['content']}>
+                        	</div>
+                    </div>
+                  </li>
+                  <{/foreach}> 
+                <div style="clear:both;"></div>
+            </ul>
+        </div>
+         
+        <div id="shoinfo" style="display: none;">  
+        </div>  
+   </div> 
+</div>    
+    <div id="showexc"></div>
+    <script type="text/javascript"> 
+			function duihuan(gid,gscore,gtitle,gsell_count,gstock,gimg)
+			{
+				var gcontent = $('#content_shoid_'+gid).html();
+				//gcontent
+			   var cc = '<{$member['uid']}>';
+			   if( cc < 1)
+			   {
+			   	  diaerror('登录后才可兑换');
+			   	}else{
+				var htmldata='<div class="IMDetail" id="PopInfo" style="top: -10px; display: block;"><div class="IMDTop">';
+           	htmldata+='<div class="IMDTLeft"><img src="'+gimg+'" width="300" height="300" id="giftimg"><\/div>';
+htmldata+='<div class="IMDTRight">';
+htmldata+='<h3>'+gtitle+'<\/h3>';
+htmldata+='<dl>';
+htmldata+='<dd><label style="display:inline;">商品编码：<\/label><span id="goodsCode">'+gid+'<\/span><\/dd>';
+htmldata+='<dd><label style="display:inline;">兑换数量：<\/label><span id="tradeCnt">1个<\/span><\/dd>';
+htmldata+='<dd><label style="display:inline;">兑换价格：<\/label><span id="price"><em>'+gscore+'</em>积分<\/span><\/dd>';
+htmldata+='<\/dl>';
+htmldata+='<div class="IMDTBtn">';
+htmldata+='<a href="#" onclick="exch('+gid+')" id="exbtn">立即兑换<\/a>';
+htmldata+='<\/div>';
+htmldata+='<\/div>';
+htmldata+='<div style="clear:both;"><\/div>';
+htmldata+='<\/div>';
+htmldata+='<div class="IMDBottom"><h3>温馨提示<\/h3><p>'+gcontent+'<\/p><\/div>';
+htmldata+='<a href="javascript:;" onclick="closedialog(\'shoduihuan\');" class="IMClose"><\/a><\/div>';
+				 
+				 art.dialog({ 
+				 	    id:'shoduihuan',
+                content: htmldata,
+               lock: true
+          }); 
+          
+         }
+			}
+			function closedialog(dialogname)
+			{
+				 art.dialog({id:dialogname}).close();
+			}	 
+			function exch(gid){ 
+				var newurl = siteurl+'/index.php?controller=gift&action=exchanghtml&id='+gid;
+				newurl = newurl.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     			$.get(newurl,function(data){
+     				art.dialog({id:'shoduihuan'}).close();
+        	$('#showexc').html(data);
+        	$('#Modal_col').modal('show');
+           },'html');  
+			}	
+			 
+			   
+		 
+</script>
+
+
+<{/block}>

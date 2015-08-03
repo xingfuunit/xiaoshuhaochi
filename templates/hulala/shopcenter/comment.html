@@ -1,0 +1,156 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       <div class="editcontent" id="editcontent">
+       	
+       	
+       	
+       	
+       	 
+       	
+       	
+       	
+       	<div class="br4 st_box" style="margin-top:10px;">
+         
+        <div class="st_body">
+            <table cellpadding="0" cellspacing="0" width="95%">
+                <tbody><tr>
+                     <th style="width:40%;">评价内容</th> 
+                     <th style="width:15%;">商品名称</th>
+                     <th style="width:15%;">订单编号</th>
+		                  <th style="width:10%;">时间</th>
+		                  <th style="width:10%;">评分</th> 
+		                  <th style="width:10%;">操作</th>
+                </tr>
+                <{foreach from=$list key=myid item=items}> 
+                    <tr>
+                    	<td><{$items['content']}></td>
+                      <td><{$items['goodsname']}></td>
+                      <td><{$items['dno']}></td>
+                      <td><{$items['addtime']|date_format:"%Y-%m-%d"}></td>
+                      <td><{$items['point']}></td>
+                      <td><{if $items['is_show'] == 0}><a  onclick="return remind(this);" class="button" href="<{ofunc type=url link="/shopcenter/commenthshow/id/<{$items['id']}>"}>">取消展示</a><{else}><a  onclick="return remind(this);"  class="button" href="<{ofunc type=url link="/shopcenter/commentshow/id/<{$items['id']}>"}>">展示</a><{/if}></td>
+                    </tr>
+                     
+                 <{/foreach}>
+                 <tr id="loadtr">
+		                	  <td colspan=6> <div class="MoreMsg">
+        	<div class="loading" id="loading" <{if $myid <25}> style="display: none;"<{else}>style="display: show;"<{/if}> >加载中... 请稍候 &gt;&gt;</div>
+            <div class="loading" id="nomoreresults" style="display: none;">亲。已经到底啦！</div>
+        </div>    </td>
+		                	</tr>
+            </tbody></table>
+        </div>
+    </div>
+       	
+       	
+       	
+       	<input type="hidden" name="pageshow" id="pageshow" value="1" data="1"> 
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       	
+       </div>
+</div>
+
+
+<script>
+ 
+var myobj = new Object(); 
+myobj.IsGetData = false; //是否存在数据加载     
+myobj.Time = 0; //时间声明(模拟)   
+// 描 述：游缆器滚动事件     
+window.onscroll = function() {   
+    if (uiIsPageBottom() && !myobj.IsGetData) {//状态;  
+    	  
+        myobj.IsGetData = true;      //模拟Ajax加载;  
+        myobj.Time = window.setTimeout('GetAjaxData()', 300); //模拟Ajax加载;使用Ajax数据注释掉本行  
+    } 
+} 
+ 
+// 描 述：模式Ajax加载数据     
+function GetAjaxData() {     
+	var pagenum = Number($('#pageshow').val())+1;
+	$('#pageshow').val(pagenum);
+	var panduan = $('#pageshow').attr('data');
+	$('#pageshow').attr('data','0');
+	 var startheight = $('#editcontent').height();
+	if(panduan == 1)
+	{
+		   
+		   var backinfo = ajaxback('<{ofunc type=url link="/shopcenter/jsoncomment"}>',{'page':pagenum});
+		   if(backinfo.flag == true)
+		   { 
+		   	   $('#loading').hide();
+		   	   $('#nomoreresults').html(backinfo.content);
+		   	   $('#nomoreresults').show();
+		    }else{
+		    	 
+		    	$('#pageshow').attr('data','1');
+		    	//alert(backinfo.content[0].id);   
+		    	var det1 = backinfo.content; 
+		    	$.each(backinfo.content,function(k,submen){  
+		    	   var showdo = '<tr>';
+                 showdo +='<td>'+submen.content+'<\/td>';
+                 showdo +='<td>'+submen.goodsname+'<\/td>';
+                 showdo +='<td>'+submen.dno+'<\/td>';
+                 showdo +='<td>'+submen.addtime+'<\/td>';
+                 showdo +='<td>'+submen.point+'<\/td>';
+                 showdo +='<td>';
+                 if(submen.is_show == 0){
+                 	 showdo +='<a  onclick="return remind(this);" class="button" href="'+siteurl+'\/index.php?controller=shopcenter&action=commenthshow&id='+submen.id+'">取消展示<\/a>';
+                 }else{
+                 	 showdo +='<a  onclick="return remind(this);"  class="button" href="'+siteurl+'\/index.php?controller=shopcenter&action=commenthshow&id='+submen.id+'">展示<\/a>';
+                 }  
+                showdo +='</td></tr>'; 
+				       $('#loadtr').before(showdo); 
+		    	});
+		    		 
+		    }
+		     var endheight = $('#editcontent').height();
+		    var bianhuan = Number(endheight)-Number(startheight);
+		        bianhuan =Number($('#content').height())+Number(bianhuan);
+		      //  alert(bianhuan);
+		    $('#content').css('height',bianhuan);
+		    autosize();	
+	}  
+	  window.clearTimeout(myobj.Time);   
+    myobj.IsGetData = false;   
+}    
+
+// 描 述：判断是滚动到页面底部    
+function uiIsPageBottom() {     
+    var scrollTop = 0;     
+    var clientHeight = 0;     
+    var scrollHeight = 0;     
+    if (document.documentElement && document.documentElement.scrollTop) {   
+        scrollTop = document.documentElement.scrollTop;  
+    } else if (document.body) {     
+        scrollTop = document.body.scrollTop;     
+    }     
+    if (document.body.clientHeight && document.documentElement.clientHeight) {     
+        clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;   
+    } else {     
+        clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight: document.documentElement.clientHeight;     
+    }     
+    scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);     
+    if (scrollTop + clientHeight == scrollHeight) {    
+        return true;  
+    } else {     
+        return false;    
+    }   
+} 
+
+</script>
+
+<{include file="<{$tempdir}>/public/shopfooter.html"}> 

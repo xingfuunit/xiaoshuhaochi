@@ -1,0 +1,40 @@
+ <{$area_grade}> 
+<div class="hc_login_pupopsBox_content_index">
+	<div class="hc_login_pupopsBox_content_index_div">
+		<ul>
+			<li class="hc_login_pupopsBox_content_index_div_li_hover">
+				<a class="hc_pchoose hc_login_pupopsBox_content_index_div_li_a_hover sel_fa_dsc" href="javascript:void(0)">全部</a>
+			</li>
+			 <{load_data assign="pinglist" table="area"    fileds="pin"  limit="100"  where="parent_id = <{$id}> GROUP BY pin" orderby=" orderid asc" }> 
+			 <{foreach from=$pinglist['list'] item=items}> 
+							<li><a class="hc_pchoose sel_fa_dsc" href="javascript:void(0)"><{$items['pin']}></a></li>
+	    <{/foreach}>
+						 
+			
+			</ul>
+		</div>
+</div>
+ 
+
+<div class="hc_PupopsLists">
+	<div class="hc_PupopsLists_div" style="overflow-y: auto;">
+		<ul id="item_list_ul_dsc">
+			<{load_data assign="list" table="area"    fileds="*"  limit="100"  where="parent_id = <{$id}>" orderby=" orderid asc" }> 
+			<{foreach from=$list['list'] key=myid item=items}>
+				 <li <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}>> <a <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}> class="pos_dsc_li" <{if $area_grade == 2}> href="<{ofunc type=url link="/site/setlocationlink/areaid/<{$items['id']}>"}>" <{else}> href="javascript:void(0)"<{/if}> dsc_id="<{$items['id']}>" fa="<{$items['pin']}>"><{$items['name']}></a></li>
+		  <{/foreach}>
+													 
+		</ul>
+
+	</div>
+
+	<ul id="item_list_ul_dsc_data" class="hidden">
+							<{foreach from=$list['list'] key=myid item=items}>
+				        <li <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}>> 
+				          <a <{if $myid%4==3}>style="border-right: 0; width:130px;"<{/if}> class="pos_dsc_li" <{if $area_grade == 2}> href="<{ofunc type=url link="/site/setlocationlink/areaid/<{$items['id']}>"}>" <{else}> href="javascript:void(0)"<{/if}>  dsc_id="<{$items['id']}>" fa="<{$items['pin']}>">
+				          	<{$items['name']}>
+				          </a>
+				        </li>
+		          <{/foreach}>
+  </ul>
+</div> 

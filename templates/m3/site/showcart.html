@@ -1,0 +1,433 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/phonecheck.js" type="text/javascript" language="javascript"></script> 
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ <style>
+	.showcart{width:1144px; padding:28px; height:auto; margin:0 auto; margin-top:20px; background:#ffffff;  border-top:2px solid #f38383;}
+	.peisInfo{margin-top:30px;width:1144px; height:auto; background:#f7f7f7;}
+	.peisBox{width:1144px; height:57px; background:#f2f2f2; line-height:57px; border-top:1px solid #dbdbdb; border-bottom:1px solid #ffffff;}
+	.peisxiugaiBox{width:1144px;line-height:92px; background:#f7f7f7; border-bottom:1px solid #ffffff;}
+	.peisTitle{width:1102px; height:57px; line-height:57px;color:#000000; font-family:微软雅黑; font-size:14px; background:#f7f7f7; background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/songdaaddress.png) left center no-repeat; margin-left:18px; padding-left:24px;}
+	.peisxiugaiTitle{width:1102px;  line-height:92px;color:#000000; font-family:微软雅黑; font-size:14px; background:#f7f7f7;  margin-left:18px; padding-left:24px;}
+	.xiugaispan{ color:#5993ca; font-size:12px; background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/xiugaiBg.png) right center no-repeat; padding-right:15px;}
+ </style>
+ 	<style>
+.cmodal-content {
+position: relative;
+}
+.clist-item.ui_current {
+background: #f1f1f1;
+}
+.clist-item {
+padding: 5px 10px;
+}
+input.clist-radio {
+margin-right: 5px;
+}
+input[type="checkbox"], input[type="radio"] {
+box-sizing: border-box;
+padding: 0;
+}
+.caddr-edit-field {
+display: inline-block;
+width: 85%;
+}
+.caddr-edit-field>input.name {
+width: 80px;
+}
+.caddr-edit-field>input.addr {
+width: 170px;
+}
+.caddr-edit-field>input.tel, .caddr-edit-field>input.bk {
+margin-left: 2px;
+width: 124px;
+}
+.caddr-edit-field>input.tel, .caddr-edit-field>input.bk {
+margin-left: 2px;
+width: 124px;
+}
+.caddr-item-new>.caddr-modify {
+display: block;
+}
+.caddr-modify {
+display: none;
+float: right;
+width: 10%;
+text-align: right;
+line-height: 28px;
+}
+.caddr-modify>.del {
+color: #999;
+font: bold 14px/1 Tahoma,sans-serif;
+font-size: 14px;
+}
+
+			</style>
+				
+ <div class="showcart">
+ 
+ <form id="cart_form" method="post" action="<{ofunc type=url link="/site/order"}>">
+ 
+			<div id="cartshow_c"></div>
+ 
+	
+			
+			
+			<div class="peisInfo">
+					
+				<div class="peisBox">
+					
+					<div class="peisTitle">
+					
+					送达地址 ： &nbsp;  <{$areainfo|default:''}>
+					
+				
+		<!-- 			<span class="xiugaispan">[修改]</span> -->
+			
+				
+					</div>
+				</div>
+				
+				
+				
+				<div class="peisxiugaiBox">
+					
+					<div class="peisxiugaiTitle">
+					
+					
+					
+					
+					
+					
+					
+					
+					<div style="float:left; background:#f7f7f7; ">送达地址 ： 
+					
+					</div>
+	 <{if !empty($member['uid'])}> 		
+							 
+			<div style="float:left;margin-top: 25px;">
+							 <{load_data assign="list" table="address"    fileds="*"  limit="5"  where="userid='<{$member['uid']}>'"}>
+				 
+				 
+				 
+				 <{if !empty($list['list']) }>
+				 
+				 <{foreach from=$list['list'] item=items}>	
+		
+				 <div class=""  style="width: 1027px; background:#f7f7f7;  line-height:42px; overflow:hidden;">
+						  <ul class="cmodal-list">
+						<li id="new_addr" class="clist-item caddr-item-new">
+						  <input contactname="<{$items['contactname']}>"  address="<{$items['address']}>"  phone="<{$items['phone']}>"  name="radiobutton" <{if $items['default'] != 1}> onclick="changeAddr(<{$items['id']}>);" <{/if}> class="clist-radio" type="radio"   <{if $items['default'] == 1}> checked="" <{/if}> >
+						  <div class="caddr-edit-field">
+						  
+						  <input type="hidden" value="<{$items['contactname']}>" />
+						  <input  type="hidden"  value="<{$items['address']}>" />
+						  <input type="hidden"  value="<{$items['phone']}>" />
+						  
+							<span><{$items['contactname']}></span>
+							
+							<span><{$items['address']}></span>
+							<span><{$items['phone']}></span>
+							
+						
+							
+						  </div>
+					
+						</li>
+							</ul>
+					</div>
+		
+				 		 
+				 <div style="clear:both;"></div>
+		
+				<{/foreach}>	
+				<{/if}>
+							
+		</div> 					
+					
+	<{/if}>				
+								
+					<div class=""  style="float:left;width: 1027px; background:#f7f7f7;line-height:92px; overflow:hidden;">
+						  <ul class="cmodal-list">
+						<li id="new_addr" class="clist-item caddr-item-new">
+						  <input   <{if empty($member['uid'])}> checked=""  <{/if}>  name="radiobutton"  class="clist-radio" type="radio" >
+						  <div class="caddr-edit-field">
+							<input class="name row_name_edit"  name="recieve_name" value=""  id="recieve_name" type="text" placeholder="姓名">
+							<input class="addr row_addr_edit"  name="addrestemp" value="" id="addrestemp" type="text" placeholder="外卖送到的地址">
+							<input class="row_tel_edit"   name="phone"  value=""  id="phone" type="tel" placeholder="手机号码">
+							<input class="bk row_baktel_edit"  name="phone-bk" value=""  id="phone-bk"type="text" placeholder="固话手机短号(选填)">
+						
+						  </div>
+						
+						</li>
+							</ul>
+					</div>
+			
+					</div>
+				</div>
+				
+				<div style="clear:both;"></div>
+				<div class="peisBox">
+					
+					<div class="peisTitle" style="background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/sdtimeBg.png) left center no-repeat; ">
+					
+					送达时间 ： &nbsp;
+					
+							
+							
+							  <select name="senddate"  style=" display:none; width: 112px;border-radius:0px;margin:0px; height:30px; border:2px solid #d2d2d2;" onchange="maketimenenu();">
+								   	 <{if $shopinfo['befortime'] > 0}>
+								   	    <{assign var=shownow value=time()}>   
+								   	    <{section name=loop loop=$shopinfo['befortime']}>   
+								            <option value="<{$shownow|date_format:"%Y-%m-%d"}>"><{$shownow|date_format:"%Y-%m-%d"}></option>
+								          
+								            <{$shownow = $shownow+86400}>  
+                          <{/section}>  
+								   	 <{else}>
+								
+								   	  <option value="<{time()|date_format:"%Y-%m-%d"}>"><{time()|date_format:"%Y-%m-%d"}></option>
+								   	  <{/if}> 
+								  </select> 
+							 
+							  	<select id="orderTime"  style="width: 102px;margin:0px; height:30px; border:2px solid #d2d2d2;"> 
+								
+								
+								  </select> 
+							
+				
+					</div>
+				</div>
+				
+				
+				
+				
+				<div class="peisBox">
+					
+					<div class="peisTitle" style="background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/zfwayBg.png) left center no-repeat; ">
+					
+					支付方式 ： &nbsp;
+					
+				
+				
+				  <input type="radio" name="paytype" value="0" checked>货到支付
+							              <{if $open_acout == 1}>
+							             
+							              <input type="radio" name="paytype" value="1">在线支付
+							            
+							              <{/if}>
+				
+				
+					</div>
+				</div>
+				
+				
+				<div style="clear:both;"></div>
+			
+			<div style="background:#ffffff; height:62px; padding-top:20px; padding-bottom:20px;">
+				
+				<div onclick="orderSubmit();" style=" cursor:pointer;width:216px; float:right;line-height:59px; text-align:center; font-size:24px; color:#ffffff; height:59px; background:#ff6931; border-bottom:3px solid #db6868;">
+					确定下单
+				</div>
+				
+			</div>
+			
+			</div>
+	
+
+ </div>
+ 
+ 
+ 
+ 
+ 
+<div id="content" >
+	<div class="hc_content" style="padding:28px;">
+
+<div class="ordersel">
+<div class="shopinfoHidden"></div>
+<div class="selectedShop">
+	<input id="selshopid" type="hidden" value="2350">
+</div>
+
+  <div class="sel-top"></div> 
+  
+  
+
+</div>
+</form>
+ 
+<script type="text/javascript"> 
+	var cartshopid = '<{$shopid}>';
+	var shopid = '<{$shopid}>'; 
+	 var starttime = '<{$shopinfo['starttime']}>'; 
+	 var is_orderbefore=<{$shopinfo['is_orderbefore']}>;
+	 var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+	 var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+	 	var submithtml = '<{ofunc type=url link="/shop/makeorder/datatype/json/random/@random@"}>';
+	  var orderhtml = '<{ofunc type=url link="/site/waitpay/orderid/@orderid@"}>';
+	  var memberid = <{$member['uid']}>;
+var allowedguestbuy = <{$allowedguestbuy|default:0}>;
+$(function(){ 	
+	maketimenenu();
+});
+
+
+//构造送货日期和送货时间
+function maketimenenu(){
+	var selectdate = $("select[name='senddate']").find("option:selected").val(); 
+  $('#orderTime').html(''); 
+  var dotime = ''; 
+  	dotime = starttime.split('|'); 
+  for(var i=0;i<dotime.length;i++){ 
+  		var splittime = dotime[i].split('-');
+  		if(splittime.length > 0){
+  			//开始时间  结束时间
+  			var begindtime = selectdate+' '+splittime[0]+':00';
+  			var endtime = selectdate+' '+splittime[1]+':00'; 
+  			addhtml(begindtime,endtime);
+  		}
+  } 
+}
+function addhtml(begindtime,endtime){ 
+	var begindate = new Date(begindtime.replace(/-/g,'/'));
+	
+	var enddate = new Date(endtime.replace(/-/g,'/'));
+	var bkdate = new Date(nowtime.replace(/-/g,'/'));
+	var begindates = Number(begindate.getTime());
+	var enddates = Number(enddate.getTime());
+	var bkdates = Number(bkdate.getTime());
+
+	
+	if(bkdates > begindates && bkdates > enddates){ 
+		 
+  }else{  
+  	var setptime = 15*60*1000; 
+			
+			
+	
+	
+	//	$('#orderTime').append('<option value="立即送出">立即送出</option>'); 
+	
+       for(var i=begindates;i<enddates;i=i+setptime){
+       	 if(i > bkdates){ 
+       	   var d = new Date()
+            d.setTime(i);
+            var nowhour = d.getHours();
+            var timesee =  Number(nowhour) < 10?'0'+nowhour:nowhour;
+            var nowminit = d.getMinutes();
+            timesee += Number(nowminit) < 10?':0'+nowminit:':'+nowminit;
+			
+            $('#orderTime').append('<option value="'+timesee+'">'+timesee+'</option>'); 
+         }
+	     }
+	} 
+}
+ 
+
+function addSend_time(obj)
+{
+	$('#send_time').val($(obj).val());
+}
+function setaddress(address,contactname,phone,areainfo) 
+{
+	 $("input[name='addrestemp']").val(areainfo+address);
+   $("input[name='phone']").val(phone);
+   $("input[name='recieve_name']").val(contactname); 
+}
+
+ 
+$('.beizhubox span').click(function(){
+	var value = $('#remark').val()+$(this).text() + ',';
+	$('#remark').val(value);
+})
+
+
+
+//刷新购物车
+function freshcart(){ 
+
+if($('#ShopCart').html() != undefined){
+	    url = siteurl+'/index.php?ctrl=site&action=smallcat&shopid='+shopid+'&random=@random@';
+	    url = url.replace('@random@', 1+Math.round(Math.random()*1000)); 
+	    $.get(url, function(result){ 
+	   
+        $("#cartlist").html(result);
+         freachperson();
+         jifenduihuan();  
+       //  $('.new_cart_show').bind("hover", function() {   
+      //   	  $(this).addClass('hoveron').siblings().removeClass('hoveron');
+      //   });
+    //    $('#CMoney').text(allcost);
+     //   $('#waimaibtn').text(allcost);
+      });
+   }else{ 
+   	//调用  自动刷新购物车  
+   	
+      url = siteurl+'/index.php?ctrl=site&action=smallcat2&shopid='+shopid+'&random=@random@';
+	    url = url.replace('@random@', 1+Math.round(Math.random()*1000)); 
+	    $.get(url, function(result){  
+        $("#cartshow_c").html(result);  
+         if(Number($('#jifendkou').attr('data')) > 0){
+  	        $('#jifendkou').show();
+         } 
+          jifenduihuan();  
+      }); 
+     
+     
+   }  
+}
+
+
+
+function  orderSubmit(){
+
+	//  url = siteurl+'/index.php?ctrl=shop&action=order&random=@random@';
+	 $('#showtj').hide();
+	 $('#showtj2').hide();
+	  url = submithtml.replace('@random@', 1+Math.round(Math.random()*1000));
+	  
+	
+
+	
+	var contactname = $("input[name='radiobutton']:checked + .caddr-edit-field input").eq(0).val(); 
+	var address = $("input[name='radiobutton']:checked + .caddr-edit-field input").eq(1).val(); 
+	var phone = $("input[name='radiobutton']:checked + .caddr-edit-field input").eq(2).val(); 
+	
+
+	 
+
+   $.ajax({         //script定义
+             url: url.replace('@random@', 1+Math.round(Math.random()*1000)),
+            dataType: "json",
+            async:true,
+            data:{'phonecode':$('#phonecode').val(),shopid:shopid,'remark':$('#remark').val(),'username':contactname,'mobile':phone,'addressdet':address,'areaid1':$("#areaid1").find("option:selected").val(),'areaid2':$("#areaid2").find("option:selected").val(),'areaid3':$("#areaid3").find("option:selected").val(),'senddate':$("select[name='senddate']").find("option:selected").val(),'minit':$("#orderTime").find("option:selected").val(),'paytype':$("input[name='paytype']:checked").val(),'dikou':$("select[name='jfdk']").find("option:selected").val(),'juanid':$("input[name='buyjuan']:checked").val()},
+            success:function(content) { 
+			
+			
+            //	$('#loading').toggle();
+             if(content.error == true){ 
+                $('#showtj2').hide();
+	              $('#showtj').show();
+	              alert(content.msg);
+             }else{
+             
+	             window.location.href= orderhtml.replace('@orderid@', content.msg);
+             }
+            },
+            error:function(){
+            	 $('#showtj2').hide();
+	              $('#showtj').show();
+            	//$('#loading').toggle();
+            	alert('数据提交失败');
+            }
+   });     
+}
+</script>
+ 
+
+</div> 
+<{/block}>

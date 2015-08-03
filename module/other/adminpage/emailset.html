@@ -1,0 +1,50 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>邮件设置<{/block}>
+ <{block name=bodylist}>
+
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto;">
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/other/module/emailsetsave/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">是否启用SMTP邮箱</td>
+                      <td><input type="checkbox" name="start_smtp" id="start_smtp" value="1" <{if !empty($smpt)}>checked<{/if}> >勾选后下面设置才能生效</td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">SMTP邮局地址</td>
+                      <td><input type="text" name="smpt" id="smpt" value="<{$smpt}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">发件邮箱</td>
+                      <td><input type="text" name="emailname" id="emailname" value="<{$emailname}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">邮箱密码</td>
+                      <td><input type="password" name="emailpwd" id="emailpwd" value="<{$emailpwd}>" class="skey" style="width:250px;"></td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">
+            </form>
+          </div>
+
+
+         </div>
+
+
+
+          </div>
+
+<!--newmain 结束-->
+<{/block}>

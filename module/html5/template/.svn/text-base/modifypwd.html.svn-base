@@ -1,0 +1,40 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/editaddress.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+ 
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+<div id="hallist">
+
+  	<header><div class="return"></div>密码修改</header> 
+  <div class="container">
+
+  	<section>
+  		<form id="fromChangePassword" action="" method="post">
+  		<input type="password" class="inputInp" id="curPassowrd" name="curPassowrd" placeholder="输入当前密码">
+  		<input type="password" class="inputInp" id="newPassword1" name="newPassword1" placeholder="请输入新密码">
+  		<input type="password" class="inputInp" id="newPassword2" name="newPassword2" placeholder="请重新输入密码"></form></section>
+  	 <div class="btnAdd"><input class="inputBtn" id="addAddress" type="button" value="提交修改" onclick="savepwd();"></div>
+  	 
+<script>
+ 
+	function savepwd(){ 
+		   $('#loading').show();
+       var info = {'controlname':'pwd','pwd':$('#curPassowrd').val(),'newpwd':$('#newPassword1').val(),'newpwd2':$('#newPassword2').val()};
+		  var url = '<{ofunc type=url link="/member/saveuser/random/@random@/datatype/json"}>';
+		  var backdata = ajaxback(url,info); 
+		  if(backdata.flag == false){ 
+		      window.location.href = siteurl+'/index.php?controller=html5&action=index';
+		  }else{
+		  	$('#loading').hide();
+		     Tmsg(backdata.content);
+		  }
+		  
+	}
+	</script>
+
+<{/block}>

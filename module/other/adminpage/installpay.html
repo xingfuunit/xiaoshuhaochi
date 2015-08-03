@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="zh-CN">
+<meta content="all" name="robots">
+<meta name="description" content="">
+<meta content="" name="keywords">
+<title>上传图片</title>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin.css">
+
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+</head>
+<body style="background:none;height:200px;width:400px;">
+	 <form enctype="multipart/form-data" method="post" name="upform" action="<{ofunc type=url link="/adminpage/other/module/savepay"}>" >
+	 	<input type="hidden" value="<{$idtype}>" name="idtype">
+	 	<{if !is_array(info)}>
+	 	<table>
+	 	<{foreach from=$info item=items}>
+	 	 <tr><td width=120px height=35px><{$items['title']}></td><td><input type="text" value="<{$setinfo[$items['name']]}>" name="<{$items['name']}>"><{$items['desc']}></td></tr>
+
+	 	  <{/foreach}>
+
+	 	  </table>
+	 	   <input type="submit" value="提交保存" class="button">
+	 	   <{else}>
+	 	   不存在接口文件
+	 	 <{/if}>
+
+
+
+
+  </form>
+  <script>
+
+  	</script>
+</body>
+</html>

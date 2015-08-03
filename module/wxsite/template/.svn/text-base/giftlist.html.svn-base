@@ -1,0 +1,105 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/gift.css">
+<{/block}>
+ <{block name=extendjs}> 
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/template.min.js"></script>   
+ 
+ <script>  
+  function showorder(obj){
+
+  	window.location.href=siteurl+'/index.php?controller=wxsite&action=ordershow&orderid='+$(obj).attr('orderid')+'&random=@random@';  //'ordershow.html?orderid='+$(obj).attr('orderid');//  	alert($(obj).attr('orderid')); 
+
+  } 
+</script>
+
+<{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 礼品列表 </header><{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div style="height:44px;"></div>
+ 
+  <section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist"> 
+  			     
+  			    <{load_data assign="list" table="gift"   fileds="*"  limit="100" }> 
+            	    <{foreach from=$list['list'] item=value}>
+  		    <li class="listb"   >
+  			  	  <div class="imgdiv">
+  			  	 	   <div class="goodsimg"><img alt="<{$value['title']}>" src="<{$value['img']}>" style="height:90px;width:90px;"></div>
+  			    	</div>
+  			      <div class="colomns liwd70"> 
+  			        <div style="line-height:15px;"><{$value['title']}></div>
+  			      	<div style="line-height:15px;" class="box_inline"><div class="liwd20">积分:</div><div class="liwd80"><span class="costtext"><{$value['score']}></sapn></div></div>
+  			      	<div  style="line-height:15px;" class="box_inline"><div class="liwd20">库存:</div><div class="liwd80"><span class="costtext"><{$value['stock']}></span></div></div>
+  			      	<div style="padding-top:20px;"><span class="btn" onclick="duihuan('<{$value['id']}>','<{$value['score']}>','<{$value['title']}>','<{$value['sell_count']}>','<{$value['stock']}>','<{$value['img']}>')">立即兑换</span></div>
+  			      	
+  			    	</div>
+  			    	  
+  			  </li>
+  			   
+  			     <{/foreach}> 
+  			    
+  			</ul> 
+    </section>
+   
+ <div style="clear:both;height:40px;"></div>
+ 
+ <div class="cart_tj">  帐号积分<span id="total_count"><{$member['score']}></span>个 </div>
+
+ <script>
+ 	   	function duihuan(gid,gscore,gtitle,gsell_count,gstock,gimg)
+			{
+			 
+			   var cc = '<{$member['uid']}>';
+			   var userscore = <{$member['score']}>;
+			   if( cc < 1)
+			   {
+			   	  Tmsg('登录后才可兑换');
+			   	}else{
+			   		if(userscore < gscore){
+			   		  Tmsg('用户帐号金额不足兑换此商品');
+			   		}else{
+			   		   if(gstock < 1){
+			   		   	 Tmsg('兑换商品库存不足');
+			   		   }else{
+			   		   	var htmldata ='<div id="mask" > </div> <div class="popup" id="gift_di"  >  	<input type="hidden" name="giftid" id="giftid" value=0>  <div style="height:20px;text-align:right;"><div style="margin-right:5px;"><span onclick="closeout();">×关闭</span></div></div>';
+ 	                  htmldata +='<div class="box_inline"><div class="liwd30" style="line-height:30px;text-align:right;">联系地址：</div><div class="liwd70"> <input type="input" name="address" id="address"   style="width:80%;margin-top:0px;"> </div></div>';
+ 	                  htmldata +='<div class="box_inline"><div class="liwd30" style="line-height:30px;text-align:right;">联系人：</div><div class="liwd70"> <input type="input" name="aboutname" id="aboutname"   style="width:80%;margin-top:0px;"> </div></div>';
+ 	                  htmldata +='<div class="box_inline"><div class="liwd30" style="line-height:30px;text-align:right;">联系电话：</div><div class="liwd70"> <input type="input" name="aboutphone" id="aboutphone"   style="width:80%;margin-top:0px;"> </div></div>';
+ 	                  htmldata +='<div class="box_inline"><div class="liwd30" style="line-height:30px;text-align:right;"></div><div class="liwd70"><span class="btn" onclick="dochange();">提交兑换</span></div></div>';
+ 	                  htmldata +='<div style="height:20px;"></div></div>	';
+ 	              $('body').append(htmldata);
+			   		   	 $('#giftid').val(gid);
+			   		    
+			   		   } 
+			   		}
+          
+         }
+			}
+			function closeout(){
+			   $('#mask').remove();
+			   $('#gift_di').remove();
+			}
+				   	 
+			function dochange(){  
+ 	  	    $('#loading').show(); 
+ 	  	   
+	         	var info = {'lipin_id':$('#giftid').val(),'address':$('#address').val(),'aboutname':$('#aboutname').val(),'aboutphone':$('#aboutphone').val()};
+	        	var url = '<{ofunc type=url link="/gift/exchang/random/@random@/datatype/json"}>';
+	        	    url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+	          var backinfo = ajaxback(url,info);
+	          if(backinfo.flag ==  false){
+	          	 $('#loading').hide(); 
+	              $('#mask').remove();
+			          $('#gift_di').remove();
+			           Tmsg('操作成功');
+	          }else{
+	          	$('#loading').hide();
+	             alert(backinfo.content);
+	          } 
+ 	  };
+ </script>
+  
+<{/block}>

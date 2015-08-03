@@ -1,0 +1,48 @@
+
+<script>
+//刷新 界面显示	
+<{assign var=goodsids  value=json_encode($carinfo['goods']['id'])}> 
+var cartids = <{$goodsids}>;
+</script>
+  <{if is_array($carinfo['goods']['shopdata'])}>
+	 <{foreach from = $carinfo['goods']['shopdata'] item=value}>
+	     <li class="showshopname">快餐：<{$value['shopinfo']['shopname']}></li>
+	      <{foreach from=$value['list'] item=val}>
+	       <li class="incart">
+	 	       <div class="SCName"><{$carinfo['goods']['data'][$val]['name']}><{if $carinfo['goods']['data'][$val]['store_num']< $carinfo['goods']['data'][$val]['count']}><font color=red>库存不足</font><{/if}></div>
+	 	       <div class="SCNum"><span><input type="text" id="cart_count<{$carinfo['goods']['data'][$val]['goods_id']}>" onblur="downcart(<{$carinfo['goods']['data'][$val]['goods_id']}>,'goods')" value="<{$carinfo['goods']['data'][$val]['count']}>" data="<{$carinfo['goods']['data'][$val]['count']}>" maxlength="2" class="cart_num"></span></div>
+	 	          <div class="SCSubtotal"><{$carinfo['goods']['data'][$val]['count']*$carinfo['goods']['data'][$val]['cost']}></div><div class="SCOperate"><a href="javascript:;" onclick="delcart(<{$carinfo['goods']['data'][$val]['goods_id']}>,'goods')"></a></div>
+	 	          <div style="clear:both;"></div>
+	       </li> 
+	    <{/foreach}>
+	    <li class="showshoptj">合计：<{$value['sum']}> 元</li>
+	 <{/foreach}>
+	 <{/if}>
+	 <{if is_array($carinfo['market']['data']) && count($carinfo['market']['data']) > 0}>
+	    <{foreach from = $carinfo['market']['shopdata'] item=value}>
+	     <li class="showshopname">订台：<{$value['shopinfo']['shopname']}></li>
+	      <{foreach from=$value['list'] item=val}>
+	       <li class="incart">
+	 	       <div class="SCName"><{$carinfo['market']['data'][$val]['name']}><{if $carinfo['market']['data'][$val]['store_num']< $carinfo['market']['data'][$val]['count']}><font color=red>库存不足</font><{/if}></div>
+	 	       <div class="SCNum"><span><input type="text" id="cart_count<{$carinfo['market']['data'][$val]['goods_id']}>" onblur="downcart(<{$carinfo['market']['data'][$val]['goods_id']}>,'goods')" value="<{$carinfo['market']['data'][$val]['count']}>" data="<{$carinfo['market']['data'][$val]['count']}>" maxlength="2" class="cart_num"></span></div>
+	 	          <div class="SCSubtotal"><{$carinfo['market']['data'][$val]['count']*$carinfo['market']['data'][$val]['cost']}></div><div class="SCOperate"><a href="javascript:;" onclick="delcart(<{$carinfo['market']['data'][$val]['goods_id']}>,'market')"></a></div>
+	 	          <div style="clear:both;"></div>
+	       </li> 
+	    <{/foreach}>
+	    <li class="showshoptj">合计：<{$value['sum']}> 元</li> 
+	    <{/foreach}>
+	 <{/if}>
+	 <!--
+   <li class="showshopname">店铺：fdsafdsa</li>
+  	<{foreach from=$carinfo['goods']['data'] item=value}> 
+	 <li class="incart">
+	 	  <div class="SCName"><{$value['name']}><{if $value['store_num']< $value['count']}><font color=red>库存不足</font><{/if}></div>
+	 	  <div class="SCNum"><span><input type="text" id="cart_count<{$value['goods_id']}>" onblur="downcart(<{$value['goods_id']}>)" value="<{$value['count']}>" data="<{$value['count']}>" maxlength="2" class="cart_num"></span></div>
+	 	  <div class="SCSubtotal"><{$value['count']*$value['cost']}></div><div class="SCOperate"><a href="javascript:;" onclick="delcart(<{$value['goods_id']}>)"></a></div>
+	 	  <div style="clear:both;"></div>
+	 </li>
+   <{/foreach}>
+   -->
+   
+    <input type="hidden" name="carsumcount" id="carsumcount" value="<{$carinfo['count']|default:0}>">
+   <input type="hidden" name="carsumcost"  id="carsumcost" value="<{$carinfo['sum']|default:0}>">

@@ -1,0 +1,201 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendjs}> 
+<{/block}>
+<{block name=extendcss}>
+<link href="<{$siteurl}>/templates/<{$tempdir}>/public/css/main.css" rel="stylesheet" type="text/css" />
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ 
+ <div class="chy_list_zp">
+  <div class="mainbody">
+    <div id="left_list">
+	  <div class="tit01">
+	    <span class="tit01">我在:</span><span><{$mapname}></span><a href="<{ofunc type=url link="/site/guide"}>">重新定位</a>
+	  </div>
+	  <ul id="left_cale">
+       <li>
+        	 <div class="box_up">外卖类型：</div>
+             <div class="detail" data="1"  >                
+                	<a href="<{ofunc type=url link="/site/shoplist/renjun/<{$renjun|default:'default'}>/qisong/<{$qisong|default:'default'}>/orderby/<{$orderby|default:'default'}>"}>" <{if empty($cpid)|| $cpid=='default'}>class="current"<{/if}>>全 部</a> 
+                 <{foreach from=$attrinfo key=mykey item=items}>
+                	      <a href="<{ofunc type=url link="/site/shoplist/cpid/<{$items['id']}>/qisong/<{$qisong|default:'default'}>/renjun/<{$renjun|default:'default'}>/orderby/<{$orderby|default:'default'}>"}>" <{if $cpid == $items['id']}>class="current"<{/if}>><{$items['name']}></a> 
+                 <{/foreach}> 
+           </div>
+        </li>
+        <div style="clear:both;"></div>
+        
+        
+         <li>
+        	 <div class="box_up">人均消费：</div>
+             <div class="detail"  >                
+                
+               			 <a href="<{ofunc type=url link="/site/shoplist/cpid/<{$cpid|default:'default'}>/qisong/<{$qisong|default:'default'}>/orderby/<{$orderby|default:'default'}>"}>" <{if empty($renjun)|| $renjun=='default'}>class="current"<{/if}> >全 部</a>   
+          	   <a href="<{ofunc type=url link="/site/shoplist/renjun/1/cpid/<{$cpid|default:'default'}>/qisong/<{$qisong|default:'default'}>/orderby/<{$orderby|default:'default'}>"}>" <{if $renjun == 1}>class="current"<{/if}>>1到10元</a>   
+          	  <a href="<{ofunc type=url link="/site/shoplist/renjun/2/cpid/<{$cpid|default:'default'}>/qisong/<{$qisong|default:'default'}>/orderby/<{$orderby|default:'default'}>"}>" <{if $renjun == 2}>class="current"<{/if}>>10到50元</a>  
+          	  <a href="<{ofunc type=url link="/site/shoplist/renjun/3/cpid/<{$cpid|default:'default'}>/qisong/<{$qisong|default:'default'}>/orderby/<{$orderby|default:'default'}>"}>" <{if $renjun == 3}>class="current"<{/if}>>50到100元</a>  
+           </div>
+        </li>
+        <div style="clear:both;"></div>
+	  </ul>
+      <div style="clear:both;"></div>
+	  <div class="tit02">
+</div>
+	  
+	  
+	  
+<div class="shangJiaZhanShiCaiPinLeftMain" id="showlist">
+    	
+        <ul >
+        
+        	<{foreach from=$shoplist item=items}>
+			
+                <div class="postionMain  getmapdata" name="recommendStore" id="<{$items['id']}>_SupInfo"  ulng="<{$items['lng']}>" ulat="<{$items['lat']}>" slng="<{$lng}>" slat="<{$lat}>">
+                <dl>
+                    <dt><a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>" title=""><img src="<{$items['shoplogo']|default:$shoplogo}>" /></a></dt>
+                    <dd>
+					   <div id="hangwu"><span class="left"><a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>" title="<{$items['shopname']}>"><b><{$items['shopname']}></b></a></span><span class="right juliid">起送<{$items['limitcost']}>元</span></div>
+				       <div id="hangwu"><span class="left">
+                        <{if $items['opentype']   == 2 || $items['opentype'] == 3}>
+                        <h3 class="margin_t30 online">营业中</h3> 
+                        <{else}>
+                        <h3 class="margin_t30 online">休息中</h3>
+                        <{/if}> 
+                       
+                       </span><span class="right"><a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>" class="a1">立即订餐</a></span></div>
+                    </dd>
+                </dl>
+                
+                <div name="storeFloatWin" class="floatMain">
+                    
+                   <div id="nr">
+				     <div class="s_name"><p><{$items['shopname']}></p></div>
+                     <div class="s_yy">
+					 <p>
+                     <{if $items['opentype']  == 2 || $items['opentype'] == 3}>
+                        <h3 class="margin_t30 online">餐厅正在营业，提供外卖服务</h3> 
+                     <{else}>
+                        <h3 class="margin_t30 online">餐厅已休息暂时不提供外卖服务</h3>
+                     <{/if}> 
+                     </p>
+                     </div>
+					 <p><img src="<{$siteurl}>/templates/<{$tempdir}>/public/img/list_r28_c11.jpg" />该餐厅支持在线服务</p>
+					 <p><b>人均：</b><{$items['personcost']}>元</p>
+					 <p><b>营业时间：</b><{$items['starttime']}></p>
+					 <p><b>简介：</b><{$items['intr_info']|htmlspecialchars_decode}></p>
+				   </div>
+                </div>
+                </div>
+	<{/foreach}>		
+				
+				
+        </ul>
+    </div>  
+	  
+	  
+	  
+	  
+	  
+	  
+	<div class="page">
+	<{$pagecontent}></div>  
+	  
+	  
+	  
+	</div>
+    <div class="prudot_right_05">
+	  <div class="div_zt01">
+	     <div class="tit01">
+		 <h1>推荐餐厅</h1> 
+		 <a id="more_03"></a>
+		 </div>
+		 <ul class="ul_055_right">
+         	
+      <{foreach from=$recomshop item=items}>
+		   <li   class="getmapdata"       ulng="<{$items['lng']}>" ulat="<{$items['lat']}>" slng="<{$lng}>" slat="<{$lat}>">
+		     <dl>
+			   <dt><a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><img src="<{$items['shoplogo']|default:$shoplogo}>"></a></dt>
+			   <dd>
+			      <div><span class="left"><b><a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><{$items['shopname']}></a></b></span><span class="right juliid">起送<{$items['limitcost']}>元</span></div>
+				   <div><span class="left">
+                    
+                        <h3 class="margin_t30 online">热卖推荐</h3>
+                        
+                   </span><span class="right"><a href="<{ofunc type=url link="/fastfood/show/shop/<{$items['shortname']|default:$item['id']}>"}>" class="a1">立即订餐</a></span></div>
+				
+				</dd>
+			 </dl>
+		   </li>
+		 <{/foreach}> 
+         
+		 </ul>
+	  </div>
+	</div>
+  </div>
+</div>   
+	  
+<script>
+	$(function(){
+		var myaddressid = '<{$myaddress}>';
+		if(myaddressid == null|| myaddressid==''){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	});
+	$(function(){   
+		var allobj = $('.getmapdata'); 
+	 
+
+		$('.postionMain').hover(function() {
+            /* 修改Z-index值*/
+			$(this).css("z-index","99");
+		    $(this).find("[name='storeFloatWin']").css("z-index","99");
+		},function(){
+			$(this).css("z-index","1");
+		    $(this).find("[name='storeFloatWin']").css("z-index","1");
+        });
+
+		
+		
+	var recommendStoreTimer = null;
+	
+	$("[name='recommendStore']").mouseenter(function() {
+		if (recommendStoreTimer != null) {
+			window.clearTimeout(recommendStoreTimer);
+		}
+		
+		var obj = $(this);
+		
+		var timer = setTimeout(function() {				
+			$("[name='storeFloatWin']").hide();
+			obj.find("[name='storeFloatWin']").show();
+			
+			currentHoverStore = obj;		
+		}, 200);
+		
+		recommendStoreTimer = timer;
+		
+	});
+	
+	$("[name='recommendStore']").mouseleave(function() {
+		if (recommendStoreTimer != null) {
+			window.clearTimeout(recommendStoreTimer);
+			recommendStoreTimer = null;
+		}
+		
+		$("[name='storeFloatWin']").hide();
+	});
+	
+	$("[name='storeFloatWin']").mouseenter(function() {
+		$(this).hide();
+	});		
+		
+  });
+</script>
+<style>
+	.getmapdata a:hover{text-decoration:none;}
+	</style>  
+	  
+	   
+<div style="height:20px;"></div>
+<!--区域店铺-->
+<{/block}>

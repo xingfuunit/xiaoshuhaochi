@@ -1,0 +1,56 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span">我的订单</span><a style="font-size:14px;" href="javascript:addAddr();">[添加新地址]</a></div>
+			 
+				<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table class="table table-bordered" style="margin-top:15px;" id="myAddr_table" width=100%>
+			            <tbody>
+			            	<tr style="height: 90px; background: #FAFBFA;">
+								<td style="width:25%;line-height: 70px; background: #DCEEF6; font-size:16px;">邮箱激活</td>
+								<td style="width:50%;line-height: 70px;">您的邮箱还没激活！</td>
+								<td style="width:25%">
+									<div class="hc_UserInfoTdDiv hc_UserInfoTdDivMarTop"><a href="http://www.haochi.me/sendBangdingEmail?user_id=546">重发激活邮件</a></div>
+		                  			<div class="hc_UserInfoTdDiv"><a href="http://www.haochi.me/changeEmail">更换邮箱</a></div>
+								</td>
+							</tr>
+			            </tbody>
+			        </table>
+		        </div>
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	function addAddr()
+	{
+		$('#newAddr_1').show();
+	}
+	function newAddr()
+	{
+		var info = $('#adfrom').serialize();
+		var url = '<{$siteurl}>/index.php?controller=member&action=address&random=@random@';
+		myajax(url,info);
+	}
+	function changeAddr(controlname,uid,obj)
+	{
+		 
+		var info = {'tijiao':'do',controlname:$(obj).val(),'addressid':uid,what:controlname};
+		var url = '<{$siteurl}>/index.php?controller=member&action=address&random=@random@';
+		 myajax(url,info);
+	}
+	function delAddr(uid){
+		var info = {'tijiao':'del','addressid':uid};
+		var url = '<{$siteurl}>/index.php?controller=member&action=address&random=@random@';
+		myajax(url,info);
+	}
+	 
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

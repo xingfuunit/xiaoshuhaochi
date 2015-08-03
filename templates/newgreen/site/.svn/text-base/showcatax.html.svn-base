@@ -1,0 +1,278 @@
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <{if $showtype == 'market'}>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js" type="text/javascript" language="javascript"></script>
+ <{else}>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script>
+ <{/if}>
+
+
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/phonecheck.js" type="text/javascript" language="javascript"></script>
+   <script>
+   		 var starttime = '<{$shopinfo['starttime']}>';
+	 var is_orderbefore=<{$shopinfo['is_orderbefore']}>;
+	 var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+	 var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+	 	var submithtml = '<{ofunc type=url link="/shop/makeorder/datatype/json/random/@random@"}>';
+	  var orderhtml = '<{ofunc type=url link="/site/waitpay/orderid/@orderid@"}>';
+	  <{$yanchitime = time()+$shopinfo['maketime']*60}>
+	  var maketime = '<{$yanchitime|date_format:"%Y-%m-%d %H:%M:%S"}>';
+ $(function(){
+
+$('.ajaxcart_middle .cart_out_show ol li:nth-of-type(4) input').attr('checked','checked');
+$('.ajaxcart_middle .cart_out_show ol li:nth-of-type(4) span').html('微信支付');
+$('.ajaxcart_middle .cart_out_show ol li:nth-of-type(5) span').html('支付宝');
+
+
+	maketimenenu();
+	var yanse = $('.remark_li').find('li');
+	 $.each(yanse, function(i,val){
+	  if(i%4 == 0){
+	  	 $(val).css('background-color','#51cef7');
+	  }else if(i%4 == 1){
+	  	$(val).css('background-color','#e46ecc');
+	  }else if(i%4 == 2){
+	  		$(val).css('background-color','#ffb644');
+	  }else if(i%4 == 3){
+	  	$(val).css('background-color','#70c305');
+	  }
+  });
+
+});
+$('#remark_li li').click(function(){
+	var value = $('#remark').val()+$(this).text() + ',';
+	$('#remark').val(value);
+})
+	  </script>
+      <{assign var=allcost  value=0}>
+      <{assign var=truecost  value=0}>
+      <{assign var=areacost  value=0}>
+      <{assign var=bagcost  value=0}>
+      <{assign var=downcost  value=0}>
+      <{assign var=surecost  value=0}>
+ <input type="hidden" name="shop_id" id="shop_id" value="<{$shopid}>" />
+ <input type="hidden" name="showtype" id="showtype" value="<{$showtype}>" />
+ <{foreach from=$cartinfo['list']  key=ckkey item=items}>
+       <{if $shopid ==  $ckkey}>
+<div class="ajaxcart_top" id="checktj_newcart">
+	  <div class="left_title">提交订单</div>
+	  <div class="right_title" onclick="close_ajaxcart();">×</div>
+</div>
+<div class="ajaxcart_middle">
+	<table cellspacing="0" cellpadding="0" class="cart_table cart_common">
+	  <thead>
+		<tr>
+			<th>商品名称</th>
+			<th>单价(元/份)</th>
+			<th>打包费(元/份)</th>
+			<th>数量(份)</th>
+			<th>小计(元)</th>
+  	  </tr>
+  	</thead>
+    <tbody>
+  	 <{foreach from=$items['data'] item=itv}>
+  	<tr class="itv_list">
+		<td><{$itv['name']}></td>
+		<td><{$itv['cost']|default:'0'}></td>
+		<td><{$itv['bagcost']|default:'0'}></td>
+		<td><{$itv['count']}><{if $itv['store_num'] < $itv['count']}><font color=red>库存不足</font><{/if}></td>
+		<td><{$itv['cost']*$itv['count']+$itv['bagcost']*$itv['count']}></td>
+  	</tr>
+		<{/foreach}>
+		<{if isset($items['cx']['gzdata']) && count($items['cx']['gzdata']) > 0}>
+       	<{foreach from=$items['cx']['gzdata'] item=ivalue}>
+    <tr class="promotion">
+		   <td colspan="5"><{$ivalue}>(<font>满足的促销活动</font>)</td>
+  	</tr>
+      <{/foreach}>
+    <{/if}>
+
+      <{if $member['uid'] > 0}>
+       <tr>
+		        <td colspan="5">假如你有优惠劵,<a href="<{ofunc type=url link="/member/base"}>">进入会员中心绑定</a></td>
+  	  </tr>
+       <{foreach from=$juanlist item=itemm}>
+
+     <tr>
+		      <td colspan="5"><input type="radio" name="buyjuan" <{if $items['sum'] < $itemm['limitcost']}> disabled <{/if}> value="<{$itemm['id']}>" data="<{$itemm['cost']}>" data2="<{$itemm['limitcost']}>"><{$itemm['name']}>(说明：优惠<{$itemm['cost']}>元),注意：订单最低金额<{$itemm['limitcost']}>元,截止时间:<{$itemm['endtime']|date_format:"%Y-%m-%d"}></td>
+  	  </tr>
+
+
+        				   	<{/foreach}>
+        				  <{else}>
+      <tr>
+
+		      <td colspan="5">假如你有优惠劵,请先登录在使用优惠劵<a href="<{ofunc type=url link="/member/login"}>">点击登录</a></td>
+  	  </tr>
+
+      <{/if}>
+
+     <{$allcost = $items['sum']}>
+		    <{$areacost = $areacost + $items['pscost']}>
+        <{$bagcost = $bagcost + $items['bagcost']}>
+        <{$downcost = $downcost + $items['cx']['downcost']}>
+       <{$surecost = $surecost + $items['cx']['surecost']}>
+    </tbody>
+	</table>
+	<div class="order_gap"></div>
+	<ul class="cart_address cart_common">
+		<li class="">
+			<label>
+			<span class="hc_order_lists_span_color"> * </span>姓名:
+			</label>
+			<input type="text" id="recieve_name" name="recieve_name" value="<{$myaddressslist['contactname']|default:''}>"  size="15">
+
+		</li>
+		<li class="">
+			<label>
+			<span class="hc_order_lists_span_color"> * </span>电话:
+			</label>
+			<input type="text" id="mobile" name="phone" value="<{$myaddressslist['phone']|default:''}>"  size="15">
+
+	   	<span style="display:none;" class="hc_order_lists_span" id="uphone" >外卖到时将以该电话通知您</span>
+		</li>
+		<li class="">
+			<label>
+			<span class="hc_order_lists_span_color"> * </span>地址:
+			</label>
+		<input type="text" id="addrestemp" name="addrestemp" value="<{$myaddressslist['address']|default:$areainfo}>" data="<{if $locationtype != 1}><{$areainfo}><{/if}>"  size="50">
+		</li>
+		<li>
+			<label><span class="hc_order_lists_span_color"> * </span>配送时间:</label>
+
+			 <select name="senddate" onchange="maketimenenu();">
+		   	 <{if $shopinfo['befortime'] > 0}>
+		   	    <{assign var=shownow value=$select_time}>
+		   	    <{section name=loop loop=$shopinfo['befortime']}>
+		            <option value="<{$select_time|date_format:"%Y-%m-%d"}>"><{$select_time|date_format:"%Y-%m-%d"}></option>
+
+		            <{$select_time = $select_time+86400}>
+  <{/section}>
+		   	 <{else}>
+		   	  <option value="<{$select_time|date_format:"%Y-%m-%d"}>"><{$select_time|date_format:"%Y-%m-%d"}></option>
+		   	  <{/if}>
+		  </select>
+   <span id="ordertime" data="11:30:00">11:30-12:00</span>
+	  <!--	<select>
+	  	<option  id="orderTime" data="11:30:00" value="11:30-12:00">11:30-12:00</option>
+		  </select> -->
+                        
+                       
+		</li>
+	</ul>
+	<div class="clear"></div>
+	<!--<div class="order_gap"></div>
+	<ul class="cart_time cart_common">
+		<li>
+			<label>配送方式:</label>
+			 <span> <{if $items['pstype'] == 1}>网站配送<{else}>店铺配送<{/if}> </span>
+		</li>
+		<li>
+			<label >配送时间:</label>
+
+			 <select name="senddate" onchange="maketimenenu();">
+		   	 <{if $shopinfo['befortime'] > 0}>
+		   	    <{assign var=shownow value=$select_time}>
+		   	    <{section name=loop loop=$shopinfo['befortime']}>
+		            <option value="<{$select_time|date_format:"%Y-%m-%d"}>"><{$select_time|date_format:"%Y-%m-%d"}></option>
+
+		            <{$select_time = $select_time+86400}>
+  <{/section}>
+		   	 <{else}>
+		   	  <option value="<{$select_time|date_format:"%Y-%m-%d"}>"><{$select_time|date_format:"%Y-%m-%d"}></option>
+		   	  <{/if}>
+		  </select>
+   <span id="ordertime" data="11:30:00">11:30-12:00</span>
+	  <!--	<select>
+	  	<option  id="orderTime" data="11:30:00" value="11:30-12:00">11:30-12:00</option>
+		  </select> 
+                        
+                       
+		</li>-->
+	</ul>
+	<div class="order_gap"></div>
+	<ul class="cart_out_show cart_common">
+		<li>
+          <ol>
+            <li><label>支付方式:</label></li>
+			 <li class="cart_pay_l"> <input type="radio" name="paytype" value="outpay" checked="checked"/>货到支付</li>
+								              <{if $open_acout == 1}>
+								              <{if $open_acout == 1 && !empty($member)}>
+				<li class="cart_pay_l">				              <input type="radio" name="paytype" value="open_acout"/>账户余额支付(我的余额<{$member['cost']|default:'0'}>元) </li>
+								              <{/if}>
+								              <{if isset($paylist)&&is_array($paylist)}>
+								              <{foreach from=$paylist item=itk}>
+				<li class="cart_pay_l">				              <input type="radio" name="paytype" value="<{$itk['loginname']}>"/><span></span></li>
+								              <{/foreach}>
+								              <{/if}>
+								              <{/if}>
+          </ol>
+         </li>
+      <!--   <li>
+           <ol id="jifendkou" jfendata="<{$scoretocost}>" data="<{$member['score']|default:0}>" <{if $member['uid'] < 1}>style="display:none;"<{/if}>>
+             <li><label> 积分抵扣:</label></li>
+			<li><span id="activeJifenselect"></span></li>
+			<li><span class="hc_order_lists_span_color" style="float:left;"> 抵扣比例：<{$scoretocost}>积分抵扣1元</span></li>
+           </ol>
+	     </li> -->
+		 
+	</ul>
+	<!--<ul class="cart_score cart_common" id="jifendkou" jfendata="<{$scoretocost}>" data="<{$member['score']|default:0}>" <{if $member['uid'] < 1}>style="display:none;"<{/if}>>
+		<li><label> 积分抵扣:</label></li>
+		<li><span id="activeJifenselect"></span></li>
+		<li><span class="hc_order_lists_span_color" style="float:left;"> 抵扣比例：<{$scoretocost}>积分抵扣1元</span></li>
+	</ul>-->
+	<div class="order_gap"></div>
+ <ul class="cart_remark cart_common">
+		<li><label>备 注:</label>
+         <input type="text"/>
+		 </li>
+		<!--<li><textarea name="remark" id="remark"></textarea></li>
+		<li class="remark_li" id="remark_li">
+			<ul>
+						<{if isset($orderbz) &&!empty($orderbz)}>
+						<{$orderbz = $orderbz|unserialize}>
+						 <{foreach from=$orderbz item=itv}>
+						  <{if !empty($itv)}>
+						<li><{$itv}></li>
+						 <{/if}>
+						<{/foreach}>
+						<{/if}>
+		  </ul>
+		</li>-->
+	</ul>
+</div>
+	<div class="clear"></div>
+<div class="ajaxcart_bottom">
+	 <table border="0" cellspacing="0" cellpadding="0"  style="width:780px;" align="center">
+	 	<tr>
+	 		 <td class="td1"> 配送费</td>
+	 		 <td class="td1">打包费</td>
+	 		 <td  class="td1">积分抵扣</td>
+	 			<td class="td1">优惠卷</td>
+	 			<td class="td1">优惠</td>
+	 			<td class="td1">商品总价</td>
+	 			<td class="td1">订单实价</td>
+	 			<td rowspan="2" style="width:100px;text-align:center;"><div class="new_cart_oncls" onclick="close_ajaxcart();">继续下单</div></td>
+	 			<td rowspan="2" style="width:120px;text-align:center;"><div class="new_cart_onsub" onclick="orderSubmit();" id="showtj">提交订单</div>
+	 				<div class="new_cart_onsub"   id="showtj2" style="display:none;">处理中..</div></td>
+	 			
+	 	</tr>
+	 	<tr>
+	 		<td class="td1"> ￥<{$items['pscost']}></td>
+	 		<td class="td1">￥<{$items['bagcost']}></td>
+	 		<td class="td1">￥<font id="jfcost">0</font></td>
+	 			<td class="td1">￥<font id="yhjcost">0</font></td>
+	 			<td class="td1">￥<{$items['cx']['downcost']}></td>
+	 			<td class="td1">￥<{$items['sum']}></td>
+	 			<{$jisuancost = $surecost+$bagcost+$areacost}>
+	 			<td class="td1" id="surecost" data="<{$surecost}>"  bagcost="<{$bagcost}>" areacost="<{$areacost}>" alldata="<{$jisuancost}>">￥<{$jisuancost}></td>
+
+	 	</tr>
+	</table>
+
+</div>
+ <{/if}>
+ <{/foreach}>
+
+

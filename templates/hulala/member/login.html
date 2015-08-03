@@ -1,0 +1,68 @@
+ 	<{include file="<{$tempdir}>/public/top.html"}>
+ 	<div id="content">
+	<form id="loginForm" method="post" action="<{ofunc type=url link="/member/loginin"}>">
+<div class="hc_content">
+		
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span">用户登录</span></div>
+			<div class="hc_login_content">
+				<div class="hc_login_content_left">
+					<div style="height:132px;"></div>
+					<div class="hc_login_div">
+						<span class="hc_login_div_span">账 号 ：</span>
+						<input onkeydown="" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="text" placeholder="请输入用户名" name="uname" value="">
+						<p class="tip"></p>
+					</div>
+					<div class="hc_login_div">
+						<span class="hc_login_div_span">密 码 ：</span>
+						<input onkeydown="" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="password" placeholder="请输入密码" name="pwd" value="">
+						<p class="tip"></p>
+					</div>
+          <{if $allowedcode == 1}>
+          <div class="hc_login_div">
+						<span class="hc_login_div_span">验证码：</span>
+						<input   style="line-height: 38px; padding: 0 5px; margin: 0; border: 1; width: 102px; height: 38px; outline: none;" type="text" placeholder="验证码" name="Captcha" value=""><img src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg"><a href="javascript:freshcode();" >刷新图片</a>
+						<p class="tip"></p>
+					</div>
+          <{/if}>
+          
+          
+					<div class="hc_password"><input name="LoginForm[rememberMe]" value="1" style="margin:0; margin-right:5px; padding: 0;" type="checkbox" checked="">三十天内自动登录</div>
+					<div class="hc_login_btn">
+						<input type="hidden" value="do" name="tijiao">
+						<button id="te_login_btn" type="sbumit" class="login-button hc_login_btn_div " style="border: 0px;">登 录</button>
+						<div class="hc_login_btn_pwd"><a href="<{ofunc type=url link="/member/findpwd"}>">找回密码?</a></div>
+						<div class="clear"></div>
+					</div>
+					<div class="hc_login_btn"> 
+						<{foreach from=$apiloginlist item=items}>
+						     <a href="<{ofunc type=url link="/member/linktest/logintype/<{$items['loginname']}>"}>" target="_blank"><img src="<{$items['logourl']}>"></a> 
+						<{/foreach}>
+					 </div> 
+				</div>    
+				<div class="hc_login_content_right">
+					<div class="hc_login_content_right_div">
+						<div class="hc_login_content_h_div"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/zhuce02.png" alt="注册<{$sitename}>账号"></div>
+						<div class="hc_login_content_p">现在免费注册成为<{$sitename}>用户，便能建立属于你的定制菜单和开饭行踪, 分享你的饮食经验，随时收藏你的最爱餐厅，以便随时随地查阅。</div>
+						<div class="hc_login_content_btn"><a href="<{ofunc type=url link="/member/regester"}>">现在注册</a></div>
+
+					</div>
+
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</form>
+<script type="text/javascript">
+	$('.login-button').click(function(){
+		$('#loginForm').submit();
+	})
+</script>
+</div>
+
+<{include file="<{$tempdir}>/public/foot.html"}>

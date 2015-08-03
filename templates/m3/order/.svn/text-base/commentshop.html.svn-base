@@ -1,0 +1,70 @@
+ <{if count($list)> 0}>
+  <ul id="Comcon" style="padding:19px;" scrollpagination="enabled">
+  <style>
+  .comcomleft{float:left;width:64px; height:76px; }
+  .comcomleft p{width:64px; text-align:center;}
+  .comcomzuo {width:52px; height:52px; padding:6px; border:1px #e9e9e9 solid;}
+  .comcomright{position:relative;float:right; border:1px solid #e9e9e9; padding:15px 10px; width:763px; height:auto; }
+  .comcomrightimg{position:absolute;left:-10px; top:20px;}
+  
+  .pingjiaUL{width:870px; hieght:auto;}
+  .pingjiaUL{ margin-bottom:16px;}
+  </style>
+  
+  <{foreach from=$list  item=items}>  
+  <li>
+  <div  class="pingjiaUL" >
+	<div class="comcomleft">
+		<div class="comcomzuo">
+		
+		<img src="<{$items['logo']|default:$userlogo}>" width="52" height="52">
+		
+		</div>
+		<p><{$items['username']}></p>
+	</div>
+		<div class="comcomright">
+			<div class="comcomrightimg"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/lefticonBG.png" /></div>
+			<div style="margin-left:15px; height:25px; border-bottom:1px dashed  #e8e8e8;">
+					<{section name=loop loop=$items['point']}> 
+												    <div class="star_div" style="float:left;width:15px;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png" width="13" height="13"></div>
+												    <{/section}> 
+			</div>
+			<div style="margin:8px 15px;;">
+				<span>心得：<{$items['content']|default:"我的最爱！"}></span>
+			</div>
+			<div style="margin:8px 50px;color:#aaaaaa;">
+				<span> <{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></span>
+			</div>
+		</div>
+</div>
+  </li>
+    <div style="clear:both;"></div>
+  <{/foreach}>
+
+<{foreach from=$list  item=items}>   
+
+
+
+
+<li id="Com_203" style="display:none;">
+       <div class="COBLeft"><a href="#"><img src="<{$items['logo']|default:$userlogo}>" width="50" height="50"></a></div>
+        <div class="COBRight">
+          <div class="COTitle"><a href="#"><{$items['username']}></a>  <{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}> </div>
+           <div class="COLevel"><span class="Level8"></span>评分： <i><{$items['point']}></i><{section name=loop loop=$items['point']}> 
+												    <div class="star_div" style="float:left;width:15px;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png" width="13" height="13"></div>
+												    <{/section}> </div>
+           <div class="COLevel"><span class="Level8"></span>菜品：<em><{$items['name']}></em></div>
+           <div class="COInfo"><{$items['content']}></div>
+         </div><div style="clear:both;"></div>
+</li>
+<{/foreach}>		
+ </ul>		
+  <div class="ajaxpage" style="float: right;
+width: auto;
+margin-right: 50px;">
+  	<{$pagecontent}>
+  </div>
+  <{else}>
+  暂无评价
+   
+  <{/if}>

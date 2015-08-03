@@ -1,0 +1,68 @@
+ <div>  
+ 	    <a href="#popupLogin" data-inline="true"    data-rel="popup" data-position-to="window" data-transition="pop">登录</a>
+    	<a href="#popupReg" data-inline="true"    data-rel="popup" data-position-to="window" data-transition="pop">注册</a>
+    	<a href="#popupregester" data-inline="true"    data-rel="popup" data-position-to="window" data-transition="pop">反馈留言</a>
+    	<a href="#" data-inline="true" data-ajax="false">关于我们</a>  
+    	
+  </div> 
+  <div>? 2008-2013 饿了么</div>
+  <div id="xxxx">沪ICP备09007032</div>
+      
+   <div data-role="popup" id="mycart"  data-theme="d">
+   	<div data-role="collapsible" data-collapsed="false"  >
+   		
+   	</div>
+   </div><!--购物车框--> 
+   
+  
+  <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+    <form>
+        <div style="padding:10px 20px;">
+            <h3>用户登录</h3>
+            <label for="un" class="ui-hidden-accessible">账号:</label>
+            <input type="text" name="user" id="un" value="" placeholder="邮箱/账号名称" data-theme="a">
+            <label for="pw" class="ui-hidden-accessible">密码:</label>
+            <input type="password" name="pass" id="pw" value="" placeholder="请输入密码" data-theme="a">
+            <button type="submit" data-theme="b" data-icon="check">提交登录</button>
+        </div>
+    </form>
+  </div>
+  <div data-role="popup" id="popupReg" data-theme="a" class="ui-corner-all">
+    <form>
+        <div style="padding:10px 20px;">
+            <h3>用户注册</h3>
+            <label for="un" class="ui-hidden-accessible">账号:</label>
+            <input type="text" name="user" id="un" value="" placeholder="用户名称" data-theme="a">
+            <label for="pw" class="ui-hidden-accessible">密码:</label>
+            <input type="password" name="pass" id="pw" value="" placeholder="请输入密码" data-theme="a">
+            <label for="pw" class="ui-hidden-accessible">确认密码:</label>
+            <input type="password" name="pass" id="pw" value="" placeholder="确认密码" data-theme="a">
+            <label for="pw" class="ui-hidden-accessible">邮箱:</label>
+            <input type="password" name="pass" id="pw" value="" placeholder="邮箱" data-theme="a">
+            <label for="pw" class="ui-hidden-accessible">联系电话:</label>
+            <input type="password" name="pass" id="pw" value="" placeholder="联系电话" data-theme="a">
+            <button type="submit" data-theme="b" data-icon="check">提交注册</button>
+        </div>
+    </form>
+  </div>
+  <div data-role="popup" id="popupregester" data-theme="a" class="ui-corner-all">
+    <form>
+        <div style="padding:10px 20px;">
+          
+         <label for="textarea-6">留言内容:</label>
+          <textarea cols="25" rows="8" name="textarea-6" id="textarea-6" placeholder="留言内容"></textarea>
+            <button type="submit" data-theme="b" data-icon="check">确认提交留言</button>
+        </div>
+    </form>
+  </div>
+   
+   
+   
+   
+</div> 
+
+<script>
+	var carlink = '<{ofunc type=url link="/html5/smallcart"}>';
+</script>
+</body>
+</html>

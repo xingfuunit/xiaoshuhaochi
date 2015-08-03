@@ -1,0 +1,35 @@
+ 
+
+
+
+
+    <h4>购物车 (商家：某某商加)</h4>
+    
+    <div class="ui-grid-b"   style="min-width:210px;" data-inset="true"> 
+       <div class="ui-block-a" style="width:60%;"><div class="ui-bar ui-bar-b list_cart" >商品名称</div></div>
+       <div class="ui-block-b" style="width:30%;"><div class="ui-bar ui-bar-b list_cart" style="text-align:center;">数量</div></div>
+       <div class="ui-block-c" style="width:10%;"><div class="ui-bar ui-bar-b list_cart" >&nbsp;</div></div>
+    </div>
+   
+    <div class="ui-grid-b"   style="min-width:210px;" data-inset="true"> 
+       <div class="ui-block-a" style="width:60%;"><div class="ui-bar ui-bar-c list_cart" >商品名称</div></div>
+       <div class="ui-block-b" style="width:30%;">
+       	  <div class="ui-bar ui-bar-c list_cart">
+       		     <a href="#" ><span class="downcartbtn">&nbsp;</span></a>
+       	       <input type="text" name="gcout" value="12" style="width:20px;height:12px;line-height:12px;display:inline-block;">
+       	       <a href="#" ><span class="addcartbtn">&nbsp;</span></a>
+       	  </div>
+       </div>
+       <div class="ui-block-c" style="width:10%;">
+       	  <div class="ui-bar ui-bar-c list_cart"  >
+       	       <a href="#" ><span class="delcartbtn">&nbsp;</span></a>
+       	  </div>
+       </div>
+    </div>
+    <div>订单总金额：多少元</div>
+    <div class="ui-grid-solo" style="min-width:210px;" data-inset="true">
+          <div class="ui-block-a"><button type="button" data-theme="b">我要下单</button></div>
+    </div>
+
+
+<!-- /grid-b -->

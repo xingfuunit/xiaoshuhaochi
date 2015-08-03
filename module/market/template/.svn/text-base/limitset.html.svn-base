@@ -1,0 +1,96 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+  
+ <{block name=controlname}>权限设置<{/block}>
+ <{block name=bodylist}>
+  <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+  	    <div class="search"> 
+            <div class="search_content"> 
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/<{$controlname}>/limitset"}>">
+            	  
+            	  <label>选择用户组：</label>
+            	   <select name="usergrade">
+            	   	<{foreach from=$group key=myid  item=items}>  
+                      	   <option value="<{$items['id']}>" <{if $groupid==$items['id']}>selected<{/if}>><{$items['name']}></option> 
+                	<{/foreach}>            
+                 </select>
+            	  
+            	    <input type="submit" value="提交查询" class="button">  
+            	 </form>
+            </div>
+        
+      	</div>
+  	
+  	
+  	  <{if !empty($groupinfo)}>
+          <div class="tags">
+       
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/<{$controlname}>/savelimit/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	<{if $groupinfo['type'] == 'admin'}> 
+                  	
+                  	
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">后台菜单</td>
+                      <td> 
+                      	
+                      	
+                       <{foreach from=$adminmenu key=mykey item=items}> 	
+                          <input type="checkbox" name="menu[]" value="<{$mykey}>" <{if in_array($mykey,$mymenu)}>checked<{/if}>><{$items}> 
+                       <{/foreach}> 
+                      	</td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">操作权限</td>
+                      <td>
+                      	 <{foreach from=$userlimit key=mykey item=items}> 	
+                         	 <input type="checkbox" name="limits[]" value="<{$mykey}>" <{if in_array($mykey,$mylimit)}>checked<{/if}>><{$items}> 
+                         <{/foreach}> 
+                      	
+                      	</td>
+                    </tr>
+                    <{elseif $groupinfo['type'] == 'font'}>
+                          <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">前台权限</td>
+                      <td> 
+                      	
+                      	
+                       <{foreach from=$memberlimit key=mykey item=items}> 	
+                          <input type="checkbox" name="limits[]" value="<{$mykey}>" <{if in_array($mykey,$mylimit)}>checked<{/if}>><{$items}> 
+                       <{/foreach}> 
+                      	</td>
+                    </tr>
+                    <{else}>
+                    <{/if}>
+                     
+                    <input type="hidden" name="groupid" id="groupid" value="<{$groupid}>" class="skey" style="width:150px;">
+                   
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+             
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+      <{/if}> 
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+   
+   
+    </div> 
+<script>	 
+function checkword(flag)
+{ 
+	 
+	$("input[name='limit[]']").attr("checked",flag); 
+}
+</script>
+<{/block}>

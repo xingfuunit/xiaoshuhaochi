@@ -1,0 +1,97 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/editaddress.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+<script>
+	 
+	
+ 
+	function nextarea(infoob){ 
+		var kk= $("#areaid1").find('option:selected').attr('data');  
+		 var url = '<{ofunc type=url link="/site/getparentarea"}>';
+		 $('#areaid2').html('');
+		 $.post(url, {areaid:kk,defaultid:defaultid},function (data, textStatus){ 
+		 	$('#areaid2').append(data); 
+		 	<{if $area_grade > 2}>
+		         $('#areaid2').trigger('change');
+		   <{/if}>
+			}, 'html');
+	}
+		function nextareab(){
+		var kk= $("#areaid2").find('option:selected').attr('data');  
+		 var url = '<{ofunc type=url link="/site/getparentarea"}>'; 
+		 $('#areaid3').html('');
+		 $.post(url, {areaid:kk,defaultid:defaultid},function (data, textStatus){ 
+		 	$('#areaid3').append(data); 
+			}, 'html');
+	} 
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 编辑地址 </header><{/block}>
+<{block name=blockcontent}>  
+   <div style="height:44px;"></div>
+  <{load_data assign="info" table="address" type="one" where="id='<{$id}>' and userid = '<{$member['uid']}>'" fileds="*" }> 
+
+  <div class="container">
+
+  	<section>
+
+  		   <div class="sex"></div>
+
+  		   <input type="text" id="name" class="inputInp" name="name" placeholder="请输入您的姓名" value="<{$info['contactname']}>">
+
+  		   <input type="text" id="mobile" class="inputInp" name="mobile" placeholder="请输入您的手机" value="<{$info['phone']}>">
+
+  		   
+
+  		   <div class="select-area" id="arealist1"> 
+  		   	 
+  		   	     	<select disabled="disabled" name="areaid1" id="areaid1" class="inadd-city" <{if $area_grade >  1 }>onchange="nextarea();"<{/if}>>
+  		   	     	 <{load_data assign="arealist" table="area"  where="parent_id=0"  fileds="*" limit="100"}> 
+  		   	    	<{foreach from=$arealist['list'] item=items}>
+		           		  	    <option value="<{$items['id']}>" data="<{$items['id']}>" <{if $info['areaid1'] == $items['id']}>selected<{/if}>><{$items['name']}></option>	
+		             <{/foreach}>	 
+  		   	     	</select> 
+  		   </div>
+
+  		   <div class="select-area" id="arealist2"  <{if $area_grade < 2 }> style="display:none;" <{/if}>> 
+  		   	     	<select name="areaid2" id="areaid2" class="inadd-city" <{if $area_grade >  2 }>onchange="nextareab();"<{/if}>></select> 
+  		   </div>
+
+  		    <div class="select-area" id="arealist3"  <{if $area_grade < 3 }> style="display:none;" <{/if}>> 
+  		   	     	<select name="areaid3" id="areaid3" class="inadd-city"></select> 
+  		   </div>
+
+  		   
+
+  		   <input type="text" id="addressdetail" class="inputInp" placeholder="请填写详情地址" value="<{$info['address']}>">
+
+  		   </section>
+
+  	 <div class="btnAdd"><input class="inputBtn" id="addAddress" type="button" value="保存"  onclick="saveaddress();"></div>
+<script>
+	var defaultid = '<{$info['areaid1']|default:0}>,<{$info['areaid2']|default:0}>,<{$info['areaid3']|default:0}>';
+	$(document).ready(function(){
+		<{if $area_grade > 1}>
+		$('#areaid1').trigger('change');
+		<{/if}>
+	});
+	function saveaddress(){ 
+		$('#loading').show();
+       var info = {'contactname':$('#name').val(),'phone':$('#mobile').val(),'farea':$("select[name='areaid1']").find("option:selected").val(),'sarea':$("select[name='areaid2']").find("option:selected").val(),'tarea':$("select[name='areaid3']").find("option:selected").val(),'add_new':$('#addressdetail').val(),'addressid':<{$id}>}; 
+	  	var url = '<{ofunc type=url link="/area/saveaddress/random/@random@/datatype/json"}>';
+		  var backdata = ajaxback(url,info); 
+		  if(backdata.flag == false){ 
+		      window.location.href = siteurl+'/index.php?controller=wxsite&action=address';
+		  }else{
+		  	$('#loading').hide();
+		     Tmsg(backdata.content);
+		  }
+		  
+	}
+	</script>
+
+<{/block}>

@@ -1,0 +1,86 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/address.css">  
+<{/block}>
+ <{block name=extendjs}> 
+<script>
+	$(function(){
+		 $('.count').bind("click", function() { 
+		 	$('#loading').show();
+	    var info = {'tijiao':'do','default':'1','addressid':$(this).attr('data'),'what':'default'};
+	  	var url = '<{ofunc type=url link="/area/editaddress/random/@random@/datatype/json"}>';
+		      url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+		   var backinfo = ajaxback(url,info);
+		      if(backinfo.flag ==  false){
+	             location.reload();  
+	        }else{
+	        	$('#loading').hide();
+	             Tmsg(backinfo.content);
+	        } 
+
+     }); 
+ 	  $('.tiaozhuan').bind("click", function() {   
+       	 	var gid = $(this).parent().parent().attr('data-customeraddressid'); 
+ 	        	window.location.href= siteurl+'/index.php?controller=wxsite&action=editaddress&id='+gid; 
+ 	  });
+
+ 	  $('#addAddress').bind("click", function() {  
+ 	  	    window.location.href=siteurl+'/index.php?controller=wxsite&action=editaddress'; 
+ 	  }); 
+ 	  $('.del').bind("click", function() {  
+ 	  	$('#loading').show();
+ 	  	    var gid = $(this).attr('data-customeraddressid');  
+	         	var info = {'tijiao':'del','addressid':gid};
+	        	var url = '<{ofunc type=url link="/area/deladdress/random/@random@/datatype/json"}>';
+	        	    url = url.replace('@random@', 1+Math.round(Math.random()*1000));
+	          var backinfo = ajaxback(url,info);
+	          if(backinfo.flag ==  false){
+	             location.reload();  
+	          }else{
+	          	$('#loading').hide();
+	             Tmsg(backinfo.content);
+	          } 
+ 	  });
+
+	});
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 地址管理 </header><{/block}>
+<{block name=blockcontent}> 
+  <div style="height:44px;"></div>
+  <div class="container">
+
+  	 <div id="showAddressList">
+
+  	 	<section id="addresslist">
+
+  	 		<ul class="address-list">
+
+     <{foreach from=$arealist key=mykey item=items}>
+
+  	 		<li id="addressitem_<{$items['id']}>" class="clkitm" ddd="fz" data-customeraddressid="<{$items['id']}>">
+
+  		   <div id="addressinfo" class="addressinfo">
+
+  		      <div class="count <{if $items['default'] == 1}> cur<{/if}>"   data="<{$items['id']}>"  id="cont_<{$items['id']}>"><{$mykey+1}></div>
+
+  		      <h3 class="tiaozhuan"><strong>姓名：<span><{$items['contactname']}> </span></strong></h3>
+
+  		      <div class="tiaozhuan">电话：<span><{$items['phone']}></span></div>
+
+  		      <div class="adsr"> 
+  		           <div class="addresse">地址：<{$areaarr[$items['areaid1']]}> <{$areaarr[$items['areaid2']]}> <{$areaarr[$items['areaid3']]}> <{$items['address']}></div><div id="deleteico" data-customeraddressid="<{$items['id']}>" class="del show">删除</div>
+            </div>
+
+  		   </div>
+
+  	 </li>
+    <{/foreach}> 
+  	 			</ul></section>
+
+  	 </div>
+
+    <div class="btnAdd"><input class="inputBtn" id="addAddress" type="button" value="新增"></div>
+
+<{/block}>

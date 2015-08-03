@@ -1,0 +1,304 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/v5_plugin.js.pagespeed.jm.inM6bedmF7.js"></script>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script> 
+   <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/slides.jquery.js"> </script>
+<{/block}>
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/floor.css"> 
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+ 
+
+
+   
+<div class="wrap">
+  <div class="home_column clearfix">
+    <form  id="searchRoom" method="get" target="_blank">
+      <input type="hidden" name="communitySubways" id="communitySubways" value="">
+    </form>
+    <div class="grid_left pr">
+      <div class="index-ad"></div>
+	  
+	  
+	 <{foreach from=$indexarea item=items}> 
+      <div class="hot-filter clearfix">
+        <dl>
+          <dt><{$items['name']}></dt>
+          <dd>
+		  <{foreach from=$items['areacom'] key=mykey item=itv}>
+		  <a target="_blank" style="cursor:pointer" href="<{ofunc type=url link="/site/qitesetlocationlink/areaid/<{$itv['id']}>"}>" ><{$itv['name']}></a> 
+		    <{/foreach}>
+		  </dd>
+        </dl>
+      </div>
+	  
+	  <{/foreach}>
+	  
+    
+      <div class="go-map-seach" style="width:195px; padding-left:105px; text-align:center; target="_blank">
+	  
+	 <div style="margin-top:22px;">
+	  <span style="color:#fff; font-weight:bold; font-size:16px;"><{$mapname|default:''}></span><br>
+	  <span><a  style="color:#fff; font-weight:bold; font-size:16px;" href="<{ofunc type=url link="/site/guide"}>">[ 更改地址 ]</a></span>
+	</div>  
+	  </div>
+
+	  </div>
+    <div class="grid_right">
+      <div class="wrapper" style="width:900px;">
+        <div id="focus" class="fxEarthquake ">
+          <ul>
+        
+		<{load_data assign="lunbo" table="adv"    fileds="*"  limit="5" where="advtype='lunbo' and  module='<{$sitetemp}>'"}>  
+							<{foreach from=$lunbo['list'] item=items}>
+       
+
+  <li><a target="_blank" href="<{$items['linkurl']}>" ><img src="<{$items['img']}>"/></a></li>		
+		 <{/foreach}> 
+          
+          
+            
+          </ul>
+        </div>
+      </div>
+      <ul class="nav-directions clearfix">
+        <li> <i class="icon-box"></i>
+          <div class="cet">
+            <h3>网上订餐</h3>
+            让您足不出户，轻松定外卖 </div>
+        </li>
+        <li> <i class="icon-box icon-box-2"></i>
+          <div class="cet">
+            <h3>兑换礼品</h3>
+            订餐送积分，可兑换礼品 </div>
+        </li>
+        <li> <i class="icon-box icon-box-3"></i>
+          <div class="cet">
+            <h3>在线付款</h3>
+            支持在线快速付款 </div>
+        </li>
+        <li style="margin-right:0px;"> <i class="icon-box icon-box-4"></i>
+          <div class="cet">
+            <h3>互动圈子</h3>
+            线上线下活动跻身社会精英圈 </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>   
+   
+ 
+<div style="clear:both;"></div>
+ 
+<div class="wrapper"> 
+
+
+
+ 	
+ 	
+ 	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+		<h2 class="index-floor-title"><i class="yule"></i><a class="yule" href="javascript:void(0);" cate="<{$mykey}>">推荐商家</a></h2>
+		
+		<div class="floor-warp">
+		
+			<div class="floor-content" style="max-height:454px; overflow:hidden;">
+				
+				<div class="floor-con0 floor-con-show">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['is_recom'] == 1 }>
+					 <div class="floor-goods" style="height:206px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['shopname']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px; ">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#f3355b;">立即订餐</span> </a>
+						   </div>
+					</div>
+					<{/if}>
+				<{/foreach}>	
+					
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+	
+ 	
+ 	  
+	<!---循环体-->
+ 	
+ 	
+ 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+		<h2 class="index-floor-title"><i class="yule"></i><a class="yule" href="javascript:void(0);" cate="<{$mykey}>">营业商家</a></h2>
+		
+		<div class="floor-warp">
+		
+			<div class="floor-content" style=" height:auto;">
+				
+				<div class="floor-con0 floor-con-show">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				
+				<{if $items['opentype'] == 2 }>
+					 <div class="floor-goods" style="height:206px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['shopname']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#f3355b;">立即订餐</span> </a>
+						   </div>
+					</div>
+				<{/if}>
+				<{/foreach}>	
+					
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+	
+	
+	
+	 	
+ 	<div style="clear:both;"></div>
+	
+	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+		<h2 class="index-floor-title"><i class="yule"></i><a class="yule" href="javascript:void(0);" cate="<{$mykey}>">打烊商家</a></h2>
+		
+		<div class="floor-warp">
+		
+			<div class="floor-content"  style=" height:auto;">
+				
+				<div class="floor-con0 floor-con-show">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['opentype'] != 2 }>
+					  <div class="floor-goods" style="height:206px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['shopname']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#f3355b;">立即订餐</span> </a>
+						   </div>
+					</div>
+					<{/if}>
+				<{/foreach}>	
+					
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+ 	
+ 	
+ 	
+ 	 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	
+</div>
+
+<script>
+ $(function(){
+ 	<{if $locationtype == 1}>
+ 	   var lng = '<{$lng}>';
+		
+		if(lng == 0 ){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+ 	<{else}>
+		var myaddressid = '<{$myaddress}>';
+		if(myaddressid == null|| myaddressid==''){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	<{/if}>
+	});
+	function tabCutover02(obj,tempobj){
+		$(obj).addClass('current').siblings().removeClass('current');
+		$(obj).parent().parent().find($('.'+tempobj)).addClass('floor-con-show').siblings().removeClass('floor-con-show');
+	}
+</script>
+<div style="height:20px;"></div>
+<!--区域店铺-->
+<{/block}>

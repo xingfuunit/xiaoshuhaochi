@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Language" content="zh-CN"> 
+<meta content="all" name="robots"> 
+<meta name="description" content=""> 
+<meta content="" name="keywords"> 
+<title>店铺标签选择</title> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/admin.css">
+ 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.js" type="text/javascript" language="javascript"></script>  
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script>
+</head>
+<body style="background:none;height:450px;overflow:scroll;width:400px;">
+	 <form  method="post" name="upform" action="<{ofunc type=url link="/adminpage/shop/module/saveshopbq"}>" > 
+	  	<div > <input type="checkbox" name="is_recom" value="1" <{if $shopinfo['is_recom'] == 1}>checked<{/if}>>首页推荐(调用shop表里的is_recom)</div>
+	 	 
+	 	 		<{if isset($fastfood)&&isset($fastfood['is_com'])}>
+	 	 <div >
+	 	  	<font>外卖设置(调用fastfood)表</font>
+	     <div style="padding-left:20px;">
+	   	<div>
+	   	
+	       <input type="checkbox" name="fis_com" value="1" <{if $fastfood['is_com'] == 1}>checked<{/if}>>推荐(is_com) 
+	       <input type="checkbox" name="fis_hot" value="1" <{if $fastfood['is_hot'] == 1}>checked<{/if}>>热卖 (is_hot)
+	       <input type="checkbox" name="fis_new" value="1" <{if $fastfood['is_new'] == 1}>checked<{/if}>>新品(is_new)
+	      
+	    </div>  
+	     <{/if}>
+	   	 <{foreach from=$attrlist item=items}> 
+	   	    <div >  <{$items['name']}>
+	   	    <{foreach from=$items['det'] item=itv}> 
+                        	      <{if $items['type'] ==  'input'}>
+                        	         <{assign var=shownow value=$items['id']|cat:'-0'}>   
+                        <input type="input" value="<{$myattr[$shownow]|default:''}>" name="mydata<{$items['id']}>" class="ttext">  
+                        	      <{elseif $items['type'] == 'img'}>
+                        	        <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>  
+                        <input type="checkbox" value="<{$itv['id']}>" name="mydata<{$items['id']}>[]"  <{if isset($myattr[$shownow1])}>checked<{/if}> ><img src="<{$itv['name']}>" width=30px>  
+                        	      <{elseif $items['type'] == 'checkbox'}>
+                        	         <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>
+                      <input type="checkbox" value="<{$itv['id']}>" name="mydata<{$items['id']}>[]" <{if isset($myattr[$shownow1])}>checked<{/if}> ><{$itv['name']}>  
+                        	      <{elseif $items['type']=='radio'}>
+                        	           <{assign var=shownow value=$items['id']|cat:'-'}>   
+                        	         <{assign var=shownow1 value=$shownow|cat:$itv['id']}>  
+                      <input type="radio" value="<{$itv['id']}>" name="mydata<{$items['id']}>" <{if isset($myattr[$shownow1])}>checked<{/if}>><{$itv['name']}> <{$shownow1}>  
+                        	      <{/if}>
+                        	      
+                        	<{/foreach}> 
+                        	</div> 
+        <{/foreach}>
+      </div>
+     </div>
+	 	
+	  
+	 	<br>
+	 	   
+	  <input type="hidden" value="<{$shopid}>" name="shopid"> 
+	 	<input type="submit" value="确认提交" class="button">  
+	 	
+	 	
+  </form>
+  <script>
+  	 
+  	</script>
+</body>
+</html>

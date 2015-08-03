@@ -1,0 +1,4 @@
+<?php
+ $site_checkurl   = array('wmr.xiaoshuhaochi.com','wmr.xiaoshuhaochi.com','localhost','127.0.0.1');
+ $site_checkid ='sadjjks3assds5f33061eefsdfsdfjjsdhh25skkhjhhhs';
+?>

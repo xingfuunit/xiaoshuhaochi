@@ -1,0 +1,123 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>  
+ <{block name=controlname}>模块管理<{/block}>
+ <{block name=bodylist}>
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	 
+           <div class="tags">  
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td"  >
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">文件名</th>
+
+                        <th align="center">中文说明</th> 
+                         <th align="center">上级模块</th> 
+                        <th align="center">是否安装</th>  
+                       
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+                      <{load_data assign="list" table="module" showpage="true"    orderby="id asc"}> 
+                      <{foreach from=$list['list'] item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td> 
+                        <td align="center"><{$items['name']}></td> 
+                        <td align="center"> <{$items['cnname']}> </td> 
+                         <td align="center"> <{if $items['parent_id']==0}>主模块<{else}> <{load_data assign="parent" table="module" type="one" where="id ='<{$items['parent_id']}>'" }> <{$parent['cnname']}> <{/if}> </td>  
+                         <td align="center"><{if $items['install']==1}>已安装<{else}>未安装<{/if}></td> 
+                        <td align="center"> 
+                        	<a onclick="return remind(this);" href="<{ofunc type=url link="/adminpage/system/module/delmodule/id/<{$items['id']}>/datatype/json"}>"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div> 
+                </form>
+                 <div class="page_newc">
+                 	     <div class="select_page">
+                 	        <a onclick="addmodule();" href="javascript:;" class="delurl">添加新模块</a> 
+                 	     	</div>
+                       <div class="show_page"><ul><{$list['pagecontent']}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div> 
+ </div> 
+ <script>
+ 	   function addmodule(){
+ 	    var optionhtml = '';
+ 	     <{foreach from=$list['list'] item=items}> 
+ 	     <{if $items['parent_id'] == 0}>
+ 	     optionhtml +='<option value="<{$items['id']}>"><{$items['name']}></option>';
+ 	     <{/if}>
+ 	      <{/foreach}> 
+ 	    var	htmls = '<form method="post" id="doshwoform" action="#" style="text-align:center;"><table>';
+        	htmls += '<tbody><tr>';
+         	htmls += '<td height="30px">文件名:</td>';
+         	htmls += '<td> <input type="text" name="name" value="" style="width:100px;"></td></tr>';
+         	htmls += '<tr><td height="30px">模块中文名:</td><td> <input type="text" name="cnname" value="" style="width:100px;"></td></tr>';
+         	htmls += '<tr><td height="30px">是否是主模块:</td><td> <input type="radio" name="is_man" value="1"  >主模块<input type="radio" name="is_man" value="2"  >子模块</td></tr>';
+         	htmls += '<tr style="" id="showsubt" height="30px"><td height="20px">选择上级模块:</td><td><select name="parent_id">'+optionhtml+'</select></td></tr>';
+        	htmls += '</tbody></table> ';
+          htmls += '<input type="hidden" value="" name="shopid"> ';
+         	htmls += '<input type="button" value="确认提交" class="button" id="dosetclosetime" ></form>';
+          art.dialog({
+             id: 'testID3',
+              title:'新增加模块',
+               content: htmls
+          });
+     }
+     
+  $("input[name='is_man']").live("click", function() {   
+  	var objvalue =   $("input[name='is_man']:checked").val();
+  	if(objvalue == "1"){
+  		 $('#showsubt').hide();
+  	}else{
+  		$('#showsubt').show();
+  	}
+  }); 
+$('#dosetclosetime').live('click',function(){ 
+
+	$.post('<{ofunc type=url link="/adminpage/system/module/savemodule/datatype/json"}>', {'name':$('input[name="name"]').val(),'cnname':$('input[name="cnname"]').val(),'is_main':$("input[name='is_man']:checked").val(),'parent_id':$("select[name='parent_id']").find("option:selected").val()} ,function (data, textStatus){  
+			if(data.error == false){
+     		diasucces('操作成功','');
+     	}else{
+     		if(data.error == true)
+     		{
+     			diaerror(data.msg); 
+     		}else{
+     			diaerror(data); 
+     		}
+     	} 
+	 }, 'json'); 
+});
+ </script>
+<{/block}>    

@@ -1,0 +1,1 @@
+时间:2015-05-20 16:43:24,/index.php?controller=adminpage&action=other&module=savepay描述:Mysql_error：Unknown column 'type' in 'field list'(1054)Sql：'insert into `xiaozu_paylist` (`loginname`,`logindesc`,`logourl`,`temp`,`type`) values ('weixin','微信支付','http://wmr.xiaoshuhaochi.com/plug/pay/weixin/images/','[]','2')'

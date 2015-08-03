@@ -1,0 +1,46 @@
+﻿html body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,p,th,td,img,em{margin:0;padding:0;}
+body{font-weight:normal;font-family:Tahoma,"宋体",Arial, Helvetica, sans-serif;font-size:12px;color:#333;background:#f9f9ef;}
+ol,ul{list-style:none;}
+fieldset,img {border:0;}
+table {border-collapse: collapse; border-spacing: 0;  }
+
+a{text-decoration:none;color:#333;}
+a:hover {text-decoration:none;}
+.none,.hide{display:none;}
+em{font-style:normal;}
+th{font-weight:normal;}
+:focus {outline:none;}
+
+/*表单样式设定*/
+input:focus {outline:none;}
+.input{color: #333;}
+
+/*浮动设置*/
+.fl{float:left;}
+.fr{float:right;}
+.clear{clear:both;}
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+/*边距设置*/
+.mt10{margin-top:10px;}
+.ml10{margin-left:10px;}
+.mt20{margin-top:20px;}
+.mb20{margin-bottom:20px;}
+.ml20{margin-left:20px;}
+.mr20{margin-right:20px;}
+.pb10{padding-bottom:10px;}
+.pb20{padding-bottom:20px;}
+.pt10{padding-top:10px;}
+.pt20{padding-top:20px;}
+/*圆角设置*/
+.br2{border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
+.br3{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
+.br4{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;}
+.br6{border-radius:6px;-moz-border-radius:6px;-webkit-border-radius:6px;}
+.br8{border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;}
+/*颜色设置*/
+.cr{color:Red;}
+.pr { position:absolute; }
+.pa { position:absolute; }
+

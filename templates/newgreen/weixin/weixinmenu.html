@@ -1,0 +1,30 @@
+ <ul class="waimaiset">
+      <li onclick="openlink('<{ofunc type=url link="/weixin/wxset"}>');" class="jbset <{if $urlshort == 'weixin/wxset'}> onset<{/if}>">
+        <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/jbBg.png">
+        <span>基本设置</span>
+      </li>
+      <li onclick="openlink('<{ofunc type=url link="/weixin/wxmenu"}>');" class="jbset <{if $urlshort == 'weixin/wxmenu'}> onset<{/if}>">
+        <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/wmset.png">
+        <span>微信菜单</span>
+      </li>
+      <li onclick="openlink('<{ofunc type=url link="/weixin/wxback"}>');" class="jbset <{if $urlshort == 'weixin/wxback'}> onset<{/if}>">
+        <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/dianpujieshao.png">
+        <span>自动回复</span>
+      </li>
+      <li onclick="openlink('<{ofunc type=url link="/weixin/wxuser"}>');" class="jbset <{if $urlshort == 'weixin/wxuser'}> onset<{/if}>">
+        <img src="<{$siteurl}>/templates/<{$tempdir}>/public/shopcenter/images/gonggao.png">
+        <span>微信用户</span>
+      </li>
+</ul>
+
+<!--<script>
+				$(function(){
+					$(".waimaiset .jbset").click(function(){
+						$(this).css('background','#ec7501').siblings().css('background','');
+
+					});
+
+				});
+ </script>-->
+
+

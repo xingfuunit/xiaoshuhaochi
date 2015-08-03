@@ -1,0 +1,322 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>
+<{block name=extendjs}>
+  <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+  <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js"></script>
+  <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ajaxfileupload.js"> </script>
+  <script>
+  	var mynomenu='baseset';
+  	</script>
+<{/block}>
+ <{block name=bodylist}>
+  <!---content right start-->
+
+
+  <div class="conWaiSet">
+        <!--    <div class="shopSetTop">
+            	<span>店铺设置</span>
+            </div> -->
+            	  <{include file="<{$tempdir}>/shop/usereditmenu.html"}>
+             
+                <form id="loginForm" method="post" action="<{ofunc type=url link="/shopcenter/savebase"}>">
+                 <ul class="jutiSet"><!--  class="jutiSet" -->
+    		     	<li class="serxuanze">
+                    		<div class="xuanze_left">
+                        	<span>店铺名字:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" id="shopname" name="shopname" value="<{$shopinfo['shopname']}>"    />
+
+                        </div>
+                        
+                    </li>
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>接单电话:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text"  id="phone" name="phone" value="<{$shopinfo['phone']}>"     />
+                        </div>
+                    </li>
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>店铺负责人电话:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" id="maphone" name="maphone" value="<{$shopinfo['maphone']}>"  />
+                        </div>
+                    </li>
+                    <li class="upimg">
+                    	<div class="file_img">
+                        	 <img src="<{$shopinfo['shoplogo']}>" id="imgshow" <{if  empty($shopinfo['shoplogo'])}> style="display:none;"<{/if}>>
+                        </div>
+                        <div class="file_xxiang">
+                        	<input type="hidden" name="shoplogo" id="shoplogo" value="<{$shopinfo['shoplogo']}>" class="skey">
+                     <div id="div-headpicUpload">
+		                  <form id="form1" name="form1" method="post"  enctype="multipart/form-data" target="ifr-headpic-upload" onsubmit="return checkImagetype('1');">
+		                  	<div class="">
+		               		<input name="head" type="file" id="imgFile" name="imgFile" onchange="$('#input1').val($(this).val())"  class="curbtn">
+		               		<input id="submitImg" type="button" value="上传" class="ss_sc curbtn">
+		               	</div>
+		               </form>
+		             </div>
+                        </div>
+                    </li>
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>店铺地址:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" id="address" name="address" value="<{$shopinfo['address']}>" />
+                        </div>
+                    </li>
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>店铺访问地址:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" id="shortname" name="shortname" value="<{$shopinfo['shortname']}>"  />
+                        </div>
+                    </li>
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>百度坐标:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" name="baidumap" value="<{$shopinfo['lng']}>,<{$shopinfo['lat']}>"  />
+                            <button class="geiquAdd curbtn fr" onclick="biaoji();">给取地址</button>
+                        </div>
+                     <!--   <div class="geiquAdd curbtn fr" onclick="biaoji();" >
+                        	给取地址
+                        </div>-->
+                    </li>
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>邮箱地址:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" id="email" name="email" value="<{$shopinfo['email']}>" />
+                        </div> 
+                    </li>
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>无线打印机IMEI号:</span>
+                        </div>
+                        <div class="dianpu_right">
+                        	<input type="text" id="IMEI" name="IMEI" value="<{$shopinfo['IMEI']}>" />
+                        </div>
+                        
+                    </li>
+                      <!---->
+                    <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>营业时间:</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<div>
+
+                        		 <{assign var=foo value="|"|explode:$shopinfo['starttime']}>
+                        	 <{foreach from=$foo key=myid item=items}>
+                        	 <{if !empty($items)}>
+                        	     <{assign var=newtime value="-"|explode:$items}>
+
+                        	     <{if !empty($newtime[0])}>
+                        	         <{assign var=dettime value=":"|explode:$newtime[0]}>
+                        	         <{$newtimedata[] = $dettime[0]}>
+                        	         <{$newtimedata[] = $dettime[1]}>
+                        	     <{/if}>
+                        	     <{if !empty($newtime[1])}>
+                        	         <{assign var=dettime value=":"|explode:$newtime[1]}>
+                        	         <{$newtimedata[] = $dettime[0]}>
+                        	         <{$newtimedata[] = $dettime[1]}>
+                        	     <{/if}>
+                        	   <{/if}>
+                        	  <{/foreach}>
+					       <span>早<input type="text" name="dotime[]" value="<{$newtimedata[0]|default:''}>" />
+                            :<input type="text" name="dotime[]"  value="<{$newtimedata[1]|default:''}>"/>
+                            ---<input type="text" name="dotime[]" value="<{$newtimedata[2]|default:''}>"/>
+                            :<input type="text" name="dotime[]"   value="<{$newtimedata[3]|default:''}>"  />
+                         </span>
+                           <span>晚<input type="text" name="dotime[]" value="<{$newtimedata[4]|default:''}>" />
+                            :<input type="text" name="dotime[]"  value="<{$newtimedata[5]|default:''}>"/>
+                            ---<input type="text" name="dotime[]"   value="<{$newtimedata[6]|default:''}>" />
+                            :<input type="text" name="dotime[]"  value="<{$newtimedata[7]|default:''}>"/></span>
+                          </div>
+                        </div>
+                    </li>
+                     <li class="serxuanze">
+                    	<div class="xuanze_left">
+                        	<span>是否营业:</span>
+                        </div>
+                        <div class="xuanze_right">
+                        	<input type="radio"   name="is_open"   value="1" <{if $shopinfo['is_open'] == 1}>checked<{/if}>/>是 <input type="radio"  name="is_open"   value="0" <{if $shopinfo['is_open'] == 0}>checked<{/if}>/>否
+                        </div>
+                    </li>
+                  	 <li class="settijiao">
+                          <div class="xuanze_right hc_login_btn_div">点击提交</div>
+                    </li>
+       			 </ul>
+              </form>
+        </div>
+        <!--content right end-->
+
+
+
+ <!---content right start-->
+<script type="text/javascript">
+var areagrade ='0';// ;
+var defaultid = '';
+
+</script>
+<script type="text/javascript">
+	$('.hc_login_btn_div').click(function(){
+		var shopname = $('input[name="shopname"]').val();
+		var phone = $('input[name="phone"]').val();
+		var address = $('input[name="address"]').val();
+		var shortname = $('input[name="shortname"]').val();
+		var email =$('input[name="email"]').val();
+
+		 var IMEI = $('input[name="IMEI"]').val();
+		var is_open =  $("input[name='is_open']:checked").val();
+
+		var stobj = new Array();
+
+	  $("input[name='dotime[]']").each(function(){
+	  	if($(this).val() != ''){
+	      	stobj.push($(this).val());
+	     }
+     })
+     var starttime = stobj.join(',');
+
+     var otherlink = $('input[name="otherlink"]').val();
+     var baidumap = $('input[name="baidumap"]').val();
+
+	//	 showop('保存配送区域信息');
+	var backinfo = ajaxback('<{ofunc type=url link="/shop/useredit/datatype/json"}>',{'shopname':shopname,'IMEI':IMEI,'phone':phone,'address':address,'shortname':shortname,'email':email,'is_open':is_open,'starttime':starttime,'otherlink':otherlink,'baidumap':baidumap});
+	if(backinfo.flag == true)
+	{
+	//	hideop();
+		diaerror(backinfo.content);
+	}else{
+	//	hideop();
+		 artsucces('保存成功');
+		location.reload();
+	}
+
+
+		//$('#loginForm').submit();
+
+	});
+	$(".hc_login_input").change(function(j){
+		var v=$(this).val();
+		var p=$(this).attr("shopname");
+		switch(p){
+		case "shopname":	if(v == '' ||v == null){
+			  alert('用户名不能为空');
+			}
+		break;
+		case "shortname":
+		 	var patrn=/[u4e00-u9fa5]/;
+			if(v == '' ||v == null){
+			  alert('店铺CODE不能为空');
+			}
+		break;
+		case "phone":
+		   if(v == '' ||v == null){
+			  alert('联系电话不能为空');
+			}
+		break;
+		case "address":
+		   if(v == '' ||v == null){
+			  alert('联系地址不能为空');
+			}
+		break;
+		case "pwd":
+			var patrn=/(.){4,16}/;
+			if(!patrn.exec(v)){
+				 alert('密码是4-16位的字母、数字,区分大小写');
+			 }
+		break;
+		}
+	});
+	$('#submitImg').click(function(){
+		ajaxFileUpload();
+	});
+	function ajaxFileUpload()
+	{
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload
+		(
+			{
+				url:'<{ofunc type=url link="/other/userupload/type/shoplogo/datatype/json"}>',
+				secureuri:false,
+				fileElementId:'imgFile',
+				dataType: 'json',
+				data:{name:'logan', id:'id'},
+				success: function (data, status)
+				{
+					if(typeof(data.error) != 'undefined')
+					{
+						if(data.error == false)
+						{
+
+							$('#img').val(data.msg);
+ 	           $('#imgshow').attr('src',data.msg);
+ 	                $('#imgshow').show();
+						}else
+						{
+							alert(data.msg);
+						}
+					}else{
+					  alert(data);
+					}
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)
+
+		return false;
+
+	}
+	var dialogs ;
+ function uploads(){
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/other/userupload/func/uploadsucess/type/shoplogo"}>');
+ 	  dialogs.title('上传图片');
+ }
+ function uploadsucess(linkurl){
+ 	dialogs.close();
+ 	$('#img').val(linkurl);
+ 	$('#imgshow').attr('src',linkurl);
+ 	$('#imgshow').show();
+}
+function uploaderror(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+
+
+var ditulog;
+function biaoji(){
+    	mydialog = art.dialog.open(siteurl+'/index.php?controller=area&action=shopbaidumap',{height:'550px',width:'850px'},false);
+    	//http://www.hanwoba.com/index.php?controller=admin&action=baidumap&id=2#
+	 	 mydialog.title('设置标记百度地址位置');
+	 	 mydialog.height('500px');
+ }
+ function closemydilog(){
+ 	mydialog.close();
+}
+
+
+</script>
+
+ <{/block}>

@@ -1,0 +1,174 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+ <{block name=sitetitle}>用户注册<{/block}>
+ <{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberlogin.css"><{/block}>
+ <{block name=extendjs}><script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/regestercode.js" type="text/javascript" language="javascript"></script> <{/block}>
+ <{block name=shophide}><{/block}>
+ <{block name=bgshow}><div class="mmbg" style="background:url(../upload/images/regesterbk.jpg) no-repeat;"></div> <{/block}>
+ <{block name=bodylist}> 
+ <div class="new_regester">
+   <div class="regester_top">
+   </div>
+   <div class="regester_middle">
+   	  <div class="rm_li">
+   	     <ul>
+   	     	    <li><a href="<{ofunc type=url link="/member/regester"}>">手机号注册</a> 	</li>
+   	     	     <li  class="hoveron"><a href="<{ofunc type=url link="/member/yregester"}>">邮箱注册</a> 	</li> 
+   	     	</ul>
+   	    
+   	     	
+   	  </div>
+   	  <div class="rm_rt">已有帐号？<a href="<{ofunc type=url link="/member/login"}>">马上登陆</a>|<a href="<{ofunc type=url link="/member/findpwd"}>">找回密码</a></div>
+   </div>
+   <div class="regester_bottomss">
+   	  <div class="rbm_l_p">
+   	  	<form id="regForm" method="post" action="<{ofunc type=url link="/member/saveregester/datatype/json"}>">
+   	  	   <div class="mem_regester_inputdiv">
+   	  	   	  <label><font color=red>*</font>邮箱：</label>
+   	  	   	  <input type="text" name="email" id="email" style="width:200px;">
+   	  	   	  <span id="email_tips">*注册失败</span>
+   	  	   </div>
+   	  	   
+   	  	    <div class="mem_regester_inputdiv"  id="showgetcode" style="display:none;">
+   	  	   	  <label>&nbsp;</label>
+   	  	   	  <input type=button value="发送注册验证码到邮箱" name="inputgetcheck" onclick="clickyanzheng();" class="inputgetcheck" id="dosendbtn" time="0"> 
+   	  	   </div>
+   	  	   
+   	  	    <div class="mem_regester_inputdiv" id="showinputcode" style="display:none;">
+   	  	   	  <label><font color=red>*</font>验证码：</label>
+   	  	   	  <input type="text" name="phoneyan" id="phoneyan" style="width:100px;">
+   	  	   	  <span id="phoneyan_tips"></span>
+   	  	   </div>
+   	  	   
+   	  	   
+   	  	   <div class="mem_regester_inputdiv">
+   	  	   	  <label><font color=red>*</font>帐号：</label>
+   	  	   	  <input type="text" name="tname" id="tname" style="width:200px;">
+   	  	   	  <span id="tname_tips"></span>
+   	  	   </div>
+   	  	   
+   	  	    <div class="mem_regester_inputdiv">
+   	  	   	  <label><font color=red>*</font>登陆密码：</label>
+   	  	   	  <input type="password" name="pwd" id="pwd" style="width:200px;">
+   	  	   	  <span id="pwd_tips"></span>
+   	  	   </div>
+   	  	   
+   	  	   
+   	  	    <div class="mem_regester_inputdiv">
+   	  	   	  <label><font color=red>*</font>确认密码：</label>
+   	  	   	  <input type="password" name="pwd2" id="pwd2" style="width:200px;">
+   	  	   	  <span id="pwd2_tips"></span>
+   	  	   </div>
+   	  	   <{if $allowedcode==1}>
+   	  	    <div class="mem_regester_inputdiv" id="imgcode">
+   	  	   	  <label><font color=red>*</font>验证码：</label>
+   	  	   	  <input type="text"  name="Captcha" id="Captcha" style="width:100px;"><img src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg" style="height:30px;"><a href="javascript:freshcode();" >刷新图片</a>
+   	  	   	  <span id="Captcha_tips"></span>
+   	  	   </div> 
+   	  	   <{/if}>
+   	  	   <div class="mem_regester_inputdiv">
+   	  	   	  <label>&nbsp;</label>
+   	  	      	<input name="reg[agree]" type="checkbox" checked="" disabled> 我接受<a target="_blank" href="<{ofunc type=url link="/site/single/show/xieyi"}>"><{$sitename}>服务条款和协议</a>
+   	  	   </div>
+   	  	   
+   	  	    <div class="mem_regester_inputdiv">
+   	  	   	  <label>&nbsp;</label>
+   	  	      <div class="button_new_regester login-button login-button">同意协议并注册</div>
+   	  	   </div>
+   	  	</form>
+   	 
+   	  	
+   	  	
+   	  	
+   	  </div>
+   	  
+   	  
+   </div>
+    <div class="right_btm_re">
+   	   	
+   	   	  <div class="apilogin">  
+   	   	  	  <{load_data assign="apiloginlist" table="otherlogin"  fileds="*"   }> 
+					    <{if count($apiloginlist['list']) > 0}>
+				 
+						   <{foreach from=$apiloginlist['list'] item=items}>
+						    <div  style="padding-top:20px;">    <a href="<{ofunc type=url link="/member/linktest/logintype/<{$items['loginname']}>"}>" target="_blank"><img src="/upload/images/<{$items['loginname']}>.jpg"></a> </div> 
+						   <{/foreach}>
+				 
+					    <{/if}>
+   	   	  	
+   	     	</div>
+   	     	<div class="apibottom">
+   	     		已有帐户<a href="<{ofunc type=url link="/member/login"}>">立即登陆</a>
+   	     	</div>
+   	  </div>
+  
+ </div>
+ 
+
+ 
+ 
+ 
+ 	 
+ 	<script>
+   	     		 $('.rm_li li').hover(function(){
+   	     		 	$(this).addClass('hover').siblings().removeClass('hover');
+ 	           });
+   	     		</script>
+<script type="text/javascript">
+var regestercode = '<{$regestercode}>';
+$('.login-button').click(function(){ 
+	subform('<{ofunc type=url link="/member/index"}>',$('#regForm'));
+})
+$(".hc_login_input").change(function(j){
+		var v=$(this).val();
+		var p=$(this).attr("name"); 
+		switch(p){
+		case "email":
+			var patrn= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if(!patrn.exec(v)){ 
+				 alert('邮箱格式错误'); 
+			}else{ 
+				$.ajax({
+				type: "POST",
+				url: "<{ofunc type=url link="/member/checkemail/datatype/json"}>",
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){     
+					if(msg.error ==true){ 
+						$('[name="email"]').val('');
+						alert(msg.msg);
+					 } 
+					}
+				});			
+			}
+		break;
+		case "tname":
+		 	var patrn=/[u4e00-u9fa5]/;  
+			if(v == '' ||v == null){
+			  alert('用户名不能为空'); 
+			}else{
+				$.ajax({
+				type: "POST",
+				url: "<{ofunc type=url link="/member/checkname/datatype/json"}>",
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){ 
+					if(msg.error==true){ 
+						$('[name="tname"]').val('');
+						alert(msg.msg);
+					  //alert('此用户名已注册过'); 
+					 }
+					}
+				});	
+			}
+		break; 
+		case "pwd":
+			var patrn=/(.){4,16}/;  
+			if(!patrn.exec(v)){
+				 alert('密码是4-16位的字母、数字,区分大小写');  
+			 } 
+		break;
+		}
+	});
+
+</script> 
+<{/block}>

@@ -1,0 +1,23 @@
+<div class="hc_userinfo_menu" id="left_id">
+				<div class="hc_userinfo_menu_top">
+					<div class="hc_userinfo_menu_top_img hc_userinfo_menu_top_images"></div>
+					<div class="hc_userinfo_menu_top_span"><a style="color: #666;" href="<{ofunc type=url link="/membercenter"}>">个人中心</a></div>
+					<div class="clear"></div>
+				</div>
+				<{$i=1}>
+				<{foreach from=$menu key=myid item=items}> 
+				<div class="hc_suer_information">
+					<div class="hc_user_information_head"><{$myid}></div>  
+					<{foreach from=$items key=newkty item=itm}> 
+					<div class="hc_user_information_nva <{if $urlshort == $itm}>hc_user_information_nva_click<{/if}>">
+						<div class="hc_userinfo_menu_top_img hc_userinfor<{$i++}>"></div>
+						<div class="hc_userinfo_menu_nva_span"><a href="<{ofunc type=url link="/<{$itm}>"}>"><{$newkty}></a></div>
+						<div class="clear"></div>
+					</div>
+					
+					 <{/foreach}> 
+				</div>
+        <{/foreach}>
+				 														
+
+</div>

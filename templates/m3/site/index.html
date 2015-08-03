@@ -1,0 +1,659 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/v5_plugin.js.pagespeed.jm.inM6bedmF7.js"></script>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js" type="text/javascript" language="javascript"></script> 
+   <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/slides.jquery.js"> </script>
+    <script>
+	$(function(){
+			$('#bannerBox').slides({
+				preload: true,
+				preloadImage: '/upload/images/shop/loading.gif',
+				play: 5000,
+				pause: 2500,
+				hoverPause: true,
+				generatePagination:false,
+				paginationClass:'mypagination'
+			});
+		});
+
+</script>
+<{/block}>
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/floor.css"> 
+<{/block}>
+<{block name=sitetitle}><{$mapname}>-附近商家列表<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+ 
+
+
+   
+<div class="wrap">
+  <div class="home_column clearfix">
+    <form action="http://www.mogoroom.com/room/roomList.shtml" id="searchRoom" method="get" target="_blank">
+      <input type="hidden" name="communitySubways" id="communitySubways" value="">
+    </form>
+    <div class="grid_left pr">
+      <div class="index-ad"></div>
+	  
+	  
+	 <{foreach from=$indexarea item=items}> 
+      <div class="hot-filter clearfix">
+        <dl>
+          <dt><{$items['name']}></dt>
+          <dd>
+		  <{foreach from=$items['areacom'] key=mykey item=itv}>
+		  <a target="_blank" style="cursor:pointer" href="<{ofunc type=url link="/site/qitesetlocationlink/areaid/<{$itv['id']}>"}>" ><{$itv['name']}></a> 
+		    <{/foreach}>
+		  </dd>
+        </dl>
+      </div>
+	  
+	  <{/foreach}>
+	  
+    
+      <div class="go-map-seach" style="width:195px; padding-left:105px; text-align:center; target="_blank">
+	  
+	 <div style="margin-top:22px;">
+	  <span style="color:#fff; font-weight:bold; font-size:16px;"><{$mapname|default:''}></span><br>
+	  <span><a  style="color:#fff; font-weight:bold; font-size:16px;" href="<{ofunc type=url link="/site/guide"}>">[ 更改地址 ]</a></span>
+	</div>  
+	  </div>
+
+	  </div>
+    <div class="grid_right">
+      <div class="wrapper" style="width:900px;">
+	  
+	  <!--   <div id="bannerBox">
+					 <div  class="slides_container" style="height:350px;">
+					 	 <{load_data assign="lunbo" table="adv"    fileds="*"  limit="5" where="advtype='lunbo' and  module='<{$sitetemp}>'"}>  
+							<{foreach from=$lunbo['list'] item=items}>
+			        	   <a href="<{$items['linkurl']}>" target="_blank"><img src="<{$items['img']}>" width="900" height="350"></a> 
+				      <{/foreach}> 
+				    </div>
+					 
+		 </div>
+     -->
+	 
+	 
+	 <div class="banner">
+	<div class="banner-btn">
+		<a href="javascript:;" class="prevBtn"><i></i></a>
+		<a href="javascript:;" class="nextBtn"><i></i></a>
+	</div>
+	<ul class="banner-img">
+	 <{load_data assign="lunbo" table="adv"    fileds="*"  limit="5" where="advtype='lunbo' and  module='<{$sitetemp}>'"}>  
+							<{foreach from=$lunbo['list'] item=items}>
+		<li><a href="<{$items['linkurl']}>"><img src="<{$items['img']}>"></a></li>
+		 <{/foreach}> 
+	
+	</ul>
+	<ul class="banner-circle"></ul>
+</div>
+<script type="text/javascript">
+$(function(){
+        var $banner=$('.banner');
+        var $banner_ul=$('.banner-img');
+        var $btn=$('.banner-btn');
+        var $btn_a=$btn.find('a')
+        var v_width=$banner.width();
+        
+        var page=1;
+        
+        var timer=null;
+        var btnClass=null;
+
+        var page_count=$banner_ul.find('li').length;//把这个值赋给小圆点的个数
+        
+        var banner_cir="<li class='selected' href='#'><a></a></li>";
+        for(var i=1;i<page_count;i++){
+                //动态添加小圆点
+                banner_cir+="<li><a href='#'></a></li>";
+                }
+        $('.banner-circle').append(banner_cir);
+        
+        var cirLeft=$('.banner-circle').width()*(-0.5);
+        $('.banner-circle').css({'marginLeft':cirLeft});
+        
+        $banner_ul.width(page_count*v_width);
+        
+        function move(obj,classname){
+                //手动及自动播放
+        if(!$banner_ul.is(':animated')){
+                if(classname=='prevBtn'){
+                        if(page==1){
+                                        $banner_ul.animate({left:-v_width*(page_count-1)});
+                                        page=page_count; 
+                                        cirMove();
+                        }
+                        else{
+                                        $banner_ul.animate({left:'+='+v_width},"slow");
+                                        page--;
+                                        cirMove();
+                        }        
+                }
+                else{
+                        if(page==page_count){
+                                        $banner_ul.animate({left:0});
+                                        page=1;
+                                        cirMove();
+                                }
+                        else{
+                                        $banner_ul.animate({left:'-='+v_width},"slow");
+                                        page++;
+                                        cirMove();
+                                }
+                        }
+                }
+        }
+        
+        function cirMove(){
+                //检测page的值，使当前的page与selected的小圆点一致
+                $('.banner-circle li').eq(page-1).addClass('selected')
+                                                                                                .siblings().removeClass('selected');
+        }
+        
+        $banner.mouseover(function(){
+                $btn.css({'display':'block'});
+                clearInterval(timer);
+                                }).mouseout(function(){
+                $btn.css({'display':'none'});                
+                clearInterval(timer);
+                timer=setInterval(move,3000);
+                                }).trigger("mouseout");//激活自动播放
+
+        $btn_a.mouseover(function(){
+                //实现透明渐变，阻止冒泡
+                        $(this).animate({opacity:0.6},'fast');
+                        $btn.css({'display':'block'});
+                         return false;
+                }).mouseleave(function(){
+                        $(this).animate({opacity:0.3},'fast');
+                        $btn.css({'display':'none'});
+                         return false;
+                }).click(function(){
+                        //手动点击清除计时器
+                        btnClass=this.className;
+                        clearInterval(timer);
+                        timer=setInterval(move,3000);
+                        move($(this),this.className);
+                });
+                
+        $('.banner-circle li').live('click',function(){
+                        var index=$('.banner-circle li').index(this);
+                        $banner_ul.animate({left:-v_width*index},'slow');
+                        page=index+1;
+                        cirMove();
+                });
+});
+</script>
+
+<style type="text/css">
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;}
+body{font-size:12px;}
+img{border:none;}
+li{list-style:none;}
+input,select,textarea{outline:none;}
+textarea{resize:none;}
+a{text-decoration:none;}
+
+/*清浮动*/
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+
+/* banner */
+.banner{width:900px;height:350px;position:relative;overflow:hidden;margin:0 auto}
+.banner-btn{display:none;}
+.banner-btn a{display:block;line-height:40px;position:absolute;top:155px;width:40px;height:40px;background-color:#000;opacity:0.3;filter:alpha(opacity=30) color:rgb(255, 255, 255);overflow:hidden;z-index:4;}
+.prevBtn{left:5px;}
+.nextBtn{right:5px;}
+.banner-img img{width:900px;height:350px;}
+.banner-img{font-size:0;*word-spacing:-1px;/* IE6、7 */ letter-spacing:-3px;position:relative;}
+.banner-img li{display:inline-block;*display:inline;*zoom:1;/* IE6、7 */ vertical-align:top;letter-spacing:normal;word-spacing:normal;font-size:12px;}
+.banner i{background:url(<{$siteurl}>/templates/<{$tempdir}>/public/images/indexIcon.png)  no-repeat;width:15px;height:23px;cursor:pointer;margin:8px 0 0 12px;display:block;}
+.banner .nextBtn i{background-position:-200px -24px;}
+.banner .prevBtn i{background-position:-200px 0px;}
+
+.banner-circle{position:absolute;left:50%;bottom:15px;height:13px;text-align:center;font-size:0;border-radius:10px;background:rgba(255,255,255,0.3);filter:alpha(opacity:30);}
+.banner-circle li{border-radius:10px;margin:2px;display:inline-block;display:-moz-inline-stack;vertical-align:middle;zoom:1;}
+.banner-circle li a{display:block;padding-top:9px;width:9px;height:0;border-radius:50%;background:#B7B7B7;overflow:hidden;}
+.banner-circle .selected a{background:#F40;}
+</style>
+
+
+
+
+
+
+
+	 
+	 
+	 
+      </div>
+      <ul class="nav-directions clearfix">
+        <li> <i class="icon-box"></i>
+          <div class="cet">
+            <h3>网上订餐</h3>
+            让您足不出户，轻松定外卖 </div>
+        </li>
+        <li> <i class="icon-box icon-box-2"></i>
+          <div class="cet">
+            <h3>兑换礼品</h3>
+            订餐送积分，可兑换礼品 </div>
+        </li>
+        <li> <i class="icon-box icon-box-3"></i>
+          <div class="cet">
+            <h3>在线付款</h3>
+            支持在线快速付款 </div>
+        </li>
+        <li style="margin-right:0px;"> <i class="icon-box icon-box-4"></i>
+          <div class="cet">
+            <h3>互动圈子</h3>
+            线上线下活动跻身社会精英圈 </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>   
+   
+ 
+<div style="clear:both;"></div>
+ 
+<div class="wrapper"> 
+
+
+
+ 	
+ 	
+ 	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+		<h2 class="index-floor-title" style="text-align:center; height:43px; line-height:43px; color:#fff; background:#ff6931; padding:0px; border:0px;"><a style="color:#fff4f4; font-size:24px;" class="yule" href="javascript:void(0);" cate="<{$mykey}>">推荐商家</a></h2>
+		
+		<div class="floor-warp" style="margin:20px 0px 30px;">
+		
+			<div class="floor-content" style="max-height:227px; overflow:hidden;">
+				
+				<div class="floor-con0 floor-con-show">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['is_recom'] == 1 }>
+					 <div class="floor-goods" style="position:relative;height:206px;margin: 14px 0 10px 16px;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px; background:#fa6a36; ">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#5993ca;">立即订餐</span> </a>
+						   </div>
+						   
+			
+						   
+						   <a style="display:none;" onclick="return myFavorite2(<{$items['shopid']}>,this);" href="javascript:void(0);" class="my-like iscollect"  title="收藏">
+									<i class="like-ico"><span class="heart_left"></span><span class="heart_right"></span></i>
+						   </a>
+						   
+						
+						   
+						   <a  <{if empty($items['collect'])}> style="display:none;" <{/if}>  onclick="return delFav(<{$items['shopid']}>,this);" href="javascript:void(0);"  class="my-like"  title="取消收藏" >
+						   
+								<i class="like-ico l-active" style="background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/my-like.png) no-repeat 0 -19px;"><span class="heart_left"></span><span class="heart_right"></span></i>
+						  </a>
+						  
+					
+						  
+						   
+						   
+						   
+						   
+					</div>
+					<{/if}>
+				<{/foreach}>	
+					
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+	
+	 
+						   <style>
+						   .my-like {
+display: block;
+width: 28px;
+height: 26px;
+border: 1px solid #e2e2e2;
+background: #fff;
+border-radius: 2px;
+position: absolute;
+top: 10px;
+right: 20px;
+cursor: pointer;
+}
+
+.my-like i {
+background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/my-like.png) no-repeat -26px 0;
+width: 16px;
+height: 13px;
+position: absolute;
+top: 50%;
+left: 50%;
+}
+.my-like .like-ico {
+background-position: 0 0;
+margin-top: -6px;
+margin-left: -8px;
+}
+						   </style>
+ 	<script>
+	
+	
+	
+//添加店铺收藏
+function myFavorite2(shopid,obj)
+{ 
+  var url = siteurl+'/index.php?ctrl=shop&action=addcollect&datatype=json&collectid='+shopid+'&type=0'; 
+  var backinfo = ajaxback(url,{});
+  if(backinfo.flag == false){ 
+     		$(obj).hide(); 
+     		$(obj).next().show(); 
+     	//	$('#CancelFavShop').show();
+   }else{ 
+   	diaerror(backinfo.content); 
+  }  
+}  
+//删除店铺收藏
+function delFav(shopid,obj)
+{ 
+	var url = siteurl+'/index.php?ctrl=shop&action=delcollect&datatype=json&collectid='+shopid+'&type=0'; 
+  var backinfo = ajaxback(url,{});
+  if(backinfo.flag == false){ 
+      $(obj).hide(); 
+	  $(obj).prev().show(); 
+     // $('#CancelFavShop').hide();
+   }else{ 
+   	 diaerror(backinfo.content); 
+  }  
+}
+	
+	
+	</script>
+ 	  
+	<!---循环体-->
+ 	
+ 	
+ 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	<div class="index-floor cate<{$mykey}>">
+	
+   	<h2 class="index-floor-title" style="text-align:center; height:43px; line-height:43px; color:#fff; background:#ff6931; padding:0px; border:0px;"><a style="color:#fff4f4; font-size:24px;" class="yule" href="javascript:void(0);" cate="<{$mykey}>">全部餐厅</a></h2>
+		<form id="doselectform">
+		<div class="filter_shop" style="height:40px;background-color:#f7e9e9;">
+		    <div class="checklist" style="height:40px;padding-left:20px;width:850px;padding-right:50px;float:left;line-height:40px;"> 
+		    	  <{foreach from=$attrinfo[0]['det']  item=items}>   
+											       	<input type="checkbox" name="cxid[]" value="<{$items['id']}>" onclick="dosetdata();"> <{$items['name']}>
+				       <{/foreach}>		 
+		    </div>
+		    <div class="select_cost" style="width:280px;height:40px;float:left;text-align:left;">
+		    	 <div class="" style="float:left;width:40px;height:40px;line-height:40px;">起送价</div>
+		    	 <div class="" id="mygunclick" style="float:left;width:157px;margin-left:10px;height:40px;background:url(http://m3shangquan.waimairen.com/templates/m3/public/css/images/pinkbar.png) center no-repeat;text-align:left;cursor: pointer;">
+		          <div class="blue_bar" id="blue_bar" style="width:0px;height:40px;background:url(http://m3shangquan.waimairen.com/templates/m3/public/css/images/bluebar.png)  no-repeat left center;float:left;"> 
+		          </div> 
+		          <span id="myselect_q" style="display:block;height:40px;width:20px;background:url(http://m3shangquan.waimairen.com/templates/m3/public/css/images/pushbtn.png)  no-repeat  center;float:left;margin-left:-10px;"></span>
+		          <input type="hidden" name="limitcost" id="limitcost" value="0">
+		       </div>
+		       <div class="" style="float:left;width:63px;height:40px;line-height:40px;margin-left:10px;" id="showlimittext">不限制</div>
+		    </div>
+		</div>
+	  </form>
+		<div class="floor-warp" style="margin:20px 0px 30px;">
+		
+			<div class="floor-content" style=" height:auto;">
+				
+				<div class="floor-con0 floor-con-show" id="shopList">
+				
+				
+				<{foreach from=$shoplist key=mykey item=items}>
+				
+				<{if $items['opentype'] == 2 }>
+					 <div class="floor-goods" style="height:206px;margin: 14px 0 10px 16px; position:relative;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px; background:#fa6a36;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#5993ca;">立即订餐</span> </a>
+						   </div>
+						   
+						   
+						    <a style="display:none;" onclick="return myFavorite2(<{$items['shopid']}>,this);" href="javascript:void(0);" class="my-like iscollect"  title="收藏">
+									<i class="like-ico"><span class="heart_left"></span><span class="heart_right"></span></i>
+						   </a>
+						   
+						
+						   
+						   <a  <{if empty($items['collect'])}> style="display:none;" <{/if}>  onclick="return delFav(<{$items['shopid']}>,this);" href="javascript:void(0);"  class="my-like"  title="取消收藏" >
+						   
+								<i class="like-ico l-active" style="background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/my-like.png) no-repeat 0 -19px;"><span class="heart_left"></span><span class="heart_right"></span></i>
+						  </a>
+						  
+					
+						   
+						   
+						   
+					</div>
+					
+				<{/if}>
+				<{/foreach}>	
+					
+						
+						
+						
+						
+						
+							<{foreach from=$shoplist key=mykey item=items}>
+				<{if $items['opentype'] != 2 }>
+					  <div class="floor-goods" style="height:206px;margin: 14px 0 10px 16px; position:relative;">
+					   	<a class="floor-goods-img" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank">
+							        <img class="dynload" data-original="<{$items['shoplogo']|default:$shoplogo}>" style="width:226px;height:147px;" width="226" height="147" alt="<{$items['shopname']}>">
+										 	<span class="floor-goods-place"><{$items['shopname']}></span>
+										 	<span class="goods-mark">
+										             <em class="reserve iepng"></em>
+											</span>
+					  	</a>
+						  <h3 style="padding:0px; height:26px;">
+						  	<a style="width:67%; overflow:hidden; margin-left:3%; float:left; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-name" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" title="<{$items['name']}>"><{$items['shopname']}></a>
+						  	<a style="width:30%;float:right; color:#ffffff;height:26px; line-height:26px;padding:0px;" class="floor-goods-text" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank" >起送<{$items['limitcost']}>元</a>
+						  </h3>
+						  <div class="floor-goods-info" style="padding-bottom:5px; background:#fa6a36;">
+							        <span class="price" style="color:#fbfef3; font-size:14px;">
+									 <{if $items['opentype'] == 2}>
+									营业中
+									 <{elseif $items['opentype'] == 3}>
+									 接受预订
+									 <{else}>
+									 休息中
+									<{/if}> 
+									</span>
+							                   <span class="money"><del></del></span>
+																<a style="color:#fff;" href="<{ofunc type=url link="/shop/index/id/<{$items['shopid']}>/gid/<{$items['id']}>"}>" target="_blank"><span class="number" style="padding:5px 10px; background:#5993ca;">立即订餐</span> </a>
+						   </div>
+						    <a style="display:none;" onclick="return myFavorite2(<{$items['shopid']}>,this);" href="javascript:void(0);" class="my-like iscollect"  title="收藏">
+									<i class="like-ico"><span class="heart_left"></span><span class="heart_right"></span></i>
+						   </a>
+						   
+						
+						   
+						   <a  <{if empty($items['collect'])}> style="display:none;" <{/if}>  onclick="return delFav(<{$items['shopid']}>,this);" href="javascript:void(0);"  class="my-like"  title="取消收藏" >
+						   
+								<i class="like-ico l-active" style="background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/my-like.png) no-repeat 0 -19px;"><span class="heart_left"></span><span class="heart_right"></span></i>
+						  </a>
+						  
+						   
+					</div>
+				
+					<{/if}>
+				<{/foreach}>	
+					
+						
+						
+						 
+				</div>
+				
+			
+			 </div>
+		</div>
+	</div>
+	
+	
+	
+
+ 
+ 	
+ 	
+ 	
+ 	 	<div style="clear:both;"></div>
+ 	
+ 	
+ 	
+ 	
+</div>
+
+<script>
+
+
+	
+					
+					$(".floor-content .floor-goods").mouseover(function(){
+	
+						$(this).find($(".iscollect")).show();
+						
+					});
+					$(".floor-content .floor-goods").mouseout(function(){
+					
+						$(this).find($(".iscollect")).hide();
+						
+					});
+				
+
+
+
+ $(function(){
+		<{if $locationtype == 1}>
+ 	   var lng = '<{$lng}>';
+		
+		if(lng == 0 ){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+ 	<{else}>
+		var myaddressid = '<{$myaddress}>';
+		if(myaddressid == null|| myaddressid==''){
+			 window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	<{/if}>
+ 
+  $("#mygunclick").click(function(e) {
+    //
+    var offset = $(this).offset();
+    var relativeX = (e.pageX - offset.left);
+    var bili = Number(relativeX)/Number($(this).width())*100; 
+    bili = Math.ceil(bili);
+    var checknowid = $('#limitcost').val();
+    if(bili > 75){
+    	//30
+    	 $('#blue_bar').css({'width':'93%'});
+    	$('#limitcost').val(30);
+    	$('#showlimittext').text('30元以上');
+    	if(checknowid != 30){
+    		dosetdata();
+    	}
+       
+    }else if(bili > 50){
+       //20
+       $('#blue_bar').css({'width':'75%'});
+       $('#limitcost').val(20);
+       $('#showlimittext').text('20元以上');
+       if(checknowid != 20){
+    		dosetdata();
+    	}
+    }else if(bili > 25){
+      //10
+      $('#blue_bar').css({'width':'50%'});
+       $('#limitcost').val(10);
+       $('#showlimittext').text('10元以上');
+       if(checknowid != 10){
+    		dosetdata();
+    	}
+    }else if(bili > 5){
+    	 $('#blue_bar').css({'width':'25%'});
+       $('#limitcost').val(5);
+       $('#showlimittext').text('5元以上');
+       if(checknowid != 5){
+    	   	dosetdata();
+    	}
+    }else{
+    	$('#blue_bar').css('width','0px');
+    	$('#limitcost').val(0);
+    	$('#showlimittext').text('不限制');
+    	if(checknowid != 0){
+    	   	dosetdata();
+    	}
+    }
+     
+  }); 
+});
+  function dosetdata(){
+  	    var url = siteurl+"/index.php?ctrl=site&action=indexlist"; 
+	   $.post(url, $('#doselectform').serialize(),function (data, textStatus){  
+	     	$('#shopList').html(data);  
+	  }, 'html'); 
+  }
+	function tabCutover02(obj,tempobj){
+		$(obj).addClass('current').siblings().removeClass('current');
+		$(obj).parent().parent().find($('.'+tempobj)).addClass('floor-con-show').siblings().removeClass('floor-con-show');
+	}
+</script>
+<div style="height:20px;"></div>
+<!--区域店铺-->
+<{/block}>

@@ -1,0 +1,73 @@
+</div>
+</div>
+
+<div id="footer">
+	
+<div class="hc_btm_div">
+		<div class="hc_btm_contact">
+			<{foreach from=$toplink key=myid item=items}> 
+			<a href="<{$items['typeurl']}>"><{$items['typename']}></a> | 
+			<{/foreach}>
+
+		</div>
+		<div class="hc_btm_info">@2013-2014 <{$sitename}> <{$beian}><{$footerdata|stripslashes}></div>
+	</div>	
+	
+	
+ </div> 
+<div style="position: absolute; top: -1970px; left: -1970px;"> 
+</div>
+<div id="serverdiv" style="display:none;">
+    	<ul>
+    	  <li><a href="#" id="a_product" class="nav_a">快速导航</a>
+    	  	 
+    	  	</li>
+    	  <li >
+    	  	 <a id="a_serve" herf="javascript:void(0)" class="nav_a" >在线客服</a> 
+    	      <div class="outserdiv">
+    	  	 	    <table id="serve_list" style="">
+    	  	 	    	<tbody> 
+    	  	 	    		 
+    	  	 	    		  <tr style="display: table-row;"><td>
+    	  	 	    					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=375952873&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:375952873:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+    	  	 	    					</td>
+    	  	 	    			</tr>
+    	  	 	    			 
+    	  	 	    			</tbody>
+    	  	 	    	</table>
+    	  	 	</div>	
+    	  </li>	
+    	  <li><a id="a_share" herf="javascript:void(0)" class="nav_a">分享到</a> 
+    	  	<div class="outserdiv">
+    	  	 <table id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(144, 218, 148);">
+    	  	 	<tbody>
+    	  	 		<tr><td colspan="2" style="height:3px;">&nbsp;</td></tr>
+    	  	 		<tr><td height=23px><a class="bds_qzone" href="#">QQ空间</a></td><td><a class="bds_tsina" href="#">新浪微博</a></td></tr>
+    	  	 		<tr><td height=23px><a class="bds_tqq" href="#">腾讯微博</a></td><td><a class="bds_renren" href="#">人人网</a></td></tr>
+    	  	 		<tr><td height=23px><a class="bds_baidu" href="#">百度搜藏</a></td><td><a class="bds_kaixin001" href="#">开心网</a></td></tr>
+    	  	 		<tr><td height=23px><a class="bds_tqf" href="#">腾讯朋友</a></td><td><a class="bds_hi" href="#">百度空间</a></td></tr>
+    	  	 		<tr><td height=23px><a class="bds_douban" href="#">豆瓣网</a></td><td><a class="bds_tsohu" href="#">搜狐微博</a></td></tr>
+    	  	 		<tr><td height=23px><a class="bds_qq" href="#">QQ收藏</a></td><td><a class="bds_taobao" href="#">我的淘宝</a></td></tr>
+    	  	 		<tr><td height=23px><a class="bds_t163" href="#">网易微博</a></td><td><span class="bds_more">更多</span></td></tr>
+    	  	 		<tr><td colspan="2" style="padding:2px;">&nbsp;<div id="to_baidu_index" style="background-color: rgb(144, 218, 148); background-position: initial initial; background-repeat: initial initial;"><img src="http://x.xnit.net/js/../images/tobaidu.png" width="156" height="25"></div><div class="bdaddtocitebtn bdaddtocitebtn-small" style="display:none;"></div></td></tr><tr><td colspan="2"></td></tr></tbody></table>
+ 
+    	  	</div>
+    	  	 </li>	
+    	  <li><a id="a_backtop" herf="javascript:void(0)" class="nav_a" >回到顶部</a> </li>	
+    	  <li><a id="a_qrcode" herf="javascript:void(0)" class="nav_a" >下载APP</a>
+    	  	<div class="outserdiv" style="width:150px;background-color:#fff;display:none;">
+    	  		<div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/chart.png" style="width:150px;height:150px;"></div>
+    	  		<div style="padding-bottom:10px;"><a href="<{$siteurl}>/waimairen.apk" style="color:blue;">手动下载</a></div>
+    	  	</div>
+    	  	
+    	  	</li>	
+    	  <li id="close_all"><div id="close_img_bg" style="background-color: rgb(144, 218, 148); background-position: initial initial; background-repeat: initial initial;"><div id="close_img" title="点击收起"></div></div> </li>	
+    	</ul>
+</div>
+<div id="open_img_bg" style="display:none;">
+	<div id="open_img" title="点击展开" style=""></div>
+</div>
+ 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/sharea.js" type="text/javascript" language="javascript"></script>
+</body>
+</html>

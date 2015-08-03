@@ -1,0 +1,56 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>
+ <{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+
+<script>
+$(function(){
+
+   // $('.waimaiset').children().children('img').remove();
+});
+</script>
+<{/block}>
+ <{block name=bodylist}>
+
+ <!--content right start-->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>微信管理</span> </div>
+    <{include file="<{$tempdir}>/weixin/weixinmenu.html"}>
+    <div class="cl"></div>
+    <form method="post" action="<{ofunc type=url link="/weixin/wxsetsave"}>">
+    <div class="jutiSet">
+      <div class="serxuanze">
+        <div class="xuanze_left">
+          <span>微信自定义token:</span>
+        </div>
+        <div class="dianpu_right">
+          <input type="text" value="<{$token}>" name="wxtoken" id="wxtoken">
+        </div>
+        <div class="cl"></div>
+      </div>
+      <div class="serxuanze">
+        <div class="xuanze_left">
+          <span>微信appid:</span>
+        </div>
+        <div class="dianpu_right">
+          <input type="text" value="<{$appid}>" name="wxappid" id="wxappid">
+        </div>
+        <div class="cl"></div>
+      </div>
+      <div class="serxuanze">
+        <div class="xuanze_left">
+          <span>微信secret:</span>
+        </div>
+        <div class="dianpu_right">
+          <input type="text" value="<{$secret}>" name="wxsecret" id="wxsecret">
+        </div>
+        <div class="cl"></div>
+      </div>
+      <div class="settijiao">
+        <div class="xuanze_right"><input type="submit" value="提交"></div>
+        <div class="cl"></div>
+      </div>
+    </div>
+    </form>
+  </div>
+
+ <{/block}>

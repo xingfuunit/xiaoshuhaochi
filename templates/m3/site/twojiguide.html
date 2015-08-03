@@ -1,0 +1,12 @@
+<{if empty($list)}>
+<li style="font-size:16px;">
+	此地点附近暂时没有外卖餐厅，努力覆盖中...
+</li>
+<{/if}>
+<{foreach from=$list key=myid item=items}>
+<li style="font-size:16px;">
+<a href="<{ofunc type=url link="/site/setlocationlink/areaid/<{$items['id']}>"}>" >
+<{$items['name']}>
+</a>
+</li>
+<{/foreach}>

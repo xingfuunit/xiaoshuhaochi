@@ -1,0 +1,90 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/shopshow.css">   
+<{/block}>
+ <{block name=extendjs}>  
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/js/wxshop.js"></script>  
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ 
+ <div style="height:40px;"></div>
+ <div class="shoplogo"><img src="<{$shopinfo['shoplogo']|default:$shoplogo}>"></div>
+ <section class="listselect">
+ 	     <h1>公告</h1>
+  			<ul class="liststyle1">
+  			 
+  			  <li class="touchend">
+  			  	   <div class="listcontant_one"  ><{$shopinfo['notice_info']|htmlspecialchars_decode}></div> 
+  			  </li>
+  			</ul>
+  			 
+ </section>
+ <section class="listselect">
+ 	     <h1>店铺信息</h1>
+  			<ul class="liststyle1"> 
+  				<li class="touchend"  >
+  					  <div class="labellist ">店铺状态:</div><div class="listcontant mFlex1"><{if $openinfo['opentype'] == 2 || $openinfo['opentype'] == 3}>正常开启<{else}>关闭中<{/if}></div> 
+  			  </li>
+  				<li class="touchend"  >
+  					  <div class="labellist ">店名:</div><div class="listcontant mFlex1"><{$shopinfo['shopname']}></div> 
+  			  </li>
+  			  <li class="touchend"  >
+  					  <div class="labellist ">地址:</div><div class="listcontant mFlex1"><{$shopinfo['address']}></div> 
+  			  </li>
+  			  <li class="touchend"  >
+  					  <div class="labellist ">联系电话:</div><div class="listcontant mFlex1"><{$shopinfo['phone']}></div> 
+  			  </li>
+  			  <li class="touchend"  >
+  					  <div class="labellist ">营业时间:</div><div class="listcontant mFlex1"><{$shopinfo['starttime']}></div> 
+  			  </li>
+  				<li class="touchend"  >
+  					  <div class="labellist ">起送价:</div><div class="listcontant mFlex1"><{$shopdet['limitcost']}>元</div> 
+  			  </li>
+  			  
+  			  <li class="touchend"  >
+  					  <div class="labellist ">起送说明:</div><div class="listcontant mFlex1"><{$shopdet['limitstro']}></div> 
+  			  </li>
+  			 
+  			</ul>
+  			 
+ </section>
+ 
+ <section class="listselect">
+ 	     <h1>最近评价  </h1>
+ 	     <div style="clear:both;"></div>
+  			<ul class="liststyle1">
+  				  <{load_data assign="comentlist" table="comment"   fileds="*"   limit="10" orderby=" id desc" where="is_show=0"}>  
+  				  <{if count($comentlist['list']) > 0}>
+  				    <{foreach from=$comentlist['list'] item=items}>
+  				     <li class="touchend">
+  			  	      <div class="liwd50"><{$items['content']}></div>
+  			  	      <div class="liwd50">
+  			  	      	    <div><{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></div>
+  			  	      	    <div> <div style="color:#c30814;width:<{$items['point']*12}>px;overflow:hidden;">★★★★★</div></div>
+  			  	       </div> 
+  			       </li>
+  			     <{/foreach}>
+  				  <{else}>
+  				<li class="touchend" style="height:80px;">
+  					   <div style="line-height:80px;text-align:center;width:100%;">暂无评价</div>
+  			  </li>
+  			   <{/if}>
+  			 
+  			</ul> 
+ </section>
+ 
+ <div style="clear:both;height:55px;"></div>
+ <div class="shopfootdiv">
+ 	   <ul class="listshopfoot">
+ 	       <li class="touchend" style="height:50px;" >
+  				     <div class="footico " data="shopshow" data1="home" onclick="dolink('<{ofunc type=url link="/wxsite/shopshow/id/<{$id}>"}>');"> <span class="on"></span>   </div> 
+  					   <div class="footico " data="shopgoodslist" data1="dian" onclick="dolink('<{ofunc type=url link="/wxsite/shopgoodslist/id/<{$id}>"}>');">  <span class="on"></span>  </div> 
+  					   <div class="footico " data="shopcart" data1="cart" onclick="dolink('<{ofunc type=url link="/wxsite/shopcart/id/<{$id}>"}>');"> <span class="on"></span>  </div> 
+  					   <div class="footico " data="member" data1="user" onclick="dolink('<{ofunc type=url link="/wxsite/member/id/<{$id}>"}>');">  <span class="on"></span> </div> 
+  		  </li>
+  	 </ul>
+ </div>
+  
+ 
+<{/block}>

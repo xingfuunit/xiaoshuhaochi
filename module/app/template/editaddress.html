@@ -1,0 +1,59 @@
+ <{extends file="<{$tempdir}>/public/app.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/app/css/editaddress.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+<script>
+	 
+	
+ 
+	 
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><{/block}>
+<{block name=blockcontent}>  
+   
+  <{load_data assign="info" table="address" type="one" where="id='<{$id}>' and userid = '<{$member['uid']}>'" fileds="*" }> 
+
+  <div class="container">
+
+  	<section>
+
+  		   <div class="sex"></div>
+
+  		   <input type="text" id="name" class="inputInp" name="name" placeholder="您的姓名" value="<{$info['contactname']}>">
+
+  		   <input type="text" id="mobile" class="inputInp" name="mobile" placeholder="您的手机" value="<{$info['phone']}>">
+
+  		   
+
+  		   
+
+  		   
+
+  		   <input type="text" id="addressdetail" class="inputInp" placeholder="请填写详情地址" value="<{$info['address']}>">
+
+  		   </section>
+
+  	 <div class="btnAdd"><input class="inputBtn" id="addAddress" type="button" value="保存"  onclick="saveaddress();"></div>
+<script>
+	 
+	  
+	function saveaddress(){ 
+		$('#loading').show();
+       var info = {'contactname':$('#name').val(),'phone':$('#mobile').val(),'add_new':$('#addressdetail').val(),'addressid':<{$id}>}; 
+	  	var url = '<{ofunc type=url link="/area/saveaddress/random/@random@/datatype/json"}>';
+		  var backdata = ajaxback(url,info); 
+		  if(backdata.flag == false){ 
+		      window.location.href = siteurl+'/index.php?controller=app&action=address';
+		  }else{
+		  	$('#loading').hide();
+		     Tmsg(backdata.content);
+		  }
+		  
+	}
+	</script>
+
+<{/block}>

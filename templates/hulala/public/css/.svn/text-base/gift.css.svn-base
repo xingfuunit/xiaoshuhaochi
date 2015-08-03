@@ -1,0 +1,192 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.IntegralMall {
+width: 100%;
+height: 100%;
+position: relative;
+margin-top: 10px;
+}
+.IntegralMallIn {
+width: 982px;
+height: 100%;
+margin: 0 auto;
+}
+
+.IMTop {
+height: 53px;
+line-height: 40px;
+background: #fff;
+font-size: 14px;
+font-weight: bold;
+padding: 0px 20px;
+color: #333;
+border-radius: 3px;
+background: url(../images/gift/step.gif) no-repeat;
+}
+.IMMiddle {
+min-height: 356px;
+_height: 356px;
+}
+.IMMiddle ul {
+width: 1020px;
+}
+.IMMiddle ul li {
+width: 236px;
+height: 346px;
+float: left;
+margin: 10px 10px 0 0;
+background: #fff;
+overflow: hidden;
+background: #fff;
+border: 1px solid #fff;
+border-radius: 3px;
+}
+.IMPic {
+width: 216px;
+height: 216px;
+margin: 0 auto;
+padding: 10px;
+}
+.IMPic img {
+font-size: 0px;
+border: 3px solid #fff;
+}
+.IMIntro {
+height: 48px;
+line-height: 24px;
+padding: 10px;
+overflow: hidden;
+border-top: 1px dashed #e1e1e1;
+border-bottom: 1px dashed #e1e1e1;
+}
+.IMBtn {
+display: inline-block;
+width: 80px;
+height: 30px;
+line-height: 30px;
+background: #ec5051;
+color: #fff;
+float: right;
+text-align: center;
+border-radius: 2px;
+}
+
+.IMOperate {
+height: 30px;
+padding: 5px; 
+}
+.IMOperate a{
+	color:#fff;
+}	
+.IMIntegral {
+width: 130px;
+line-height: 30px;
+float: left;
+}
+.IMIntegral span {
+color: #ec5051;
+font-family: Arial;
+font-size: 24px;
+font-weight: bold;
+}
+.IMBtn:hover {
+color: #fff;
+}
+.IMMiddle ul li:hover .IMBtn {
+background: #c00;
+}
+.IMMiddle ul li:hover .IMBtn:hover {
+background: #a20000;
+}
+.IMMiddle ul li:hover {
+background: #eff8ff;
+border: 1px solid #d6eafa;
+}
+
+
+.IMDetail {
+width: 900px;
+height: 440px;
+background: #fff;
+padding: 20px;
+border: 20px solid #e1e1e1;
+filter: alpha(opacity=100);
+opacity: 1;
+border-radius: 5px;
+position: absolute;
+left: 0;
+_left: -20px;
+top: 10%;
+z-index: 1001;
+}
+#PopInfo {
+position: absolute;
+left: 50%;
+margin-left: -491px;
+z-index: 1001;
+}
+.IMDTop {
+width: 900px;
+height: 300px;
+}
+.IMDTLeft {
+width: 300px;
+height: 300px;
+float: left;
+background: #f1f1f1;
+}
+.IMDTRight {
+width: 580px;
+height: 300px;
+line-height: 30px;
+float: right;
+color: #555;
+}
+.IMDTRight h3 {
+height: 30px;
+line-height: 30px;
+font-size: 18px;
+font-weight: 400;
+font-family: Arial;
+}
+.IMDTRight dl {
+height: 150px;
+margin-top: 20px;
+}
+.IMDTBtn {
+height: 30px;
+margin-top: 20px;
+}
+.IMDTBtn a {
+display: inline-block;
+height: 30px;
+line-height: 30px;
+text-align: center;
+color: #fff;
+background: #c00;
+padding: 0px 10px;
+border-radius: 2px;
+}
+.IMDBottom {
+height: 90px;
+background: #f1f1f1;
+margin-top: 20px;
+padding: 10px 20px 20px 20px;
+overflow: hidden;
+}
+.IMClose {
+display: block;
+width: 30px;
+height: 30px;
+position: absolute;
+right: 20px;
+top: 20px;
+background: url(../images/gift/Close.gif) no-repeat left top;
+z-index: 1002;
+}
+.IMClose:hover {
+background-position: right top;
+}
+.IMDTBtn a:hover{
+	color:#fff;
+}	

@@ -1,0 +1,61 @@
+@charset "utf-8";
+.copyright {
+	width:588px;
+	margin:0px auto;
+	padding:0px auto;
+	text-align:right;
+	font-size:10px;
+	color:gray;
+}
+.copyright a {
+	color:#999;
+}
+.table {
+	width:300px;
+	margin:66px auto 5px;
+	text-align:center;
+	font-size:12px;
+	border:1px solid #DDD;
+	border-collapse:collapse;
+	background:white;
+}
+.table * td {
+	padding:3px 6px;
+	border:1px solid #EEE;
+}
+.table thead * th {
+	background:#F5F5F5;
+	border:1px solid #E3E3E3;
+	padding:0px 6px;
+	color:#999;
+}
+.table tbody * th {
+	background:#F5F5F5;
+	border:1px solid #DDD;
+	font-size:14px;
+	height:40px;
+	line-height:40px;
+}
+.table tbody * th strong {
+	line-height:21px;
+	text-indent:10px;
+	color:#999;
+}
+.td1 {
+	text-align:right;
+	color:#666;
+}
+.td2, .td3, .td4, .td5, .td6, .td7, .td8, .td9 {
+	text-align:center;
+}
+.td5 {
+	background:#F5F5F5;
+}
+.td6, .td7, .td8, .td9 {
+	background:#F5F5F5;
+}
+.abctxt {
+	padding:10px;
+}
+
+.showmessage p {font-weight: normal; font-size:12px;}

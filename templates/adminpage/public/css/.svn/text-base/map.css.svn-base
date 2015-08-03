@@ -1,0 +1,337 @@
+@charset "utf-8";
+/* CSS Document */
+div, span, h1, h2, h3, h4, h5, h6, ul, li, img, p, strong, b, textarea, input, button, select, form, a, table, tr, td, dl, dt, dd ,ol {
+margin: 0;
+padding: 0;
+}
+#guide{ width:1150px; display:block; height:520px; z-index:2; background:url(/images/map/mapMarker.png) no-repeat; position:absolute; top:53px; left:0;}
+#guide-close{ width:35px; height:35px; position:absolute; right:28px; top:30px; cursor:pointer;}
+#home-map{ width:1150px; margin:30px auto; border-bottom:3px solid #b8b8b8; position:relative;}
+#home-map .searchBtn{ top:16px;}
+#map-position .searchBtn{ top:16px;}
+#home-mapBox{ width:1150px; height:520px;}
+#h-map{ position:relative;}
+#home-map #mapBox{ width:100%; float:none;}
+#mapBox{ color:#666;}
+/*搜索地址->地图页*/
+#map-position{ width:1150px; margin:30px auto 95px; border-bottom:3px solid #b8b8b8;}
+
+.marker {
+    display: block;
+    width: 18px;
+    height: 24px;
+    background: none repeat scroll 0% 0% #F2F5F7;
+    left: 15px;
+position: absolute;
+}
+.result-block:hover > .marker.ui_1, .result-block.ui_current > .marker.ui_1 {
+    background-position: 0px -110px;
+}
+.result-name {
+    margin: 0px 0px 1px;
+    font-size: 14px;
+    color: #333;
+}
+.result-address {
+    margin: 0px 0px 5px;
+    font-size: 13px;
+    color: #999;
+}
+.result-nearby {
+    margin: 0px;
+    font-size: 13px;
+    color: #666;
+}
+.highlight {
+    color: #08C;
+    font-weight: bold;
+}
+.result-pager {
+    margin: 0px;
+    padding: 10px 15px 10px 45px;
+}
+.simple-pagination.light-theme > ul > li {
+    display: inline-block;
+    padding-left:3px;
+    padding-right:3px;
+}
+.result-block:hover, .result-block.ui_current {
+    background: none repeat scroll 0% 0% #F2F5F7;
+}
+.middletu{
+	width: 80%;
+height: 80%;
+right: 10%;
+left: 10%;
+position: absolute;
+top: 5%;
+}
+.headerAcMain {
+width: auto;
+height: 50px;
+background: #fc8200;
+margin: 0 auto;
+padding: 0 20px;
+}
+.headerAcMain span {
+z-index: 99;
+position: absolute;
+}
+.headerAcMain span em {
+display: block;
+height: 23px;
+width: 18px;
+background: url(../image/images_all.png) -29px 0 no-repeat;
+float: left;
+margin-top: 15px;
+}
+.headerAcMain span i {
+float: left;
+font-family: "微软雅黑", "黑体";
+color: #FFF;
+font-size: 16px;
+font-style: normal;
+line-height: 51px;
+margin-left: 10px;
+z-index: 100;
+}
+.headerAcMain span i a {
+text-decoration: none;
+color: #fff;
+}
+.headerAcMain p {
+float: left;
+font-family: "微软雅黑", "黑体";
+color: #FFF;
+font-size: 22px;
+line-height: 51px;
+width: 100%;
+height: 10%;
+text-align: center;
+position: absolute;
+left: 0px;
+top: 0;
+z-index: 1;
+}
+.headerAcMain ol {
+float: right;
+margin-left: 20px;
+padding-top: 15px;
+text-align: right;
+z-index: 100;
+font-size: 16px;
+position: absolute;
+right: 25px;
+}
+.headerAcMain ol li a {
+text-decoration: none;
+color: #fff;
+font-family: "微软雅黑", "黑体";
+}
+.headerAcMain ul {
+right: 100px;
+width: 100px;
+text-align: right;
+position: absolute;
+z-index: 100;
+}
+.headerAcMain ul li a {
+float: left;
+color: #fff;
+font-family: "微软雅黑", "黑体";
+font-size: 16px;
+line-height: 51px;
+float: left;
+text-decoration: none;
+margin: 0 5px;
+}
+.headerAcMain ul li i {
+float: left;
+color: #fff;
+font-family: "微软雅黑", "黑体";
+font-size: 16px;
+line-height: 51px;
+float: left;
+}
+
+.mapContent{ width:100%;height:100%;}
+ .mapContent .mapSide{ width:299px; height:520px; float:left; border-right:1px solid #c8c8c8}
+ .mapSide h3{ height:39px; line-height:39px; padding-left:20px; font-weight:normal; color:#666; font-family:'宋体'; border-bottom:1px solid #ccc; background:#f0f0f0;}
+ .mapSide .Messlist{ height:480px; overflow-y:auto; position:relative; overflow-x:hidden;}
+ .mapSide .Messlist ul{ height:100%; position:absolute; top:0; left:0; width:100%;}
+ .mapSide .Messlist li{cursor: pointer; padding:13px 0 13px 45px;color:#666; position:relative; border-top:1px solid #e6e6e6;}
+ .mapSide .Messlist .active{ background:#fff5e6;}
+ .mapSide .Messlist h4{ line-height:28px; font-size:14px; }
+ .mapSide .Messlist p{ line-height:18px;}
+ .mapSide .Messlist .index{ width:25px; height:33px; position:absolute; top:14px; left:14px; background-position:right top; text-align:center; line-height:25px; color:#FFF;}
+ .mapSide .Messlist .active .index{ background-position:0 0;}
+ /*没有数据处理*/
+.mapSide .noResults{ padding:5px 10px; color:#666; font-size:12px;}
+ 
+ /*右侧地图 */
+ #SearchAddmap{ width:100%; float:left; height:100%; position:relative;}
+.guess{ cursor:pointer; width:42px; height:41px; display:none; position:absolute; top:10px; left:12px; background:url(/images/map/map.png) no-repeat -103px 0;}
+ #mapBox{ width:850px; height:520px;}
+ #mapBox .infoTitle{height:30px; line-height:30px; color:#666; font-size:15px;}
+ /* BMapLib_SearchInfoWindow*/
+ #mapBox .infoAddress,#mapBox .HotelNum{ line-height:18px; color:#666;}
+#mapBox .infoAddress{ line-height:18px;}
+ #mapBox .watchBtn{ width:120px; line-height:30px;text-align:center; color:#fff; height:30px; background-position:-150px 0; text-shadow:0 0 5px #000; font-size:14px; cursor:pointer; margin-top:12px; display:block;}
+ #mapBox .HotelNum a{ color:#f87206; padding:0 5px; text-decoration:underline;}
+ #mapBox .btnStyle2{ width:100px; display:block;}
+ #mapBox .infoAddress {
+line-height: 18px;
+}
+a.mapBtns {
+width: 80px;
+height: 25px;
+float: left;
+background: #ff6f00;
+color: #fff;
+line-height: 25px;
+text-align: center;
+margin-right: 10px;
+}
+
+.citychoice{padding:6px 5px 5xp 5xp;background-color:#fff;width:100px;float:left;height:28px;border:1px solid #fff;margin-right:3px;border-radius: 3px;line-height:28px;text-align:center;background:url(../images/arrowdown.png) no-repeat right #fff;font-size: 15px;font-weight: normal;}
+.zhezhao{height:100%;width:100%;left:0;top:0;display:none;background-color: #666666;opacity: .50;position: absolute;filter: Alpha(opacity=50);}
+/*城市弹出层*/
+.citylist{min-height:300px;width:600px;position:absolute;background-color:#fff;display:none;}
+.citylisttititle{height:30px;border-bottom:1px solid #ccc;color:#999;}
+.cityleft{float:left;width:200px;height:30px;line-height:30px;margin-left:20px;}
+.cityright{float:right;width:200px;height:30px;line-height:30px;text-align:right;margin-right:20px;}
+.citylistshow{padding:20px 20px 20px 20px;width:100%;height:100%;}
+.citylistshow li{float:left;padding-right:20px;line-height:30px;min-width:100px;}
+.citylistshow li.on{color:blue;text-decoration: underline;cursor: pointer;}
+.citylist2{min-height:300px;width:600px;position:absolute;left:0;top:0;background-color:#fff;display:none;}
+.search_result{height:480px;width:280px;position:absolute;background-color:#fff;display:none;overflow-y: auto;padding:10px 10px 10px 10px;}
+.search_result .result-block{padding: 15px 15px 15px 45px;border-bottom: 1px solid #DDD;cursor: pointer;}
+.searhistory{position:absolute;background-color:#fff;width:150px; text-align:left;padding-left:20px;}
+.historytitle{border-bottom:1px solid #666;height:30px;line-height:30px;}
+.searhistory li{height:30px;line-height:30px;width:150px;overflow:hidden;}
+.searhistory li:hover{background: none repeat scroll 0% 0% #F2F5F7;text-decoration: underline;cursor: pointer;}
+.searhistory li a{color:#666;}
+
+.run-mapSearchH2{
+	position: absolute;
+z-index: 100;
+width:600px; 
+margin-top: 20px;
+margin-left: 80px;
+}
+.run-mapSeachTxt{
+width:600px;
+height:40px;
+}
+.run-mapSearchH2 .run-mapSeachTxt input {
+width: 452px;
+border: none;
+border: 0;
+box-shadow: 0px 1px 2px #999;
+color: #999;
+height: 30px;
+line-height: 30px;
+padding: 0 35px 0 9px;
+}
+.searchBtn {
+position: absolute;
+width: 19px;
+height: 19px;
+background: url(../images/restaurant-icon.png) no-repeat 0 -142px;
+top: 9px;
+cursor: pointer;
+right: 9px;
+}
+#mysetdiv{
+position:absolute;
+background:#fff;
+
+}
+.myRichMarkerAlert {
+position: absolute;
+top: 100px;
+left: 200px;
+background-color: #fff;
+z-index: 9999999999;
+position: relative;
+padding: 22px;
+width: 280px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+background: white;
+border-radius: 3px;
+box-shadow: 0 3px 6px 2px rgba(0,0,0,0.3);
+width: 320px;
+height: 138px;
+overflow: visible; 
+}
+i.arrow {
+content: "";
+position: absolute;
+bottom: -10px;
+left: 135px;
+display: inline-block;
+border-right: 10px solid transparent;
+border-top: 10px solid #fff;
+border-left: 10px solid transparent;
+}
+.info-window .close {
+position: absolute;
+top: 10px;
+right: 10px;
+display: block;
+width: 12px;
+height: 12px; 
+background: url(../images/shop/sprites.png) no-repeat transparent 0 -480px;
+}
+
+p {
+margin: 0 0 9px;
+font-size: 13px;
+line-height: 18px;
+}
+.info-window .name {
+margin-bottom: 3px;
+color: #555;
+font-size: 13px;
+font-weight: bold;
+}
+.info-window .name {
+font-size: 16px;
+margin-right: 12px;
+}
+.info-window .addr {
+color: #999;
+display: block;
+float: left;
+height: 30px;
+overflow: hidden;
+line-height: 30px;
+margin: 0px;
+}
+.info-window .amount {
+float: left;
+clear: both;
+color: #747474;
+margin-top: 4px;
+width: 200px;
+}
+.info-window .btn {
+clear: both;
+display: block;
+margin-top: 15px;
+width: 120px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+background-color: #f60;
+background-image: -webkit-linear-gradient(180deg,#f60,#f70);
+background-image: linear-gradient(180deg,#f60,#f70);
+color: white;
+box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+border-radius: 3px;
+font-size: 14px;
+font-weight: bold;
+}
+ 

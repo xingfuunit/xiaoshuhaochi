@@ -1,0 +1,120 @@
+
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>区域添加<{/block}>
+ <{block name=bodylist}>
+ <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+          <{load_data assign="info" table="area"  type="one"  where="id='<{$id}>'" }> 
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/area/savearea/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/area/adminarealist"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">区域名称</td>
+                      <td><input type="text" name="name" id="name" value="<{$info['name']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">上级区域</td>
+                      <td><select name="parent_id" id="parent_id" onchange="addimg();">
+                      	<option value="0">一级目录</option>
+                      	 <{load_data assign="list" table="area"     limit="1000" orderby="orderid asc "}> 
+                         <{foreach from=$list['list'] item=items}> 
+                            <{if $items['parent_id'] == 0}>
+                               <option value="<{$items['id']}>" <{if $info['parent_id'] == $items['id']}>selected<{/if}>><{$items['name']}></option>
+                                  <{foreach from=$list['list'] item=itv}> 
+                                      <{if $itv['parent_id'] == $items['id']}> 
+                                          <option value="<{$itv['id']}>" <{if $info['parent_id'] ==  $itv['id']}>selected<{/if}>>&nbsp&nbsp&nbsp&nbsp<{$itv['name']}> </option>
+                                           <{foreach from=$list['list'] item=itc}> 
+                                            <{if $itc['parent_id'] == $itv['id']}>
+                                             <option value="<{$itc['id']}>" <{if $info['parent_id'] == $itc['id']}>selected<{/if}>>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<{$itc['name']}> </option>
+                                             	<{/if}> 
+                                           <{/foreach}>
+                                      
+                                      <{/if}>
+                                  <{/foreach}> 
+                             <{/if}>
+                         <{/foreach}> 
+                        </select>
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">首字母拼音</td>
+                      <td><input type="text" name="pin" id="pin" value="<{$info['pin']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">排序ID</td>
+                      <td><input type="text" name="orderid" id="orderid" value="<{$info['orderid']}>" class="skey" style="width:150px;" ></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="imgdo" <{if  $info['parent_id'] !=0}> style="display:none;"<{/if}>>
+                      <td class="left" valign="top">地址图标</td>
+                      <td>
+                      	<img src="<{$info['imgurl']}>" width=203px height=124px id="imgshow" <{if  empty($info['imgurl'])}> style="display:none;"<{/if}>>
+                      	<input type="hidden" name="imgurl" id="imgurl" value="<{$info['imgurl']}>" class="skey" style="width:150px;" >
+                      	<span onclick="uploads();">上传图片</span>
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">是否推荐</td>
+                      <td><input type="checkbox" name="is_com" id="is_com" value="1" <{if $info['is_com'] == 1}>checked<{/if}>  >勾选推荐</td>
+                    </tr>
+                    <input type="hidden" name="uid" id="uid" value="<{$info['id']}>" class="skey" style="width:150px;"> 
+                  </tbody> 
+                </table>
+              </div>
+              <div class="blank20"></div> 
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    
+    
+    
+  </div> 
+<script>
+	 function addimg()
+	 {
+	 	 var panduan = $("#parent_id  option:selected").val(); 
+	 	 if(panduan == 0)
+	 	 {
+	 	 	showupload();
+	 	 }else{
+	 	 	hideupload();
+	  	} 
+	 }
+	 function showupload()
+	 {
+	 	  $('#imgdo').show();
+	 }
+	 function hideupload()
+	 {
+	 	  $('#imgdo').hide();
+	 }
+	 var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/other/adminupload/func/uploadsucess"}>');
+ 	  dialogs.title('上传图片'); 
+ } 
+ function uploadsucess(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploads();
+ 	 }else{ 
+ 		dialogs.close();
+ 	  $('#imgurl').val(linkurl);
+ 	  $('#imgshow').attr('src',linkurl);
+ 	  $('#imgshow').show(); 
+   }
+ } 
+</script>
+<!--newmain 结束-->
+<{/block}>

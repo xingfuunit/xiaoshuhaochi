@@ -1,0 +1,5 @@
+<{foreach from=$list  item=items}>
+document.write('<<{$sign}> style="height:<{$height}>px;width:<{$width}>px">')
+document.write('<a href="<{$items['linkurl']}>" target="_blank"><img src="<{$items['img']}>" width="<{$width}>" height="<{$height}>"></a>')
+document.write('</<{$sign}>>') 
+<{/foreach}>   

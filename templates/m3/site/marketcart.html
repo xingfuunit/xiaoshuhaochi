@@ -1,0 +1,66 @@
+ <{assign var=allcost  value=0}> 
+  <{assign var=tempcost  value=0}> 
+  <{assign var=goodscount  value=0}>
+   <{assign var=areacost  value=0}> 
+   <{assign var=tempcost  value=0}> 
+     <{assign var=cxshodata  value=""}>
+	  <{foreach from=$cartinfo['list']  key=ckkey item=items}>  
+   <{if $shopid ==  $ckkey}> 
+   
+   
+    <div class="cartItemListWarp">
+	  <{foreach from=$items['data'] item=itv}>
+
+	  <{$goodscount =$goodscount+$itv['count']}> 
+
+	 
+	   
+           
+                <div class="cartItem">
+                    <div class="proName"><{$itv['name']}><{$goodscount}></div>
+                    <div class="proNum"><span class="addNum" onclick="javascript:uponedish(<{$itv['id']}>,<{$itv['shopid']}>,1);">+</span><input  data-now="<{$itv['count']}>" value="<{$itv['count']}>" class="proNumValue"><span class="minNum" onclick="removeonedish(<{$itv['id']}>,<{$itv['shopid']}>,1);">-</span></div>
+                    <div class="proPrice">¥<{$itv['cost']}></div>
+                    <div class="proDel" onclick="removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>);">x</div>
+                </div>
+				
+				
+				 <{/foreach}> 
+            </div>
+
+
+ 	   	    				        <{$tempcost =$tempcost+ $itv['cost']*$itv['count']}> 
+		    
+ 	   	    				      
+ 	   	    				    	<!--产品循环--> 
+ 	   	    				    <{$allcost = $items['pscost']+$items['bagcost']+$items['cx']['surecost']}>  
+         <{$allcost = $allcost}>
+        <{$areacost =   $items['pscost']}>
+         <{if  isset($items['cx']['gzdata']) && count($items['cx']['gzdata']) > 0}> 
+         <{$cxshodata = $items['cx']['gzdata']['0']}>
+         <{/if}>
+          
+ <{/if}> 
+<{/foreach}>  
+
+ <{if $goodscount > 0 }>
+            <div class="cartTotalBox">
+                <div class="totalItem">
+                    <p><span>配送费</span><b>¥<{$items['pscost']|default:'0'}></b></p>
+                    <p><span>合计</span><b>¥<{$allcost}></b></p>
+                </div>
+                <div class="checkOutItem"><a href="#" onclick="ajaxdoorder(<{$shopid}>);" class="checkOutBtn">去买单</a></div>
+            </div>
+
+ 	<{else}>
+	
+           <div class="" style="padding: 20px; font-size: 14px; display: block;">
+            <p>菜篮子是空的哦~</p>
+        </div>
+    
+	<{/if}>
+  
+<div id="tjdata" allshu="<{$goodscount}>" allcost="<{$allcost}>" areacost="<{$areacost}>" goodscost="<{$tempcost}>" cxshodata="<{$cxshodata}>"></div>
+
+    
+
+ 

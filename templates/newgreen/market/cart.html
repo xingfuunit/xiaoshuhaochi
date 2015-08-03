@@ -1,0 +1,177 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/base.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market-index.css"> 
+<{/block}>
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js"> </script>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.cookie.js"> </script>
+<{/block}>
+<{block name=bgshow}><{/block}>
+<{block name=shophide}><{/block}>
+<{block name=sitetitle}>零食铺商品分类<{/block}>
+ <{block name=bodylist}>
+<div id="market-cart">
+			<div class="details clearfix">
+				<h2 class="moudleHead"><b>配送详情</b></h2> 
+			   <input type="hidden" id="shopcost" value="0">
+			   <input type="hidden" id="dikoujin" value="0"> 
+			   <input type="hidden" id="juancost" value="0"> 
+				<form class="middle" id="form">
+					<div class="details-item">
+						<label>姓名：</label>
+						<input type="text" name="name" rel="user"  value="<{$myaddressslist['contactname']|default:''}>" id="uname">
+						<span  id="unametip"></span>
+					</div>
+					 
+					<div class="details-item clearfix">
+						<label>手机：</label> 
+						<input type="text" name="phone" rel="phone"  value="<{$myaddressslist['phone']|default:''}>" id="uphone"> 
+						<span   id="uphonetip"></span>
+					</div>
+					<div class="details-item clearfix" id="areatop">
+						<label>地址：</label>
+						<input type="text"   name="addrs" rel="address" tips="" value="<{$areainfo}>" id="unaddress"> 
+						<span  id="unaddresstip"></span>
+					</div>
+					 <div id="jifenPromotion2" style="<{if empty($member['uid'])}>display:none;<{/if}>" class="details-item clearfix">
+			  	   	    	 <label  id="activeJifen2" data="<{$member['score']|default:0}>" jfendata="<{$scoretocost}>">积分:</label> 
+			  	   	    	 <span id="activeJifenselect"></span>
+			   </div>
+			   <div class="details-item clearfix">
+			  	   	    	    
+			  	   	    	    <table width=100%  >
+			  	   	    	    	<{if empty($member['uid'])}>
+			  	   	    	    	<tr > <td colspan=4>假如你有优惠劵,请先登录在使用优惠劵<a href="<{ofunc type=url link="/member/login"}>">点击登录</a></td></tr>
+			  	   	    	    	<{else}>
+			  	   	    	    	<{if count($juanlist) > 0}>
+			  	   	    	    	 <tr>
+			  	   	    	  	            <td>优惠卷名称</td><td>最低消费</td><td>优惠金额 </td><td>到期时间</td>
+			  	   	    	       </tr> 
+			  	   	    	    	<{foreach from=$juanlist item=itemm}>
+			  	   	    	       <tr>
+			  	   	    	  	      <td><input type="radio" name="buyjuan" disabled value="<{$itemm['id']}>" data="<{$itemm['cost']}>" data2="<{$itemm['limitcost']}>" style="width:13px;"><{$itemm['name']}></td><td><{$itemm['limitcost']}></td><td><{$itemm['cost']}> </td><td><{$itemm['endtime']|date_format:"%Y-%m-%d"}></td>
+			  	   	    	       </tr> 
+			  	   	    	       <{/foreach}> 
+			  	   	    	       <{/if}> 
+			  	   	    	       <tr> <td  colspan=4>我有优惠劵,请<a href="<{ofunc type=url link="/member/myjuan"}>" target="_blank">点击绑定优惠劵</a></td></tr>
+			  	   	    	       <{/if}>
+			  	   	           </table>
+			     </div>
+					<input type="hidden" value="<{time()|date_format:"%Y-%m-%d"}>" name="senddate">
+					<input type="hidden" value="" name="sendchoicetime">
+					<div class="details-item clearfix zIndex">
+						<label>送达：</label>
+						<div id="market-cart-service" class="clearfix">
+							<div class="date">
+								<span id="dateShow"><{time()|date_format:"%Y-%m-%d"}></span>
+								<span id="selectDate">
+									<b class="triangle"></b>
+									<ul id="dataSel" style="display: none;">
+										<{assign var=nowtime value=time()}>   
+                    		  <{section name=foo start=0 loop=$marketlong step=1}>
+                    		         <{assign var=showtime1 value=24*60*60*$smarty.section.foo.index}>  
+                    		         <{assign var=showtime value=$showtime1+$nowtime}>   
+							                      <li data="<{$showtime|date_format:"%Y-%m-%d"}>"><{$showtime|date_format:"%Y-%m-%d"}></li>   
+                         <{/section}>  
+										 <li>xfdsafd</li>
+									</ul>
+							 </span> 
+								</div> 
+							 
+							<div class="time">
+							
+								<span id="selectText">请选择</span>
+								<span id="selectBtn">
+									<b class="triangle"></b>
+									<ul id="timesSel" style="display: none;">
+										 
+										</ul>
+								</span>
+							</div>
+						</div>
+						<span    id="checktimetip"></span>
+					</div>
+					<input type="hidden" value="outpay" name="checkway">
+					<div class="details-item clearfix">
+						<label>支付：</label>
+						<ul id="market-cart-payment" class="market-cart-radio ">
+							<li t="outpay" class="active">货到支付</li> 
+							 <{if $open_acout == 1 && !empty($member)}>
+							<li t="open_acout" class="">账户余额支付</li>
+							 <{/if}>
+							     <{foreach from=$paylist item=items}>  
+							<li t="<{$items['loginname']}>" class=""><img src="<{$items['logourl']}>"></li>
+							<{/foreach}>
+						 
+						</ul>      
+						<span  id="checkwaytip"></span>
+					</div>
+					
+					<div class="details-item">
+						<label>备注：</label>
+						<textarea id="remarks" style="color: rgb(153, 153, 153);"></textarea>
+					</div>
+				</form>
+			</div>
+			
+			<!--购物车-->
+			<div class="cart-list">
+				<h2 class="moudleHead"><b>购物车</b></h2>
+				<div id="listData">
+					<ul>
+						
+						<li class="tHead" item-price="3" item-id="1">
+							<span width="25%">商品名称</span>
+							<span width="25%">单价(元)</span>
+							<span width="25%">数量</span>
+							<span width="25%">金额</span>
+						</li>
+						
+						 
+						  
+			 
+						
+						
+					</ul>
+					
+					<span id="fees" style="display:none" data="<{$pscost}>"></span>
+					<!--订单价格信息-->
+					<div class="market-cart-priceInfo">
+						<b>商品总价(含配送费<font id="pscost"><{$pscost}></font>元)：<span>￥<i id="sumPrice">0</i></span></b>
+						<button id="subData">提交</button>
+						<button id="goshopping" style="width:100px" onclick="javascript:window.location.href='<{ofunc type=url link="/market/index"}>'">继续购物</button>
+					</div>
+				</div>
+			</div>
+		</div>
+<script>
+ 
+	 var marketcook = '<{ofunc type=url link="/market/getcook/datatype/json/random/@random@"}>';
+	  var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+	 var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+	 var starttime = '<{$starttime}>'; 
+	 var orderhtml = '<{ofunc type=url link="/site/waitpay/orderid/@orderid@"}>';
+</script>
+  
+<script>
+	var submithtml = '<{ofunc type=url link="/market/makeorder/datatype/json/random/@random@"}>';
+ 
+	</script>
+ 
+ 
+<script id="trgoodlist" type="text/html">  
+	 <li class="first" item-id="<^%=id%^>" item-price="<^%=cost%^>">
+							<span class="goodName" title="<^%=name%^>"><^%=name%^></span>
+							<span><^%=instro%^></span>
+							<span>
+								<div class="handleWarp">
+									<label class="Reduce" data="<^%=id%^>"> - </label>
+									<input type="text" value="<^%=buycount%^>" class="goodsNum" id="<^%=id%^>_amout" readonly>
+									<label class="add" data="<^%=id%^>" udata="<^%=count%^>"> + </label>
+								</div>
+							</span>
+							<span class="money RMB">￥<i><^%=sum%^></i><b class="del" data="<^%=id%^>"></b></span>
+						</li>
+</script> 
+<{/block}>

@@ -1,0 +1,108 @@
+  <{extends file="<{$tempdir}>/public/admin.html"}> 
+ 
+ <{block name=controlname}>会员成长值<{/block}>
+ <{block name=bodylist}> 
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+
+      	 
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td"> 
+              <form method="post" action="<{ofunc type=url link="/adminpage/member/module/savemembergrade/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/member/module/membergrade"}>',this);">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th align="center">等级ID</th>
+                        <th align="center">等级名称</th>
+                        <th align="center">起始值</th>
+                        <th align="center">结束值</th>
+                        <th align="center">排序</th>
+                        
+                      </tr>
+
+                    </thead>
+
+                    <tbody id="type">    
+                    	  	  <{if !empty($membergrade)}>
+	 	                   
+                       <{foreach from=$membergrade key=myid item=items}>	
+
+                                <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';"  <{if $myid%2 == 0}>	
+                         onmouseout="this.bgColor='f4f4f4';" bgcolor="#f4f4f4"<{else}>
+                          onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"
+                         <{/if}>>
+                        <td align="center"><input type="hidden" name="id[]" value=""><{$myid}></td>
+                        <td align="left" style="padding-left:10px;">
+                         <input type="text" name="gradename[]" id="gradename[]" value="<{$items['gradename']|default:''}>"  class='skey' style='width:130px;'/>  
+                        </td>
+                        <td align="left" style="padding-left:10px;">
+                        大于=    <input type="text" name="from[]" id="from[]" value="<{$items['from']}>"  class='skey' style='width:130px;'/>  
+                        </td>
+                        <td align="left" style="padding-left:10px;">
+                        小于 <input type="text" name="to[]" id="to[]" value="<{$items['to']}>"  class='skey' style='width:130px;'/> 
+                        </td>
+                         
+                        <td align="center"><a onclick="$(this).parent().parent().remove();" href="javascript:;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></a></td>
+                      </tr>
+                    <{/foreach}>  
+                    <{/if}> 
+
+                    </tbody>      
+
+
+
+                  </table>
+
+                <div class="blank20"></div> 
+
+               <input type="submit" name="button" id="button" value="提交保存" class='button'> 
+
+                 <input type="button" name="button" id="typebutton" value="添加一个分类" onclick="adddaohangxx();" class="button" />
+
+              </form>
+ <div class="blank20"></div>
+              </div>
+
+            </div>
+            
+            
+            <div>说明：成长值根据完成订单的总金额累计  </div>
+            
+            
+
+          </div>
+
+        </div>
+ 
+
+    </div>
+    
+    
+    
+    
+    </div> 
+ <script>
+ 	function adddaohangxx(){
+  var html = '<tr class="s_out" onmouseover="this.bgColor=\'#F5F5F5\';" onmouseout="this.bgColor=\'ffffff\';" bgcolor="#ffffff">';
+  html += '<input type="hidden" name="id[]" value="">';
+  html += '<td align="center">&nbsp;&nbsp;</td>';
+  html += '<td align="left" style="padding-left:10px;">';
+  html += '<input type="text" name="gradename[]" id="gradename[]" class="skey" style=\'width:130px;\'/>';
+  html += '</td><td align="left" style="padding-left:10px;">';
+  html += '大于=<input type="text" name="from[]" id="from[]" class="skey" style=\'width:130px;\'/>';
+  html += '</td><td align="left" style="padding-left:10px;">';
+  html += '小于<input type="text" name="to[]" id="to[]" class="skey" style=\'width:50px;\'/>';
+  html += '</td><td align="center"><a onclick="$(this).parent().parent().remove();" href="javascript:;">移除</a></td></tr>'; 
+  $("#type").append(html);
+}
+ 	
+ </script>
+ <{/block}>

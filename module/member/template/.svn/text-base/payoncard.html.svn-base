@@ -1,0 +1,101 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+	<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>我要充值</b></span></p>
+						</div><!--title end-->
+
+
+
+ <div style="background-color:#fff;border:1px solid #ccc;margin-bottom:10px;">
+            	<p class="accinfo"> 
+										   <span class="title">账户余额：</span><span id="acc_balance"><{$member['cost']}></span>元 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										   <span class="title">充值直扣支付次数：</span><span id="chongzhiOrderCount" style="font-size:14px;color:#666;font-weight:bold">0</span> 次
+										   &nbsp;&nbsp;&nbsp; 
+										   
+										</p>
+            </div>
+
+
+
+
+
+						<div class="mr-middle"><!--mr-middle-->
+							<div id="account_balance" class="account_balance"><!--account_balance-->
+								 
+										
+
+										<!--充值信息-->
+										<div class="Recharge">
+											<h2>填写充值金额</h2>
+											<div class="RechargeMes">
+												<p>充值账户：<span id="account-name"><{$member['username']}></span></p>
+												<p>充值金额：<input type="text" id="Sum" value="">元&nbsp;&nbsp;<span class="error-msg" id="error-msg">只能填写大于等于10，小于等于50000的整数金额</span></p>
+												<p class="RechargeNotice">请注意：支持国内主流银行储蓄卡充值，在线支付成功后，充值金额会在1分钟内到账</p>
+												<a href="javascript:void(0);" class="RechargeNextBtn1" id="nextpay">下一步</a>
+											</div>
+
+											<!--温馨提示-->
+											<div class="tips">
+												<h3>温馨提示</h3>
+												<ol class="tipsList">
+													<li>1. 充值成功后，余额可能存在延迟现象，一般1到5分钟会内到账，如有问题，请咨询客服； </li>
+													<li>2. 充值金额输入值必须是不小于10且不大于50000的正整数； </li>
+													<li>3. 您只能用储蓄卡在线支付充值金额的钱，如遇到任何支付问题可以查看在线支付帮助； </li>
+													<li>4. 充值完成后，您可以进入账户充值记录页面进行查看余额充值状态。  </li>
+												</ol>
+											</div> 
+										</div>
+										
+								 
+										
+										
+									</div>
+								</div><!--account_current end-->
+								
+								
+								<div class="mr-middle" style="margin-top:10px;"><!--mr-middle-->
+							<div id="account_balance" class="account_balance"><!--account_balance-->
+								
+								
+									<div class="Recharge"  >
+											<h2>充值卡充值</h2>
+											<div class="RechargeMes">
+												<form id="adfrom" action="<{ofunc type=url link="/card/exchangcard/datatype/json"}>" style="border:none;">
+												<p>充值账户：<span id="account-name"><{$member['username']}></span></p>
+												<p>卡号：<input type="text" id="card" name="card" value=""></p>
+												<p>卡密：<input type="password" id="password" name="password" value=""></p> 
+												<a href="javascript:newAddr();" class="RechargeNextBtn1" >确认提交</a>
+											</form>
+											</div> 
+										</div> 
+										
+										
+										
+									</div>
+								</div><!--account_current end-->
+								
+
+						 
+					</div><!--mc-right end-->
+				</div>
+	
+<script>
+	 
+	function newAddr()
+	{
+		 
+		subform('',$('#adfrom'));
+	}
+	 
+	$('#nextpay').click(function(){
+		var newlink = '<{ofunc type=url link="/member/payonline/cost/@cost@"}>';
+		var showlink = newlink.replace('@cost@',$('#Sum').val());
+		//Sum
+		window.open(showlink);  
+	});
+ 
+</script>
+<{/block}>

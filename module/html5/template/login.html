@@ -1,0 +1,87 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/member.css">   
+
+<{/block}>
+ <{block name=extendjs}>  
+ <script>
+ 	$(function(){
+ 	$('#logSubmit').click(function(){ 
+ 		var checkuname = $('#logEmailOrPhone').val();
+ 		if(checkuname != ''){
+ 		  
+  	 	$('#loading').toggle(); 
+  	  	var info = {'uname':$('#logEmailOrPhone').val(),'pwd':$('#logPassword').val(),'logintype':'html5'}; 
+  	 	  var  url = siteurl+'/index.php?controller=member&action=login&datatype=json&random=@random@' 
+  	 	   $.ajax({ 
+             url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+            dataType: "json", 
+            data:info, 
+            success:function(content) {  
+            	$('#loading').toggle(); 
+            	if(content.msg ==  false){
+            		 window.location.href= siteurl+'/index.php?controller=html5&action=member';
+            	}else{ 
+            	   Tmsg(content.msg);
+              }
+            	
+            }, 
+            error:function(){ 
+            	$('#loading').toggle();
+
+            } 
+         });  
+    }else{
+    	Tmsg('用户帐号不能为空');
+    }
+		  
+	 }); 
+     
+	});
+
+ </script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist">
+
+  	<header><div class="return"></div>用户登陆</header>  
+  <div class="container" style="padding-top:0px;background:none;margin-top:0px;"> 
+
+	    <div class="wrap"> 
+
+	    	<section class="muli" style="display: block;">
+
+	    		<div class="colfff">
+
+	    			<div class="widCen warp01">
+
+	    				<input type="text" class="inputInp" placeholder="输入帐号名/邮箱" id="logEmailOrPhone" name="emailOrPhone">
+
+	    				<input type="password" class="inputInp" placeholder="请输入密码" id="logPassword" name="password" autocomplete="off" required="required">
+
+	    			</div>
+
+	    		</div>
+
+	    		<div class="borBm01"><input type="BUTTON" class="inputBtn" value="登录" id="logSubmit"></div></section> 
+
+	  </div> 
+
+	    <section class="login_r widCen"><a href="<{ofunc type=url link="/html5/reg"}>"><span>免费注册</span><span>&gt;&gt;</span></a><a href="<{ofunc type=url link="/html5/forgot"}>">忘记密码？</a></section> 
+
+            
+            
+<div>
+    <li>
+        <a href="<{$siteurl}>/index.php?controller=order&action=guestorder">未登录用户查询订单</a>
+        </li>
+       
+          
+          
+</div>
+<{/block}>
+
+
+
+

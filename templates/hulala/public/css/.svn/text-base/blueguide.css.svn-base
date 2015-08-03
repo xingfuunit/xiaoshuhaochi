@@ -1,0 +1,124 @@
+@charset "utf-8";
+/* CSS Document */
+html { overflow:hidden; }
+body { width: 100%; height:100%; font-family:"微软雅黑", Arial, Verdana, Helvetica, sans-serif; color:#666;background:none repeat scroll 0 0 #E3CDB7 font-size:12px; text-align:left;}
+* { margin:0; padding:0;}
+ul, ol, li, dl, dt, dd { list-style:none; float:none; }
+img, table { border:0; behavior: url("iepngfix.htc");}
+th { font-weight:normal; }
+a { color:#000; text-decoration:none; }
+a:hover { color:#c00; text-decoration:underline; }
+.center { text-align:center; }
+.clear:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.clear { display:inline-table; }
+/* Hides from IE-mac \*/
+* html .clear { height:1%; }
+.clear { display:block; }
+/* End hide from IE-mac */
+html{ width: 100%; height: 100%;}
+.lg_bg { width: 100%; height: 100%; overflow: hidden; position: absolute; z-index: -1; left:0px; top:0px;}
+.SelectArea 
+{
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-origin: padding-box;
+    background-position: 0 0;
+    _background-position: center top;
+	+background-position: center top;
+    background-repeat: no-repeat;
+    _background-repeat:repeat;
+	+background-repeat:repeat;
+    background-size: cover;
+    position: relative;
+    height: 100%;
+    min-height: 600px; 
+    margin:0 auto;  
+}
+.placeholder-bg {
+    height: 900px;
+    left: 50%;
+    margin-left: -720px;
+    margin-top: -450px;
+    position: absolute;
+    top: 50%;
+    width: 1440px;
+    z-index: -1;
+}
+.Logo { width:700px; height:50px; background:url(../images/blueguide/Logo.png) no-repeat left top;}
+.Area  
+{
+    font-size: 14px;
+    height: 495px;
+    left: 50%;
+    margin: -300px auto 0 -340px;
+    padding-top: 105px;
+    position: absolute;
+    top: 50%;
+    width: 700px;
+    z-index: 10;
+    }
+.Main  
+{
+    position: absolute;
+    top: 200px;
+    width: 700px;
+    z-index: 90;
+    }
+.CityList { width:700px;}
+.CityList ul { width:700px; position:relative; overflow:hidden;}
+.Area ul li { width:124px; height:174px; float:left; margin:0px 0px 0px 20px;}
+.Area .Img { cursor:pointer;width:108px; height:108px; padding:8px; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/blueguide/CityBg.pn'); background:url(../images/blueguide/CityBg.png) no-repeat right top;_background:url(../images/blueguide/CityBg.gif) no-repeat right top;}
+.Area .Img:hover { background-position: left top;_background:url(../images/blueguide/CityBg.gif) no-repeat left top;}
+.Area .Name { height:30px; line-height:30px; margin:10px 0px 0px 0px; text-align:center; font-size:16px; font-weight:bold; color:#333; position:relative;}
+.Area .Name span { font-size:16px; font-weight:bold; color:#fff; position:absolute; left:50%; top:0px; margin-left:-24px;}
+
+.Search { width:560px; height:60px; background:url(../images/blueguide/SearchBg.png) no-repeat; position:relative;}
+.Search input { width:330px; height:16px; line-height:16px; padding:10px; border:none; outline:0 none; border:0px; margin:12px 0px 0px 45px; font-size:14px; color:#888; vertical-align:middle; vertical-align:top;}
+.SearchResults { width:535px; background:#f9f9f9; position:absolute; left:12px; bottom:48px; border:1px solid #f9f9f9; border-bottom:none;}
+.SearchResults ul {}
+.SearchResults ul a {}
+.SearchResults ul a:hover { text-decoration:none;}
+.SearchResults ul li { width:535px; height:50px; border-bottom:1px solid #e1e1e1; border-top:1px solid #fff; cursor:pointer; margin:0px; float:none; padding:8px 0px;}
+.SearchResults ul li:hover { background:#f1f1f1; border-bottom:1px solid #e1e1e1; border-top:1px solid #e1e1e1;}
+.AddressName { height:25px; line-height:25px; color:#333; padding:0px 5px 0px 5px;}
+.AddressDetailed { height:25px; line-height:25px; color:#aaa; padding:0px 5px 0px 5px; font-size:12px;}
+.SearchResults ul li:hover .AddressName { color:#000;}
+.SearchResults ul li:hover .AddressDetailed { color:#000;}
+
+.Operate { width:256px; height:42px; margin:0 auto; margin-top:20px;}
+.MyAddress { display:block; width:72px; height:42px; line-height:42px; background:url(../images/blueguide/Operate.png) no-repeat left top; float:left; color:#fff; padding:0px 0px 0px 50px;}
+.MyAddress:hover { color:#fff;}
+.Login { display:block; width:60px; height:42px; line-height:42px; background:url(../images/blueguide/Operate.png) no-repeat right top; float:right; color:#fff; padding:0px 0px 0px 54px;}
+.Login:hover { color:#fff;}
+
+/*详细选择*/
+.AreaRight { width:560px; position:absolute; top:0px; left:50%; margin-left:-207px;}
+.AreaRight .Search {}
+.AreaRight .Search input { width:480px; border:none; margin:12px 0px 0px 45px; font-size:14px; color:#888; vertical-align:middle;}
+.AreaRight .Operate { margin:10px 0px 0px 0px;}
+.Counties { height:100%; margin:4px 0px 0px 0px;}
+.Counties .Top { height:34px; line-height:34px; background:url(../images/blueguide/Counties.png) no-repeat left top; padding:0px 10px 0px 10px; color:#fff; font-size:14px;}
+.Counties .Top a { color:#f1f1f1;}
+.Counties .Bottom { height:100%; background:#fff;}
+.Counties .Bottom a { display:block; width:79px; height:40px; line-height:40px; text-align:center; border-right:1px solid #e1e1e1; float:left; margin:0px; padding:0px;}
+.Counties .Bottom a:hover { background:#f1f1f1; border-right:1px solid #e5e5e5; color:#333;}
+.SpecificAddress { margin:20px 0px 0px 0px;}
+.SpecificAddress .Top { height:34px; line-height:34px; background:url(../images/blueguide/Counties.png) no-repeat left top; padding:0px 10px 0px 10px; color:#fff; font-size:14px;}
+.SpecificAddress .Top a { color:#f1f1f1;}
+.SpecificAddress .Bottom { padding:10px; background:#fff;}
+.Sequence { height:30px; background:#e5e5e5;}
+
+#Tab1_01 {}
+.Menubox_01 { height:30px; line-height:30px; padding:0px 0px 0px 5px;}
+.Menubox_01 ul{}
+.Menubox_01 li{ float:left; display:block; cursor:pointer; width:auto !important; height:25px !important; line-height:25px !important; text-align:center; color:#888; margin:5px 0px 0px 0px !important; padding:0px 10px 0px 10px;}
+.Menubox_01 li.hover{ background:#fff; color:#7d7d7d; height:25px; line-height:25px; margin:5px 0px 0px 0px;}
+.Contentbox_01 {}
+.Contentbox_01 ul {}
+.Contentbox_01 ul li { width:160px; height:30px; line-height:30px; margin:0px; float:left;}
+.Contentbox_01 ul li a { display:inline-block; width:140px; height:30px; line-height:30px; text-decoration:none; padding:0px 0px 0px 20px; color:#555;}
+.Contentbox_01 ul li a:hover { background:#f1f1f1; color:#333; text-decoration:none;}
+.Contentbox_01 ul li:hover { background:#f1f1f1; color:#333;}
+
+.Tips { width:416px; height:50px; line-height:50px; color:#c00; font-size:14px; font-weight:bold;}

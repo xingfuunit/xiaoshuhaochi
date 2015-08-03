@@ -1,0 +1,253 @@
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/bootstrap.min.css"> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/bootstrap.min.js" type="text/javascript" language="javascript"></script>
+	<div class="hc_collection">
+			<div class="hc_collection_head">
+				<div class="hc_collection_h">我的收藏</div>
+				<a class="collection_a" href="<{ofunc type=url link="/shop/collect"}>"></a>
+				<div class="clear"></div>
+			</div>
+			<div class="hc_collection_div">
+				<ul>         				        		
+			  <{foreach from=$collectlist key=myid item=items}> 		
+			   <{if isset($items['id'])}>
+			   
+			   <li shop_id="<{$items['id']}>" class="menu-list-box hc_collection_div_border_right"> 
+						<div style="float:left;" class="hc_shop_list_box">
+							<div class="hc_shop_list_box_left">
+								<div class="hc_shop_list_box_img">
+								<div class="hc_shop_list_box_img_div">
+									<a href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><img src="<{$items['shoplogo']|default:$shoplogo}>"></a>
+								</div>
+								</div>
+								<div class="hc_shop_list_box_span">
+									<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='input'}> 
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}>
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}>
+									
+								</div>
+							</div>
+							<div class="hc_shop_list_box_right">
+								<div class="hc_list_box_head" style="width: 80px;overflow: hidden;height: 20px;">
+								<a class="hc_list_box_head_a_hover" href="<{ofunc type=url link="/shop/index/id/<{$items['shortname']|default:$item['id']}>"}>"><{$items['shopname']}></a>
+								</div>  
+							<div class="hc_xinxin">
+								<div class="hc_xinxin_div">
+										 <{section name=loop loop=$items['point']}> 
+                  	      <div class="hc_xinxin_div_float"><img alt="star" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/xinxin01.png"></div>
+                     <{/section}> 
+										  <div class="clear"></div>
+								</div>
+								<div class="hc_comment">
+									
+									<div class="hc_xinxin_div_float"><img alt="评论" src="<{$siteurl}>/templates/<{$tempdir}>/public/images/comment.png"></div>
+									<div class="hc_xinxin_div_float"><span style="margin-left:3px;"><{$items['pointcount']}></span></div>
+									
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+							</div> 
+							<div class="hc_action">
+								<{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='img'}> 
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}> 
+									                 <img alt="" class="hc_action_img" src="<{$itaa['value']}>" title="<{$itat['instro']}>">  
+									             <{/if}>
+									          <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}>
+								 
+								 </div> 
+              <div class="hc_order">
+              	 
+              	<{if $items['opentype'] == 1}>
+                    <span class="gray_font" title="店铺已过营业时间，打烊中">已打烊</span>
+              <{elseif $items['opentype'] == 2}>
+               <span class="hc_order_box" title="接受预定中。">营业中</span>
+                <span class="gray_font">
+              	 <{foreach from=$mainattr key=mykey item=itat}>
+									   <{if $mykey ==0}>
+									   <{assign var=ckey value="0"}>  
+									          <{foreach from=$items['attrdet'] item=itaa}>
+									             <{if $itat['id'] == $itaa['firstattr']}> 
+									                 <{$itaa['value']}>
+									             <{/if}>
+									          <{/foreach}> 
+									    <{/if}>     
+									<{/foreach}>
+						     </span>
+              <{elseif $items['opentype'] == 3}>
+                        <span class="hc_order_box" title="接受预定中。">接受预定</span>
+              	         <span class="hc_order_span"><{$items['newstartime']}>开送</span>
+              <{elseif $items['opentype'] == 4}>
+                 <span class="gray_font" title="店铺已过营业时间，打烊中">停止营业</span>
+              <{else}>
+                   <span class="gray_font" title="店铺已过营业时间，打烊中">已打烊</span>
+              <{/if}> 
+              	</div> 
+				   </div>
+							<div class="clear"></div>
+							<i shop_id="<{$items['id']}>" typeid="0" onclick="return delcollect(this);"style="position: absolute; top: 2px; right: 2px; display: none;" class="favDelBtn icon-remove"></i>
+						</div>
+				        <div class="clear"></div>
+					</li>
+					<{/if}>
+					<{/foreach}>
+					<{if is_array($collectlist)&& isset($collectlist[0]['id'])}>
+					<{assign var=kongbai value=5-count($collectlist)}> 
+					<{else}>
+					<{assign var=kongbai value=5}> 
+					<{/if}>
+				 
+					<{section name=loop loop=$kongbai}> 
+					 <li <{if  $smarty.section.loop.index != $kongbai-1}>class="hc_collection_div_border_right" <{/if}> ><div class="addMyFav addMyFav_normal"></div></li>
+					 <{/section}> 
+					  
+					 
+					 <div class="clear"></div>
+					</ul>
+				
+			</div>
+		</div>
+
+			<div style="width:601px;" class="modal hide fade" id="Modal_col" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  	<div class="modal-header">
+			  		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			    	<h3 id="myModalLabel">添加收藏</h3>
+			  	</div>
+			  	<div class="modal-body" id="modal_body">
+			  	</div>
+			  	<div class="modal-footer">
+			    	<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+			    	<button class="btn btn-primary" id="cfm_addArea">确认添加</button>
+			  	</div>
+			</div>
+			
+			<script type="text/javascript">
+			$('.addMyFav').hover(function(){
+				addMyFavHover($(this));
+			},function(){
+				addMyFavHoverOut($(this));
+			})
+			/*
+			$('.addMyFav').click(function(){
+				addMyFav();
+			})*/
+	   $('.menu-list-box').bind('mouseenter', function() {
+									$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+									$(this).find('.hc_list_box_head_a_hover').addClass('hc_list_box_head_hover');
+								 	$(this).find('i').show();
+									
+		  });
+		  	$('.menu-list-box').bind('mouseleave', function() {
+									$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+									$(this).find('.hc_list_box_head_a_hover').removeClass('hc_list_box_head_hover');
+								 	$(this).find('i').hide();
+								});
+			function addMyFavHover(obj)
+			{
+				$(obj).removeClass('addMyFav_normal');
+				$(obj).addClass('addMyFav_hover');
+			}
+			function addMyFavHoverOut(obj)
+			{
+				$(obj).removeClass('addMyFav_hover');
+				$(obj).addClass('addMyFav_normal');
+			}
+		 
+  function addMyFav() { 
+					$.ajax({
+						url:'<{ofunc type=url link="/site/collectwindows"}>',
+						type:'get',
+						dataType:'text',
+						data:'act=add',
+						success:function(data){
+							if(data == '1'){
+								window.location.href='<{ofunc type=url link="/memeber/login"}>';
+							}
+							else{
+								$('#Modal_col').modal('show');
+								$('#modal_body').html(data);
+
+								$('.collectionInput').change(function(){
+									changeCollectionCheck($(this));
+									collectionCheck();
+								})
+								
+								$('.menu-list-box').bind('mouseenter', function() {
+									$(this).find('.hc_shop_list_box').addClass('hc_shop_list_box_hover');
+									$(this).find('.hc_list_box_head_a_hover').addClass('hc_list_box_head_hover');
+								});
+
+								$('.menu-list-box').bind('mouseleave', function() {
+									$(this).find('.hc_shop_list_box').removeClass('hc_shop_list_box_hover');
+									$(this).find('.hc_list_box_head_a_hover').removeClass('hc_list_box_head_hover');
+								});
+								$('.hc_shop_list_box').css("border","1px solid #ddd");
+							}
+						}
+					});
+   }
+			var collectionCheckShopIds = new Array();
+			var collectionUnCheckShopIds = new Array();
+			
+            function collectionCheck()
+            {
+            	collectionCheckShopIds = new Array();
+            	collectionUnCheckShopIds = new Array();
+            	$('.collectionInput').each(function(i){
+					if($(this).attr('checked')=='checked')
+					{
+						collectionCheckShopIds.push($(this).val());
+					}
+					else
+					{
+						collectionUnCheckShopIds.push($(this).val());
+					}
+                })
+            }
+
+            function changeCollectionCheck(obj)
+            {
+                var shop_id = $(obj).val();
+
+                $('.collectionInput').each(function(i){
+                    if($(this).val()==shop_id)
+                    {
+                        $(this).attr('checked',$(obj).attr('checked'));
+                    }
+                });
+            }
+
+         $('#cfm_addArea').click(function(){  
+         	   var newidsArray = new Array();
+         	     $('.collectionInput').each(function(i){
+					            if($(this).attr('checked')=='checked')
+				            	{
+					             	newidsArray.push($(this).val());
+					            } 
+                 });
+                 var newids = newidsArray.join(','); 
+                 var oldids = $('#oldids').val();
+                  
+                	$.post('<{ofunc type=url link="/site/saveclollectwin"}>',
+                		{ 'oldids': oldids, 'newids': newids}, //要传递的数据 
+                		function(data){ 
+                			 if(data==0)
+                			 {
+                			 	$('#Modal_col').modal('hide');
+                    			freshshopcllect();
+                    		}else{
+                    			alert(data);
+                    		}
+                		},'json'
+                	)
+        })
+ 
+</script>

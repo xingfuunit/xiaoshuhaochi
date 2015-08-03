@@ -1,0 +1,451 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>   
+<{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+  <script>
+  	var mynomenu='basemenu';
+  	</script>
+<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+ 
+ 
+  <!---content right start---> 
+        <div class="conWaiSet fr">
+        	
+            <div class="shopSetTop">
+            	<span>菜单设置</span>
+            </div>
+            
+            <div class="orderset">
+            	<div class="addFenlei">
+                <span class="fl">
+                	<input type="text" id="shoptypename" name="shoptypename" value=""  /></span>
+                    <div class="addButton curbtn fl"  id="add_FoodType"></div>
+                </div>
+                
+                  <div class="cl"></div>
+            </div>
+             <div class="cl"></div>
+                       
+                <form action="" method="post">
+                 <div class="caidanSet">
+        			
+                    <div class="caidanTitle">
+                	<ul>
+                		<{foreach from=$list key=myid item=items}>  
+                    	<li  data="<{$items['id']}>"  dataname="<{$items['name']}>" dataorder="<{$items['orderid']}>"><{$items['name']}></li> 
+                     <{/foreach}>
+                    </ul>
+                    <div class="editGtype" id="editGtype">
+                         <div class="delGDtype curbtn" ></div>
+                         <div class="editGDtype curbtn"></div>
+                    
+                    </div>
+                </div>
+                
+                	<div class="div_orderList">
+                    	
+                        <div class="div_orderList_show">
+                    
+                        <div class="orderList_show_goodli">
+                            <div class="ord_goodname">
+                                <span>食品名称</span>
+                            </div>
+                            <div class="ord_price">
+                                 <span>价格（元）</span>
+                            </div>
+                            <div class="ord_dbf">
+                                 <span>打包费（元）</span>
+                            </div>
+                            <div class="ord_day_num" style="width:80px;">
+                                 <span>每日数量</span>
+                            </div>
+							<div class="ord_day_order" style="width:79px;">
+                                 <span>排序</span>
+                            </div>
+                             <div class="order_caozuo">
+                                 <span>操作</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cl"></div>
+                        <style>
+						.ord_day_order{height: 67px;
+float: left;
+line-height: 67px;
+font-size: 14px;
+color: #aaaaaa;
+font-family: "宋体";
+font-weight: 700;
+text-align: center;
+border-right: 1px solid #45423e;
+border-left: 1px solid #4c4a48;
+}
+
+.cd_order{height: 50px;
+float: left;
+line-height: 50px;
+font-size: 14px;
+color: #c3c3c3;
+font-family: "宋体";
+text-align: center;
+border-right: 1px solid #4c4a48;}
+						</style>
+                      <{foreach from=$list key=myid item=items}>  
+                      <{foreach from=$items['det']  item=ite}>  
+                    	<div class="order_list	listgoodsdet goodsdiv_<{$items['id']}>" data="<{$ite['id']}>" id="goodstr_<{$ite['id']}>" >
+                       		 <div class="order_goodlist">
+                                <div class="cd_name">
+                                    <p class="name"><{$ite['name']}></p>
+                                </div>
+                                <div class="cd_price">
+                                    <p class="cost"><{$ite['cost']}></p>  
+                                </div>
+                                <div class="cd_dbf">
+                                     <p class="bagcost"><{$ite['bagcost']}></p>  
+                                </div>
+                                <div class="cd_dayNum"style="width:80px;">
+                                     <p class="count"><{$ite['count']}></p>   
+                                </div>
+								  <div class="cd_order"style="width:79px;">
+                                     <p class="good_order"><{$ite['good_order']}></p>   
+                                </div>
+                                 <div class="cd_caozuo">
+								 
+                                     <span style=" background:#27a9e3; padding:8px; color:#fff;" class="curbtn" onclick="editgoods('<{$ite['id']}>');">编辑</span>
+                                      <span style=" background:#ec7501; padding:8px; color:#fff;" class="curbtn" onclick="delgoods('<{$ite['id']}>');">删除</span>
+                                </div>
+                           </div> 
+                        </div>
+                       <{/foreach}>
+                      <{/foreach}>
+                      
+                      <div class="order_list"  id="additem" style="display:none;">
+                      	    <input type="hidden" name="adgoodstypeid" value="">
+                       		 <div class="order_goodlist">
+                                <div class="cd_name">
+                                    <input style="width:50%;" type="text" value="" name="adgoodname" placeholder="商品名称"/>
+                                </div>
+                                <div class="cd_price">
+                                   <input  style="width:50%;" type="text" value="" name="adgoodcost" placeholder="商品单价"/>
+                                </div>
+                                <div class="cd_dbf">
+                                    <input  style="width:50%;" type="text" value="" name="adgoodbagcost" placeholder="打包费"/>  
+                                </div>
+                                <div class="cd_dayNum" style="width:80px;">
+                                    <input  style="width:50%;" type="text" value="" name="adgoodcount" placeholder="商品数量"/>   
+                                </div>
+								  <div class="cd_order" style="width:79px;">
+                                    <input  style="width:50%;" type="text" value="" name="adgoodpaixu" placeholder="商品排序"/>   
+                                </div>
+                                 <div class="cd_caozuo">
+                                     <span style=" background:#27a9e3; padding:8px; color:#fff;" class="curbtn" id="saveaddgoods">保存</span>
+                                     
+                                </div>
+                           </div> 
+                      </div>
+                      <div class="order_list" style="background:#303337;">
+                       		 <div class="order_goodlist">
+                              <div class="cd_name" style=" border:none;">
+                                  <span style=" background:#27a9e3; padding:10px; color:#fff;" class="curbtn" id="addgoods">添加菜品</span>
+                              </div>
+                            
+                           </div>
+                    
+                      </div>
+                      
+                        <div class="cl"></div>
+                        
+                        
+                     </div>
+                    	
+                        
+                        
+                        
+                    </div>
+                    
+       			 </div>
+                 
+                 
+              </form>  
+                
+                
+        </div>
+        <div class="cl"></div>
+        
+        
+       
+        
+        
+        <!---content right end---> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+$(function(){
+//删除分类
+var checkisexti =  $('.caidanTitle').find('li').length;
+if(checkisexti == 0){
+ 
+  $('.caidanSet').hide();
+}
+$('.delGDtype').live('click',function(){
+	if(confirm('确定删除商品操作吗？删除后将同时删除该分类下的所有商品')){ 
+		var allobj = $(".caidanSet").find('li');
+		var typeid = 0;
+		for(var i=0;i< $(allobj).length;i++){ 
+		   if($(allobj).eq(i).hasClass("cur") ==  true){
+		      typeid = $(allobj).eq(i).attr('data');
+		    }
+		}
+		 
+    myajax('<{ofunc type=url link="/shop/delgoodstype/datatype/json"}>',{'addressid':typeid});
+  }
+});	
+//编辑分类
+$('.editGDtype').live('click',function(){
+	var allobj = $(".caidanSet").find('li');
+		var typeid = 0;
+		var typename = '';
+		var typeorder = '';
+		for(var i=0;i< $(allobj).length;i++){ 
+		   if($(allobj).eq(i).hasClass("cur") ==  true){
+		      typeid = $(allobj).eq(i).attr('data');
+		      typename = $(allobj).eq(i).attr('dataname');
+		      typeorder = $(allobj).eq(i).attr('dataorder');
+		    }
+		}
+	var	htmls = '<form method="post" id="doshwoform" action="#" style="text-align:center;"><table>';
+	htmls += '<tbody><tr>';
+	htmls += '<td height="50px">分类名称:</td>';
+	htmls += '<td> <input type="text" name="newtypename" value="'+typename+'" style="width:100px;"></td></tr>';
+	htmls +='<tr><td height="50px">排序ID:</td><td style="text-align:left;"> <input type="text" name="newtypeorderid" value="'+typeorder+'" style="width:50px;"></td></tr>'
+	htmls += '</tbody></table> ';
+  htmls += '<input type="hidden" value="'+typeid+'" name="newtypeid"> ';
+	htmls += '<input type="button" value="确认提交" class="button" id="updategoodstype" ></form>';
+  art.dialog({
+    id: 'testID3',
+    title:'保存店铺分类',
+    content: htmls
+  });
+	
+	
+});
+//保持编辑分类
+$('#updategoodstype').live('click',function(){
+ 
+	  showop('保存商品分类信息');
+	   myajax('<{ofunc type=url link="/shop/editgoodstype/datatype/json"}>',{'what':'allinfo','name':$('input[name="newtypename"]').val(),'orderid':$('input[name="newtypeorderid"]').val(),'addressid':$('input[name="newtypeid"]').val()}); 
+});
+	
+//添加商品分类
+$("#add_FoodType").live("click", function() {   
+	if($('#shoptypename').val() == ''||$('#shoptypename').val() ==null){
+		diaerror('分类不能空'); 
+	}else{
+		var mm = $('#shoptypename').val();
+		$('#shoptypename').val('')
+	   myajax('<{ofunc type=url link="/shop/savegoodstype/datatype/json"}>',{'name':mm,'orderid':$(".caidanSet").find('li').length}); 
+  }
+});
+
+
+//导航条切换	
+$(".caidanSet ul li").click(function(){
+						$(this).addClass('cur').siblings().removeClass('cur');
+					   var tempid = $(this).attr('data');
+					   $('.listgoodsdet').hide();
+					  $('.goodsdiv_'+tempid).show();
+					  $('input[name="adgoodstypeid"]').val(tempid);
+					  $('#additem').hide();
+					  //获取坐标
+				//
+				var fleft = $('.caidanSet').offset().left;
+				var zleft = $(this).offset().left;
+				var resulte = Number(zleft) -Number(fleft);
+				$('#editGtype').css('margin-left',resulte);
+			 
+					  
+						
+});	
+$(".caidanSet").find("li").eq(0).trigger("click");//设置默认第一个
+					
+//快捷编辑商品					
+$(".listgoodsdet p").live("click", function() {  
+	var is_save = $(this).hasClass('now_edit');
+	var typename = $(this).attr('class');
+	var doc = $(this).text();
+	 if(is_save){
+	 	 
+	 }else{
+	 	$(this).addClass('now_edit');
+	 	var goodsid = $(this).parent().parent().parent().attr('data');
+	 	 
+	 	 $(this).html('<input style="width:45%;" type="text" value="'+doc+'" id="'+typename+goodsid+'" \/> <span class="curbtn" onclick="savegoodtxt(\''+goodsid+'\',\''+typename+'\');">保存<\/span>');
+	 } 
+});
+
+//显示添加商品
+$('#addgoods').live('click',function(){
+	$('#additem').show();
+});
+//提交添加商品
+$('#saveaddgoods').live('click',function(){
+	var typeid =   $('input[name="adgoodstypeid"]').val(); 
+	var data1 = $('input[name="adgoodname"]').val(); 
+	var data2 = $('input[name="adgoodcost"]').val(); 
+	var data3 = $('input[name="adgoodbagcost"]').val(); 
+	var data4 = $('input[name="adgoodcount"]').val(); 
+	var data5 = $('input[name="adgoodpaixu"]').val(); 
+	if(typeid == ''){
+	 alert('请选择商品类型');
+	 return false;
+	}
+	if(data1 == ''){
+	  alert('请录入商品名称');
+	  return false;
+	} 
+		if(confirm('确定操作吗？')){ 
+			 showop('保存商品信息');  
+	    var backinfo = ajaxback('<{ofunc type=url link="/shop/addgoods/datatype/json"}>',{'name':data1,'typeid':typeid,'cost':data2,'bagcost':data3,'count':data4,'good_order':data5});
+	    if(backinfo.flag == true)
+	    {
+		      hideop();
+		     diaerror(backinfo.content); 
+	     }else{
+	  	    hideop(); 
+	  	    var htmldata = '<div class="order_list	listgoodsdet goodsdiv_'+backinfo.content.typeid+'" data="'+backinfo.content.id+'" id="goodstr_'+backinfo.content.id+'" >';
+              htmldata += ' <div class="order_goodlist">';
+              htmldata += '       <div class="cd_name">';
+              htmldata += '          <p class="name">'+backinfo.content.name+'</p>';
+              htmldata += '       </div>';
+              htmldata += '      <div class="cd_price">';
+              htmldata += '          <p class="cost">'+backinfo.content.cost+'</p>  ';
+              htmldata += '     </div>';
+              htmldata += '     <div class="cd_dbf">';
+              htmldata += '          <p class="bagcost">'+backinfo.content.bagcost+'</p>  ';
+              htmldata += '      </div>';
+              htmldata += '      <div class="cd_dayNum" style="width:80px;">';
+              htmldata += '           <p class="count">'+backinfo.content.count+'</p>   ';
+              htmldata += '      </div>';
+			    htmldata += '      <div class="cd_order">';
+              htmldata += '           <p class="good_order">'+backinfo.content.good_order+'</p>   ';
+              htmldata += '      </div>';
+              htmldata += '       <div class="cd_caozuo">';
+              htmldata += '          <span style=" background:#27a9e3; padding:8px; color:#fff;" class="curbtn" onclick="editgoods(\''+backinfo.content.id+'\');">编辑</span>';
+              htmldata += '            <span style=" background:#ec7501; padding:8px; color:#fff;" class="curbtn" onclick="delgoods(\''+backinfo.content.id+'\');">删除</span>';
+              htmldata += '      </div>';
+              htmldata += '  </div> ';
+              htmldata += '</div>'; 
+          $('#additem').before(htmldata); 
+          $('input[name="adgoodname"]').val(''); 
+	           $('input[name="adgoodcost"]').val(''); 
+	             $('input[name="adgoodbagcost"]').val(''); 
+	           $('input[name="adgoodcount"]').val('');
+	            $('#additem').hide();
+	  	    artsucces('保存成功');
+		     
+	     } 
+		}
+	 
+});
+//删除商品
+
+
+
+ 		
+});
+
+function savegoodtxt(goodsid,typename){ 
+  	var values = $('#'+typename+goodsid).val();
+	   showop('保存商品信息');
+	  var backinfo = ajaxback('<{ofunc type=url link="/shop/updategoods/datatype/json"}>',{'controlname':typename,'goodsid':goodsid,'values':values});
+	  if(backinfo.flag == true)
+	  {
+		  hideop();
+		  diaerror(backinfo.content); 
+	  }else{
+	  	 hideop();
+	  	 $('#goodstr_'+goodsid).find('.'+typename).text(values);
+	  	 $('#goodstr_'+goodsid).find('.'+typename).removeClass('now_edit');
+	  	 artsucces('保存成功');  
+	 } 
+}
+
+function delgoods(gid){
+   if(confirm('确定删除该商品操作吗？')){ 
+	var backinfo = ajaxback('<{ofunc type=url link="/shop/delgoods/datatype/json"}>',{'id':gid});
+	    if(backinfo.flag == true)
+	    {
+		    hideop();
+		  diaerror(backinfo.content); 
+	     }else{
+	  	    hideop();
+	  	    $('#goodstr_'+gid).remove();
+	  	    artsucces('删除成功'); 
+	     }  
+	}
+}
+var dialogs ;
+function editgoods(gid){
+		 dialogs = art.dialog.open(siteurl+'/index.php?ctrl=shop&action=goodsone&gid='+gid,{height:'500px',width:'700px'},false);
+	 	 dialogs.title('编辑商品'); 
+}
+function refreshgoods(info){
+	 dialogs.close();
+	 $('#goodstr_'+info.id).remove();
+	 
+	var htmldata = '<div class="order_list	listgoodsdet goodsdiv_'+info.typeid+'" data="'+info.id+'" id="goodstr_'+info.id+'" >';
+              htmldata += ' <div class="order_goodlist">';
+              htmldata += '       <div class="cd_name">';
+              htmldata += '          <p class="name">'+info.name+'</p>';
+              htmldata += '       </div>';
+              htmldata += '      <div class="cd_price">';
+              htmldata += '          <p class="cost">'+info.cost+'</p>  ';
+              htmldata += '     </div>';
+              htmldata += '     <div class="cd_dbf">';
+              htmldata += '          <p class="bagcost">'+info.bagcost+'</p>  ';
+              htmldata += '      </div>';
+              htmldata += '      <div class="cd_dayNum">';
+              htmldata += '           <p class="count">'+info.count+'</p>   ';
+              htmldata += '      </div>';
+              htmldata += '       <div class="cd_caozuo">';
+              htmldata += '          <span style=" background:#27a9e3; padding:8px; color:#fff;" class="curbtn" onclick="editgoods(\''+info.id+'\');">编辑</span>';
+              htmldata += '            <span style=" background:#ec7501; padding:8px; color:#fff;" class="curbtn" onclick="delgoods(\''+info.id+'\');">删除</span>';
+              htmldata += '      </div>';
+              htmldata += '  </div> ';
+              htmldata += '</div>'; 
+          $('#additem').before(htmldata); 
+	var allobj = $(".caidanSet").find('li');
+		var typeid = 0;
+		for(var i=0;i< $(allobj).length;i++){ 
+		   if($(allobj).eq(i).hasClass("cur") ==  true){
+		      typeid = $(allobj).eq(i).attr('data');
+		    }
+		}
+		if(typeid != info.typeid){
+			$('#goodstr_'+info.id).hide();
+		}
+	
+ 
+  
+}
+
+  </script>
+ 
+ 
+  
+ 
+<{/block}>

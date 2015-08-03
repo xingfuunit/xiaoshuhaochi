@@ -1,0 +1,80 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span">个人中心</span></div>
+				<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<div class="hc_userinfo_content_div_info">
+						<div class="hc_userinfo_content_div_information">
+							<div clas="hc_UserInfo">
+								<div class="hc_UserInfo_right">
+									<div class="hc_UserInfo_right_top"><{$member['username']}></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="hc_UserInfo_font">
+								<div class="hc_UserInfo_font_left">邮&nbsp;&nbsp;箱：&nbsp;&nbsp;<{$member['email']}></div>
+								<div class="hc_UserInfo_font_right">上次登录：&nbsp;&nbsp;<{$member['logintime']|date_format:"%Y-%m-%d %H:%M:%S"}></div>
+								<div class="clear"></div>
+							</div>
+							<div class="hc_UserInfo_font">
+								<div class="hc_UserInfo_font_left">积&nbsp;&nbsp;分：&nbsp;&nbsp;<{$member['score']}>分&nbsp;&nbsp;<a href="<{ofunc type=url link="/gift/index"}>">兑换礼品</a> </div>
+								<div class="hc_UserInfo_font_right">完成订单：&nbsp;&nbsp;0单（一个月内完成）</div>
+								<div class="clear"></div>
+							</div>
+							<div class="hc_UserInfo_font">
+								<div class="hc_UserInfo_font_left">收&nbsp;&nbsp;藏：&nbsp;&nbsp;0家餐厅&nbsp;&nbsp;0份美食 </div>
+								<div class="hc_UserInfo_font_right">是否开店：&nbsp;&nbsp;<{if $member['usertype'] == 1}><a href="<{ofunc type=url link="/shopcenter/index"}>">进入店铺</a><{else}><a href="<{ofunc type=url link="/membercenter/openshop"}>">申请开店</a><{/if}></div>
+								<div class="clear"></div>
+							</div>
+							 <div class="hc_UserInfo_font">
+								<div class="hc_UserInfo_font_left">账号余额：&nbsp;&nbsp;<font color=red><{$member['cost']}></font>&nbsp;&nbsp;元 </div>
+								<div class="hc_UserInfo_font_right">&nbsp;&nbsp;</div>
+								<div class="clear"></div>
+							</div> 
+						</div>
+					</div>
+
+					<div class="hc_userinfo_content_div_info">
+						<div class="hc_userinfo_content_div_information">
+							<div class="hc_orderInfo">当天订单<a href="<{ofunc type=url link="/membercenter/relateorder"}>">(查看更多)</a></div>
+												 
+																	<table class="table table-bordered" style="width:600px;margin-bottom:10px;">
+		              <thead style="background:#eee;">
+		                <tr>
+		                   <th style="width:30%">订单编号</th>
+		                  <th style="width:30%;">订单总价</th>
+		                  <th >订单状态</th>
+		                   
+		                </tr>
+		              </thead>
+		              <tbody>
+		              	<{if empty($orderlist)}>
+		              	  <tr>
+		              	  	<td colspan="3">此时间段暂无数据
+		              	  	</td>
+		              	  </tr>
+		                <{/if}>
+		              	<{foreach from=$orderlist item=items}>
+		                <tr>
+		                	<td><{$buyerstatus[$items['status']]}> </td>
+		                	<td><{$items['allcost']}> </td>
+		                	<td><{$buyerstatus[$items['status']]}></td>
+		                </tr>
+		                <{/foreach}>
+		              </tbody>
+		            </table>
+							 </div>
+					</div>
+				</div>	
+
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<{include file="<{$tempdir}>/public/foot.html"}>

@@ -1,0 +1,206 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">店铺列表</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+
+
+
+
+
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	<div class="search"> 
+            <div class="search_content"> 
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/admin/shoplist"}>">
+            	  <label>查询类型：</label>
+            	  <select name="querytype">
+            	  	<option value="0">未选择</option>
+            	  	<option value="b.username" <{if $querytype == 'b.username'}>selected<{/if}>>会员名</option>
+            	  	<option value="a.shopname" <{if $querytype == 'a.shopname'}>selected<{/if}>>店铺名称</option>
+            	  	<option value="a.phone" <{if $querytype == 'a.phone'}>selected<{/if}>>店铺联系电话</option>
+            	  </select>
+            	  <label>查询条件：</label>
+            	   <input type="text" name="searchvalue" value="<{$searchvalue}>">
+            	   <input type="checkbox" name="is_pass" value="1" <{if $is_pass == '1'}>checked<{/if}>>只显示待审核
+            	   <input type="checkbox" name="is_recom" value="1" <{if $is_recom == '1'}>checked<{/if}>>只显示推荐
+            	    <input type="submit" value="提交查询" class="button">  
+            	 </form>
+            </div> 
+      	</div> 
+      	
+           <div class="tags"> 
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();"  id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th> 
+                        <th align="center">店铺名称</th> 
+                        <th align="center">会员名称</th>  
+                        <th align="center">店铺推荐</th> 
+                        <th align="center">是否营业</th>
+                        
+                        <th align="center">佣金</th>
+                        <th align="center">排序</td>
+                        <th align="center">有效时间</th>
+                        <th align="center">操作</th>
+                 
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td> 
+                        <td align="center"><{$items['shopname']}></td> 
+                        <td align="center"> <{$items['username']}> </td> 
+                        <td align="center">
+                        	<{if !empty($items['shopimgids'])}>  
+                        	    <{assign var=bqids value=","|explode:$items['shopimgids']}>  
+                        	        <{foreach from=$bqids item=va}> 
+                        	           <img src="<{$bqimg[$va]}>" alt="<{$bqinstro[$va]}>">
+                        	         <{/foreach}>
+                        	 <{/if}><a onclick="starttask('<{$items['id']}>','<{$items['shopname']}>');" href="#">设置</a></td>  
+                        <td align="center"><{if $items['is_open'] == 1}>是<{else}>否<{/if}></td> 
+                       
+                         <td align="center"><{if $items['yjin']=='0'}>默认比例<{$defultyjin}><{else}><{$items['yjin']}><{/if}><a onclick="setyjin('<{$items['id']}>','<{$items['shopname']}>');" href="#">设置</a></td>
+                        <td align="center"><input type="text" name="pxinput" data="<{$items['id']}>" value="<{$items['sort']}>" style="width:30px;padding:0px;"></td>
+                        <td align="center"><a href="#" onclick="doshow('<{$items['id']}>','<{intval(($items['endtime']-time())/86400)}>');"> <{if $items['endtime'] > 0}>    <{intval(($items['endtime']-time())/86400)}>    <{else}>设置 <{/if}></a></td>
+                        <td align="center"><a href="<{ofunc type=url link="/admin/resetdefualt/shopid/<{$items['id']}>"}>" target="_blank"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/but.png"></a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 
+                </form>
+
+                <div class="page_newc">
+                 	     <div class="select_page">
+                 	     	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a>
+                 	     <a onclick="return remindall(this);" href="<{ofunc type=url link="/admin/delshop"}>" class="delurl">删除</a> 
+                 	     	
+                 	     	
+                 	     	
+                 	     	</div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  
+  
+  
+  
+  
+ 
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	 	var dialogs ;
+	 function starttask(shopid,shopname)
+	 {
+	 	 dialogs = art.dialog.open(siteurl+'/index.php?controller=admin&action=shopbiaoqian&shopid='+shopid);
+	 	 dialogs.title('编辑店铺'+shopname+'展示标签'); 
+	 }
+	 
+function uploadsucess(linkurl){
+ 	dialogs.close(); 
+ 	window.location.reload(); 
+}
+function uploaderror(msg){
+	 alert(msg); 
+}
+function setyjin(shopid,shopname)
+{
+	 	 dialogs = art.dialog.open(siteurl+'/index.php?controller=admin&action=setshopyjin&shopid='+shopid);
+	 	 dialogs.title('设置店铺'+shopname+'佣金比例'); 
+} 
+	 
+$("input[name='pxinput']").live("change", function() {   
+	$.post('<{ofunc type=url link="/admin/shoppx"}>', {'id':$(this).attr('data'),'pxid':$(this).val()},function (data, textStatus){  
+			if(data.error == false){
+     		diasucces('操作成功',newurl);
+     	}else{
+     		if(data.error == true)
+     		{
+     			diaerror(data.msg); 
+     		}else{
+     			diaerror(data); 
+     		}
+     	} 
+	 }, 'json'); 
+});
+	 
+function doshow(shopid,shoptian){
+var	htmls = '<form method="post" id="doshwoform" action="#" style="text-align:center;"><table>';
+	htmls += '<tbody><tr>';
+	htmls += '<td height="50px">有效天数:</td>';
+	htmls += '<td> <input type="text" name="mysetclosetime" value="'+shoptian+'" style="width:100px;"></td></tr>';
+	htmls += '</tbody></table> ';
+  htmls += '<input type="hidden" value="'+shopid+'" name="shopid"> ';
+	htmls += '<input type="button" value="确认提交" class="button" id="dosetclosetime" ></form>';
+  art.dialog({
+    id: 'testID3',
+    title:'设置开店有效时间',
+    content: htmls
+  });
+}
+$('#dosetclosetime').live('click',function(){ 
+	$.post('<{ofunc type=url link="/admin/shopactivetime"}>', $('#doshwoform').serialize() ,function (data, textStatus){  
+			if(data.error == false){
+     		diasucces('操作成功','');
+     	}else{
+     		if(data.error == true)
+     		{
+     			diaerror(data.msg); 
+     		}else{
+     			diaerror(data); 
+     		}
+     	} 
+	 }, 'json'); 
+});
+</script>
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

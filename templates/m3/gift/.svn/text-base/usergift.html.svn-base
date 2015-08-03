@@ -1,0 +1,80 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=membercenter}> 
+<div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>我的积分</b></span></p>
+								
+						</div><!--title end-->
+						
+						<div style="background-color:#fff;border:1px solid #ccc;margin-bottom:10px;">
+            	<div class="ai-wrap">
+									<div class="ai-left">
+										<p>可用积分 <span id="now-jifen"><{$member['score']}></span>，累计积分 <span id="leiji-jifen"><{$member['sumcore']|default:0}></span></p>
+									</div>
+			
+									<div class="ai-right">
+										<p><a href="<{ofunc type=url link="/gift/index"}>"><img src="/upload/shop/mc_duihuan.gif"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="<{ofunc type=url link="/site/single/show/jfgz"}>" target="_blank" class="apanel">查看积分规则</a></p>
+									</div>
+									<div class="clear"></div>
+								</div>
+            </div>
+						
+						
+						
+						
+						
+						
+<div class="mr-middle"><!--mr-middle-->
+						<div class="account_integral"><!--account_integral-->
+							 
+
+							<div class="m-m9-jifenprizelist" id="m-m9-jifenprizelist" class="di_table">
+								<table class="di_table">	
+								<tbody>
+									<tr>      
+										 <th class="m9-plist1">兑换礼品</th>      
+										  <th class="m9-plist2">兑换日期</th>       
+										  <th class="m9-plist3">兑换积分</th>		
+										  <th class="m9-plist4">兑换状态</th>	
+									</tr>
+									 <{load_data assign="list" table="giftlog" showpage="true"  fileds="*"  where="uid='<{$member['uid']}>'" orderby="id desc" }> 
+									<{if count($list['list']) > 0}>
+									 <{foreach from=$list['list'] item=items}> 
+									 <{load_data assign="giftinfo" table="gift" type="one" where="id='<{$items['giftid']}>'" fileds="*" }> 
+		              	<tr>
+		                  <td  ><{$giftinfo['title']}></td>     
+		                  <td  ><{$items['addtime']|date_format:"%Y-%m-%d"}></td>
+		                  <td><{$items['score']}></td>
+		                  <td>
+		                  	<{$logstat[$items['status']]}>
+		                   
+		                  	<{if $items['status'] == 0}>
+		                  	<a href="<{ofunc type=url link="/gift/ungift/id/<{$items['id']}>/datatype/json"}>" class="apanel" onclick="return remind(this);">取消兑换</a>
+		                  	<{/if}>
+		                  	</td>
+		                </tr>
+		                 <{/foreach}>
+		               <{else}>
+										  	<tr><td colspan="7">暂无相关数据。</td></tr>
+										<{/if}>
+										  	
+										  	</tbody>
+										  	</table>
+								 	  <div class="clear"></div>
+								 	   <div class="show_page"> 
+								 	   	  <ul>
+								 	   	    <{$list['pagecontent']}>
+								 	     	</ul>
+								 	   </div>
+								 		<div class="clear">	</div>
+								 	</div>
+
+							<div id="showrecord" style="display:none;">  </div>
+						</div><!--account_integral end-->
+					</div>
+					</div><!--mc-right end-->
+				</div>
+ 
+<{/block}>

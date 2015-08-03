@@ -1,0 +1,217 @@
+@charset "utf-8";
+.new_login,.new_regester{
+	margin: 0 auto;
+ width: 1100px;
+
+}
+.mem_login{
+ background:url(../images/topnew/loginbg.png) no-repeat;
+ height:410px;
+ padding-left:725px;
+ width:375px;
+ margin-top:30px;
+}
+.mem_login_form{
+ width:306px;
+ background:url(../images/topnew/logintop.png) no-repeat;
+ padding-top:50px;
+}
+.mem_login_inputdiv{
+width:306px;
+padding-top:20px;
+}
+.mem_login_inputdiv input{
+width:286px;
+line-height: 38px;
+height:38px;
+}
+.button_new_login{
+  padding:15px 40px 15px 40px;
+  background-color:#f60;
+  color:#fff;
+  font-weight:bold;
+  font-size:20px;
+  border-radius: 15px;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+}
+.regester_top{
+	margin-top:55px;
+	height:90px;
+	margin-left:55px;
+	background:url(../images/topnew/regester_top.png) no-repeat;
+}
+.regester_middle{
+	opacity: .8;
+  filter: alpha(opacity=80);
+  background-color:#f5f5f5;
+  height:80px;
+  border-left:1px solid #ddd;
+}
+.rm_li{
+ margin-top:20px;
+ padding-left:55px;
+ width:400px;
+ float:left;
+}
+.rm_li li{
+  float:left;
+  padding:10px 30px 10px 30px;
+  font-weight:bold;
+  margin-left:5px;
+}
+.rm_li li a,.rm_li li a:hover{
+ color:	#51b2e9;
+}
+.rm_li li.hoveron,.rm_li li.hover{
+color:#fff;
+background-color:#afda41;
+}
+.rm_li li.hoveron a,.rm_li li.hover a{
+color:#fff;
+}
+.rm_rt{
+position:relative;
+width:200px;
+float:right;
+top:30px;
+right:55px;
+}
+.rm_rt a{
+color:#039aed;
+font-weight:bold;
+}
+.regester_bottomss{
+ opacity: .6;
+ filter: alpha(opacity=60);
+ background-color:#f5f5f5;
+ clear:both; 
+ border-left:1px solid #ddd;
+ height:530px;
+
+}
+.rbm_l_p{
+padding:20px 55px 20px 55px; 
+ float:left;
+ height:490px;
+}
+ 
+.mem_regester_inputdiv{
+	clear:both;
+	padding-top:20px;
+	width:600px;
+}
+.mem_regester_inputdiv label{
+	float: left;
+line-height: 30px;
+width: 100px;
+color: #666;
+text-align:right;
+font-weight:bold;
+}
+.mem_regester_inputdiv span{
+	line-height: 30px;
+	float:left;
+	padding-left:5px;
+	font-size:12px;
+}
+.mem_regester_inputdiv input{
+float:left; 
+background:url(../images/topnew/inputbg.png) repeat-x;
+ 
+} 
+.mem_regester_inputdiv button.inputgetcheck{
+border:1px solid #ddd;
+background-color:#eee;
+height:30px;
+font-weight:bold;
+}
+.mem_regester_inputdiv a{
+color:#039aed;
+font-weight:bold;
+}
+.mem_regester_inputdiv .button_new_regester{
+background-color:#039aed;
+font-weight:bold;
+font-size:20px;
+color:#fff;
+width:150px;
+float:left;
+text-align:center;
+padding: 15px 20px 15px 20px;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+}
+.right_btm_re{ 
+position:relative; 
+height:300px;
+width:350px;
+float:right;
+right:80px;
+top:-480px;
+text-align:center; 
+}
+.apilogin{
+	height:150px; 
+}
+.apibottom{
+padding-top:20px;
+font-weight:bold;
+text-align:center;
+}
+.apibottom  a{
+color:#039aed;
+font-size:18px;
+}
+.shop_login{
+	height: 567px;
+    background: url(../images/shop/index_container_bg.png) center;
+	 background-size: cover;
+}
+.shop_login_center{
+  width:600px;
+  margin:0px auto;
+   background: url(../images/shop/shoploginbg.png) repeat-x;
+   height:450px;
+   color:#fff;
+   font-weight:bold;
+}
+.shop_login_center h3{
+padding-top:20px;
+padding-left:20px;
+font-size:30px;
+}
+.shop_login_inputdiv{
+	clear:both;
+	padding-left:40px;
+	width:506px;
+  padding-top:20px;
+
+}
+.shop_login_inputdiv label{
+line-height:38px;
+height:38px;
+width:120px;
+float:left;
+  font-size:20px;
+}
+ 
+.shop_login_inputdiv input{
+width:286px;
+line-height: 38px;
+height:38px; 
+z-index:1000;
+}
+.shop_login_inputdiv .button_new_regester {
+background-color: #039aed;
+font-weight: bold;
+font-size: 20px;
+color: #fff;
+width: 150px;
+float: left;
+text-align: center;
+padding: 15px 20px 15px 20px;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+}
+ 

@@ -1,0 +1,38 @@
+#success-list{width:790px;margin:0 auto;border:1px solid #dcdcdc;padding:20px 0;position:absolute;top:100px;left:50%;margin-left:-395px;z-index:10002;background:#fff;display:none;border-radius:10px;}
+#success-list .title{color:#f27b04;margin-bottom:10px;text-align:center;font-size:14px;font-weight:bold}
+
+#success-list table{width:700px;margin:0 auto;}
+#success-list tr{height:25px;}
+#success-list td{text-indent:15px;border-bottom:1px solid #efefef}
+#success-list tr.tr1{height:30px;background:#f7f7f7;}
+#success-list tr.tr1 th{border-top:2px solid #d2d2d2;border-bottom:1px solid #dbdcdb;color:#f27b04;font-size:14px;text-indent:15px;}
+#success-list tr.tr1 th.ps{text-indent:85px;}
+#success-list tr.tr2{color:#424242;font-size:12px;font-weight:bold;}
+#success-list tr.tr2 td{border-bottom::2px solid #dbdcdb}
+#success-list tr.tr2 td.xj{border-right:none;color:#424242}
+
+#success-list .canpin_list{width:700px;margin:0 auto;max-height:100px;height:expression(this.scrollHeight > 100 ? "100px" : "auto" );-webkit-max-height:100px;overflow-y:auto;overflow-x:hidden;
+						   scrollbar-face-color:#dbdcdb;scrollbar-highlight-color:#fff;scrollbar-shadow-color:#919192;scrollbar-3dlight-color:#fff;scrollbar-arrow-color:#919192;scrollbar-track-color:#fff;scrollbar-darkshadow-color:#fff}
+
+#success-list td.cp{width:300px;}
+#success-list td.jg{width:100px;}
+#success-list td.sl{width:100px;}
+#success-list td.xj{width:100px;border-right:1px solid #efefef;color:#f27b04}
+#success-list td.bz{width:150px;}
+#success-list td.psfy{width:280px;}
+#success-list td.cpxj{width:300px;}
+#success-list td.ddzj{width:150px;}
+
+#success-list tr.tr4 td{border-top:1px solid #dbdcdb;border-bottom:1px solid #dbdcdb}
+#success-list tr.tr4 span{font-weight:bold;color:#424242}
+#success-list tr.tr4 span.tdmoney{color:#f27b04}
+#success-list tr.tr5 td{border-top:1px solid #dbdcdb;border-bottom:none;height:30px;}
+#success-list tr.tr6 td{height:30px;border-bottom:1px solid #d2d2d2}
+#success-list table img.lajiao{width:14px;height:14px;margin-top:-3px;margin-left:5px;}
+
+#notice,#btn{width:700px;margin:0 auto;margin-top:10px;}
+#notice p{text-indent:15px;height:20px;line-height:20px;}
+#notice span{font-weight:bold;color:#424242;}
+
+#btn{text-align:center;}
+/*#btn a{float:left;display:block;background:url(/images/btn_lcbg.jpg) no-repeat left top;width:84px;height:31px;line-height:30px;margin-left:15px;color:#fff;font-weight:bold;}*/

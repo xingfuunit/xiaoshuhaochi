@@ -1,0 +1,157 @@
+<style type="text/css">
+<!--
+.STYLE2 {
+	color: #FF0000;
+	font-size: 14px;
+}
+-->
+</style>
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+ <{block name=extendjs}>
+ <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+ <{/block}>
+ <{block name=controlname}>网站信息<{/block}>
+ <{block name=bodylist}>
+</div>
+</div>
+</div>
+   <div class="right_content">
+
+
+   	  	  <div class="showpart_1">
+   	        <div class="show_content_m">
+
+   	        	 <div class="show_content_m_t2">
+   	        	 	    <div class="part_main_1">
+   	        	 	    	  <ul>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/adminpage/order/module/orderlist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj1.jpg"></div>
+	  	 	  	                     <div class="libtitle">最新订单</div>
+	  	 	  	                </a>
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/adminpage/shop/module/adminshoplist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj2.jpg"></div>
+	  	 	  	                     <div class="libtitle">店铺管理</div>
+	  	 	  	                </a>
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/adminpage/area/module/adminarealist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj3.jpg"></div>
+	  	 	  	                     <div class="libtitle">配送区域</div>
+	  	 	  	                </a>
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/adminpage/news/module/addnews"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj4.jpg"></div>
+	  	 	  	                     <div class="libtitle">添加新闻</div>
+	  	 	  	                </a>
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/adminpage/order/module/orderyjin"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj5.jpg"></div>
+	  	 	  	                     <div class="libtitle">商家结算</div>
+	  	 	  	                </a>
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/adminpage/card/module/sendtasklist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj6.jpg"></div>
+	  	 	  	                     <div class="libtitle">短信群发</div>
+	  	 	  	                </a>
+   	        	 	    	  	</li>
+   	        	 	    	  	<li>
+   	        	 	    	  		<a href="<{ofunc type=url link="/adminpage/other/module/loginlist"}>">
+	  	 	  	                      <div><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kj7.jpg"></div>
+	  	 	  	                     <div class="libtitle">接口管理</div>
+	  	 	  	                </a>
+   	        	 	    	  	</li>
+   	        	 	    	  </ul>
+   	        	    	</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t3">
+   	        	 </div>
+
+   	        </div>
+   	       <!-- show_content_m结束-->
+
+   	      </div>
+   	      <!-- 第一部分结束-->
+   	      <!-- 第二部分开始-->
+   	      <div class="showpart_2">
+   	      	 <div class="smallpart">
+   	      	 	   <div class="small_top"> 系统信息 </div>
+   	      	 	   <div class="small_content">
+   	      	 	   	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">服务器当前时间：</td>
+   	      	 	   			  <td class="tdcls2"><{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">PHP版本：</td>
+   	      	 	   			  <td class="tdcls2"><{phpversion()}></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">论坛地址：</td><td class="tdcls2"></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls1">忠告：</td>
+   	      	 	   			  <td class="tdcls2  STYLE2"></td>
+   	      	 	   		</tr>
+   	      	 	   	</table>
+   	      	 	   	<div style="width:530px;height:110px; padding:15px 0px; text-align:center; margin:0 auto;">
+						<a target="_blank" href="<{ofunc type=url link="/adminpage/order/module/ordertoday"}>"><img style="margin-right:50px;"  width="180"  src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/orderquickSystem.png" />
+						</a>
+						<a target="_blank" href="<{ofunc type=url link="/adminpage/order/module/adminfastfoods"}>"><img width="180"  src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/kefudaikeSystem.png" />
+						</a>
+					</div>
+   	      	 	   	</div>
+   	      	</div>
+   	      	
+   	      	<div class="smallpart">
+   	      		   <div class="small_top"> 数据统计 </div>
+   	      		   <div class="small_content">
+   	      		   		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+   	      	 	   		    <tr>
+   	      	 	   			  <td class="tdcls3 ac">	<a href="#">今日总订单</a><a ><{$tjdata['dayallorder']}></a></td><td class="tdcls3"><a href="#">已上线商家</a><a ><{$tjdata['onlineshop']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3 ac"><a href="#">今日待审核订单</a><a ><{$tjdata['dayworder']}></a></td><td class="tdcls3"><a href="#">待审核商家</a><a ><{$tjdata['wshop']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3 ac"><a href="#">今日已审核订单</a><a ><{$tjdata['dayporder']}></a></td>
+   	      	 	   			  <td class="tdcls3"><script src="&#104;&#116;&#116;&#112;&#58;&#47;&#47;&#115;&#49;&#57;&#46;&#99;&#110;&#122;&#122;&#46;&#99;&#111;&#109;&#47;&#115;&#116;&#97;&#116;&#46;&#112;&#104;&#112;&#63;&#105;&#100;&#61;&#52;&#50;&#57;&#55;&#49;&#49;&#48;&#38;&#119;&#101;&#98;&#95;&#105;&#100;&#61;&#52;&#50;&#57;&#55;&#49;&#49;&#48;" language="JavaScript"></script><a ><{$tjdata['pmember']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   		<tr>
+   	      	 	   			  <td class="tdcls3 ac"><a href="#">本月已完成订单</a><a ><{$tjdata['monthallorder']}></a></td><td class="tdcls3"><a href="#">商城订单</a><a ><{$tjdata['market']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   			<tr>
+   	      	 	   			  <td class="tdcls3 ac"><a href="#">已完成订单总量</a><a ><{$tjdata['allorder']}></a></td><td class="tdcls3"><a href="#">商品数量</a><a ><{$tjdata['marketg']}></a></td>
+   	      	 	   		</tr>
+   	      	 	   	  </table>
+   	      		   	</div>
+   	      	</div>
+
+
+
+
+
+
+
+   	      </div>
+   	      <!-- 第二部分结束-->
+   	  </div>
+   	  <!-- right_content 结束-->
+
+   </div>
+   <!-- newmain_all 结束-->
+</div>
+<script>
+	$(function(){
+	 $('.right_content').eq(0).hide();
+	 $('.show_content_m_t3').hide();
+	});
+	</script>
+<!--newmain 结束-->
+<{/block}>

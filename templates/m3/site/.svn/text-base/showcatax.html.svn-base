@@ -1,0 +1,211 @@
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <{if $showtype == 'market'}>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js" type="text/javascript" language="javascript"></script> 
+ <{else}>
+  <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script> 
+ <{/if}>
+  
+  
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/phonecheck.js" type="text/javascript" language="javascript"></script> 
+   <script>
+   		 var starttime = '<{$shopinfo['starttime']}>'; 
+	 var is_orderbefore=<{$shopinfo['is_orderbefore']}>;
+	 var nowdate = '<{time()|date_format:"%Y-%m-%d"}>';
+	 var nowtime = '<{time()|date_format:"%Y-%m-%d %H:%M:%S"}>';
+	 	var submithtml = '<{ofunc type=url link="/shop/makeorder/datatype/json/random/@random@"}>';
+	  var orderhtml = '<{ofunc type=url link="/site/waitpay/orderid/@orderid@"}>';
+	  <{$yanchitime = time()+$shopinfo['maketime']*60}>
+	  var maketime = '<{$yanchitime|date_format:"%Y-%m-%d %H:%M:%S"}>';
+ $(function(){ 	
+	maketimenenu();
+	var yanse = $('.remark_li').find('li');
+	 $.each(yanse, function(i,val){    
+	  if(i%4 == 0){
+	  	 $(val).css('background-color','#51cef7');
+	  }else if(i%4 == 1){
+	  	$(val).css('background-color','#e46ecc');
+	  }else if(i%4 == 2){
+	  		$(val).css('background-color','#ffb644');
+	  }else if(i%4 == 3){
+	  	$(val).css('background-color','#70c305');
+	  }
+  });
+	
+});
+$('#remark_li li').click(function(){
+	var value = $('#remark').val()+$(this).text() + ',';
+	$('#remark').val(value);
+})
+	  </script>
+      <{assign var=allcost  value=0}> 
+      <{assign var=truecost  value=0}>  
+      <{assign var=areacost  value=0}> 
+      <{assign var=bagcost  value=0}> 
+      <{assign var=downcost  value=0}> 
+      <{assign var=surecost  value=0}> 
+ <{foreach from=$cartinfo['list']  key=ckkey item=items}>  
+       <{if $shopid ==  $ckkey}>   
+<div class="ajaxcart_top" id="checktj_newcart">
+	  <div class="left_title">提交订单</div>
+	  <div class="right_title" onclick="close_ajaxcart();">×</div>
+</div> 
+<div class="ajaxcart_middle">
+	<table border="0" cellspacing="0" cellpadding="0"  style="width:788px;border:1px solid #ddd;" align="center">
+		<tr>
+		<th class="tr1">商品名称</th>
+		<th class="tr2">单价<font style="font-size:10px;">(元/份)</font></th>
+		<th class="tr3">打包费<font style="font-size:10px;">(元/份)</font></th>
+		<th class="tr4">数量<font style="font-size:10px;">(份)</th>
+		<th class="tr5">小计<font style="font-size:10px;">(元)</th>
+  	</tr>
+  	 <{foreach from=$items['data'] item=itv}> 
+  	<tr>
+		<td class="tr1">&nbsp;&nbsp;&nbsp;&nbsp;<{$itv['name']}></td>
+		<td class="tr2"><{$itv['cost']|default:'0'}></td>
+		<td class="tr3"><{$itv['bagcost']|default:'0'}></td>
+		<td class="tr4"><{$itv['count']}><{if $itv['store_num'] < $itv['count']}><font color=red>库存不足</font><{/if}></td>
+		<td class="tr5"><{$itv['cost']*$itv['count']+$itv['bagcost']*$itv['count']}></td>
+  	</tr>
+		<{/foreach}>
+		<{if isset($items['cx']['gzdata']) && count($items['cx']['gzdata']) > 0}> 
+       	<{foreach from=$items['cx']['gzdata'] item=ivalue}>
+    <tr>
+		   <td class="tr1" colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;<{$ivalue}>(<font style="color:red;font-size:10px;">满足的促销活动</font>)</td> 
+  	</tr>
+      <{/foreach}> 
+    <{/if}> 
+    
+  
+    
+      <{if $member['uid'] > 0}>
+       <tr>
+		        <td class="tr1" colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;假如你有优惠劵,<a href="<{ofunc type=url link="/member/base"}>">进入会员中心绑定</a></td> 
+  	  </tr>
+       <{foreach from=$juanlist item=itemm}> 
+        				   	
+     <tr>
+		      <td class="tr1" colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="buyjuan" <{if $items['sum'] < $itemm['limitcost']}> disabled <{/if}> value="<{$itemm['id']}>" data="<{$itemm['cost']}>" data2="<{$itemm['limitcost']}>"><{$itemm['name']}>(说明：优惠<{$itemm['cost']}>元),注意：订单最低金额<{$itemm['limitcost']}>元,截止时间:<{$itemm['endtime']|date_format:"%Y-%m-%d"}></td> 
+  	  </tr>    				   	
+        				   	
+       
+        				   	<{/foreach}> 
+        				  <{else}>
+      <tr>
+		      <td class="tr1" colspan="5">&nbsp;&nbsp;&nbsp;&nbsp;假如你有优惠劵,请先登录在使用优惠劵<a href="<{ofunc type=url link="/member/login"}>">点击登录</a></td> 
+  	  </tr>
+         
+      <{/if}>
+    
+     <{$allcost = $items['sum']}> 
+		    <{$areacost = $areacost + $items['pscost']}>
+        <{$bagcost = $bagcost + $items['bagcost']}>
+        <{$downcost = $downcost + $items['cx']['downcost']}> 
+       <{$surecost = $surecost + $items['cx']['surecost']}>
+	</table>
+	
+	<div class="cart_out_show"> 
+		<label >地址详情:</label>
+	<input type="text" id="addrestemp" name="addrestemp" value="<{$myaddressslist['address']|default:$areainfo}>" data="<{if $locationtype != 1}><{$areainfo}><{/if}>"  size="50">
+		 <span class="hc_order_lists_span_color"> * </span>
+	</div>
+	<div class="cart_out_show"> 
+		<label >联系电话:</label>
+		<input type="text" id="phone" name="phone" value="<{$myaddressslist['phone']|default:''}>"  size="15">
+	 
+   	<span class="hc_order_lists_span" id="uphone" >外卖到时将以该电话通知您</span>
+	</div>
+	<div class="cart_out_show"> 
+		<label >联 系 人:</label>
+		<input type="text" id="recieve_name" name="recieve_name" value="<{$myaddressslist['contactname']|default:''}>"  size="15">
+		 <span class="hc_order_lists_span_color"> * </span>
+	</div>
+	<div class="cart_out_show"> 
+		<label >配送方式:</label> 
+		 <span style="line-height:30px;"> <{if $items['pstype'] == 1}>网站配送<{else}>店铺配送<{/if}> </span>
+	</div>
+	<div class="cart_out_show"> 
+		<label >配送时间:</label>
+		 <select name="senddate"  style="width: 232px;margin:0px; height:30px; border-radius: 4px 4px 4px 4px;" onchange="maketimenenu();">
+								   	 <{if $shopinfo['befortime'] > 0}>
+								   	    <{assign var=shownow value=time()}>   
+								   	    <{section name=loop loop=$shopinfo['befortime']}>   
+								            <option value="<{$shownow|date_format:"%Y-%m-%d"}>"><{$shownow|date_format:"%Y-%m-%d"}></option>
+								          
+								            <{$shownow = $shownow+86400}>  
+                          <{/section}>  
+								   	 <{else}>
+								   	  <option value="<{time()|date_format:"%Y-%m-%d"}>"><{time()|date_format:"%Y-%m-%d"}></option>
+								   	  <{/if}> 
+								  </select> 
+							 
+							  	<select id="orderTime"  style="width: 232px;margin:0px; height:30px; border-radius: 4px 4px 4px 4px;"> 
+								  </select>  
+	</div>
+	
+	<div class="cart_out_show"> 
+		<label >支付方式:</label> 
+		 <div class="cart_pay_l"> <input type="radio" name="paytype" value="0" checked="checked" />货到支付</div>
+							              <{if $open_acout == 1}> 
+			                            <div class="cart_pay_l">	  <input type="radio" name="paytype" value="1" >在线支付</div>
+							              <{/if}>
+							            
+	</div>
+	<div class="cart_out_show" id="jifendkou" jfendata="<{$scoretocost}>" data="<{$member['score']|default:0}>" <{if $member['uid'] < 1}>style="display:none;"<{/if}>> 
+		<label> 积分抵扣:</label> 
+		<span id="activeJifenselect"></span>
+		<span class="hc_order_lists_span_color" style="float:left;"> 抵扣比例：<{$scoretocost}>积分抵扣1元  </span>
+	</div>
+ <div class="cart_out_show"> 
+		<label > 备 注 &nbsp; :</label> 
+		<textarea name="remark" id="remark" style="width:200px;height:60px;float:left;"></textarea>
+		<div  class="remark_li" id="remark_li">
+			<ul>
+						<{if isset($orderbz) &&!empty($orderbz)}>
+						<{$orderbz = $orderbz|unserialize}>
+						 <{foreach from=$orderbz item=itv}>
+						  <{if !empty($itv)}>
+						<li><{$itv}></li>
+						 <{/if}>
+						<{/foreach}> 					
+						<{/if}>		 
+		  </ul>
+		</div>
+	</div>
+	
+	
+	
+</div>
+<div class="ajaxcart_bottom" style="clear:both;">
+	<div style="height:10px;"></div>
+	 <table border="0" cellspacing="0" cellpadding="0"  style="width:780px;" align="center">
+	 	<tr>
+	 		 <td class="td1"> 配送费</td>
+	 		 <td class="td1">打包费</td>
+	 		 <td  class="td1">积分抵扣</td>
+	 			<td class="td1">优惠卷</td>
+	 			<td class="td1">优惠</td>
+	 			<td class="td1">商品总价</td>
+	 			<td class="td1">订单实价</td>
+	 			<td rowspan="2" style="width:120px;text-align:center;"><div class="new_cart_onsub" onclick="orderSubmit();" id="showtj">提交订单</div>
+	 				<div class="new_cart_onsub"   id="showtj2" style="display:none;">处理中..</div></td>
+	 			<td rowspan="2" style="width:100px;text-align:center;"><div class="new_cart_oncls" onclick="close_ajaxcart();">继续下单</div></td>
+	 	</tr>
+	 	<tr>
+	 		<td class="td1"> ￥<{$items['pscost']}></td>
+	 		<td class="td1">￥<{$items['bagcost']}></td>
+	 		<td class="td1">￥<font id="jfcost">0</font></td>
+	 			<td class="td1">￥<font id="yhjcost">0</font></td>
+	 			<td class="td1">￥<{$items['cx']['downcost']}></td>
+	 			<td class="td1">￥<{$items['sum']}></td>
+	 			<{$jisuancost = $surecost+$bagcost+$areacost}>
+	 			<td class="td1" id="surecost" data="<{$surecost}>"  bagcost="<{$bagcost}>" areacost="<{$areacost}>" alldata="<{$jisuancost}>">￥<{$jisuancost}></td>
+	 		 
+	 	</tr>
+	</table>
+	
+</div>
+ <{/if}>
+ <{/foreach}> 
+
+     

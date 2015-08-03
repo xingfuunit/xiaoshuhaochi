@@ -1,0 +1,362 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">今日待审核订单<span id="showztai" style="color:#666;"  data="20"></span></div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+  
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+      <div style="width:100%;"> 
+      	
+      	<div class="search">
+      		 <div class="search_content">
+      		 	<select name="firstarea" onchange="dofirch(this);">
+      		 		<option value=""><{$frinput}>选择第一地址</option>
+      		  <{foreach from=$firstarea item=items}>
+      		  <option value="<{$items['id']}>" <{if $items['id'] == $frinput}>selected<{/if}>><{$items['name']}></option>
+      		  <{/foreach}>
+      		  </select>
+      		  <{if is_array($secareali)}>
+      		  <select name="secarea" onchange="dosecch(this);">
+      		  	    <option value="">选择第二地址</option>
+      		         <{foreach from=$secareali item=ibt}>
+      		          <option value="<{$ibt['id']}>" <{if $ibt['id'] == $secinput}>selected<{/if}>><{$ibt['name']}></option>
+      		  <{/foreach}>
+      		  </select>
+      		  <{/if}>
+           </div>
+      	</div>
+      	
+      	
+      	
+           <div class="tags">
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td">
+
+              <form method="post" action="" onsubmit="return remind();">
+                <{if empty($list)}>
+                暂无数据
+                <{/if}>
+                  <{foreach from=$list key=myid item=items}>  
+			   		 
+			   		 <table class="table table-bordered" width=95% style="font-size:12px;margin-top:5px;text-align:left;margin-left:20px;" id="order_area_<{$items['id']}>" onMouseover="colorred(this);" onMouseout="tcolorred(this);">
+		             <tr>
+		             	<td colspan="2" style="text-align:left;">单号：<{$items['dno']}><{if $items['isbefore']=='1'}><font color=red>[订台]</font><{/if}></td>
+		             	<td colspan="2" style="text-align:left;">创建时间：<{$items['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+		             	<td colspan="2" style="text-align:left;">订单状态: <font color=blue><{$buyerstatus[$items['status']]}></font></td>
+		            </tr>
+		             <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;">店铺名称：<{$items['shopname']}></td>
+		             	<td colspan="2" style="text-align:left;">店铺地址：<{$items['shopaddress']}></td>
+		             	<td colspan="2" style="text-align:left;">店铺电话: <{$items['shopphone']}></td> 
+		            </tr>
+		            <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;">支付方式：<{$paytypearr[$items['paytype']]}></td>
+		             	<td colspan="2" style="text-align:left;">支付状态：<{if $items['paystatus'] == 1}>已付<{else}>未付<{/if}></td>
+		             	<td colspan="2" style="text-align:left;">下单来源: <{$ordertypearr[$items['ordertype']]}></td>
+		            </tr>
+		            <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;"><{if $items['isbefore']=='1'}>消费时间<{else}>配送时间<{/if}>：<{$items['posttime']|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+		             	<td colspan="2" style="text-align:left;">订单类型：<{if $items['isbefore']==0}>普通订单<{else}>订台<{/if}></td>   
+		             	<td colspan="2" style="text-align:left;">ip信息：<{$items['ipaddress']}></td> 
+		            </tr>
+                <tr style="height:20px;line-height:20px;">
+		             	<td colspan="2" style="text-align:left;">联系人：<{$items['buyername']}>[<{if empty($items['acountname'])}>游客<{else}>帐号:<{$items['acountname']}><{/if}>]</td>
+		             	<td colspan="2" style="text-align:left;">消费地址：<{$items['buyeraddress']}></td>   
+		             	<td colspan="2" style="text-align:left;">联系电话：<{$items['buyerphone']}></td> 
+		            </tr>
+		            
+		            <tr> 
+		            </tr>
+		            <tr style="height:20px;line-height:20px;">
+		            	<td colspan="3" width="50%" valign=top>
+		            		<table style="margin:0px;padding:0px;font-size:12px;" width="100%">
+		            			<tr style="height:20px;line-height:20px;">
+		            				<td style="border:none;padding:0px;color:gray;text-align:left;" width="60%">名称</td>
+		            				<td style="border:none;padding:0px;color:gray;" width="15%">价格</td>
+		            				<td style="border:none;padding:0px;color:gray;">数量</td> 
+		            			</tr>
+		            			<{foreach from=$items['detlist'] item=value}>  
+		            			<tr style="height:20px;line-height:20px;"><td style="border:none;padding:0px;color:gray;text-align:left;"><{$value['goodsname']}><{if $value['is_send'] == 1}><font color=red>[赠品]</font><{/if}><{if $value['shopid'] == 0}><font color=blue>[商城]</font><{/if}></td>
+		            				  <td style="border:none;padding:0px;color:gray;"><{$value['goodscost']}>元</td>
+		            				  <td style="border:none;padding:0px;color:gray;"><{$value['goodscount']}>份</td>
+		            				  </tr> 
+		            				<{/foreach}>  
+		            				 
+		            	    
+		            		   
+		            		 </table>
+		            	</td>
+		            	<td colspan="3" style="text-align:left;color:gray;" valign=top>
+		            		 <table style="margin:0px;padding:0px;font-size:12px;text-align:left;" width="100%">
+		            		    <{if $items['shopcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">店铺商品总价</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$items['shopcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		 <{if $items['shopps'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">店铺配送费</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$items['shopps']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		 <{if $items['marketcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">超市商品总价</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$items['marketcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		 <{if $items['marketps'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">超市配送费</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$items['marketps']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		<{if $items['scoredown'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">积分低扣</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red>-<{$items['scoredown']/$scoretocost}></font>元,<{$items['scoredown']}>积分,比例：<{$scoretocost}>:1</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		<{if $items['yhjcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">优惠券低扣</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red>-<{$items['yhjcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		<{if $items['cxcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">店铺促销减金额</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red>-<{$items['cxcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		<{/if}>
+		            		 		<{if $items['bagcost'] > 0}>
+		            		   	<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">打包费</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$items['bagcost']}></font>元</td>
+		            		 		   </tr>
+		            		 		   
+		            		 		<{/if}>
+		            		 		<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">应收</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><font color=red><{$items['allcost']}></font>元<{if $items['isbefore']==0}><{if $items['pstype']==0}>平台配送<{else}>店铺陪送<{/if}><{else}>到店消费<{/if}></td>
+		            		 	   </tr>
+		            		 	   <{if !empty($items['content'])}>
+		            		 		<tr style="height:20px;line-height:20px;">
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">备注</td>
+		            		 		  <td style="border:none;padding:0px;color:gray;"><{$items['content']}></td>
+		            		 	   </tr> 
+		            		 	   <{/if}>
+		            		 	   <{if !empty($items['othertext'])}>
+		            		 		<tr style="height:20px;line-height:20px;" valign=top>
+		            		 		  <td style="border:none;padding:0px;color:gray;" width="100px;">其他说明</td> 
+		            		 		  <td style="border:none;padding:0px;color:gray;">
+		            		 		  	<{assign var=showother value=$items['othertext']|unserialize}>   
+		            		 		  	 <{foreach from=$showother key=mytest item=itc}>
+		            		 		  	  <{$mytest}>:<{$itc}>，
+		            		 		  	 <{/foreach}>
+		            		 		  	</td>
+		            		 	   </tr> 
+		            		 	   <{/if}>
+		            		 </table> 
+		            		 
+		            		</td>
+		            </tr>
+		            <tr >
+		              <td colspan="6" style="text-align:left;" class="order_control"> 
+		              	<{if $items['status'] == 0}> 
+		              	<a onclick="unorder(<{$items['id']}>,<{$items['dno']}>);" href="#">关闭订单</a>    
+		              	<a onclick="return remind(this);" href="<{ofunc type=url link="/admin/ordercontrol/id/<{$items['id']}>/type/pass"}>">通过审核</a>    
+		              	<{/if}>
+		              	<{if $items['status'] == 1}>
+		              	 	<a onclick="unorder(<{$items['id']}>,<{$items['dno']}>);" href="javascript:void(0);">关闭订单</a>  
+		              	    <a onclick="return remind(this);" href="<{ofunc type=url link="/admin/ordercontrol/id/<{$items['id']}>/type/send"}>">配送发货</a>     
+		              	<{/if}>
+		              	<{if $items['status'] == 2}>
+		              	  	<a onclick="unorder(<{$items['id']}>,<{$items['dno']}>);" href="javascript:void(0);">关闭订单</a>  
+		              	    <a onclick="return remind(this);" href="<{ofunc type=url link="/admin/ordercontrol/id/<{$items['id']}>/type/over"}>">完成订单</a>     
+		              	<{/if}>
+		              	<{if $items['status'] == 4 || $items['status'] == 5 }>
+		              	 <a onclick="return remind(this);" href="<{ofunc type=url link="/admin/ordercontrol/id/<{$items['id']}>/type/del"}>">删除</a>  
+		              	<{/if}>
+		              	<a href="javascript:void(0);"  onclick="printorder(<{$items['id']}>);">打印订单</a>	
+		              	
+		              	审核参考  <{if empty($items['buyeruid'])}>游客<{else}>成交次数:<{$items['maijiagoumaishu']}><{/if}> 下单IP：<{$items['ipaddress']}>
+		              	</td>
+		            </tr>   
+		            </table> 
+		          <{/foreach}>
+		          
+		          
+		          
+
+                <div class="blank20"></div> 
+
+                </form>
+
+                <div class="page_newc">
+                 	      
+                 </div>
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  <div id="print_area" style="display:none;"></div>
+  <div id="palywave" style="display:block;"></div>
+ </div>
+<script type="text/javascript">
+   function colorred(obj){
+   	$(obj).css('background','#eee'); 
+   }
+   function tcolorred(obj){
+   	$(obj).css('background','');
+   }
+    function unorder(orderid,dno)
+	 { 
+	 	   var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:'取消订单'+dno,
+           content: '<div>关闭订单理由</div><div><textarea name="reason" id="reason" style="height:50px;"></textarea></div><div><input type="checkbox" value="1" name="suresend" id="suresend">将关闭理由发送买家手机(保证短信设置正常)</div><div class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" style="width:65px;float:left;" onclick="sureclose('+orderid+');">提交关闭</div>'
+        });
+	 }
+	 
+	 function sureclose(orderid)
+	 {
+	 	  var reasons = $('#reason').val();
+	 	  var suresend = $("input[name='suresend']:checked").val();
+	 	  if(reasons == undefined || reasons == '')
+	 	  {
+	 	  	alert('关闭理由不能为空');
+	 	  }else{ //{'orderid':orderid,'reason':reasons}
+	 	    var url = siteurl+'/index.php?controller=admin&action=ordercontrol&type=un&id='+orderid+'&reasons='+reasons+'&suresend='+suresend+'&@random@';
+	 	    $.ajax({
+     type: 'get',
+     async:false, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {  
+     	if(content.error == false){
+     		diasucces('操作成功','');
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });   
+	 	 }
+	 }
+	 
+  function printorder(orderid)
+	{
+		$('#print_area').html('');
+	 $('#order_area_'+orderid).clone().appendTo($('#print_area'));
+	 $("#print_area").find('.order_control').remove();
+	  $("#print_area").printArea(); 
+  }
+  function print_all_area()
+  {
+  	$('#print_area').html($('#all_area').html());
+	  $("#print_area").find('.order_control').remove();
+	  $("#print_area").printArea();
+  }
+  function dofirch(obj){
+  	var oplink = '<{ofunc type=url link="/admin/ordertodayw/firstarea/@firstarea@"}>';
+  	var findvalue = $(obj).find("option:selected").val();
+  	oplink = oplink.replace('@firstarea@',encodeURIComponent(findvalue));
+  	window.location.href=oplink;
+  	 
+  }
+  function dosecch(obj){
+  		var oplink = '<{ofunc type=url link="/admin/ordertodayw/firstarea/<{$frinput}>/secarea/@secarea@"}>';
+  	var findvalue = $(obj).find("option:selected").val();
+  	oplink = oplink.replace('@secarea@',encodeURIComponent(findvalue));
+  	window.location.href=oplink;
+  }
+ </script>
+
+
+
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script>
+$(function(){
+	setTimeout("get_status()",1000); 	
+ 
+});
+function get_status(){//<span id="timeshow" data="20" style="color:#666;"></div>
+	//alert('xxx');
+	//firstarea
+	//secarea
+	
+	var timeaction =  $('#showztai').attr('data');
+	if(timeaction == 0){  
+      $.ajax({
+     type: 'get',
+     async:false,
+     data:{firstarea:'<{$frinput}>',:secarea:'<{$secinput}>'},
+     url: '<{ofunc type=url link="/admin/ajaxcheckorder"}>', 
+     dataType: 'json',success: function(content) {  
+     	  if(content.error == false){
+     		  //  播放声音 文件 diasucces('操作成功','');
+     		  	palywav();
+     	  }else{ 
+     			 location.reload();   
+       	}
+		  },
+      error: function(content) { 
+     	  location.reload();  
+	    }
+     }); 		
+      	 
+  }else{
+ 	var nowtime = Number(timeaction)-1;
+ 	$('#showztai').attr('data',nowtime);
+ 	$('#showztai').text(',刷新倒计时'+nowtime+'秒');
+ 	setTimeout("get_status()",1000); 	
+ 	
+  }
+}
+function palywav(){
+ 
+   $('#palywave').html('<embed id=cct src="<{$siteurl}>/wave.mp3" loop="0" autostart="true" hidden="true"></embed>'); 
+   setTimeout("playon()",2000); 	
+}
+function playon(){
+	//$('#cct').load("<{$siteurl}>/upload/wave.mp3");
+	location.reload();  
+}
+</script>
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

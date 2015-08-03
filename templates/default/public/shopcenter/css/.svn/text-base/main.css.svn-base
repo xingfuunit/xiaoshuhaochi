@@ -1,0 +1,81 @@
+body
+{margin:0 auto;
+width:100%;
+}
+
+.main{ width:80%; height:auto; margin:0 auto;
+padding:20px;
+margin-top: 30px;
+/* min-height: 838px; */
+height: auto;
+background: url(../images/conRightBg.png) repeat;}
+.main_titile{position: relative;
+width: 100%;
+height: 55px;
+background: #311f16;
+border-bottom: 1px solid #2b1f15;
+line-height: 55px;
+color: #ffffff;
+font-size: 14px;
+font-family: 微软雅黑;
+}
+.qhaddress{ padding-top:15px; width:40%;  line-height:55px; text-align:center;}
+.qhaddress select{ width:200px;}
+.auto_time{color: #ffffff;
+font-size: 24px;width:20%;
+font-family: 微软雅黑;
+}
+.auto_time span{color: #e47d1b;
+font-size: 28px; }
+.shoushua{ width:20%;}
+.closeVoi{ width:20%;}
+.dingdanGl{ margin-top:10px; width:50%;}
+.dingdanGl li{ background: url(../images/jbsetBg.png) repeat-x; line-height:35px; height: 35px; float:left; width:20%; text-align:center;}
+.dingdanGl li:hover{background:#CE8555;}
+.dingdanGl li.on{background:#f60;}
+.main_tl{ width:50%; float:left;}
+
+
+.main_ord_list{
+padding:15px 2% 80px;
+width: 96%;
+height: auto;
+background: url(../images/caidanlistBg.png) repeat;
+position: relative;}
+.chaxun{ width:50%;}
+.chaxun input{ border:none;}
+.chaxun .chainp{float:left;background: #656565;
+border: none;width: 163px;
+height: 27px;}
+
+.chaxunhBg { float:left;width:71px; height:27px;line-height:27px; padding-top:10px;
+background: url(../images/serchBg.png) no-repeat;
+}
+
+.ycOrd{ width:45%; text-align:right ;padding-right:5%;color: #ffffff;
+font-size: 14px;
+font-family: 微软雅黑;}
+
+.order_list_show{ width:100%;}
+.order_list_show table tr th{ font-family: 微软雅黑; font-size:14px;height:35px; color:#ffffff; }
+.order_list_show table tr{}
+.orLiheight{ height:47px; }
+.noord{height:10px;}
+.list_table{ margin-bottom:20px;}
+.order_list_show tr td{ font-family: 微软雅黑;color:#ffffff;}
+.xqOrderlist{background: url(../images/singleOrder.png) repeat;font-size: 14px;
+
+text-align: left;
+}
+.xqOrderlist td{ height:47px; }
+.xqOrderlist tr{ text-align:center;}
+.styorder{color:#bceafe; font-size:14px; font-weight:bold;} 
+.buttd a{
+	padding:5px 10px 5px 10px;
+	text-align:center;
+	line-height:12px;
+}
+.buttd a:hover,.buttd a.on{
+  background:#f60;
+  color:#fff;
+}

@@ -1,0 +1,122 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>超市统计<{/block}>
+ <{block name=bodylist}>
+      <div style="width:98%;overflow-y:auto;white-space:nowrap;"> 
+      	
+      <div class="search">
+      		 
+            
+            <div class="search_content">
+            	 
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/order/markettj"}>">
+            	  <label>查询类型：</label>
+            	  <select name="querytype">
+            	  	<option value="0">未选择</option>
+            	  	<option value="mb.username"  <{if $querytype == 'mb.username'}>selected<{/if}>>会员名</option>
+            	  	<option value="ord.shopname"  <{if $querytype == 'ord.shopname'}>selected<{/if}>>店铺名称</option> 
+            	  	<option value="ord.buyername"  <{if $querytype == 'ord.buyername'}>selected<{/if}>>买家联系人</option>
+            	  	<option value="ord.buyerphone"  <{if $querytype == 'ord.buyerphone'}>selected<{/if}>>买家联系电话</option>
+            	  </select>
+            	  <label>查询条件：</label>
+            	   <input type="text" name="searchvalue" value="<{$searchvalue}>"> 
+            	   从<input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />  
+			   		 	   到<input class="Wdate datefmt" type="text" name="endtime" id="endtime" value="<{$endtime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />                  
+
+            	  
+            	    <input type="submit" value="提交查询" class="button">  
+            	 </form>
+            </div>
+        
+      	</div>
+      	
+      	
+      	
+           <div class="tags">
+
+      	  
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td"  >
+
+              <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall(this.form, 'id')"></th>
+
+                        <th align="center">订单状态</th>
+
+                        <th align="center">订单数量</th> 
+
+                        <th align="center">订单商品总价</th> 
+                        
+                         <th align="center">订单配送费用</th> 
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+                     	
+                      <{if empty($list)}>
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td colspan="4" > 暂无数据</td> 
+                      
+                      </tr> 
+                      <{/if}>
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['uid']}>"></td> 
+                        <td align="center"><{$buyerstatus[$items['status']]}></td> 
+                        <td align="center"> <{$items['shuliang']}> </td> 
+                        <td align="center"><{$items['allcost']}></td>  
+                       <td align="center"><{$items['sendcost']}></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+               
+
+                </form>
+
+                 
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ </div>
+
+
+
+
+
+
+
+
+  </div> 
+
+<{/block}>

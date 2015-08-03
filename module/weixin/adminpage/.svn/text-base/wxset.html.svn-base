@@ -1,0 +1,56 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<{/block}>
+ <{block name=controlname}>微信基本设置<{/block}>
+ <{block name=bodylist}>
+   
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto;">   
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/weixin/module/wxsetsave/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">微信自定义token</td>
+                      <td><input type="text" name="wxtoken" id="wxtoken" value="<{$wxtoken}>" class="skey" style="width:150px;"></td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">微信appid</td>
+                      <td><input type="text" name="wxappid" id="wxappid" value="<{$wxappid}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">微信secret</td>
+                      <td><input type="text" name="wxsecret" id="wxsecret" value="<{$wxsecret}>" class="skey" style="width:250px;"></td>
+                    </tr> 
+                    
+                    
+                    <{if !empty($wxlink)}>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">关注二维码</td>
+                      <td><img src="<{$wxlink}>"></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">二维码说明</td>
+                      <td>下载（可自行在图片中央加自己的特有标记）提供给客户</td>
+                    </tr> 
+                    <{/if}>
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+             
+               <input type="submit" value="确认提交" class="button"/>  
+            </form>
+          </div>
+         
+           
+         </div>
+      
+    
+
+          </div> 
+    
+ 
+<{/block}>

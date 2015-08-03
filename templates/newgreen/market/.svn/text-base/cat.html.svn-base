@@ -1,0 +1,133 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market.css"> 
+<{/block}>
+<{block name=extendjs}> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js" type="text/javascript" language="javascript"></script>
+<script>
+		var shopid = "<{$shopinfo['id']}>"; 
+			var locationfalse = false;
+			var findtype = '<{$findtype}>';
+		
+		if(findtype == 1){
+			alert('你选择的区域范围内无小卖铺');
+			window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+</script>
+<{/block}>
+   <{block name=bgshow}><div class="mmbg" style="background:url(../upload/shop/page_bg.png)"></div><{/block}> 
+   <{block name=shophide}><{/block}>
+<{block name=sitetitle}>零食铺<{$catinfo['name']}><{/block}>
+ <{block name=bodylist}>
+ 
+ <div style="margin-top:10px;"></div>
+  <!--头部-->
+  <div  class="market_index">
+  	<!--绝对路径的分类-->
+  	  <div class="cateList">
+  	    <{foreach from=$catlist item=items}>
+      	 <dl>
+            <dt><a href="<{ofunc type=url link="/market/cat/id/<{$items['id']}>"}>"><{$items['name']}></a></dt>
+            <dd>
+            	<{foreach from=$items['det'] item=itv}>
+            	     <a href="<{ofunc type=url link="/market/cat/id/<{$itv['id']}>"}>" <{if isset($catinfo['id']) && $catinfo['id'] == $itv['id']}> class="active"<{/if}>><{$itv['name']}></a> 
+            	 <{/foreach}>
+            </dd>
+         </dl>
+        <{/foreach}> 
+  	  	
+  	  </div>
+  		<!--绝对路径的分类结束-->
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容-->
+  	 <div class="area_main">  
+  	 	<div class="goods_list_1">
+      <ul> 
+    	 <{load_data assign="list" table="goods" showpage="true"  fileds="*"  where="<{$where}>" pagesize="20" }>
+    	 <{foreach from=$list['list'] item=items}>
+    	  <li id="goods_9680">
+                        <div class="box" style="background-color: rgb(255, 255, 255);">
+                <div class="thumb">
+                	<div class="thumb_box">
+                	                     <a onclick="addonedish('<{$items['id']}>','<{$items['shopid']}>',1,this);" ><img class="lazy"  src="../upload/shop/grey.gif" data-original="<{$items['img']}>"   alt="<{$items['name']}>" style="display: inline;"><div class="addtocart"></div></a>
+                                          </div>
+                </div>
+                <h4 class="name"><a href="<{ofunc type=url link="/market/showgoods/id/<{$items['id']}>"}>" title="<{$items['name']}>`" target="_blank"><{$items['name']|truncate:13:"...":true}></a></h4>
+                <div class="price">   ￥<{$items['cost']}></div>
+             </div>
+        </li>
+        <{/foreach}>
+       </ul>
+      
+</div>
+ <div class="show_page" style="clear:both;">
+       	<ul>
+       	   <{$list['pagecontent']}>
+       	 </ul>
+       </div>
+ <script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+
+
+
+
+  	 </div>
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容结束-->
+  </div> 
+  <!---头结束-->
+  
+ <!--购物车-->
+ <div class="mini-container" id="smallcatinfo">
+ 	   <div class="mini-cart-count" style="width: 66px;">
+ 	   	<a class="mini-buy" href="#" target="_self" onclick="ajaxdoorder(<{$shopinfo['id']}>);"></a>
+ 	   	<div class="mini-cart-open" style="display: none;">
+ 	   		<div class="mini-cart-cover">
+ 	   			<div class="cart-tip ks-clear">
+ 	   			   <div class="cart-num"><em class="J_CartNum">0</em></div>
+ 	   		     <div class="cart-price"><em class="J_CartPrice">0</em></div>
+ 	   		   	 <div class="cart-weight"><em class="J_CartWeight">0</em></div>
+ 	   		  </div>
+ 	   		  <div class="warn-msg">
+ 	   				<span href="满69免运费" target="_blank" class="J_CartMsg" title=""></span>
+ 	   			</div>
+ 	   	  </div>
+ 	   	  <s class=""></s>
+ 	   	</div>
+ 	   </div>
+ 	   <div class="mini-cart-close" style="display:block;" onclick="hidedetas();"><div class="mini-cate J_CartNum">0</div></div> 
+ 	   <div class="mini-bd sc-non-empty" style="width: 722px;display:none;">
+ 	   	    <div class="mini-clear ks-clear">
+ 	   	    	<div class="mini-bd-lf">
+ 	   	    		<a href="javascript:hidedeta();" class="mini-tringer" target="_self"></a>
+ 	   	    		<div class="mini-bd-content">
+ 	   	    			<p class="sc-notice J_CartNotice">您推的是空车子，赶快去购物吧！</p>
+ 	   	    			<div class="mini-bor">
+ 	   	    				<div class="mini-prev"><a class="disable" target="_self" href="javascript:goupcart();">上一页</a></div>
+ 	   	    				<div class="mini-next"><a class="disable" target="_self" href="javascript:gonextcart();">下一页</a></div>
+ 	   	    				<div class="mini-switch-container">
+ 	   	    					<div class="mini-switch-content" style="left:0;" id="cartinfodet">
+ 	   	    					    
+ 	   	    				    	<!--产品循环--> 
+ 	   	    				  </div>
+ 	   	    				</div></div></div></div><s></s></div>
+ 	   </div>
+ 	
+</div>
+<!--购物车结束-->
+  
+  
+  
+  <div style="clear:both;"></div>
+   <script>
+  $('.box').hover(function(){
+  	 $(this).css('background-color','rgb(241, 241, 241)');
+  });
+  $('.box').mouseleave(function(){
+  	 $(this).css('background-color','');
+  });
+  	</script>
+<{/block}>

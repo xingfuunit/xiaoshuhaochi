@@ -1,0 +1,192 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Language" content="zh-CN"> 
+<meta content="all" name="robots"> 
+<meta name="description" content=""> 
+<meta content="" name="keywords"> 
+<title></title>  
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/ajaxdialog.css" />
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>   
+<script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ajaxfileupload.js"> </script>
+</head>
+<body >
+	<div class="content">
+		<form id="kloginForm" method="post" action="<{ofunc type=url link="/shop/savegoodsall"}>" >
+		 <div class="goodsbase">
+		    <div class="baseinfo">基本信息：</div>	
+		    <div class="basetext"> <p><{$goodsinfo['name']}></p><p>单价:<{$goodsinfo['cost']}></p><p>打包费：<{$goodsinfo['bagcost']}></p><p>库存:<{$goodsinfo['count']}></p></div> 
+		    <div class="imgdiv">
+		    	
+		    	
+		    	
+		    	
+		    </div>
+		 </div>
+		 <div class="hangtiao clr">
+		    <div class="labeltext">推荐：</div>	
+		    <div class="inputtext">
+		    	<div class="showdiv">
+		    	   <input type="checkbox" name="is_new"    value="1"  <{if $goodsinfo['is_new']==1}>checked<{/if}>>新品 
+		    	   <input type="checkbox" name="is_hot"    value="1"  <{if $goodsinfo['is_hot']==1}>checked<{/if}>>热销  
+		    	   <input type="checkbox" name="is_com"  value="1" <{if $goodsinfo['is_com']==1}>checked<{/if}>>推荐 
+		    	</div>
+		    </div> 
+		 </div>
+		 
+		 <div class="hangtiao clr">
+		    <div class="labeltext">标签设置：</div>	
+		    <div class="inputtext">
+		    	<div class="showdiv">
+		    	  <{assign var=mycxids value=","|explode:$goodsinfo['signid']}> 
+                         <{foreach from=$goodssign   item=itema}> 
+                           <input class="food_check" name="cxids[]" type="checkbox" data="<{$itema['id']}>" value="<{$itema['id']}>" <{if in_array($itema['id'],$mycxids)}>checked="checked" <{/if}>><img src="<{$itema['imgurl']}>" alt="<{$itema['instro']}>">
+             <{/foreach}>
+		    	</div>
+		    </div> 
+		 </div>
+		 
+		 <div class="hangtiao clr">
+		    <div class="labeltext">所在分类：</div>	
+		    <div class="inputtext">
+		    	<div class="showdiv">
+		    	    <select name="typeid">
+		    	   	  <{foreach from=$listtype item=items}>
+		    	   	  <option value="<{$items['id']}>" <{if $goodsinfo['typeid'] == $items['id']}>selected<{/if}>><{$items['name']}></option>
+		    	   	  <{/foreach}>
+		    	   	</select> 
+		    	</div>
+		    </div> 
+		 </div>
+		 
+		  <div class="hangtiao clr" style="height:105px;">
+		    <script>KE.show({id:'instro',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/other/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/other/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="instro" id="instro" style='width:600px; height:100px;'><{$goodsinfo['instro']}></textarea>
+		 </div>
+		 <input type="hidden" name="gid" value="<{$goodsinfo['id']}>">
+		 <div class="hangtiao clr">
+		  
+		    <input type="submit" value="确认提交" class="labeltext" style="background-color:#ec7501;text-align:center;cursor: pointer;">  
+		     
+		 </div>
+		 
+		 
+		
+	</form>
+</div>
+	
+<div id="newimg">
+		        	<div class="file_img" style="height:136px;width:160px;">
+                        	 <img src="<{$goodsinfo['img']}>" width="136" height="130" id="imgshow" <{if  empty($goodsinfo['img'])}> style="display:none;"<{/if}>>  
+               </div>
+                <div class="file_xxiang">
+                        	<input type="hidden" name="goodsimg" id="goodsimg" value="<{$goodsinfo['img']}>" class="skey" style="width:130px;" > 
+                     <div id="div-headpicUpload" style="display:block;"> 
+		                  <form id="form1" name="form1" method="post"  enctype="multipart/form-data" target="ifr-headpic-upload" onsubmit="return checkImagetype('1');">    
+		                  	<div class=""> 
+		               	      	<input name="head" type="file" id="imgFile" style="width:68px;float:left;" name="imgFile" onchange="$('#input1').val($(this).val())"  class="curbtn">
+		               		     <input id="submitImg" type="button" value="上传" class="ss_sc curbtn" style="width:40px;float:left; border:1px solid #ccc;background-color:white;height:22px;line-height:12px;margin-top:5px;margin-left:5px;" > 
+		               		     <input type="button" id="imgdel" value="删除" class="ss_sc curbtn" <{if  empty($goodsinfo['img'])}> style="display:none;"<{/if}>>
+		               	    </div>  
+		               </form> 
+		             </div>
+		           </div>
+		    </div> 
+	
+<script>
+  $('#tijiaofrom').click(function(){
+  	 $('#kloginForm').submit();
+  });
+	$('#submitImg').click(function(){
+		ajaxFileUpload();
+	});
+	$('#imgdel').click(function(){
+		var newlink = '<{ofunc type=url link="/shop/delgoodsimg/id/<{$goodsinfo['id']}>/datatype/json/random/@random@"}>';
+		   $.ajax({
+     type: 'get',
+     async:false, 
+     url: newlink.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {  
+     	if(content.error == false){ 
+     		  $('#goodsimg').val('');
+ 	             $('#imgshow').attr('src','');
+ 	                $('#imgshow').hide(); 
+ 	                $('#imgdel').hide();
+     	}else{
+     		if(content.error == true)
+     		{
+     		  alert(content.msg);
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+       alert('调用文件失败');
+	  }
+   }); 
+		  
+		  
+		  
+		 
+	});
+	function ajaxFileUpload()
+	{
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+  
+		$.ajaxFileUpload
+		(
+			{
+				url:'<{ofunc type=url link="/other/userupload/datatype/json"}>',
+				secureuri:false,
+				fileElementId:'imgFile',
+				dataType: 'json',
+				data:{'type':'goods', 'gid':'<{$goodsinfo['id']}>'},
+				success: function (data, status)
+				{
+					if(typeof(data.error) != 'undefined')
+					{
+						if(data.error == false)
+						{ 
+						 
+							$('#goodsimg').val(data.msg);
+ 	             $('#imgshow').attr('src',data.msg);
+ 	                $('#imgshow').show(); 
+ 	                $('#imgdel').show();
+						}else
+						{
+							alert(data.msg);
+						}
+					}else{
+					  alert(data);
+					}
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)
+		
+		return false;
+
+	}
+	</script>
+</body>
+</html>
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

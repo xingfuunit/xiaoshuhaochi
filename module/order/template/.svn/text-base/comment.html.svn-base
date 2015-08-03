@@ -1,0 +1,82 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>   
+<{block name=extendjs}>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+   <script>
+  	  var mynomenu='baseask';
+  </script>
+<{/block}>
+ <{block name=bodylist}>
+ 
+ 
+  <!---content right start--->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>留言/评价管理</span> </div>
+    <div class="messageset">
+      <div class="message_btn">
+        <div class="liuyanGl  fl" onclick="openlink('<{ofunc type=url link="/ask/shopask"}>');"><span >留言管理</span></div>
+        <div class="pingjiaGl messageCur fl" onclick="openlink('<{ofunc type=url link="/order/comment"}>');"> <span >评价管理</span> </div>
+      </div> 
+      <div class="cl"></div>
+    </div>
+    <div class="cl"></div>
+    <div class="caidanSet"> 
+      
+      
+        
+        
+        
+         <!---评价管理----->
+    
+        <div class="mes_box"   id="pingjia">        
+            <table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <th width="40%"> 评价内容 </th>
+                  <th width="15%"> 商品名称 </th>
+                  <th width="15%"> 订单编号 </th>
+                  <th width="10%"> 时间 </th>
+                   <th width="10%"> 评分 </th>
+                  <th width="10%"> 操作</th>
+                </tr>
+                  	 <{load_data assign="list" table="comment" showpage="true" where="shopid = <{$shopinfo['id']}>"  orderby = "id desc"}> 
+			               <{foreach from=$list['list'] item=items}> 
+			               <{load_data assign="goodsinfo" table="orderdet" type="one" where="id='<{$items['orderdetid']}>'" fileds="goodsname" }> 
+			               <{load_data assign="orderinfo" table="order" type="one" where="id='<{$items['orderid']}>'" fileds="dno" }> 
+                <tr >
+                 	<td><{$items['content']}></td>
+                      <td><{$goodsinfo['goodsname']}></td>
+                      <td><{$orderinfo['dno']}></td>
+                      <td><{$items['addtime']|date_format:"%Y-%m-%d"}></td>
+                      <td><{$items['point']}></td>
+                  <td id="reload40"><{if $items['is_show'] == 0}><span style=" background:#27a9e3; padding:8px; color:#fff;"><a onclick="return remind(this);" data="" href="<{ofunc type=url link="/order/showcommlist/id/<{$items['id']}>/datatype/json"}>">取消展示</a></span> 
+                 <{else}> 
+                  <span style=" background:#ec7501;  padding:8px; color:#fff;"><a onclick="return remind(this);"  data="" href="<{ofunc type=url link="/order/showcommlist/id/<{$items['id']}>/datatype/json"}>">展示</a></span><{/if}>
+                  </td>
+                </tr>
+                <{/foreach}>
+               	<tr>
+                	<td align="right" style=" padding-right:50px;" colspan="6"> <div class="show_page"><ul><{$list['pagecontent']}></ul></div></td>
+                </tr>
+              </tbody>
+            </table>
+         
+        </div>
+   
+    </div>
+  </div>
+  <div class="cl"></div>
+  
+  <!---content right end---> 
+ 
+ 
+ 
+ 
+  <script>
+$(function(){ 
+ $('.show_page a').wrap('<li></li>');
+ $('.show_page').find('.current').eq(0).parent().css({'background':'#f60'}); 
+});
+   
+</script>
+ 
+<{/block}>

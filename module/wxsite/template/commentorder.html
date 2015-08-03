@@ -1,0 +1,172 @@
+ <{extends file="<{$tempdir}>/public/wxsite.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/wxsite/css/order.css">  
+<{/block}>
+ <{block name=extendjs}> 
+  <{if empty($order)}>
+  <script>
+$(function(){  
+       error($('#supplierlist'),'未获取到订单'); 
+});
+  </script>
+  <{/if}>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=hearnav}><header style="position: fixed;display:block;"><div class="return"></div> 评价订单 </header><{/block}>
+ 
+<{block name=myScrolljs}>
+<script> 
+		var myScroll;
+function loaded() {
+	myScroll = new iScroll('wrapper', {
+		useTransform: false,
+		hScrollbar:false,
+		vScrollbar:false,
+		onBeforeScrollStart: function (e) {
+			var target = e.target;
+			while (target.nodeType != 1) target = target.parentNode;
+
+			if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'span')
+				e.preventDefault();
+		}
+	});
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false); 
+document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+<{/block}>
+<{block name=blockcontent}> 
+   <div id="wrapper" style="top:40px;bottom:54px;">
+	<div id="scroller">
+		
+   
+   	<{if !empty($order) }>
+   	
+   	
+   	
+   	
+   	<section class="listselect">
+ 	    
+  			<ul class="liststyle1" id="orderlist" style="border-bottom:1px solid #c30814;">
+  			 
+  			  <li class="topheader box_inline">
+  			  	 <div class="colomn wd5" style="text-align:left;">
+  			  	 	名称
+  			    	</div> 
+  			    	 <div class="colomn wd3">数量
+  			    	</div>
+  			    	 <div class="colomn wd4">
+  			    	   单价
+  			    	</div> 
+  			  </li>
+  			   <{foreach from=$orderdet item=items}>
+  		    <li class="listg ">
+  			  	 <div class="colomnpg wd5" style="text-align:left;width:100%;">
+  			  	 	  <div>
+  			  	 	    <div class="box_inline">
+  			  	 	   	  <div class="wd5"><{$items['goodsname']}></div>
+  			  	 	  	  <div class="wd3" style="text-align:center;"><{$items['goodscount']}>份</div>
+  			  	 	  	  <div class="wd4" style="text-align:center;">	<span class="costtext">￥<{$items['goodscost']}></span></div>
+  			  	 	   </div> 	
+  			  	 	  	
+  			  	 	  	
+  			  	 	  </div>
+  			  	 	  <{if $order['status'] == 3 || $order['status'] == 2}>
+  			  	 	    <{if empty($items['status'])}>
+  			  	 	   <div id="pingjiagefen<{$items['id']}>" class="box_inline"><input type="radio" value="1" name="pingfen<{$items['id']}>">1分<input type="radio" value="2" name="pingfen<{$items['id']}>">2分<input type="radio" value="3" name="pingfen<{$items['id']}>">3分<input type="radio" value="4" name="pingfen<{$items['id']}>">4分<input type="radio" value="5" name="pingfen<{$items['id']}>" checked>5分</div>
+  			  	 	   <div class="box_inline" >
+  			  	 	   	  <div class="wd1">评价内容:</div>
+  			  	 	  	  <div class="wd80" id="pingjiageneiront<{$items['id']}>">  <input type="input" name="pingjiacontent<{$items['id']}>" class="inputInp"> </div>
+  			  	 	  	  
+  			  	 	   </div>
+  			  	 	   <div style="padding-top:10px;padding-bottom:10px;" id="pingjiagebtn<{$items['id']}>"><span class="btn" style="background-color:#f60;color:#fff;" onclick="pingjia('<{$items['id']}>','<{$items['order_id']}>');">提交评价</span></div>
+  			  	 	   <{else}>
+  			  	 	   <div class="box_inline">
+  			  	 	   	  <div class="wd1">评分:</div>
+  			  	 	  	  <div class="wd80">  
+  			  	 	  	  	 <div style="color:#c30814;width:<{$comment[$items['id']]['point']*12}>px;overflow:hidden;">★★★★★</div>
+  			  	 	  	   </div>
+  			  	 	  	  
+  			  	 	   </div>
+  			  	 	   <div class="box_inline">
+  			  	 	   	  <div class="wd1">时间:</div>
+  			  	 	  	  <div class="wd80">  
+  			  	 	  	  	 <{$comment[$items['id']]['addtime']|date_format:"%Y-%m-%d %H:%M:%S"}>
+  			  	 	  	   </div>
+  			  	 	  	  
+  			  	 	   </div>
+  			  	 	     <div class="box_inline">
+  			  	 	   	  <div class="wd1">评价内容:</div>
+  			  	 	  	  <div class="wd80">  <{$comment[$items['id']]['content']}> </div>
+  			  	 	  	  
+  			  	 	   </div>
+  			  	 	   <{/if}>
+  			  	 	   <{/if}>
+  			    	</div>
+  			    	  
+  			    	 
+  			  </li>
+  			  <{/foreach}>
+  			  
+  			    
+  			</ul> 
+    </section>
+   	
+   	 
+      
+  	
+  	  
+   <{else}>
+   <section>
+
+  		<ul id="supplierlist" class="branch-list">  
+
+  			 
+
+     </ul>
+
+     
+
+    </section>
+   <{/if}>
+</div>
+  </div>
+<script>
+	$(".liststyle1 li:even").addClass("tabEven"); 
+	 function pingjia(orderdetid,orderid){  
+	 	if(confirm('确认评价订单')){ 
+   	     $('#loading').show(); 
+   		   var url = siteurl+'/index.php?controller=order&action=saveping&datatype=json&random=@random@';   
+ 	        $.ajax({ 
+           dataType: "json",  
+           url: url.replace('@random@', 1+Math.round(Math.random()*1000)),  
+           data:{'orderid':orderid,orderdetid:orderdetid,pointcontent:$('input[name="pingjiacontent'+orderdetid+'"]').val(),point:$('input[name="pingfen'+orderdetid+'"]:checked').val()},
+           success: function(content) {    
+           	 if(content.error == false) 
+          	{  
+          		var showcoent = $('input[name="pingjiacontent'+orderdetid+'"]').val();
+          		var nowidth = Number($('input[name="pingfen'+orderdetid+'"]:checked').val())*12;
+          		$('#pingjiagefen'+orderdetid).html('<div class="wd1">评分:</div><div class="wd80"><div style="color:#c30814;width:'+nowidth+'px;overflow:hidden;">★★★★★</div></div>');
+          		$('#pingjiageneiront'+orderdetid).text(showcoent);
+          		
+          		$('#orderstatus').text('已关闭'); 
+          		$('#pingjiagebtn'+orderdetid).remove();
+          		$('#loading').hide();
+          	}else{ 
+          			Tmsg(content.msg);
+          		  $('#loading').hide();
+          	}  
+          	 
+	         }, 
+           error: function(content) {  
+             	Tmsg('提交数据失败');
+        	    $('#loading').hide();
+	         }
+       
+         });  
+     }
+     return false;
+   }
+</script>
+
+<{/block}>

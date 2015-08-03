@@ -1,0 +1,90 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>订单备注<{/block}>
+ <{block name=bodylist}>
+     <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" > 
+              <form method="post" action="<{ofunc type=url link="/adminpage/order/module/saveorderbz/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/order/module/beizhulist"}>',this);">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th align="center">编号</th>
+                        <th align="center">备注内容</th>
+                        
+                        <th align="center">操作</th>
+                      </tr>
+
+                    </thead>
+
+                    <tbody id="type">   
+                    	<{if !empty($orderbz)}>
+                    	<{$list = $orderbz|unserialize}>
+                       <{foreach from=$list key=myid item=items}>	 
+                       <{if !empty($items)}>
+                        <tr class="s_out" onmouseover="this.bgColor='#fdfbfb';" 
+                         <{if $myid%2 == 0}>	
+                         onmouseout="this.bgColor='f4f4f4';" bgcolor="#f4f4f4"<{else}>
+                          onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"
+                         <{/if}> 
+                        	>
+                        <td align="center"><input type="hidden" name="id[]" value=""></td>
+                        <td align="left" style="padding-left:10px;">
+                          <input type="text" name="typename[]" id="typename[]" value="<{$items}>"  class='skey' style='width:130px;'/>  
+                        </td>
+                         
+                        <td align="center"> <a onclick="$(this).parent().parent().remove();" href="javascript:;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td>
+                      </tr>
+                      <{/if}>
+                    <{/foreach}>  
+                    <{/if}>
+
+                    </tbody>      
+
+
+
+                  </table>
+
+                <div class="blank20"></div> 
+
+               <input type="submit" name="button" id="button" value="提交保存" class='button'> 
+
+                 <input type="button" name="button" id="typebutton" value="添加一个分类" onclick="addbz();" class="button" />
+
+              </form>
+              <div class="blank20"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+          
+    
+    
+    
+    
+    
+      </div> 
+     <script>
+	function addbz(){
+	var 	htmldata='<tr class="s_out" onmouseover="this.bgColor=\'#fdfbfb\';"	>';
+        htmldata+='<td align="center"><input type="hidden" name="id[]" value=""></td>';
+        htmldata+='<td align="left" style="padding-left:10px;">';
+        htmldata+='<input type="text" name="typename[]" id="typename[]" value=""  class=\'skey\' style=\'width:130px;\'/> </td>';
+        htmldata+='<td align="center"> <a onclick="$(this).parent().parent().remove();" href="javascript:;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td></tr>';
+        $('#type').append(htmldata);
+	}
+	</script>
+<{/block}>

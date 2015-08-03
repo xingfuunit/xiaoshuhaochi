@@ -1,0 +1,42 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/news.css"> 
+<div class="main-b ">
+	
+	
+<div class="main hc_content">
+     
+<ul class="leftMenu lFloat">
+	         <{foreach from=$list item=items}> 
+        	 <li>
+            	<div class="title"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/icon/help_<{$items['orderid']}>.png" align="absmiddle"><{$items['name']}></div>
+            	  <{foreach from=$items['subinfo'] item=itv}> 
+                <a href="<{ofunc type=url link="/news/<{$itv['id']}>"}>" <{if $info['id'] == $itv['id']}>class="current"<{/if}> ><{$itv['title']}></a>
+                <{/foreach}> 
+                 
+                
+            </li>
+             <li class="line"></li>
+            <{/foreach}>   
+ </ul>
+    <!--mainContent begin-->
+      <div class="mainContent">
+        	<div class="navTips">
+            	<em><{$info['title']}></em>
+        	</div>
+            
+            <div class="textContent">
+            	
+            	
+            	
+            	<{$info['content']}>
+                
+                
+                
+           </div>
+        </div>
+    <!--mainContent end-->
+    <div class="clear"></div>
+  </div> 
+	
+</div>
+<{include file="<{$tempdir}>/public/foot.html"}>

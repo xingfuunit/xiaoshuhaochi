@@ -1,0 +1,201 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+ <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>网站设置<{/block}>
+ <{block name=bodylist}> 
+	
+	  <div style="width:auto;overflow-x:hidden;overflow-y:auto;">   
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/system/module/saveset/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">网站名称</td>
+                      <td><input type="text" name="sitename" id="sitename" value="<{$sitename}>" class="skey" style="width:150px;"></td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">网站SEO描述</td>
+                      <td><input type="text" name="description" id="description" value="<{$description}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">网站SEO关键字</td>
+                      <td><input type="text" name="keywords" id="keywords" value="<{$keywords}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                     
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">备案号</td>
+                      <td><input type="text" name="beian" id="beian" value="<{$beian}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">客服电话</td>
+                      <td><input type="text" name="litel" id="litel" value="<{$litel}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff" >
+                      <td class="left">佣金比例</td>
+                      <td><input type="text" name="yjin" id="yjin" value="<{$yjin}>" class="skey" style="width:50px;">整数,例如：5 表示佣金比例为订单总金额的5%</td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">网站默认城市</td>
+                      <td><input type="text" name="cityname" id="cityname" value="<{$cityname}>" class="skey" style="width:100px;"></td>
+                    </tr>
+                   
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">网站公告</td>
+                      <td><textarea name="notice"><{$notice}></textarea></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">默认用户头像</td>
+                      <td>
+                      	<input type="hidden" name="userlogo" id="userlogo" value="<{$userlogo}>" class="skey" style="width:100px;">
+                      	<img src="<{$userlogo}>" width=50px height=50px id="imgshow" <{if  empty($userlogo)}> style="display:none;"<{/if}>> 
+                      	<span onclick="uploads();">上传图片</span> 
+                      </td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">默认店铺头像</td>
+                      <td>
+                      	<input type="hidden" name="shoplogo" id="shoplogo" value="<{$shoplogo}>" class="skey" style="width:100px;"> 
+                      	<img src="<{$shoplogo}>" width=50px height=50px id="imgshows" <{if  empty($shoplogo)}> style="display:none;"<{/if}>> 
+                      	<span onclick="uploadm();">上传图片</span> 
+                      </td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">网站logo</td>
+                      <td>
+                      	<input type="hidden" name="sitelogo" id="sitelogo" value="<{$sitelogo}>" class="skey" style="width:100px;"> 
+                      	<img src="<{$sitelogo}>" width=50px height=50px id="imgshowc" <{if  empty($sitelogo)}> style="display:none;"<{/if}>> 
+                      	<span onclick="uploadc();">上传图片</span> 
+                      </td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">手机站LOGO</td>
+                      <td>
+                      	<input type="hidden" name="html5logo" id="html5logo" value="<{$html5logo}>" class="skey" style="width:100px;"> 
+                      	<img src="<{$html5logo}>" width=50px height=50px id="html5logoshow" <{if  empty($html5logo)}> style="display:none;"<{/if}>> 
+                      	<span onclick="uploadk();">上传图片</span> 
+                      </td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">网站meta数据</td>
+                      <td><textarea name="metadata"><{$metadata|stripslashes}></textarea></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">统计代码</td>
+                      <td><textarea name="footerdata"><{$footerdata|stripslashes}></textarea></td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">百度key</td>
+                      <td><input type="text" name="baidumapkey" id="baidumapkey" value="<{$baidumapkey}>" class="skey" style="width:100px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">百度secret</td>
+                      <td><input type="text" name="baidumapsecret" id="baidumapsecret" value="<{$baidumapsecret}>" class="skey" style="width:100px;"></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">选择地址样式</td>
+                      <td>	<input type="radio" name="guidetype" id="guidetype" value="1"  checked>样式1(弹出窗)
+                      	<input type="radio" name="guidetype" id="guidetype" value="2"   <{if $guidetype ==2 }>checked<{/if}>>样式2（滚动）
+                      </td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">百度LNG默认城市坐标</td>
+                      <td>	  
+                      	<input type="text" name="baidulng" id="baidulng" value="<{$baidulng|default:'0'}>" class="skey" style="width:100px;"> 
+                      </td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">百度lat默认城市坐标</td>
+                      <td>	 
+                      	<input type="text" name="baidulat" id="baidulat" value="<{$baidulat|default:'0'}>" class="skey" style="width:100px;"> 
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+         
+           
+         </div>
+      
+    
+
+          </div> 
+<script>
+	var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucess"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploads();
+ 	 }else{ 
+ 		dialogs.close();
+ 	 $('#userlogo').val(linkurl);
+   	$('#imgshow').attr('src',linkurl);
+ 	  $('#imgshow').show();
+   }
+ }  
+ function uploadm(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucessm"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucessm(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploadm();
+ 	 }else{ 
+ 		dialogs.close();
+ 	 $('#shoplogo').val(linkurl);
+ 	$('#imgshows').attr('src',linkurl);
+ 	$('#imgshows').show(); 
+   }
+ }   
+function uploadc(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucessc"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucessc(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploadc();
+ 	 }else{ 
+ 		dialogs.close();
+ 	 	$('#sitelogo').val(linkurl);
+ 	  $('#imgshowc').attr('src',linkurl);
+ 	  $('#imgshowc').show(); 
+   }
+ } 
+ function uploadk(){
+ 	 dialogs = art.dialog.open('<{ofunc type=url link="/adminpage/other/module/adminupload/func/uploadsucessk"}>');
+ 	  dialogs.title('上传图片'); 
+}
+function uploadsucessk(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploadk();
+ 	 }else{ 
+ 		dialogs.close();
+ 	 	$('#html5logo').val(linkurl);
+ 	  $('#html5logoshow').attr('src',linkurl);
+ 	  $('#html5logoshow').show(); 
+   }
+ } 
+ 
+</script>    
+<!--newmain 结束-->
+ <{/block}>

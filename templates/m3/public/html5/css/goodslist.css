@@ -1,0 +1,430 @@
+ 
+ 
+
+/***店铺列表页 ****/
+.ico {
+background: url(../images/icos/sear.png) center no-repeat;
+background-size: 40%;
+} 
+header a.cityaa {
+padding-right: 0px;
+background-image: none;
+display: inline;
+padding-left: 0px;
+}
+.return {
+width: 44px;
+height: 44px;
+background: url(../images/icos/return.png) center 10px no-repeat;
+background-size: 12px 22px;
+position: absolute;
+top: 0px;
+left: 0px;
+}
+
+
+
+
+.wm-container {
+padding: 0;
+}
+.wm-container {
+width: 100%;
+position: relative;
+overflow: hidden;
+}
+.wm-container section {
+overflow: hidden;
+padding-top: 1px;
+}
+.wm-container .sortbox {
+float: left;
+width: 26.5625%;
+background-color: #f8f8f8;
+background-image: none;
+overflow-y: scroll;
+}
+.wm-container .sortbox li {
+color: #323232;
+padding-top: 10px;
+padding-bottom: 10px;
+padding: 10px 3px;
+border-bottom: 1px dotted #e4e4e4;
+text-align: center;
+position: relative;
+font-size: 12px;
+}
+.wm-container .sortbox li.hv {
+background: #ffffff;
+}
+.wm-container .listbox {
+float: right;
+width: 73.4375%;
+/* box-shadow: -2px 0 2px rgba(0, 0, 0, 0.2); */
+overflow-y: scroll;
+background: #fff;
+}
+.mVer {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-orient: vertical;
+-moz-box-orient: vertical;
+-o-box-orient: vertical;
+box-orient: vertical;
+}
+.w100w {
+width: 100%;
+}
+.mBxMid {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+}
+.wm-container .listbox li {
+-webkit-box-flex: 1;
+-moz-box-flex: 1;
+-o-box-flex: 1;
+box-flex: 1;
+height: 54px;
+padding-left: 3px;
+padding-right: 3px;
+border-bottom: 1px solid #e5e5e5;
+position: relative;
+margin-left: 5px;
+margin-right: 5px;
+padding-top: 3px;
+-webkit-flex: 1;
+-moz-flex: 1;
+flex: 1;
+}
+.mBxCm {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-o-box-pack: center;
+box-pack: center;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+}
+.listnumber {
+width: 0px;
+overflow: hidden;
+}
+.mBxCm {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-o-box-pack: center;
+box-pack: center;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+}
+.listnumber .listshu {
+font-size: 12px;
+text-align: center;
+background: #ea5413;
+line-height: 12px;
+color: #ffffff;
+width: 15px;
+height: 15px;
+border-radius: 15px;
+}
+.mFlex1 {
+-webkit-box-flex: 1;
+-moz-box-flex: 1;
+-o-box-flex: 1;
+box-flex: 1;
+}
+h3 strong {
+width: 90%;
+}
+.wm-container .listbox li img {
+width: 45px;
+height: 45px;
+padding: 2px;
+border: 1px solid #e5e5e5;
+margin-right: 0px;
+}
+.wm-container .listbox li.clkitm:hover{
+	background-color: #f5f5f5!important;
+}
+
+
+.alertbox, .alertbox2 {
+background: rgba(0, 0, 0, 0.5);
+width: 100%;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+display: none;
+z-index: 3;
+}
+.alertbox.sh, .alertbox2.sh {
+display: block;
+}
+.alertbox > div {
+width: 250px;
+height: 280px;
+margin: 50px auto 0;
+background: #ffffff;
+position: relative;
+border: 5px solid #f5f5f5;
+}
+.alertbox > div img {
+width: 230px;
+height: 160px;
+margin: 3px auto 0px auto;
+margin-top: 10px;
+display: block;
+}
+.alertbox > div div {
+height: 24px;
+line-height: 24px;
+border: 1px solid #ea5413;
+width: 228px;
+margin: 0px auto;
+}
+.alertbox > div div span {
+width: auto;
+padding: 0 5px;
+display: inline-table;
+}
+.alertbox > div img + div span {
+background: #ea5413;
+color: #fff;
+text-align: center;
+}
+.alertbox > div .jiage {
+float: right;
+background: none;
+font-weight: 700;
+color: #323232;
+}
+.alertbox > div p {
+padding: 12px;
+}
+.alertbox > div p + div {
+border: none;
+width: 80px;
+height: 25px;
+float: left;
+text-align: center;
+background: url(../images/icos/jj.png) 1px center no-repeat;
+background-size: 78px;
+margin-left: 12px;
+}
+.alertbox > div p + div a {
+width: 22px;
+height: 20px;
+float: left;
+display: inline-block;
+text-align: center;
+}
+.alertbox > div div a + span {
+padding: 0;
+}
+.alertbox > div p + div span {
+width: 20%;
+height: 24px;
+line-height: 24px;
+display: inline-block;
+}
+.alertbox > div p + div a:last-child {
+float: right;
+}
+.alertbox > div .inputBtn {
+width: 70px;
+height: 28px;
+line-height: 20px;
+float: right;
+margin: 0;
+border-radius: 15px;
+margin-right: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ footer {
+ 	margin-top: 10px;
+ 	width:100%;
+background: whitesmoke;
+position: fixed;
+bottom: 0;
+height: 40px;
+line-height: 40px;
+border-top: 1px solid #ea5413;
+background: #ffffff;
+}
+footer div div {
+float: left;
+font-weight: 100;
+}
+footer div {
+overflow: hidden;
+}
+ 
+footer div div.pie {
+padding-left: 40px;
+background: url(../images/icos/icobuy.png) 10px center no-repeat;
+background-size: 22px;
+margin-left: 50px;
+font-size: 14px;
+}
+footer div div:last-child {
+float: right;
+background: #ea5413;
+width: 70px;
+color: #fff;
+text-align: center;
+height: 24px;
+line-height: 24px;
+border-radius: 30px;
+margin-top: 8px;
+margin-right: 15px;
+}
+
+.banner_bottom {
+background: #ffffff; 
+height: 62px; 
+width: 100%;
+}
+.bannercontant {
+margin-right: 14px;
+}
+.mBxLt {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: start;
+-moz-box-pack: start;
+-o-box-pack: start;
+box-pack: start;
+}
+.mr20 {
+margin-right: 20px;
+}
+
+.w24 {
+width: 24px;
+}
+.listcontant, .nowraps {
+word-break: keep-all;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.listico {
+width: 14px;
+height: 14px;
+}
+.leftlistico {
+margin-left: 0px;
+margin-right: 10px;
+}
+.liststyle1 li:nth-child(1) a .leftlistico {
+background: url(../images/telico.png) no-repeat top;
+background-size: 14px;
+}
+.liststyle1 li a {
+margin-left: 5px;
+margin-right: 5px;
+padding-left: 10px;
+padding-right: 10px;
+border-bottom: 1px solid #dcdcdc;
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+.listcontant, .nowraps {
+word-break: keep-all;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.liststyle1 li:nth-child(2) a .leftlistico {
+background: url(../images/positionico.png) no-repeat top;
+background-size: 14px;
+}
+.color3236232 {
+color: #323232;
+}
+.banner_logo {
+width: 96px;
+position: relative;
+}
+.scbox {
+width: 16px;
+height: 14px;
+display: block;
+background: url(../images/scok.png);
+background-size: 16px 14px;
+}
+.scno {
+background: url(../images/scno.png);
+background-size: 16px 14px;
+}
+.liststyle1 {
+background: #ffffff; 
+border-top: 1px solid #dcdcdc!important; 
+}
+.wm-container .sortbox ul {
+overflow-y: scroll;
+width: 102%;
+}
+.wm-container .listbox li div.showbtn{
+	width: 80px;
+	background: url(../images/icos/jj.png) center no-repeat;
+background-size: 80px;
+}
+.wm-container .listbox li div.showbtn a {
+width: 40%;
+height: 30px;
+line-height: 30px;
+float: left;
+display: inline-block;
+}
+.wm-container .listbox li div.showbtn span {
+width: 20%;
+height: 30px;
+line-height: 30px;
+display: inline-block;
+}
+.wm-container .listbox li div.showbtn a:last-child {
+float: right;
+}

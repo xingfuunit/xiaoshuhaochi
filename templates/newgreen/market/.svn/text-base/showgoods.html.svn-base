@@ -1,0 +1,181 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market.css"> 
+<{/block}>
+<{block name=extendjs}> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js" type="text/javascript" language="javascript"></script>
+<script>
+	var shopid = "<{$shopinfo['id']}>"; 
+	var locationfalse = false;
+	var findtype = '<{$findtype}>';
+		
+		if(findtype == 1){
+			alert('你选择的区域范围内无小卖铺');
+			window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	</script>
+<{/block}>
+   <{block name=bgshow}><div class="mmbg" style="background:url(../upload/shop/page_bg.png)"></div><{/block}>
+ <{block name=shophide}><{/block}>
+<{block name=sitetitle}>零食铺<{$goodsinfo['name']}><{/block}>
+ <{block name=bodylist}>
+ 
+  <div style="margin-top:10px;"></div>
+  <!--头部-->
+  <div  class="market_index">
+  	<!--绝对路径的分类-->
+  	  <div class="cateList">
+  	  	  	    <{foreach from=$catlist item=items}>
+      	 <dl>
+            <dt><a href="<{ofunc type=url link="/market/cat/id/<{$items['id']}>"}>"><{$items['name']}></a></dt>
+            <dd>
+            	<{foreach from=$items['det'] item=itv}>
+            	     <a href="<{ofunc type=url link="/market/cat/id/<{$itv['id']}>"}>" <{if isset($catinfo['id']) && $catinfo['id'] == $itv['id']}> <{$topcatname = $items['name']}>class="active"<{/if}>><{$itv['name']}></a> 
+            	 <{/foreach}>
+            </dd>
+         </dl>
+        <{/foreach}> 
+  	  </div>
+  		<!--绝对路径的分类结束-->
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容-->
+  	 <div class="area_main">
+  	 	
+  	 	 <div class="breadcrump"><span>当前位置:</span> <a href="<{$siteurl}>">首页</a> <code>&gt;</code> <a href="<{ofunc type=url link="/market/cat/id/<{$catinfo['parent_id']}>"}>"><{$topcatname}></a> <code>&gt;</code> <a href="<{ofunc type=url link="/market/cat/id/<{$catinfo['id']}>"}>"><{$catinfo['name']}></a> <code>&gt;</code> <{$goodsinfo['name']}></div>
+
+
+      <!--产品详情-->
+      <div id="good">
+        <div class="good_picture">
+            <div class="good_pic_big">
+                                <img class="flyobj" src="<{$goodsinfo['img']}>" alt="<{$goodsinfo['name']}>" id="goodsimg">
+            </div>
+        </div>
+        <div class="good_info">
+            <h2><{$goodsinfo['name']}></h2>
+            <div class="summary"></div>
+            <form class="form_2" action="javascript:addToCart(11623)" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY">
+                <div class="basic_info">
+                     库存:<{$goodsinfo['count']}><br>
+                                                            
+                    销量:<{$goodsinfo['sellcount']}> <br>
+                    
+                                        
+                    <span>用户评价: </span> <img src="<{$siteurl}>/upload/shop/stars<{$goodsinfo['point']}>.gif" alt="comment rank 5"><br>
+                    
+                                       
+                                        
+                </div>
+                
+                <div class="price">
+                      	本店价: <strong id="ECS_SHOPPRICE">￥<{$goodsinfo['cost']}></strong>
+                </div>  
+                 <div class="good_buyoption">
+                    
+                    <span class="good_number"> &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <div class="addbasket">
+                    	
+                                                <a onclick="addonedish('<{$goodsinfo['id']}>','<{$goodsinfo['shopid']}>',1,this);"></a> 
+                                                
+                    </div>
+                </div>
+                                
+            </form>
+        </div>
+        
+        <div style="clear:both"></div>
+        
+        <div class="good_detail block_4">
+                        
+            <div class="block_head">
+                <h4>商品描述</h4>
+            </div>
+            <div class="good_desc">
+                  <{$goodsinfo['instro']|htmlspecialchars_decode}> 
+                  
+              </div>
+        </div>
+        
+        
+		
+            
+        <div class="good_comment">
+            <div id="ECS_COMMENT"> <div class="block_4">
+	<div class="block_head" style="height:20px;">
+    	<h4 class="float_l">用户评论</h4><div class="float_r"> </div>
+    </div>
+    <div class="block_body" id="comment_list">
+         
+        
+    </div>
+     
+</div> 
+
+</div>        </div>
+    </div>
+      
+      <!--  产品结束-->
+
+  	 </div>
+  		<!---轮播广告或者二级分类的产品列表或者产品详情页内容结束-->
+  </div> 
+  <!---头结束-->
+  
+  <!--购物车-->
+ <div class="mini-container" id="smallcatinfo">
+ 	   <div class="mini-cart-count" style="width: 66px;">
+ 	   	<a class="mini-buy" href="#" target="_self" onclick="ajaxdoorder(<{$shopinfo['id']}>);"></a>
+ 	   	<div class="mini-cart-open" style="display: none;">
+ 	   		<div class="mini-cart-cover">
+ 	   			<div class="cart-tip ks-clear">
+ 	   			   <div class="cart-num"><em class="J_CartNum">0</em></div>
+ 	   		     <div class="cart-price"><em class="J_CartPrice">0</em></div>
+ 	   		   	 <div class="cart-weight"><em class="J_CartWeight">0</em></div>
+ 	   		  </div>
+ 	   		  <div class="warn-msg">
+ 	   				<span href="满69免运费" target="_blank" class="J_CartMsg" title=""></span>
+ 	   			</div>
+ 	   	  </div>
+ 	   	  <s class=""></s>
+ 	   	</div>
+ 	   </div>
+ 	   <div class="mini-cart-close" style="display:block;" onclick="hidedetas();"><div class="mini-cate J_CartNum">0</div></div> 
+ 	   <div class="mini-bd sc-non-empty" style="width: 722px;display:none;">
+ 	   	    <div class="mini-clear ks-clear">
+ 	   	    	<div class="mini-bd-lf">
+ 	   	    		<a href="javascript:hidedeta();" class="mini-tringer" target="_self"></a>
+ 	   	    		<div class="mini-bd-content">
+ 	   	    			<p class="sc-notice J_CartNotice">您推的是空车子，赶快去购物吧！</p>
+ 	   	    			<div class="mini-bor">
+ 	   	    				<div class="mini-prev"><a class="disable" target="_self" href="javascript:goupcart();">上一页</a></div>
+ 	   	    				<div class="mini-next"><a class="disable" target="_self" href="javascript:gonextcart();">下一页</a></div>
+ 	   	    				<div class="mini-switch-container">
+ 	   	    					<div class="mini-switch-content" style="left:0;" id="cartinfodet">
+ 	   	    					    
+ 	   	    				    	<!--产品循环--> 
+ 	   	    				  </div>
+ 	   	    				</div></div></div></div><s></s></div>
+ 	   </div>
+ 	
+</div>
+<!--购物车结束-->
+  <div style="clear:both;"></div>
+   <script>
+  $('.box').hover(function(){
+  	 $(this).css('background-color','rgb(241, 241, 241)');
+  });
+  $('.box').mouseleave(function(){
+  	 $(this).css('background-color','');
+  });
+  $(function(){
+  	getPingjia(0);
+  });
+  function getPingjia(page)
+{ 
+  	 $('#det_commm').html('');
+  	 var url = siteurl+"/index.php?controller=order&action=commentgid"; 
+	   $.post(url, {'id':<{$goodsinfo['id']}>,'type':'shop','page':page},function (data, textStatus){  
+	     	$('#comment_list').append(data);  
+	  }, 'html'); 
+}
+  	</script>
+<{/block}>

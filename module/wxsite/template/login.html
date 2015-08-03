@@ -1,0 +1,194 @@
+ <{extends file="<{$tempdir}>/public/weixin.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/member.css">   
+
+<{/block}>
+ <{block name=extendjs}>  
+ <script>
+ 
+ 	$(function(){
+          var shopid = <{$shopid}>;
+ $('.login_list li').click(function(){
+  $(this).addClass('active').siblings().removeClass('active');
+  $('.login_wrap > li').eq($(this).index()).fadeIn('slow').siblings().fadeOut('fast');
+ });
+
+
+//点击发送验证码倒计时 Begin
+var count = 60;
+var timer;
+var reg = /^[0-9]*$/;
+$('#send_code').click(function(){
+  if($('#phone').val().length == 11 && reg.test($('#phone').val()) ){
+    timer = setInterval(countDownaaaa,1000); 
+  }
+});
+//验证码
+function countDownaaaa(){
+  count --;
+  if(count == 0 ){
+    $('#send_code').css({
+      'background':'#ff6000',
+      'color':'#fff'
+    }); 
+   $('#send_code').val('获取验证码').removeAttr('disabled');
+    clearInterval(timer);
+    count = 60;
+    
+  }
+  else{
+    $('#send_code').css({
+      'background':'#ccc',
+      'color':'#999'
+    });
+  $('#send_code').attr('disabled',true);
+  $('#send_code').val('('+count+')'+'重新发送');
+  }
+};
+//点击发送验证码倒计时 End
+
+ 	$('#logSubmit').click(function(){ 
+            var shopid = <{$shopid}>;
+           
+ 		var checkuname = $('#logEmailOrPhone').val();
+ 		if(checkuname != ''){
+ 		  
+  	 	$('#loading').toggle(); 
+  	  	var info = {'uname':$('#logEmailOrPhone').val(),'pwd':$('#logPassword').val(),'logintype':'html5'}; 
+  	 	  var  url = siteurl+'/index.php?controller=member&action=login&datatype=json&random=@random@' 
+  	 	   $.ajax({ 
+             url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+            dataType: "json", 
+            data:info, 
+            success:function(content) {  
+            	$('#loading').toggle(); 
+            	if(content.msg ==  false){
+            		 window.location.href= siteurl+'/index.php?controller=wxsite&action=shopshow&id='+shopid;
+            	}else{ 
+            	   Tmsg(content.msg);
+              }
+            	
+            }, 
+            error:function(){ 
+            	$('#loading').toggle();
+
+            } 
+         });  
+    }else{
+    	Tmsg('用户帐号不能为空');
+    }
+		  
+	 }); 
+     
+	});
+  
+    var regestercode = '1';
+    //
+     function loginbyode () {
+         var shopid = <{$shopid}>;
+         
+         var phone = $("#phone").val();
+         var code = $("#login_code").val();
+         
+         var info = {'uname':phone,'code':code,'logintype':'html5'}; 
+  	 	  var  url = siteurl+'/index.php?controller=member&action=loginbycode&datatype=json&random=@random@' 
+  	 	   $.ajax({ 
+            url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+            dataType: "json", 
+            data:info, 
+            success:function(content) {  
+            	$('#loading').toggle(); 
+            	if(content.msg ==  false){
+            		 window.location.href= siteurl+'/index.php?controller=wxsite&action=member&shoid='+shopid;
+            	}else{ 
+            	   Tmsg(content.msg);
+                   $("#loading").hide();
+              }
+            	
+            }, 
+            error:function(){ 
+            	$('#loading').toggle();
+
+            } 
+         }); 
+       
+     }
+ </script>
+   <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/regestercode.js"></script> 
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist">
+
+  	<header><div class="return"></div>用户登陆</header>  
+      <ul class="login_list">
+        <li class="active">普通登录</li>
+        <li>验证码登录</li>
+      </ul>  
+ <ul class="login_wrap">     
+  <li class="container"> 
+    
+	    <div class="wrap"> 
+
+	    	<section class="muli" style="display: block;">
+
+	    		<div class="colfff">
+
+	    			<div class="widCen warp01">
+
+	    				<input type="text" class="inputInp" placeholder="请输入您注册时的手机号码" id="logEmailOrPhone" name="emailOrPhone">
+
+	    				<input type="password" class="inputInp" placeholder="请输入密码" id="logPassword" name="password" autocomplete="off" required="required">
+
+	    			</div>
+
+	    		</div>
+          
+	    		<div class="borBm01"><input type="BUTTON" class="inputBtn" value="登录" id="logSubmit"></div></section> 
+
+	  </div> 
+
+	    <div class="login_r">
+         <a href="<{ofunc type=url link="/wxsite/reg"}>">立即注册</a>
+        <a href="<{ofunc type=url link="/wxsite/forgot"}>">忘记密码？</a>  
+         </div> 
+<!--<div class="login_forget"></div>
+
+<li style="display:none;">
+        <a href="<{$siteurl}>/index.php?controller=order&action=guestorder">未登录用户查询订单</a>
+        </li>
+-->
+      
+</li>  
+
+<li class="container"> 
+    
+      <div class="wrap"> 
+
+        <section class="muli" style="display: block;">
+
+          <div class="colfff">
+
+            <ul class="widCen warp01">
+              <li>
+              <input type="text" class="inputInp" placeholder="请输入您的手机号码" id="phone" name="emailOrPhone">
+              </li>
+              <li>
+              <input type="text" class="code inputInp" id="login_code" placeholder="验证码" onclick="code_login();"/>
+              <input type="button" id="send_code" value="发送验证码" class="cursor_pointer send_code" onclick="clickyanzheng(regestercode);"/>
+               </li>
+            </ul>
+
+          </div>
+          
+          <div class="borBm01"><input type="BUTTON" class="inputBtn" value="验证码登录" id="logSubmit" onclick="loginbyode()"></div></section> 
+
+    </div> 
+</li>       
+  </ul>        
+</div>
+<{/block}>
+
+ 
+
+

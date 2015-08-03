@@ -1,0 +1,197 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">商家结算</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+  
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+      <div style="width:100%;"> 
+      	
+      	<div class="search">
+      		 
+            
+            <div class="search_content">
+            	 
+            	 <form method="post" name="form1" action="<{ofunc type=url link="/admin/orderyjin"}>">
+            	  <label>商家店铺名：</label>
+            	  <input type="text" name="searchvalue" value="<{$searchvalue}>"> 
+            	   从<input class="Wdate datefmt" type="text" name="starttime" id="starttime" value="<{$starttime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />  
+			   		 	  到<input class="Wdate datefmt" type="text" name="endtime" id="endtime" value="<{$endtime|date_format:"%Y-%m-%d"}>"  onFocus="WdatePicker({isShowClear:false,readOnly:true});" />                  
+
+            	  
+            	    <input type="submit" value="提交查询" class="button">  
+            	    自送(包含订台)
+            	 </form>
+            </div>
+        
+      	</div>
+      	
+      	
+      	
+           <div class="tags">
+
+      	 	 
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+                <{if empty($list)}>
+                暂无数据
+                <{else}>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"><input type="checkbox" id="chkall" name="chkall" onclick="checkall()"></th>
+
+                        <th align="center">商家列表</th>  
+                        <th align="center">已支付金额</th> 
+                         <th align="center">订单数量</th>  
+                          <th align="center">店铺促销</th>
+                        <th align="center">优惠券优惠</th>
+                        <th align="center">超市商品+配</th>
+                        <th align="center">店铺商品+配</th> 
+                         <th align="center">打包费 </th>
+                         <th align="center">需收总额 </th>
+                         <th align="center">佣金比例</th>
+                        <th align="center">导出</th>
+                    
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="id[]" value="<{$items['id']}>"></td> 
+                        <td align="center"><{$items['shopname']}></td>   
+                        <td align="center"> <{$items['line']['onlinecost']|default:0}>  </td>  
+                        
+                        <td align="center" colspan="7"> 
+                          <table width="100%">
+                          	<tr>
+                          	<td width=40px>代送</td>
+                          	<td width=60px align="center"><{$items['peibyplat']['shuliang']|default:0}></td>
+                          	<td width=100px align="center"><{$items['peibyplat']['cxcost']|default:0}></td>
+                          	<td width=100px align="center"><{$items['peibyplat']['yhjcost']|default:0}></td>
+                          	<td width=100px align="center"><{$items['peibyplat']['marketcost']|default:0}></td>
+                          	<td  align="center"><{$items['peibyplat']['shopall']|default:0}></td>
+                          	<td width=100px align="center"><{$items['peibyplat']['bagcost']|default:0}></td>
+                          	<td width=100px align="center"><{$items['peibyplat']['yingshou']|default:0}></td>
+                          	</tr>
+                          	 
+                          	<tr>
+                          	<td>自送</td>
+                          	<td align="center"><{$items['peiself']['shuliang']|default:0}></td>
+                          	<td align="center"><{$items['peiself']['cxcost']|default:0}></td>
+                          	<td align="center"><{$items['peiself']['yhjcost']|default:0}></td>
+                          	<td align="center"><{$items['peiself']['marketcost']|default:0}></td>
+                          	<td align="center"><{$items['peiself']['shopall']|default:0}></td>
+                          	<td align="center"><{$items['peiself']['bagcost']|default:0}></td>
+                          	<td align="center"><{$items['peiself']['yingshou']|default:0}></td>
+                          	</tr>
+                        	</table>
+                        	<td align="center"> <{$items['yb']|default:0}>  </td>  
+                         </td>
+                         
+                         
+                        <td align="center"><a href="<{$items['outdetail']}>" target="_blank">导出</a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+                <{/if}>
+               
+		          
+		          
+
+                <div class="blank20"></div> 
+
+                </form>
+
+                <div class="page_newc">
+                 	     <div class="select_page">
+                 	     	<a href="#" onclick="checkword(true);">全选</a>/<a href="#" onclick="checkword(false);">取消</a> 
+                 	     <a  onclick="outchoice(this);" href="#"  data="<{$outlinkch}>" class="delurl">导出选择项</a>
+                 	     <a  href="<{$outlink}>" target="_blank" class="delurl">导出查询结果</a></div>
+                 	     	</div>
+                       <div class="show_page"><ul><{$pagecontent}></ul></div>
+                 </div>
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+  <div id="print_area" style="display:none;"></div>
+ </div>
+ 
+<script type="text/javascript">
+   function colorred(obj){
+   	$(obj).css('background','#eee'); 
+   }
+   function tcolorred(obj){
+   	$(obj).css('background','');
+   }
+    function unorder(orderid,dno)
+	 { 
+	 	   var dialog =  art.dialog({
+	 	   	id:'coslid',
+        title:'取消订单'+dno,
+           content: '<div>关闭订单理由</div><div><textarea name="reason" id="reason" style="height:40px;"></textarea></div><div class="btn_wuxiao hc_listfoods_menus_foods hcl_food_lists_cont_div_order2 hcl_food_lists_cont_div_order4 hc_listfoods_menus_foods2" style="width:65px;float:left;" onclick="sureclose('+orderid+');">提交关闭</div>'
+        });
+	 }
+	 
+	 
+	 
+  function printorder(orderid)
+	{
+		$('#print_area').html('');
+	 $('#order_area_'+orderid).clone().appendTo($('#print_area'));
+	 $("#print_area").find('.order_control').remove();
+	  $("#print_area").printArea(); 
+  }
+  function print_all_area()
+  {
+  	$('#print_area').html($('#all_area').html());
+	  $("#print_area").find('.order_control').remove();
+	  $("#print_area").printArea();
+  }
+ </script>
+
+
+
+ 
+               <div class="show_content_m_t3"> 	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+ </div>
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

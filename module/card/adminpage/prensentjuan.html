@@ -1,0 +1,58 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+ <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js"></script>
+ <{/block}>
+ <{block name=controlname}>优惠券赠送设置<{/block}>
+ <{block name=bodylist}>
+
+	   <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/card/module/saveprensentjuan/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">注册送优惠券</td>
+                      <td><input type="checkbox" name="regester_juan" id="regester_juan" value="1"  <{if isset($regester_juan)&&$regester_juan == 1}>checked<{/if}>>勾选注册后赠送优惠券,最低消费金额<input type="text" name="regester_juanlimit" id="regester_juanlimit" value="<{$regester_juanlimit|default:1}>"  style="width:50px;">抵扣金额<input type="text" name="regester_juancost" id="regester_juancost" value="<{$regester_juancost|default:1}>"  style="width:50px;"> 优惠券有效天数量<input type="text" name="regester_juandatay" id="regester_juandatay" value="<{$regester_juandatay|default:7}>"  style="width:50px;">天
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">关注微信送优惠券</td>
+                      <td>
+                      	<input type="checkbox" name="wx_juan" id="wx_juan" value="1"  <{if isset($wx_juan)&&$wx_juan== 1}>checked<{/if}>>勾选后关注微信赠送优惠券,最低消费金额<input type="text" name="wx_juanlimit" id="wx_juanlimit" value="<{$wx_juanlimit|default:1}>"  style="width:50px;">抵扣金额<input type="text" name="wx_juancost" id="wx_juancost" value="<{$wx_juancost|default:1}>"  style="width:50px;"> 优惠券有效天数量<input type="text" name="wx_juanday" id="wx_juanday" value="<{$wx_juanday|default:7}>"  style="width:50px;">天
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">推广送优惠券</td>
+                      <td>
+                      	<input type="checkbox" name="tui_juan" id="tui_juan" value="1"  <{if isset($tui_juan)&&$tui_juan== 1}>checked<{/if}>>勾选后通过推广链接注册用户下单完成后，赠送推荐人优惠券最低消费金额<input type="text" name="tui_juanlimit" id="tui_juanlimit" value="<{$tui_juanlimit|default:1}>"  style="width:50px;">抵扣金额<input type="text" name="tui_juancost" id="tui_juancost" value="<{$tui_juancost|default:1}>"  style="width:50px;"> 优惠券有效天数量<input type="text" name="tui_juanday" id="tui_juanday" value="<{$tui_juanday|default:7}>"  style="width:50px;">天
+                      	</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">登陆送优惠券</td>
+                      <td>
+                      	<input type="checkbox" name="login_juan" id="login_juan" value="1"  <{if isset($login_juan)&&$login_juan== 1}>checked<{/if}>> 勾选后 , 日期必填,
+                      	日期：<input type="text" name="login_data" id="login_data" value="<{$login_data|date_format:"%Y-%m-%d"}>"   class="Wdate datefmt" onFocus="WdatePicker({isShowClear:false,readOnly:true});"> 在此日期登陆送优惠券  ,最低消费金额<input type="text" name="login_juanlimit" id="login_juanlimit" value="<{$login_juanlimit|default:1}>"  style="width:50px;">抵扣金额<input type="text" name="login_juancost" id="login_juancost" value="<{$login_juancost|default:1}>"  style="width:50px;"> 优惠券有效天数量<input type="text" name="login_juanday" id="login_juanday" value="<{$login_juanday|default:7}>"  style="width:50px;">
+                      	</td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">
+            </form>
+          </div>
+        </div>
+
+
+
+    </div>
+
+<!--newmain 结束-->
+ <{/block}>

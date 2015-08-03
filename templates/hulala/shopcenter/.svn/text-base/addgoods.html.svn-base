@@ -1,0 +1,136 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/membercenter.js" type="text/javascript" language="javascript"></script>
+<div id="content">
+	<form id="loginForm" method="post" action="<{ofunc type=url link="/shopcenter/savegoods"}>" >
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/shopcenter/usermenu.html"}>
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+						<div class="hc_userinfo_content_div_box"> 
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">*</span>商品名称：</span>
+								<input id="name" name="name" value="<{$info['name']}>" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="text">
+							</div>
+						 
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">*</span>商品类型：</span>
+								<select name="typeid"  style="line-height: 30px;  border: 1; width: 100px; height: 30px; outline: none;"> 
+									<{foreach from=$typelist key=myid item=items}> 
+									<option value="<{$items['id']}>" <{if $items['id'] == $info['typeid']}>selected<{/if}>><{$items['name']}></option>
+									 <{/foreach}>
+								</select>
+							</div>
+							
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">*</span>商品数量：</span>
+								<input id="count" name="count" value="<{$info['count']}>" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="text">
+							</div>	
+							
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">*</span>商品价格：</span>
+								<input id="cost" name="cost" value="<{$info['cost']}>" class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="text">
+							</div>		
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">*</span>商品图片：</span>
+								<div style="width:200px;float:right;height:110px;margin-right:330px;overflow-x:visible;overflow-y:auto;"> 
+									 
+									 <img src="<{$info['img']}>" width=80px height=80px id="imgshow" <{if  empty($info['img'])}> style="display:none;"<{/if}>>
+                      	<input type="hidden" name="img" id="img" value="<{$info['img']}>" class="skey" style="width:150px;" >
+                     <br> 	<span onclick="uploads();" style="color:green">选择图片上传</span>
+								</div>
+							</div>	
+							<div style="clear:both;"></div>
+							<div class="hc_login_div">
+								<span class="hc_login_div_span hc_UserInfopwd"><span class="hc_login_div_span_span">*</span>商品促销标签：</span>
+								<div style="width:200px;float:right;height:100px;margin-right:310px;overflow-x:visible;overflow-y:auto;"> 
+									<{assign var=foo value=","|explode:$info['signid']}> 
+									<{foreach from=$signlist key=myid item=items}> 
+									 <div><input type="checkbox" value="<{$items['id']}>" name="signid[]" <{if in_array($items['id'],$foo)}>checked<{/if}>><{$items['name']}></div>
+									 <{/foreach}>
+									 
+									 
+								</div>
+							</div>	
+							 
+			
+							<div class="hc_login_btn">
+								<input type="hidden" name="id"  value="<{$info['id']}>">
+								<div class="hc_login_btn_div hc_UserInfoChangepwd">提交</div>
+					 
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div> 
+			</div>
+			<div class="clear"></div>
+	</div>
+
+</div>
+</form>
+</div>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript">
+	$('.hc_login_btn_div').click(function(){
+		$('#loginForm').submit();
+		 ///subform('',$('#loginForm'));
+	})
+	$(".hc_login_input").change(function(j){
+		var v=$(this).val();
+		var p=$(this).attr("name"); 
+		switch(p){
+		case "name":	if(v == '' ||v == null){
+			  alert('商品标题不能为空'); 
+			} 
+		break;
+		case "shortname":
+		 	var patrn=/[u4e00-u9fa5]/;  
+			if(v == '' ||v == null){
+			  alert('店铺CODE不能为空'); 
+			} 
+		break; 
+		case "phone":
+		   if(v == '' ||v == null){
+			  alert('联系电话不能为空'); 
+			} 
+		break;
+		case "address":
+		   if(v == '' ||v == null){
+			  alert('联系地址不能为空'); 
+			} 
+		break;
+		case "pwd":
+			var patrn=/(.){4,16}/;  
+			if(!patrn.exec(v)){
+				 alert('密码是4-16位的字母、数字,区分大小写');  
+			 } 
+		break;
+		}
+	});
+	var dialogs ;
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/shopcenter/upload/type/goods"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(linkurl){
+ 	dialogs.close(); 
+ 	$('#img').val(linkurl);
+ 	$('#imgshow').attr('src',linkurl);
+ 	$('#imgshow').show(); 
+}
+function uploaderror(msg){
+	 alert(msg);
+		dialogs.close();
+		uploads();
+}
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>
+
+
+
+
+
+
+
+ 

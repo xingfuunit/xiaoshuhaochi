@@ -1,0 +1,121 @@
+ @CHARSET "UTF-8";
+
+ /* Comments */
+
+.hc_CommentsDiv_content{
+	min-height: 908px;
+	background: #fff;	 
+}
+.hc_shop_head_border_bottom{
+	border-bottom: 1px solid #ddd;
+}
+.hc_CommentsDiv ul, .hc_CommentsDiv li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.hc_CommentsDiv li{
+	width: 100%;
+	border-bottom: 1px solid #e3e8f1;
+}
+.hc_CommentsDiv_li_usercomment{
+	min-height: 75px;
+	border-bottom: 1px solid #e3e8f1;
+	background: #fcfdfd;
+}
+.hc_CommentsDiv_li_huifu{
+	min-height: 75px;
+	overflow: hidden;
+}
+.hc_CommentsDiv_li_usercomment_left{
+	float: left;
+	width: 85px;
+	padding-left: 20px;
+	margin-top: 10px;
+	color: #6b7f9d;
+	font-weight: 600;
+	line-height: 30px;
+}
+.hc_CommentsDiv_li_usercomment_right{
+	float: left;
+	width: 640px;
+}
+.hc_CommentsDiv_li_usercomment_left_comments{
+	margin-top: 15px;
+	color: #666;
+	font-family: "宋体", "微软雅黑";
+}
+.hc_CommentsDiv_li_usercomment_left_time{
+	color: #999;
+	font-family: Arial, "微软雅黑";
+}
+.hc_CommentsDiv_li_huifu_div{
+	margin-left: 20px;
+	width: 738px;
+	min-height: 55px;
+	border: 1px dashed #d9d9d9;
+	border-top: 0;
+	background: #fffefb;
+}
+.hc_CommentsDiv_li_huifu_div_left{
+	float: left;
+	width: 85px;
+	padding-left: 20px;
+	color: #6b7f9d;
+	font-weight: 600;
+	line-height: 30px;
+	color: #e99100;
+}
+.hc_CommentsDiv_li_huifu_div_right{
+	float: left;
+	width: 580px;
+}
+.hc_CommentsDiv_li_huifu_left_comments{
+	margin-top: 5px;
+	color: #666;
+	font-family: "宋体", "微软雅黑";
+}
+
+.hc_commentsBoxDiv{
+	margin-top: 30px;
+	min-height: 80px;
+}
+
+.hc_commentsBoxDiv_text_span{
+	margin-left: 20px;
+	font-weight: 600;
+	color: #6c6659;
+	font-family: "宋体","微软雅黑";
+	line-height: 30px;
+}
+.hc_commentsBoxDiv_yanzheng{
+	margin-top: 10px;
+}
+.hc_commentsBoxDiv_yanzheng_span{
+	float: left;
+}
+.hc_commentsBoxDiv_yanzheng_input{
+	float: left;
+}
+.hc_commentsBoxDiv_yanzheng_number{
+	float: left;
+	margin-left: 10px;
+}
+.hc_commentsBoxDiv_btn{
+	padding-bottom: 20px;
+}
+.hc_commentsBoxDiv_btn_div{
+	width: 108px;
+	height: 38px;
+	line-height: 38px;
+	font-size: 20px;
+	text-align: center;
+	color: #fff;
+	cursor: pointer;
+	margin-left: 80px;
+	margin-top: 10px;
+	background: url(../images/login_btn01.png) no-repeat;
+}
+.hc_commentsBoxDiv_btn_div:hover{
+	background: url(../images/login_btn02.png) no-repeat;
+}

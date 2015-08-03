@@ -1,0 +1,69 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}> 
+			<div class="hc_userinfo_content" id="right_id">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span><a style="font-size:14px;" href="javascript:addAddr();">[绑定优惠劵]</a></div>
+				<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table id="myAddr_table" class="table table-bordered">
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr> 
+		                  <th style="width:47%;">卡号</th>
+		                  <th style="width:16%;">有效截止时间</th>
+		                  <th style="width:16%;">优惠金额</th>
+		                  <th style="width:10%;">订单金额限制</th>
+		                  
+		                </tr>
+		              </thead>
+		              <tbody>
+		              	<{foreach from=$list item=items}>
+		                   <tr class="my_addr" id="my_addr_<{$items.id}>"> 
+							              <td><{$items.card}></td>
+							              <td><{$items['endtime']|date_format:"%Y-%m-%d"}></td>
+							              <td><{$items['cost']}></td>
+							              <td><{$items['limitcost']}>元</td>
+							              
+		                  </tr>
+		               <{/foreach}>
+		              <form id="adfrom">
+		               <tr class="my_addr" id="newAddr_1" style="display:none;">
+		           	 
+		           	   <td > 卡号：<input class="hc_UserInfoTdInput  hc_UserInfoTdInputAddr" id="addr_new_1" name="card" type="text8"> 
+		           	  </td>
+		           	 
+		           	<td colspan="2">密码：<input class="hc_UserInfoTdInput hc_UserInfoTdInputPhone" id="phone_new_1" name="password" type="password"></td>
+		           
+		           		
+		           	<td colspan="2"><a href="javascript:newAddr();">提交绑定</a></td></tr>
+		           		
+		           			</form> 
+		           			</tbody>
+		           	
+		            </table>
+		        </div>
+		        <div class="page"><{$pagecontent}></div>
+				</div>	
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	function addAddr()
+	{
+		$('#newAddr_1').show();
+	}
+	function newAddr()
+	{
+		var info = $('#adfrom').serialize();
+		 
+		var url = '<{ofunc type=url link="/membercenter/exchangjuan"}>';
+		myajax(url,info);
+	}
+	 
+	 
+ 
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

@@ -1,0 +1,65 @@
+<{extends file="<{$tempdir}>/public/admin.html"}>
+<{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<{/block}>
+ <{block name=controlname}>添加优惠券<{/block}>
+ <{block name=bodylist}>
+   <div style="width:98%;overflow-y:auto;white-space:nowrap;">
+
+          <div class="tags">
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/card/module/savejuan/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/card/module/juanlist"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	 <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">优惠劵名称</td>
+                      <td><input type="text" name="name" id="name" value="" class="skey" style="width:150px;" ></td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">优惠劵前缀</td>
+                      <td><input type="text" name="card_temp" id="card_temp" value="" class="skey" style="width:50px;" ></td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">生成数量</td>
+                      <td>
+                      	 <input type="text" name="card_acount" id="card_acount" value="" class="skey" style="width:50px;" >
+                      	</td>
+                    </tr>
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">最低消费使用金额</td>
+                      <td>
+                      	 <input type="text" name="limit_cost" id="limit_cost" value="" class="skey" style="width:50px;" >购物车总金额低于此设置不可使用购物卷
+                      	</td>
+                    </tr>
+                     <tr class="show_1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">优惠金额</td>
+                      <td><input type="text" name="card_cost" id="card_cost" value="" class="skey" style="width:50px;" ></td>
+                    </tr>
+                    <tr class="show_1" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">有效时间</td>
+                      <td><input type="text" name="card_time" id="card_time" value="30" class="skey" style="width:50px;" >天</td>
+                    </tr>
+
+
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+               <input type="submit" value="确认提交" class="button">
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+
+
+</div>
+<{/block}>

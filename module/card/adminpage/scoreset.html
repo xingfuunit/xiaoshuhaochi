@@ -1,0 +1,74 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}> 
+ <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>积分设置<{/block}>
+ <{block name=bodylist}> 
+	
+	   <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+         
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/adminpage/card/module/savescore/datatype/json"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left" valign="top">评价赠送基础积分</td>
+                      <td> 
+                         <input type="input" name="commenttype" id="commenttype" value="<{$commenttype}>"  class="skey" style="width:50px;"> 评价一条商品获得基础积分
+                       </td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">评价扩展积分</td>
+                      <td> <input type="input" name="commentscore" id="commentscore" value="<{$commentscore}>"  class="skey" style="width:50px;"> 评价完整条订单，订单总金额的整数倍，0时不赠送</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">评价赠送积分时间</td>
+                      <td> <input type="input" name="commentday" id="commentday" value="<{$commentday}>"  class="skey" style="width:50px;"> 下单后几天内评价赠送积分才有效,为0一直有效</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">登陆赠送积分</td>
+                      <td><input type="input" name="loginscore" id="loginscore" value="<{$loginscore}>"  class="skey" style="width:50px;">0时不赠送积分</td>
+                    </tr>
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">注册赠送积分</td>
+                      <td><input type="input" name="regesterscore" id="regesterscore" value="<{$regesterscore}>"  class="skey" style="width:50px;">0时不赠送积分</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">积分用于抵扣下单金额</td>
+                      <td><input type="input" name="scoretocost" id="scoretocost" value="<{$scoretocost}>"  class="skey" style="width:50px;">录入0时不抵扣  录入100 则 100积分抵扣1元</td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">用户更每日获取积分最大值</td>
+                      <td><input type="input" name="maxdayscore" id="maxdayscore" value="<{$maxdayscore}>"  class="skey" style="width:50px;"> 为0不限制  录入1000则用户每天可获得最多1000元</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div> 
+        
+        
+   
+    </div> 
+<script>
+	$(function(){ 
+		$("input[name='commenttype']:checked").trigger("click");  
+	});
+ function comtype(){
+ 	   var is_water = $("input[name='commenttype']:checked").val();
+	if(is_water == 1){
+	   $('#showtitle').text('赠送数量');
+	}
+	if(is_water ==  2){
+		 $('#showtitle').text('订单总金额倍数');
+	} 
+ }
+</script>  
+<!--newmain 结束-->
+ <{/block}>

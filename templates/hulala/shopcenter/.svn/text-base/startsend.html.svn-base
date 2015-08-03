@@ -1,0 +1,67 @@
+<{include file="<{$tempdir}>/public/shophear.html"}>
+<div id="content" class="clearfix">
+	     <!---- 顶部导航-->
+       <div class="contentnav">
+       	    <div class="cnavleft"><div class="focusbutton"><{$sitetitle}></div></div>
+       	    <div class="cnavright"><a href="<{$siteurl}>" class="home" target="_blank">首页</a><a href="<{ofunc type=url link="/member/loginout"}>" class="loginout">退出</a></div>
+       	</div>
+       	
+       	<div class="editcontent">
+       		  <div class="edittop">
+       		  	   
+       		  		<ul>
+       		  	  	 <li ><a href="<{ofunc type=url link="/shopcenter/base"}>">基本信息</a></li>
+       		  	  	 <li class="on"><a href="<{ofunc type=url link="/shopcenter/startsend"}>">起送价格</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/notice"}>">首页公告</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/cxset"}>">店铺促销</a></li>
+       		  	  	  <li><a href="<{ofunc type=url link="/shopcenter/instro"}>">店铺介绍</a></li>
+       		  		</ul>
+       		  </div>
+       		  <div class="editcenter">
+       		  	<form id="loginForm" method="post" action="<{ofunc type=url link="/shopcenter/savestartsend"}>" >
+       		       <table width="400" border="0">
+                      <tr>
+                        <td class="tname">&nbsp;起送价格：</td>
+                        <td width=280px>&nbsp;<input type="text" id="limitcost" name="limitcost" value="<{$shopinfo['limitcost']}>" class="ttext" style="width:50px;">元起送</td>
+                         </td>
+                      </tr>
+                      <tr>
+                        <td class="tname" valign="top">&nbsp;起送说明：</td>
+                        <td><textarea name="limitstro" style="height:80px;width:270px;border:1px solid #c6c5c5;"><{$shopinfo['limitstro']}></textarea></td>
+                      </tr>
+                      
+                      <tr>
+                      	<td class="tname">&nbsp;送达时间：</td>
+                        <td >&nbsp;<input id="sendtime" name="sendtime" value="<{$shopinfo['sendtime']}>" class="ttext" type="text" style="width:50px;">分钟送达</td>
+                      </tr>
+                       
+                      <tr>
+                      	<td class="tname">&nbsp;</td> 
+                        <td >&nbsp;<div class="hc_login_btn_div hc_UserInfoChangepwd">点击提交</div></td>
+                      </tr>
+                 </table>
+       		  	
+       		  	</form>
+       		  </div>
+       	</div> 
+    
+</div>
+ 
+ 
+ 
+ 
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript">
+	$('.hc_login_btn_div').click(function(){
+		$('#loginForm').submit(); 
+	}) 
+</script> 
+<{include file="<{$tempdir}>/public/shopfooter.html"}>
+
+
+
+
+
+
+
+ 

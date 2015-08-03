@@ -1,0 +1,64 @@
+ <{extends file="<{$tempdir}>/public/weixin.html"}>  
+<{block name=extendcss}> 
+<{/block}>
+ <{block name=extendjs}> 
+ <script>
+ 	$(function(){ 
+ 	      var bullets = document.getElementById('abdcd').getElementsByTagName('span');
+ 	      var slider =  Swipe(document.getElementById('slider'), {
+           auto: 3000,
+           continuous: true,
+           callback: function(pos) { 
+              var i = bullets.length;
+              while (i--) {
+                bullets[i].className = ' ';
+              }
+              bullets[pos].className = 'on'; 
+           }
+        });  
+}); 
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+<div id="index">
+  	 <header><img src="<{$html5logo}>" style="height:25px;margin-top: 5px;" id="sitelogo"></header>
+  	<div class="container">
+  		<section> 
+  			<section id="slider" class="swipe" style="visibility: visible;">
+  				<div class="swipe-wrap">
+  				  <{load_data assign="list" table="adv"    fileds="*"  limit="5" where="advtype='html5lunbo'" }> 
+  				  <{foreach from=$list['list'] item=items}>
+  				   <div class="wrap" ><img src="<{$items['img']}>" width="100%" alt=""></div>
+  				  <{/foreach}>
+  				</div>
+  			 <div class="bgboxgo">
+  						<div class="botton-box mBxCm" id="abdcd">
+  							 <{foreach from=$list['list'] item=items}>
+  							    <span class="on"></span>
+  							 <{/foreach}>
+  					 </div>
+  				</div>
+  			</section>
+  			
+  			<section class="search mShadowBm">
+  				<div class="cont">
+  					<a id="cityname" class="select"></a>
+  					<form id="searchForm" action="search.html">
+  						<div class="inputPp">
+  							<input type="text" id="supplierName" name="supplierName" class="inp" placeholder="输入小区名/楼宇名/餐厅名">
+  						</div>
+  				  </form>
+  				</div>
+  			</section>
+  			
+  			<nav class="clearfix">
+  				<ul>
+  					<li class="n1 clkitm" id="waiMai"><a href="<{ofunc type=url link="/wxsite&action=index&id=27"}>"><strong>叫外卖</strong><p>周边美食大全</p></a></li>
+  					<li class="n2 clkitm" id="tangShi"><a href="<{ofunc type=url link="/wxsite/member"}>"><strong>我的</strong><p>我的帐号信息</p></a></li>
+  					<li class="n3 clkitm" id="dingTai"> <a href="<{ofunc type=url link="/wxsite/market"}>"><strong>买零食</strong><p>周边小卖铺</p></a></li>
+  					<li class="n4 clkitm" id="paiDui"><a href="<{ofunc type=url link="/wxsite/choice"}>"><strong>选择</strong><p>选择地区</p></a></li> 
+  				</ul>
+  			</nav>
+  	</section>
+<{/block}>

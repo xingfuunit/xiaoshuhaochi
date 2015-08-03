@@ -1,0 +1,57 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/ordershow.css">   
+<{/block}>
+ <{block name=extendjs}>  
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist">
+  	<header><div class="return"></div>订单详情</header>
+  
+    
+  
+  <div class="container">
+  	
+  <div class="title links"><div class="titleWz" id="supplierName" data-supplierid="1"><{$order['shopname']}><span><img src="/upload/images/enter.png"></span></div></div>
+    
+    <div class="msgorder">下单时间：<{$order['addtime']}></div>
+    
+    <div class="bgFFF">
+    	<section class="transinfo">
+    <{foreach from=$orderdet item=items}>
+
+    		<div>
+
+    			<a href="javascript:void(0);" class="mBxCm">
+
+    			   <div class="mFlex1"><{$items['goodsname']}></div>
+
+    			   <div class="w100"><{$items['goodscount']}>份×<{$items['goodscost']}></div><div class="w100 colred">￥<{$items['goodscost']*$items['goodscount']}></div>
+
+    			</a>
+
+    	  </div>
+
+    	     <{/foreach}>
+    	 
+    	</section>
+    </div>
+    
+    <div class="msgorder">（打包费￥<{$order['bagcost']}>，送餐费￥<{$order['ps']}>）共计 <{$order['cp']}>个菜，<span class="colred"> <{$order['allcost']}></span>元</div>
+    
+    
+    <div class="bgFFF"
+    	  <section class="transinfo">
+    	  	<div class="">订单编号：<span data-supplierid="1"><{$order['dno']}></span></div><div>支付状态：<span><{$order['paystatus']}></span></div>
+    	  	<div>支付方式：<span><{$order['paytype']}></span></div><div><span></span></div>
+    	  	<div>送餐地址：<span><{$order['buyeraddress']}></span></div>
+    	  	<div>送餐时间：<span><{$order['posttime']}></span></div> 
+    	    <div>订餐电话：<span><{$order['buyerphone']}></span></div> 
+    	  	<div>订单状态：<span class="colred"><{$order['status']}></span></div>
+    	  	<div>备注信息：<span><{$order['content']}></span></div>
+    	  </section>
+    </div>	
+  	
+  	
+<{/block}>

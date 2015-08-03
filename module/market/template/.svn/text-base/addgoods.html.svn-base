@@ -1,0 +1,172 @@
+<{extends file="<{$tempdir}>/public/admin.html"}> 
+<{block name=extendjs}>
+ <script src="<{$siteurl}>/js/kindeditor/kindeditor.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+ <{block name=controlname}>保存超市商品<{/block}>
+ <{block name=bodylist}>
+    <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags"> 
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/market/savegoods"}>">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商品名称</td>
+                      <td><input type="text" name="name" id="name" value="<{$info['name']}>" class="skey" style="width:150px;"></td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">商品图片</td>
+                      <td>
+                      	<img src="<{$info['img']}>" width=80px height=80px id="imgshow" <{if  empty($info['img'])}> style="display:none;"<{/if}>>
+                      	<input type="hidden" name="img" id="img" value="<{$info['img']}>" class="skey" style="width:150px;" >
+                      	<span onclick="uploads();">上传图片</span>
+                      	</td>
+                    </tr> 
+                    
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="doinsert">
+                      <td class="left">商品数量</td>
+                      <td><input type="text" name="count" id="count" value="<{$info['count']}>" class="skey" style="width:50px;"> </td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">商品价格</td>
+                      <td><input type="text" name="cost" id="cost" value="<{$info['cost']}>" class="skey" style="width:50px;"> </td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">市场价格</td>
+                      <td><input type="text" name="marketcost" id="marketcost" value="<{$info['marketcost']}>" class="skey" style="width:150px;"> </td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">首页推荐</td>
+                      <td><input type="checkbox" name="is_com" id="is_com" value="1" <{if $info['is_com'] == 1}>checked<{/if}>> </td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">推荐购买</td>
+                      <td><input type="checkbox" name="show_com" id="show_com" value="1" <{if $info['show_com'] == 1}>checked<{/if}>> </td>
+                    </tr> 
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                      <td class="left">产品说明</td> 
+                      <td>  
+                      <div class='nop'><script>KE.show({id:'instro',allowFileManager : true,imageUploadJson:'<{ofunc type=url link="/other/saveupload"}>',fileManagerJson:'<{ofunc type=url link="/other/saveupload"}>',items:['source','|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', '|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold','italic', 'underline', 'removeformat', '|', 'image', 'advtable', 'hr','link', 'unlink']});</script><textarea name="instro" id="instro" style='width:550px; height:260px;'><{$info['instro']}></textarea></div>                      </td>
+
+                    </tr>
+                  </tbody> 
+                </table>
+              </div>
+              <div class="blank20"></div>
+               <input type="hidden" name="id" id="id" value="<{$info['id']}>" class="skey" style="width:150px;">
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+ 
+
+</div> 
+<script id="addtype" type="text/html"> 
+ <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="">
+          <td class="left">所在一级分类</td>
+         <td>
+         <select name="catid1" id="catid1" onchange="dotype2();"> 
+         <^%for(i = 0; i < list.length; i ++) {%^>
+             <option value="<^%=list[i].id%^>" <^%if(mycat !=null){for(k =0;k< mycat.length;k++){if(list[i].id == mycat[k]){%^>selected<^%}}}%^>>
+             <^%=list[i].name%^>
+             </option>
+          <^%}%^>
+         </select>
+      </td>
+ </tr> 
+</script>
+<script id="addtype2" type="text/html"> 
+ <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="addtype2c">
+          <td class="left">所在二级分类</td>
+         <td>
+         <select name="catid2" id="catid2" onchange="dotype3();"> 
+         <^%for(i = 0; i < list.length; i ++) {%^>
+             <option value="<^%=list[i].id%^>" <^%if(mycat !=null){for(k =0;k< mycat.length;k++){if(list[i].id == mycat[k]){%^>selected<^%}}}%^>><^%=list[i].name%^></option>
+          <^%}%^>
+         </select>
+      </td>
+ </tr> 
+</script>
+<script id="addtype3" type="text/html"> 
+ <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff" id="addtype3c">
+          <td class="left">所在三级分类</td>
+         <td>
+         <select name="catid3" id="catid3"> 
+         <^%for(i = 0; i < list.length; i ++) {%^>
+             <option value="<^%=list[i].id%^>" <^%if(mycat !=null){for(k =0;k< mycat.length;k++){if(list[i].id == mycat[k]){%^>selected<^%}}}%^>><^%=list[i].name%^></option>
+          <^%}%^>
+         </select>
+      </td>
+ </tr> 
+</script>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	var mycat = <{$mycat|@json_encode}>;
+	var catlist = {list:<{$catlist|@json_encode}>};
+	
+	var dialogs ;
+ $(function(){  
+ 	   if(catlist.list.length > 0){ 
+ 	   	var htmls = template.render('addtype', {list:catlist.list,mycat:mycat});
+          $('#doinsert').before(htmls);
+          dotype2();
+     }
+  });
+ function dotype2(){
+ 	var findvalue = $('#catid1').find("option:selected").val();
+ 	$('#addtype2c').remove();
+ 		$.each(catlist.list,function(k,submen){
+ 			if(submen.id == findvalue){
+ 				var showdo ={list:submen.det,mycat:mycat};
+ 				if(submen.det.length > 0){
+ 				var htmls = template.render('addtype2', showdo);
+          $('#doinsert').before(htmls);
+        }
+ 			}
+ 		});
+ 		dotype3();
+ }
+ function dotype3(){
+ 	var findvalue = $('#catid2').find("option:selected").val();
+ 	$('#addtype3c').remove();
+ 		$.each(catlist.list,function(k,submen){
+ 			 $.each(submen.det,function(m,sec){
+ 			  if(sec.id == findvalue){
+ 			  	if(sec.det.length > 0){
+ 				 var showdo ={list:sec.det,mycat:mycat};
+ 				 var htmls = template.render('addtype3', showdo);
+          $('#doinsert').before(htmls);
+         }
+ 			  }
+ 			});
+ 		});
+ }
+ function uploads(){  
+ 	  dialogs = art.dialog.open('<{ofunc type=url link="/other/adminupload/func/uploadsucess"}>');
+ 	  dialogs.title('上传图片'); 
+ }
+ function uploadsucess(flag,obj,linkurl){
+ 	 if(flag == true){
+ 		alert(linkurl);
+		dialogs.close();
+		uploads();
+ 	 }else{ 
+ 		dialogs.close();
+ 	   $('#img').val(linkurl);
+ 	  $('#imgshow').attr('src',linkurl);
+   	$('#imgshow').show(); 
+   }
+ }  
+</script>  
+<{/block}>

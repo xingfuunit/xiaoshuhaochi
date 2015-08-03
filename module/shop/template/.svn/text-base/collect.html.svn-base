@@ -1,0 +1,96 @@
+ <{extends file="<{$tempdir}>/member/member.html"}>   
+ <{block name=extendcss}>
+ <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/memberCenter.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/superMarket.css"> 
+<{/block}>
+ <{block name=membercenter}> 
+ <div class="mc-right box790"><!--mc-right-->
+					<div class="manageBox margin_bottom"><!--manageBox-->
+						<div class="title"><!--title-->
+							<p class="yleft"><span class="colortip"></span>
+							<span class="title_name"><b>我的收藏</b></span></p>
+						</div><!--title end-->
+
+						<div class="mr-middle"><!--mr-middle-->
+							<div class="account_prize"><!--account_prize-->
+								<p class="title" style="margin-top:0px;">我收藏的商家 </p>
+								<div style="display: none">
+								 <select name="deliveryMode" id="deliveryMode" style="height: 22px;margin-left:10px;width: 100px;">
+								<option value="-1">全部</option>
+								<option value="0">代送</option>
+								<option value="1">自配送</option>
+								</select>&nbsp;&nbsp;<input type="button" value="查询" onclick="getSupfavorite()" style="width:30px;height:25px;">
+								</div>
+								<div id="user_shoucanglist"> 
+									
+									<{foreach from=$list key=myid item=items}> 
+									<div class="commodity">
+										<p class="commodity_img"><a class="yleft" href="<{ofunc type=url link="/shop/gotocollect/collectid/<{$items['collectid']}>"}>"><img src="<{$items['shoplogo']|default:$shoplogo}>"></a></p>
+										<p class="commodity_info">
+											       <input type="text" id="paixu<{$items['collectid']}>" value="<{$items['orderid']}>" style="width:25px;height:15px;">&nbsp;&nbsp;
+											       <input type="button" value="排序" onclick="paxfav(<{$items['collectid']}>)" style="width:30px;height:25px;">&nbsp;&nbsp;
+											       <input type="button" value="删除" onclick="delfavte(<{$items['collectid']}>)" style="width:30px;height:25px;">
+										</p>
+									</div>
+								<{/foreach}>
+								 
+								</div>
+								<a name="orderview"></a>
+								<div class="m3-order-detail" id="m3-order-detail"><!--m3-order-detail-->
+
+								</div><!--m3-order-detail end-->
+							</div><!--account_prize end-->
+						</div><!--mr-middle end-->
+					</div><!--mc-right end-->
+				</div>
+	
+<script type="text/javascript">
+ 
+  function delfavte(collectid){ 
+	var url = siteurl+'/index.php?controller=shop&action=delcollect&collectid='+collectid+'&type=0'+'&datatype=json&random=@random@'; 
+	$.ajax({
+     type: 'post',
+     async:true, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){ 
+           window.location.reload();
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });    
+ } 
+ function paxfav(collectid){ 
+	var url = siteurl+'/index.php?controller=shop&action=savepxmyF&collectid='+collectid+'&type=0&pxid='+$('#paixu'+collectid).val()+'&datatype=json&random=&@random@'; 
+	$.ajax({
+     type: 'post',
+     async:true, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){ 
+           window.location.reload();
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });    
+ }
+</script>
+<{/block}>

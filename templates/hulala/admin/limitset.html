@@ -1,0 +1,110 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">网站限制</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+         
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/admin/savelimitset"}>" onsubmit="return subform('',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                  	<tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">是否开启账号余额</td>
+                      <td><input type="checkbox" name="open_acout" id="open_acout" value="1" <{if $open_acout== 1}>checked<{/if}>>勾选允许,未启用则不能使用充值卡</td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">用户绑定地址限制个数</td>
+                      <td><input type="text" name="addresslimit" id="addresslimit" value="<{$addresslimit}>" class="skey" style="width:50px;"></td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">店铺商品类型限制个数</td>
+                      <td><input type="text" name="shoptypelimit" id="shoptypelimit" value="<{$shoptypelimit}>" class="skey" style="width:50px;"></td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">店铺商品总个数限制</td>
+                      <td><input type="text" name="shopgoodslimit" id="shopgoodslimit" value="<{$shopgoodslimit}>" class="skey" style="width:250px;"></td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">是否允许游客留言</td>
+                      <td><input type="checkbox" name="allowedaskguest" id="allowedaskguest" value="1" <{if $allowedaskguest== 1}>checked<{/if}>>勾选允许</td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">是否开启验证码</td>
+                      <td><input type="checkbox" name="allowedcode" id="allowedcode" value="1" <{if $allowedcode== 1}>checked<{/if}>>勾选开启,在客户留言和登录时需要录入验证码</td>
+                    </tr> 
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">是否允许游客购买商品</td>
+                      <td><input type="checkbox" name="allowedguestbuy" id="allowedguestbuy" value="1" <{if $allowedguestbuy== 1}>checked<{/if}>>勾选允许</td>
+                    </tr> 
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">下单前是否验证手机号</td>
+                      <td><input type="checkbox" name="ordercheckphone" id="ordercheckphone" value="1"  <{if $ordercheckphone== 1}>checked<{/if}>>勾选允许</td>
+                    </tr>
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">下单成功后通知商家</td>
+                      <td>
+                      	<input type="checkbox" name="allowedsendshop" id="allowedsendshop" value="1" <{if $allowedsendshop== 1}>checked<{/if}>>短信通知
+                      	<input type="checkbox" name="noticeshopemail" id="noticeshopemail" value="1" <{if $noticeshopemail== 1}>checked<{/if}>>邮件通知
+                      	</td>
+                    </tr> 
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">下单成功后通知买家</td>
+                      <td>
+                      	<input type="checkbox" name="allowedsendbuyer" id="allowedsendbuyer" value="1" <{if $allowedsendbuyer== 1}>checked<{/if}>>短信通知 
+                      	</td>
+                    </tr>
+                    
+                   <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">管理员后台审核订单</td>
+                      <td><input type="checkbox" name="man_ispass" id="man_ispass" value="1"  <{if $man_ispass== 1}>checked<{/if}>>勾选审核,开启后管理员审核通过商家才能看到订单,并且审核通过同时发送通知</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">是否自动发货已审核订单</td>
+                      <td><input type="checkbox" name="auto_send" id="auto_send" value="1"  <{if $auto_send== 1}>checked<{/if}>>勾选自动,
+                      	距下单时间<input type="input" name="auto_sendtime" id="auto_sendtime" value="<{$auto_sendtime}>"  class="skey" style="width:50px;">天,录入整数，当天为0;默认执行在每天19:00:01后执行一次</td>
+                    </tr>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff">
+                      <td class="left">是否自动完成订单</td>
+                      <td><input type="checkbox" name="auto_over" id="auto_over" value="1"  <{if $auto_over== 1}>checked<{/if}>>勾选自动,
+                      	距下单时间<input type="input" name="auto_overtime" id="auto_overtime" value="<{$auto_overtime}>"  class="skey" style="width:50px;">天,录入整数，当天为0;默认执行在每天19:00:01后执行一次</td>
+                    </tr>
+                    
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div> 
+        
+        
+   
+    </div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

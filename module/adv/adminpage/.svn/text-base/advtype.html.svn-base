@@ -1,0 +1,80 @@
+ <{extends file="<{$tempdir}>/public/admin.html"}>
+   <{block name=extendjs}>
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+ <{/block}>
+ <{block name=controlname}>广告类型列表<{/block}>
+ <{block name=bodylist}>
+  <div style="width:auto;overflow-x:hidden;overflow-y:auto">
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" >
+              <form method="post" action="<{ofunc type=url link="/adminpage/adv/module/saveadvtype/datatype/json"}>" onsubmit="return subform('<{ofunc type=url link="/adminpage/adv/module/advtype"}>',this);">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th align="center">编号</th>
+                        <th align="center">分类CODE</th>
+                        <th align="center">描述</th>
+                        <th align="center">排序</th>
+                        <th align="center">操作</th>
+                      </tr>
+
+                    </thead>
+
+                    <tbody id="type">
+                    	<{if !empty($advtype)}>
+	 	                    <{$list = $advtype|unserialize}>
+                       <{foreach from=$list key=myid item=items}>
+                        <tr class="s_out" onmouseover="this.bgColor='#fdfbfb';"
+                         <{if $myid%2 == 0}>
+                         onmouseout="this.bgColor='f4f4f4';" bgcolor="#f4f4f4"<{else}>
+                          onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"
+                         <{/if}>
+
+                        	>
+                        <td align="center"><input type="hidden" name="id[]" value=""></td>
+                        <td align="left" style="padding-left:10px;">
+                          <input type="text" name="typename[]" id="typename[]" value="<{$items['typename']}>"  class='skey' style='width:130px;'/>
+                        </td>
+                        <td align="left" style="padding-left:10px;">
+                        <input type="text" name="typeurl[]" id="typeurl[]" value="<{$items['typeurl']}>"  class='skey' style='width:130px;'/>
+                        </td>
+                        <td align="left" style="padding-left:10px;">
+                          <input type="text" name="typeorder[]" id="typeorder[]" value="<{$items['typeorder']}>"  class='skey' style='width:50px;'/>
+                        </td>
+                        <td align="center"> <a class="del" onclick="$(this).parent().parent().remove();" href="javascript:;"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/del.jpg"></a></td>
+                      </tr>
+                    <{/foreach}>
+                    <{/if}>
+                    </tbody>
+                  </table>
+                <div class="blank20"></div>
+
+               <input type="submit" name="button" id="button" value="提交保存" class='button'>
+
+                 <input type="button" name="button" id="typebutton" value="添加一个类型" onclick="adddaohang();" class="button" />
+
+              </form>
+              <div class="blank20"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+      </div>
+<!--newmain 结束-->
+<{/block}>

@@ -1,0 +1,567 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=sitetitle}><{$shopinfo['shopname']}><{/block}>
+<{block name=extendcss}><link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/shop.css"><{/block}>
+<{block name=extendjs}> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/phonecheck.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/bootstrap.min.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/newsshop.js" type="text/javascript" language="javascript"></script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/cart.js" type="text/javascript" language="javascript"></script>
+<{/block}>
+<{block name=shopmenu}>
+ <div class="top1_shop">
+ 	 <div style="width:50px;float:left;"><a href="#"><img src="<{$shopinfo['shoplogo']|default:$shoplogo}>" width="50px" height="50px"></a></div>
+ 	 <div style="padding-left:30px;float:left;height:50px;">
+ 	 	  <div class="topshopname">  <{$shopinfo['shopname']}></div>
+ 	 	  <div>
+ 	 	  	   <div class="MIL2Left" style="height:20px;line-height:20px;width:110px;">      
+ 	 	  	   	 <span class="Star_g tips" original-title="<{$shopinfo['point']}>" style="margin:0px 0px 0px 0px;">
+                             <span class="Star_y" style="width:<{$shopinfo['point']*20}>%;"></span>
+             </span>
+             <a href="javascript:;" style="line-height:15px;font-weight:normal;padding:0 2px;"><{$shopinfo['point']}>.0</a>
+             
+            </div>
+            <{if $shopopeninfo['opentype'] ==2 || $shopopeninfo['opentype']==3}> <span class="yingye">营业中</span><{else}><span class="xiuxi">休息中</span><{/if}>
+           
+      </div>
+  	</div>
+ 	</div>
+ <div class="top1_shopmenu">
+	 	  <div class="Menubox_01">
+                    <ul>
+                        <li class="hover"><a href="javascript:;">菜单</a></li> 
+                        <li><a href="javascript:;" >餐后点评</a></li>
+                        <li><a href="javascript:;" >用户留言</a></li>
+                        <li id="one4" class="tips" original-title="暂未开放，敬请期待！"><a href="javascript:;">店铺介绍</a></li>
+                    </ul>
+          </div>
+ </div>
+<{/block}>
+<{block name=shophide}><{/block}>
+<{block name=bodylist}>  
+<div style="height:20px;"></div>
+<div class="Restaurant hc_content">
+ 
+        <div id="Tab1_01"> 
+           
+            <div class="RMenu">
+                <div class="RMLeft">
+                    <div class="Contentbox_01">
+                    	  <div id="con_one_0" class="hover" data="none">
+                            <div class="MealsNav" id="FCMenu">
+                                <div class="DishesClass">
+                                	<a class="DChover" ind="0" href="javascript:;" onclick="change_shop_list(0,this)">全部</a>
+                                	<{foreach from=$goodstype  item=items}>  
+			                			       <a href="javascript:;" onclick="change_shop_list(<{$items.id}>,this)"><{$items.name}></a>
+			                            <{/foreach}>  
+                                </div>
+                            </div> 
+                            
+                            <{foreach from=$goodstype key=cid item=items}> 
+                            <div class="MealsCategory" id="Food<{$items.id}>"><{$items.name}></div>
+                         
+<div class="MealsImgList" id="ImgFoodList<{$items.id}>">
+    <ul>
+    	<{foreach from=$items['det'] item=value}>
+    	<{if !empty($value['img'])}> 
+        <li>
+            <div class="MILPic"><img src="<{$value['img']}>"></div>
+            <div class="MIL1">
+                <div class="MIL1Left" id="goodsname_<{$value['id']}>"><{$value['name']}></div>
+                <div class="MIL1Right"><{$value['cost']}>元</div>
+            </div>
+            <div class="MIL2">
+                <div class="MIL2Left"> 
+                    <span class="Star_g tips" original-title="<{$value['point']}>分">
+                                	<{if $value['point'] != 0}> 
+                                	<{assign var=long value=$value['point']*20}>
+                                	<{else}> 
+                                	<{assign var=long value="100"}>
+                                	<{/if}> 
+                                    <span class="Star_y" style="width:<{$long}>%;"></span>
+                    </span>
+                    <a href="javascript:;"><{$value['point']}>点评</a>
+                </div>
+                <div class="MIL2Right">售<{$value['sellcount']}>份</div>
+            </div>
+<div class="MIL3">
+    <div class="MIL3Left">
+        <div class="DishesStatus">
+               <{assign var=goodssignlist value=","|explode:$value['signid']}>  
+                    	      <{foreach from=$goodssignlist key=mytestid item=goodssi}>
+                    	         <{if $mytestid < 5 && !empty($goodssi) && isset($goodsattr[$goodssi])}> 
+                    	           <img src="<{$goodsattr[$goodssi]}>">
+                    	            <{/if}> 
+                    	      <{/foreach}> 
+        </div>
+    </div>
+        <div class="MIL3Right">
+              
+               <{if $value['count'] < 1}>
+                    <div class="DishesOrderout"><a   class="AddOrders"  href="javascript:;">售完</a></div>
+                    <{else}>
+                    <div class="DishesOrder"><a  class="AddOrder"  onclick="addonedish(<{$value['id']}>,<{$value['shopid']}>,1,this);"  href="javascript:void(0);">订一份</a></div>
+                    <{/if}>
+       
+       
+       
+        </div>
+    </div>
+</li>
+<{/if}>
+       
+        
+        <{/foreach}>  
+        <div style="clear:both;"></div>
+       
+    </ul>
+</div>
+  <div style="clear:both;"></div>
+
+<div class="MealsList" id="FoodList<{$items.id}>">
+    <ul> 
+    	<{foreach from=$items['det'] item=value}>
+          
+    	<{if empty($value['img'])}>
+        <li>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                    <td><div class="MLTop"></div></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="MLMiddle">
+                            <div class="DishesName"><a href="javascript:;" id="goodsname_<{$value['id']}>"><{$value['name']}></a><span class="CocaCola"></span></div>
+                            <div class="DishesService">
+                                <div class="DishesStatus"> 
+                                	      <{assign var=goodssignlist value=","|explode:$value['signid']}>  
+                                	      <{foreach from=$goodssignlist key=mytestid item=goodssi}>
+                                	         <{if $mytestid < 5 && !empty($goodssi) && isset($goodsattr[$goodssi])}> 
+                                	           <img src="<{$goodsattr[$goodssi]}>">
+                                	            <{/if}> 
+                                	      <{/foreach}>  
+                                </div>
+                            </div>
+                            <div class="DishesPrice"><span>¥<{$value['cost']}></span></div>
+                            <{if $value['count'] < 1}>
+                            <div class="DishesOrderout"><a   class="AddOrders"   href="javascript:;"   >已售完</a></div>
+                            <{else}>
+                            <div class="DishesOrder"><a  class="AddOrder" onclick="addonedish(<{$value['id']}>,<{$value['shopid']}>,1,this);"  href="javascript:void(0);" >订一份</a></div>
+                            <{/if}>
+                           
+                            <div class="DishesScore">
+                                <span class="Star_g tips" original-title="<{$value['point']}>分">
+                                	<{if $value['point'] != 0}> 
+                                	<{assign var=long value=$value['point']*20}>
+                                	<{else}> 
+                                	<{assign var=long value="100"}>
+                                	<{/if}> 
+                                    <span class="Star_y" style="width:<{$long}>%;"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="MLBottom">
+                            <div class="MLIntro"><{$value['instro']}></div>
+                             <div class="DishesSales">售<{$value['sellcount']}>份</div>
+                            <div class="MLReviews"><{$value['pointcount']}>点评</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody></table>
+        </li> 
+        <{/if}>
+        <{/foreach}>  
+    </ul>
+</div>
+<{/foreach}>  
+ 
+
+</div>
+
+                        <!---用户点评-->
+                        <div id="con_one_1" style="display:none;" data="pjia">
+                        	
+                           <div class="CommentOn">
+                                <div class="COBottom" id="det_commm">
+                                  
+                                </div>
+                                 
+                                
+                            </div> 
+                            
+                        </div>
+                         <!--用户点评结束-->
+                         <div id="con_one_2" style="display:none;" data="liuyan">
+                         	<!--用户留言-->
+                         	 
+                            <div class="Message">
+                                <form action="" id="mform" name="mform" method="POST">
+                                <input type="hidden" name="msid" id="msid" value="40">
+						                      	<ul>
+                                	<li>
+                                    	<div class="MInput">
+                                        	<div class="MITop"><textarea id="MContent" name="mcon" onclick="InFocus(this);" onblur="outF(this);" style="color:rgb(92, 91, 91);"  data="您的留言对其他会员都是很重要的参考">您的留言对其他会员都是很重要的参考</textarea></div>
+                                            <div class="MIBottom"><a href="javascript:;" onclick="AddMessage()" id="msgbtn">提交留言</a> <span class="ImpNum">最多200个字符</span></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                </form>
+                            </div>
+                            <div class="Message" id="showaskid">
+								              
+							              </div>  
+                            <div class="CommentOn">
+                             
+                            </div>
+                         
+                         	<!--用户留言-->
+                         	 
+                         </div>
+                         
+                         
+                          <!---店铺介绍-->
+                         <div id="con_one_3" style="display:none;" data="none">
+                         	 
+                         	<div style="margin-top:-35px;width:650px;word-wrap:break-word;float:left;margin-left:20px;margin-top:5px;"> 
+                                	<{$shopinfo['intr_info']|htmlspecialchars_decode}>
+                         	 </div>
+                         </div>
+                         <!---店铺介绍-->
+                       
+                    </div>
+                </div>
+                
+                <div class="RMRight">
+                    <div class="right_shop_info">
+                    	  <div class="shop_info_a">
+                    	    	<div class="shopw_a_time">
+                    	  		 <{assign var=newshowtime value="|"|explode:$shopinfo['starttime']}>
+					                    	<{foreach from=$newshowtime  item=v}>
+						                     <div class="shopw_a_time_d"> <{$v}> </div>
+					                    	<{/foreach}>
+					                  </div>
+                    	  	  <div class="shopw_a_sendtime">
+                    	  	  	<{foreach from=$mainattr item=itat}>
+								             	  <{if $itat['type']=='input'}>
+								             	     <{foreach from=$itat['det'] item=itcc}>
+								             	       
+								             	          <{foreach from=$shopattr item=itaa}>
+								             	             <{if $itcc['parent_id'] == $itaa['firstattr']}>
+								             	                 <{$itaa['value']}>
+								             	             <{/if}>
+								             	          <{/foreach}>
+								             	     <{/foreach}>
+								             	  <{/if}>     
+								             	<{/foreach}> 
+									         </div>
+									           <div class="shopw_a_sendcost">
+									           	  <{$shopinfo['limitcost']}>元起送
+									          </div>
+                    	  	 <div class="shopw_a_juli" id="juli">
+									           	 未启用地图
+									          </div>
+									          
+                    	  </div>
+                    	  <div class="shop_info_b">
+                    	  	  <div class="shop_b_notice_t">
+                    	  	  	<div class="b_notice_t_c">餐厅公告</div>
+                    	  	  </div>
+                    	  	  <div class="shop_b_notice_c">
+                    	  	  	<{$shopinfo['notice_info']|htmlspecialchars_decode}>
+                    	  	  </div> 
+                    	  </div>
+                    	   <!--
+                    	  <{foreach from=$mainattr item=itat}>
+									  <{if $itat['type']=='img'}> 
+									      <{foreach from=$itat['det'] item=itdd}>
+									          <{foreach from=$shopattr item=itaa}>
+									             <{if $itdd['id'] == $itaa['attrid']}> 
+									                <div class="shop_info_c">
+                    	  	 <div class="backps" style="background:url(<{$itaa['value']}>) no-repeat;"><{$itdd['instro']}></div> 
+                    	  </div>   
+									             <{/if}>
+									          <{/foreach}> 
+									      <{/foreach}> 
+									  <{/if}>     
+									<{/foreach}> 
+									-->
+									   <{foreach from=$ruledata item=itv}>
+									    <div class="shop_info_c">
+                    	  	 <div class="backps" style="background:url(<{$ruleimg[$itv['signid']]|default:''}>) no-repeat;"><{$itv['name']}></div> 
+                    	  </div> 
+									   
+									   
+									   <{/foreach}>
+									
+									
+                    	
+                    </div>
+                    
+                    
+                    
+                      
+  
+                   <div class="new_cart" id="newcart">
+                    
+                   	 
+                   	 
+                   	
+                   	
+                  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                                <div class="ShopCartOn" style="display:none;">
+                                 <div class="SCOTop">
+                                     <div class="ShopCart" id="ShopCart" style="position: static; top: 380px;">
+                                         <div class="CartTop">
+                                         <span class="tips" original-title="平均送餐时间：分钟">分钟</span>我的餐盒</div>
+                                         <div class="SCBottom">
+                                             <div class="SCTitle">
+                                                 <div class="SCName">商品</div>
+                                                 <div class="SCNum">份数</div>
+                                                 <div class="SCSubtotal">小计</div>
+                                                 <div class="SCOperate">操作</div>
+                                             </div>
+                                             <div id="SCartCon" class="SCInfo" style="display: block;">
+                                                 <ul id="CartList">
+                                                 
+                                                 </ul>
+                                             </div>                                    
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="SCOBottom">
+                                     <div class="TotalPrice">
+                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                             <tbody><tr>
+                                                 <td width="80">&nbsp;菜 &nbsp;&nbsp;&nbsp;&nbsp;品：</td>
+                                                 <td width="10">&nbsp;</td>
+                                                 <td><i>￥</i><span id="CMoney">0</span><input type="hidden" id="MainMoney" value="111"><input type="hidden" id="OtherMoney" value="0"></td>
+                                                 <td>&nbsp;</td>
+                                                 <td width="60"><a href="javascript:;" onclick="delshopcart()" class="EmptyDishes">清空菜品</a></td>
+                                             </tr>
+                                         </tbody></table>
+                                     </div>
+                                     
+                                     <div class="OrderWay">
+                                         <div class="OWBtn">
+                                             <a href="<{ofunc type=url link="/site/showcart/shopid/<{$shopinfo['id']}>"}>" class="Waimai tips" onmousedown="this.className='Waimai Waimaidown'" onmouseout="this.className='Waimai'" original-title=""><p>外卖送餐 <i>￥</i><span id="waimaibtn">0</span></p>
+                                             	<span id="spri"><{if $shopinfo['sendtype'] == 0}>网站配送<{else}>店铺自配<{/if}></span></a>
+                                               <a href="javascript:;" class="NotAvailable"><p>支持<br>到店用餐</p></a> 
+                                         </div>
+                                     </div>
+                                     <div class="DTips" id="npdiv" style="display:none;"></div>
+                                     <div class="DContact">客服热线：<span><{$litel}></span></div>
+                                 </div>
+                             </div> 
+
+
+                </div>
+                
+                
+                
+                
+                <div style="clear:both;"></div>
+            </div>
+            <!--餐厅菜单-->
+        </div>
+        <!--------------右侧返回首页   start  ------------------------->
+		
+	<div class="fpcity_bg" id="fpcity_bg">
+              <div class="shopsritop"></div>
+              <div class="shopsrimid">
+                 <div class="detail_recommenlist" id="glideDiv1" style="">
+                   <ul>
+                     <li><a href="<{$siteurl}>">返回首页</a></li>
+                                         </ul>
+                   <a href="#back_top"><p class="back_top">回顶部</p></a>
+                 </div>
+              </div>
+              <div class="shopsribot"></div>     
+          </div> 
+
+ <style>
+.fpcity_bg {
+height: 139px;
+width: 69px;
+position: fixed;
+_position: absolute;
+top: 409px;
+margin-left:1120px;
+_margin-top: 190px;
+_top: expression(eval(document.documentElement.scrollTop)-46);
+float: right;
+}
+.fpcity_bg .shopsritop {
+background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/shopritop.png) 0 0 no-repeat;
+_background: none;
+
+width: 69px;
+height: 50px;
+}
+.fpcity_bg .shopsrimid {
+background: #36a7ef;
+width: 69px;
+overflow: hidden;
+zoom: 1;
+}
+.fpcity_bg .detail_recommenlist {
+text-align: center;
+width: 69px;
+}
+.fpcity_bg .detail_recommenlist ul {
+overflow: hidden;
+zoom: 1;
+padding-top: 1px;
+width: 60px;
+margin-left: 5px;
+_margin-left: 2px;
+background: #FFF;
+}
+.fpcity_bg .detail_recommenlist ul li {
+line-height: 28px;
+height: 28px;
+overflow: hidden;
+}
+.fpcity_bg .detail_recommenlist ul li a {
+color: #757575;
+display: block;
+}
+.fpcity_bg .detail_recommenlist p.back_top {
+background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/back_top.jpg) 0 0 no-repeat;
+width: 48px;
+margin: 8px 13px 2px;
+height: 32px;
+cursor: pointer;
+padding-top: 34px;
+color: #ffffff;
+}
+.fpcity_bg .shopsribot {
+background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/shopribot.png) 0 0 no-repeat;
+_background: none;
+
+width: 69px;
+height: 7px;
+}
+</style>	
+ 	<script>
+	 $('.back_top').click(function(){
+    $('body,html').animate({scrollTop:0},500)
+   });
+	</script>
+<!--------------右侧返回首页  end   --------------->
+
+
+
+
+        
+    </div>
+
+</div>
+<div id="temdiv_id" style="display:none;">
+	 <div id="temd_id1">
+     <div>  	您距<{$shopinfo['shopname']}>超过<{$servery}>米，如需配送请致电<{$litel}>， </div>
+     <div>我们的客服会为您提供解决方案。</div>
+     <div id="btntu_div" style="margin-top:20px;">  <a href="<{ofunc type=url link="/site/guide/shopid/<{$shopinfo['id']}>"}>" class="y"><< 重新定位</a>  <a href="<{ofunc type=url link="/site/index"}>" class="n"> 查看附近商家</a>  <a href="javascript:void();" onclick="closetout();" class="n"> 继续看看 >></a> </div>
+	 </div>
+	<div id="temd_id2">
+	   <div> <font style="font-weight:bold;">您还未定位，我们无法为您提供准确服务…</font></div>
+     <div>   您需要先定位，确定您与所选商家的距离  </div>
+     <div id="btntu_div" style="margin-top:20px;">  <a href="<{ofunc type=url link="/site/guide/shopid/<{$shopinfo['id']}>"}>" class="y"><< 定位确定您的位置</a>  <a href="javascript:void();" onclick="closetout();" class="n"> 留在本页面先看看 >></a> </div>
+  </div>
+</div>
+ <style>
+ 	#btntu_div a.y{
+ 		padding:5px 5px 5px 5px;
+ 		background-color:#fca500;
+ 		height:30px;
+ 		color:#fff;
+ 		font-weight:bold;
+ 	}
+ 	#btntu_div a.n{
+ 		padding:5px 5px 5px 5px;
+ 		background-color:#5ec3cd;
+ 		height:30px;
+ 		color:#fff;
+ 		font-weight:bold;
+ 	}
+ 	#btntu_div a:hover{
+ 		text-decoration:none;
+ 		color:#fff;
+ 		
+ 	}
+</style>
+  
+ <script type="text/javascript"> 
+ $(".MealsList li:nth-child(even)").addClass('odd');//css({'border-left':'3px solid #f60','background-color':'#fffae7'});
+ 
+ var shopid = <{$shopinfo['id']}>;   
+ var locationfalse  = false; 
+ 
+   <{$pssetinfo = $psset|unserialize}>
+ 	  <{if $pssetinfo['locationtype'] == 1}> 
+ 	      <{if empty($lng)}>
+	      
+	       $('#temd_id1').remove();
+	     
+    	<{else}>
+		        $('#temd_id2').remove();
+     	<{/if}> 
+ 	     $.get("<{ofunc type=url link="/site/ceju/lat/<{$shopinfo['lat']}>/lng/<{$shopinfo['lng']}>/dlng/<{$lng}>/dlat/<{$lat}>/datatype/json"}>", function(result){
+ 	     	   $("#juli").text(result.msg);
+ 	        	if(result.error ==  false){
+                locationfalse = false;    
+           }else{
+           	 locationfalse = true;
+           	   artopen();
+           }
+       },'json'); 
+ 	  <{else}>
+ 	   
+ 	  	$(function(){
+		       var myaddressid = '<{$myaddress}>';
+		      if(myaddressid == null|| myaddressid==''){
+			           window.location.href= '<{ofunc type=url link="/site/guide"}>';
+	    	   }
+	    }); 
+ 	  <{/if}> 
+ 
+	
+ 
+  function artopen(){ 
+    art.dialog({
+       id: 'testID3',
+       lock: true,
+       background: '#666', // 背景色
+       opacity: 0.87,	// 透明度
+       title:'定位提示',
+       content: $('#temdiv_id').html()
+    });  
+  }
+	function closetout(){ 
+	  art.dialog({id: 'testID3'}).close();
+	}
+</script>
+<script>
+ 
+
+
+</script>
+<div style="text-align:center;"></div>
+ 
+ 
+<{/block}>

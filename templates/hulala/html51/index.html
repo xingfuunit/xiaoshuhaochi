@@ -1,0 +1,24 @@
+<{include file="<{$tempdir}>/html5/top.html"}>  
+  <div data-role="collapsible-set" data-theme="c" data-content-theme="d" data-corners="false" data-expanded-theme="a" data-expanded-icon="arrow-d" data-collapsed-icon="arrow-r">
+  	<{foreach from=$list item=items}>
+      <div data-role="collapsible" data-iconpos="right" data-theme="b">  
+          <h3><{$items['name']}></h3> 
+          <{foreach from=$items['det'] item=itv}>
+          <div data-role="collapsible" data-iconpos="right"  > 
+          	<h3><{$itv['name']}></h3>
+          	<{if is_array($itv['det'])}>
+          	<div data-role="content" data-theme="c">   
+          	  <ul data-role="listview" data-autodividers="false"   data-iconpos="right">
+          	  	<{foreach from=$itv['det'] item=itc}>
+                 <li style="padding-left:60px;"><a href="#"><{$itc['name']}></a></li>
+                 <{/foreach}> 
+               </ul>
+             </div> 
+             <{/if}>
+          </div>
+          <{/foreach}>  
+      </div> 
+      <{/foreach}>  
+  </div>
+<{include file="<{$tempdir}>/html5/foot.html"}> 
+ 

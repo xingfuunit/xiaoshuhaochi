@@ -1,0 +1,58 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+<link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/shoplist.css">  
+<{/block}>
+ <{block name=extendjs}>  
+ <script>
+$(function(){ 
+  	$('#feedbackSubmit').click(function(){   
+  	   	$('#loading').toggle(); 
+  	    var info = {'content':$('#feedbackContent').val(),'shopid':'0','Captcha':'','type':'5'}; 
+		    var url =  siteurl+'/index.php?controller=ask&action=saveask&datatype=json&random=@random@';  
+		     $.ajax({ 
+             url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+            dataType: "json", 
+            data:info, 
+            success:function(content) { 
+
+            	   $('#loading').toggle();
+            	   if(content.error ==  false){
+            	   	Tmsg('操作成功');
+            	   }else{
+            	   	Tmsg(content.msg);
+            	   }
+
+            },
+
+            error:function(){
+
+            	   $('#loading').toggle();
+
+            }
+
+         });  
+	 });
+});
+</script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="hallist">
+
+  	<header><div class="return"></div>网站反馈<div class="ico"></div></header>
+
+  
+
+    
+
+  
+
+  <div class="container" style="padding-top:0px;background:none;">
+
+  	<section>
+
+  		<div class="xinghao"><textarea id="feedbackContent" placeholder="请输入您的反馈意见（必填500字以内）"></textarea></div><div class="inputZ"><input id="feedbackTelOrEmail" class="inputInp" type="text" placeholder="邮箱地址/手机号码"></div><b class="miaoshu">如果你想了解反馈结果，请留下邮箱或手机号码</b><input id="feedbackSubmit" class="inputBtn" type="button" value="提交">
+
+  	</section>
+
+<{/block}>

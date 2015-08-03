@@ -1,0 +1,155 @@
+  <{assign var=tempcost  value=0}> 
+  <{assign var=shuliang value=0}>
+    <{assign var=surecost value=0}>
+	<{assign var=limitcost  value=0}> 
+    <{assign var=bagcost value=0}>
+    <{assign var=pscost value=0}>
+  <{assign var=allcost  value=0}> 
+  <{foreach from=$cartinfo['list']  key=ckkey item=items}>  
+   <{if $shopid ==  $ckkey}>  
+		<style>
+		.newgwcUl{ font-size:14px;padding:0px 12px; width:268px;}
+		.newgwcUl li{height:45px; line-height:45px; color:#333333;border-bottom:1px dashed #c7c7c7; width:268px;}
+		.foodname{ float:left; width:106px;height:45px; overflow:hidden;}
+		.foodshuliang{ margin-left:5px;float:left;width:76px;}
+		.foodcost{margin-left:3px;color:#f17530;width:57px;float:left;}
+		.foodshanchu{width:13px;float:left;margin-left: 5px;}
+		.foodshanchu img{margin-top:18px; width:8px;}
+		</style>
+		<ul class="newgwcUl">
+		  <{foreach from=$items['data'] item=itv}>
+			<li>
+			
+			<div class="foodname">
+				<{$itv['name']}>
+			</div>
+			
+			<div class="foodshuliang">
+				<span id="plus_add" style="background:#f5f5f5; border:1px #dddddd solid;padding: 2px 2px;">
+		    	  	<a style="font-size:20px;" href="javascript:void(0);" onclick="addonedish(<{$itv['id']}>,<{$itv['shopid']}>,1,this);">+</a>
+		    	  	<input style="width: 22px;
+height: 22px;
+line-height: 22px;
+border: 1px solid #ccc;
+background: #FFFFFF;
+text-align: center;
+color: #444;
+margin: 0px 0px;
+margin-top: -2px;" name="Nums_<{$itv['id']}>"  id="Nums_<{$itv['id']}>"  value="<{$itv['count']}>" type="text" value="1"  onblur="modifycart(<{$itv['id']}>,<{$itv['count']}>,<{$itv['shopid']}>)"> 
+		    	  	<a  style="font-size:20px; font-weight:bold;" href="javascript:void(0);" onclick="removeonedish(<{$itv['id']}>,<{$itv['shopid']}>,1);">-</a>
+		    	  </span>
+			</div>
+			
+			<div class="foodcost" style="font-weight:bold;">
+			
+			
+			 <{$goodscount =$goodscount+$itv['count']}> 	
+			
+		 <{$tempcost =$tempcost+ $itv['cost']*$itv['count']}> 
+				￥<{$itv['cost']}>
+			</div>
+				
+			<div class="foodshanchu">
+				<!-- <img onclick="removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>);"  src="<{$siteurl}>/templates/<{$tempdir}>/public/images/foodshanchu.png" /> -->
+				<span style="width:10px; color:#000; cursor:pointer;" onclick="removesupplierdish(<{$itv['id']}>,<{$itv['shopid']}>);" >x</span>
+			</div>
+				
+			<div style="clear:both;"></div>
+			</li>
+		
+		   <{/foreach}> </ul>
+		
+		
+		
+  
+ 
+		
+
+	
+		
+   <{$allcost = $allcost}>
+     <{$limitcost = $items['limitcost']}>
+   <{$surecost = $items['cx']['surecost']}>      
+         <{$pscost = $items['pscost']}>
+         <{$bagcost = $items['bagcost']}>
+ <{/if}>
+ 
+  
+<{/foreach}>
+
+
+ <{if $goodscount == 0}>
+<div id="" style="margin:10px 0px;"><div class="i i-empty">购物车为空</div></div>
+  <{/if}>
+ <style>
+ .i-empty {
+ 
+ background: url(<{$siteurl}>/templates/<{$tempdir}>/public/images/icon.png) no-repeat scroll 0 0 transparent;
+background-position: -190px -820px;
+margin: 15px auto;
+}
+.i-empty, .i-comment {
+width: 210px;
+height: 120px;
+text-indent: -9999em;
+margin: 0 auto;
+}
+
+ 
+ </style>
+
+<input type="hidden" name="bagcost" value="<{$bagcost}>">
+<input type="hidden" name="pscost" value="<{$pscost}>">
+<input type="hidden" name="surecost" value="<{$surecost}>">
+  <input type="hidden" name="allcost" value="<{$allcost}>">                 	
+    		<script>
+				
+	$(function(){
+	
+		
+		
+		$("#rellycost").html( $('input[name="surecost"]').val() );
+		
+	});
+			</script>
+
+			
+			
+				
+		<div class="qujiesuan">
+			<div style="float:left;">
+				<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/newgouwucheBg.png"/>
+			</div>
+			<div style="float:left; margin-left:50px;">
+				<span style="font-size:18px; font-weight:bold; color:#ffffff; font-family:微软雅黑;">￥ </span>
+				<span id="rellycost" style="font-size:24px; font-weight:bold;  color:#ffffff;font-family:微软雅黑;">0</span>
+			</div>
+	
+			<div style="float:left; margin-left:20px; margin-top:5px;">
+			
+			<{if $shopopeninfo['opentype'] ==2 || $shopopeninfo['opentype'] ==3 }>
+			
+			
+				<{if $limitcost <= $tempcost}>
+					<div  style="width:95px; height:40px; text-align:center; line-height:40px ; font-size:16px; cursor:pointer; background:#ff6931;">
+					<a style="color:#ffffff;" href="<{ofunc type=url link="/site/showcart/shopid/<{$shopid}>"}>"  >去结算</a></div>
+				<{else}>
+				<div  style="width:95px; height:40px; text-align:center; line-height:40px ; font-size:16px; cursor:pointer; background:#fff;">
+					<a style="color:#000;" href="javascript:void(0);"  >差<{$limitcost-$tempcost}>元起送</a></div>
+				
+				<{/if}>
+		
+			
+			<{else}>
+				<div  style="width:95px; height:40px; text-align:center; line-height:40px ; font-size:16px; cursor:pointer; background:#ccc;">
+				<a style="color:#3D3D3D;font-weight:bold;" href="javascript:void(0);"  >休息中</a></div>
+			
+			
+			<{/if}>
+			</div>
+				<div style="clear:both;"></div>
+		</div>
+  
+    
+
+ 

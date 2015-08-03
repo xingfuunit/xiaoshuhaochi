@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> <{block name=sitetitle}><{/block}>-<{$sitename}></title>
+<{block name="seokey"}><meta name="Keywords" content="<{$keywords}>" /><{/block}>
+<{block name="seodes"}><meta name="description" content="<{$description}>" /><{/block}>
+<{$metadata|stripslashes}>
+<link rel="shortcut icon" href="<{$siteurl}>/templates/<{$tempdir}>/public/images/favicon.ico" /> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/common_v12.css"> 
+  <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/base.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/common.css">  
+<link type="text/css" rel="stylesheet" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/common1.css" /> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/supplierBase.css">
+<{block name=extendcss}><{/block}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=opera"></script> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.lazyload.min.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/kefu/xyjqkefu.js"> </script>
+ <script>
+ 	$(function() { 
+$("img").lazyload({ 
+effect : "fadeIn" 
+}); 
+}); 
+
+ 	</script>
+<{block name=extendjs}><{/block}>
+
+ <script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	var controllername= '<{$controlname}>';
+</script>
+
+<!--[if lte IE 6]>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/DD_belatedPNG_0.0.8a.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('div, ul, img, li, input , a'); 
+    </script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ie6.js" type="text/javascript"></script>
+<![endif]--> 
+</head> 
+<body> 
+	<div id="header">
+	<div class="header">
+		<!--网站LOGO-->
+		<h1><a href="<{$siteurl}>"><img src="<{$sitelogo}>" alt="<{$sitename}>" title="<{$sitename}>"></a><strong><{$sitename}></strong></h1>
+
+		<!--城市切换-->
+		<div class="changeCity SmallIcons">
+			<a href="javascript:void(0)" class="currentCity" id="currentCity"><{$cityname}></a>
+			<a href="javascript:void(0)" id="changeCityBtn">[切换城市]</a>
+            <div id="city">
+                <ul class="citys" id="city_list"><li class="first"><a href="#" cityid="1">杭州</a></li><li class="first"><a href="#" cityid="3" class="active">上海</a></li></ul>
+                <span class="tips SmallIcons"></span>
+		    </div>
+        </div>
+        
+        	
+     <p id="loginflag" class="login_info">
+     	 <{if !empty($member['uid'])}>
+     	<a href="/app/app.html" class="download SmallIcons">APP下载</a> 
+     	<a class="gray666" href="<{ofunc type=url link="/order/usersorder"}>" title="我的订单">我的订单</a>
+     	<a class="blue12" href="<{ofunc type=url link="/member/index"}>" title="账户中心"><{$member['username']}></a>
+     	<a class="gray666 bordernone" href="<{ofunc type=url link="/member/loginout"}>" >[退出]</a>
+     	<{else}>
+     	<a href="/app/app.html" class="download SmallIcons blue12">APP下载</a>
+            <a href="<{ofunc type=url link="/member/login"}>" class="gray666">登录</a>
+            <a href="<{ofunc type=url link="/member/regester"}>" class="gray666">注册</a>
+     	<{/if}>
+     </p>
+        	
+        	
+        
+		 <div class="mainSearch">
+			<div class="mainSearch_left searchBg">
+				<div class="mainSearch_curBox">
+					<p class="mainSearch_cur" id="mainSearch_cur" data="1">外卖</p>
+					<p class="mainSearch_arrow searchBg" id="mainSearch_arrow"></p>
+					<div class="mainSearch_list" id="mainSearch_list" style="display:none">
+						<ul>
+							<li class="mainSearch_listBorder" type="外卖" data="1" utext="搜索餐厅/餐品/商圈"><a class="gray666 active" href="javascript:void(0)">外卖</a></li> 
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="mainSearch_con">
+				<input class="mainSearch_inp" id="keyword_mainSearch" type="text" searchtype="搜索餐厅/餐品/商圈" value="搜索餐厅/餐品/商圈">
+				<div class="mainSearch_history" id="mainSearch_tips" style="display: none;">
+					 
+				</div>
+			</div>
+			<div class="mainSearch_right searchBg" id="mainSearch_btn">
+			</div>
+		</div>
+		<!--搜索-->
+		 
+	</div>
+</div>
+	
+	<div class="nav_bg">
+    <div class="wrap">
+      <ul id="menu">
+        <li><a href="<{ofunc type=url link="/site/index"}>" target="_self" data="site" <{if $urlshort == 'site/index'}> class="cur" <{/if}> >首 页</a></li>
+        <li ><a href="<{ofunc type=url link="/site/shoplist"}>" target="_self" data="fastfood"    <{if $urlshort == 'site/shoplist'}> class="cur" <{/if}> >外卖</a></li> 
+        <li><a href="<{ofunc type=url link="/market"}>" target="_self" data="market"  <{if $controlname == 'market'}> class="cur" <{/if}> >商城</a></li>
+        <li><a href="<{ofunc type=url link="/gift"}>" target="_self" data="gift"  <{if $controlname == 'gift'}> class="cur" <{/if}>  >礼品</a></li> 
+        <li><a href="<{ofunc type=url link="/card"}>" target="_self" data="card"  <{if $controlname == 'card'}> class="cur" <{/if}>  >优惠券</a></li> 
+        <li><a href="<{ofunc type=url link="/order"}>" target="_self" data="order"  <{if $controlname == 'order'}> class="cur" <{/if}>  >订单</a></li> 
+        
+      </ul>
+    </div>
+  </div>
+  
+  
+<div style="clear:both;"></div>
+<div id="toTop" style="left: 1212.5px; display: none;"></div>
+
+
+ 
+
+<{block name=bgshow}>  <{/block}>
+<{block name=shophide}>
+   
+<{/block}>
+<{block name=bodylist}><{/block}> 
+
+<div class="footer_bg">
+		<div class="w980">
+			<div class="f1">
+				<div class="f1_title">
+					<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/f_3.gif" class="left r10" />服务指南
+				</div>
+				<div class="clear"></div>
+				<div class="f1_list">
+					<p class="t10">
+						配送时间:
+                        <{assign var=alltype value="|"|explode:$marketstarttime}>  
+                        <{foreach from=$alltype  item=v}> 
+                                                   <span><{$v}></span>
+                         <{/foreach}>
+					</p>
+					<p>
+						客服专线：<span><{$litel}></span>
+					</p>
+					 
+				</div>
+			</div>
+			<div class="line2">
+				<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/line2.gif" />
+			</div>
+					<div class="f1 l20">
+						<div class="f1_title">
+							<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/f_0.gif" class="left r10" />配送支付
+						</div>
+						<div class="clear"></div>
+						<div class="f1_list">
+							<ul>
+                            
+                            <li><a href="<{ofunc type=url link="/site/news/id22#cdiv_22"}>" target="_blank" class="gray666">服务流程</a></li>
+		       <li><a href="<{ofunc type=url link="/site/news/id22#cdiv_20"}>" target="_blank" class="gray666">配送方式</a></li>
+		       <li><a href="<{ofunc type=url link="/site/news/id22#cdiv_19"}>" target="_blank" class="gray666">配送效率</a></li>
+		       <li><a href="<{ofunc type=url link="/site/news/id22#cdiv_18"}>" target="_blank" class="gray666">服务费用</a></li>		
+							</ul>
+						</div>
+					</div>
+					
+					<div class="line2">
+                    	<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/line2.gif" />						
+					</div>
+                    <div class="f1 l20">
+						<div class="f1_title">
+							<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/f_3.gif" class="left r10" />关于我们
+						</div>
+						<div class="clear"></div>
+						<div class="f1_list">
+							<ul>
+									<li><a href="<{ofunc type=url link="/site/news/id30"}>" target="_blank" class="gray666">网站介绍</a></li>
+	  	  	  <li><a href="<{ofunc type=url link="/site/news/id31"}>" target="_blank" class="gray666">招贤纳士</a></li>
+	  	  	  <li><a href="<{ofunc type=url link="/site/news/id34"}>" target="_blank" class="gray666">商家加盟</a></li>
+	  	  	  <li><a href="#"   class="gray666">商家登录</a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="line2">
+						<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/line2.gif" />
+					</div>
+					<div class="f1 l20">
+						<div class="f1_title">
+							<img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/f_2.gif" class="left r10" />帮助中心
+						</div>
+						<div class="clear"></div>
+						<div class="f1_list">
+							<ul>
+									<li><a href="<{ofunc type=url link="/site/news/id25"}>" target="_blank" class="gray666">服务内容</a></li>
+	  	  	  <li><a href="<{ofunc type=url link="/site/news/id17"}>" target="_blank" class="gray666">服务介绍</a></li>
+	  	  	  <li><a href="<{ofunc type=url link="/site/news/id7"}>" target="_blank" class="gray666">常用规则</a></li>
+	  	  	  <li><a href="<{ofunc type=url link="/site/news/id1"}>" target="_blank" class="gray666">常见问题</a></li>
+							</ul>
+						</div>
+					</div>
+					
+		</div>
+	</div>
+	<div class="footer_bg2">
+		<div class="bottom">
+			© 2012 <{$sitename}> <{$beian}><{$footerdata|stripslashes}>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+

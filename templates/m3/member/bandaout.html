@@ -1,0 +1,116 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>   
+ <{block name=sitetitle}>
+帐号绑订
+<{/block}>
+ <{block name=bodylist}> 
+<div id="content">
+	<form id="regForm" method="post" action="<{ofunc type=url link="/member/saveregester/datatype/json"}>">
+<div class="hc_content">
+		<div class="hc_login">
+			<div class="hc_login_head"><span class="hc_login_head_span">帐号绑订-<{$apiinfo['logindesc']}></span></div>
+			<div class="hc_login_content">
+					<div class="findPassWordDiv" style="margin-top:50px;">
+					  
+					  	
+					  <div class="margin-left:350px;">若需已存在<{$sitename}>账号,请先登录账号在绑定QQ及可直接绑定</div> 
+						<div style="margin-right: 10px;">
+							<span class="hc_login_div_span">用户名：</span>
+							<input  class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="text" placeholder="请输入用户名" name="tname">
+							<p class="tip"></p>
+						</div>
+						
+						<div style="margin-right: 10px;">
+							<span class="hc_login_div_span"> 密  码 ：</span>
+							<input   class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="password" placeholder="请输入密码" name="pwd">
+							<p class="tip"></p>
+						</div>
+							<div style="margin-right: 10px;">
+							<span class="hc_login_div_span">确认密码：</span>
+							<input   class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="password" placeholder="确认密码" name="pwd2">
+							<p class="tip"></p>
+						</div>
+						<div style="margin-right: 10px;">
+							<span class="hc_login_div_span"> 邮 箱 ：</span>
+							<input   class="hc_login_input" style="line-height: 38px; padding: 0 5px; margin: 0; border: 0; width: 252px; height: 38px; outline: none;" type="text" placeholder="请输入邮箱" name="email">
+							<p class="tip"></p>
+						</div>
+				 
+						 <input type="hidden" name="checklogin" value="html5">
+						<div style="margin-right: 10px;">
+						      <div class="login-button hc_login_btn_div" style="margin-left:150px;margin-top:10px;">确 定</div> 
+					  </div>
+						<div class="clear"></div>
+					</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</form>
+  
+<script type="text/javascript">
+
+$('.login-button').click(function(){ 
+	subform('<{ofunc type=url link="/member/index"}>',$('#regForm'));
+})
+$(".hc_login_input").change(function(j){
+		var v=$(this).val();
+		var p=$(this).attr("name"); 
+		switch(p){
+		case "email":
+			var patrn= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if(!patrn.exec(v)){ 
+				 alert('邮箱格式错误'); 
+			}else{ 
+				$.ajax({
+				type: "POST",
+				url: "<{ofunc type=url link="/member/checkemail/datatype/json"}>",
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){     
+				if(msg.error ==true){ 
+						$('[name="email"]').val('');
+					  alert('此油箱已注册过帐号'); 
+					 } 
+					}
+				});			
+			}
+		break;
+		case "tname":
+		 	var patrn=/[u4e00-u9fa5]/;  
+			if(v == '' ||v == null){
+			  alert('用户名不能为空'); 
+			}else{
+				$.ajax({
+				type: "POST",
+				url: "<{ofunc type=url link="/member/checkname/datatype/json"}>",
+				dataType: "json",
+				data: "uname=" + v,
+				success: function(msg){ 
+					if(msg.error ==true){ 
+						$('[name="email"]').val('');
+					  alert('此用户名已注册过'); 
+					 } 
+				 
+					}
+				});	
+			}
+		break; 
+		case "pwd":
+			var patrn=/(.){4,16}/;  
+			if(!patrn.exec(v)){
+				 alert('密码是4-16位的字母、数字,区分大小写');  
+			 } 
+		break;
+		}
+	});
+
+</script>
+ 
+
+
+</div>
+<{/block}>

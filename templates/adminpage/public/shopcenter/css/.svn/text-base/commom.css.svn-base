@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+html, body, img, a img, form,ul,li,p,dl,dd,dt{margin:0;padding:0;border:0 none;}
+a{text-decoration: none;}
+a{ color:#f0f0f0;}
+a:link,a:visited{color:#;}
+i{ font-style:normal;}
+.fl{ float:left;}
+.fr{ float:right;}
+.cl{ clear:both;}
+ul,li{list-style:none;}
+
+	body {
+	
+		font-family:Arial, Helvetica, sans-serif,"微软雅黑";
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: transparent; 
+	background-origin: padding-box;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	min-height: 600px;
+	position: relative;
+/*	
+scrollBar-face-color:green;  
+scrollBar-hightLight-color:red;  
+scrollBar-3dLight-color:orange;  
+scrollBar-darkshadow-color:blue;  
+scrollBar-shadow-color:yellow;  
+scrollBar-arrow-color:purple;  
+scrollBar-track-color:black;  
+scrollBar-base-color:pink;*/	
+	
+	}
+.header{ height:70px;background:#45423f;}
+.top{ height:70px; width:1059px; background:#45423f; margin:0 auto; position:relative;}
+.topLeft{ width:413px; hieght:70px;}
+.top ul li a{ color:#c7c7c7;}
+.topLeft ul li { float:left; font-size:14px; width:100px; text-align:center; color:#c7c7c7; font-family:"微软雅黑"; height:70px; line-height:70px;}
+.topRight .cost{font-size:14px; height:70px; line-height:70px; text-align:center; color:#ec7501; margin-right:26px; }
+.cost img,.username img{margin-left:11px; margin-bottom:2px;}
+.username{font-size:14px; height:70px; line-height:70px; color:#2f90bb; margin-right:32px;}
+.shangjiaTop{ background:url(../images/shangjiaTop.png) no-repeat; position:absolute; top:0px;  left:50%; margin-left:-100px; width:230px; height:66px; padding:22px 20px;}
+.shangjiaTop .sjgl{  width:228px; height:70px; background:url(../images/shangjiahoutai.png) no-repeat; }
+.shangjiaTop .sjglorder{  width:228px; height:70px; background:url(../images/lefuDkbg.png) no-repeat; }
+.shangjiaTop .sjglaa{  width:228px; height:70px; background:url(../images/orderQuiBg.png) no-repeat; }
+.shangjiaTop .sjgl span{ margin-left:10px;  font-family:"宋体"; font-weight:600; color:#f0f0f0; font-size:24px; height:70px; line-height:70px;}
+
+
+.footer{ height:100px; margin-top:76px;}
+.foot1{  background:#5e5955; height:50px;}
+.foot1 .db{ width:1240px; height:50px;  margin:0 auto;text-align: center; color:#c7c7c7;}
+
+.foot1 a{  padding: 0 10px; color:#c7c7c7; font-size:12px; font-family:"宋体"; height:50px; line-height:50px;}
+.foot2{ margin:0 auto; background:#2e363f; height:50px;}
+.foot2 p{ width:1240; margin:0 auto; color:#6d7277; font-size:12px; font-family:"宋体"; height:50px; line-height:50px;text-align: center;}

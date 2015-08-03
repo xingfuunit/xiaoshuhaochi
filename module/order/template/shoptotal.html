@@ -1,0 +1,149 @@
+ <{extends file="<{$tempdir}>/public/shopcenter.html"}>  
+ <{block name=extendjs}>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.PrintArea.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+    <script>
+  	var mynomenu='baseordertj';
+  	</script>
+ <{/block}> 
+ <{block name=bodylist}>
+ <!---content right start--->
+  <div class="conWaiSet fr">
+    <div class="shopSetTop"> <span>订单统计</span> </div>
+    <div class="orderTongji">
+      <div class="sjser" style="font-weight:none;">商家订单统计查询</div>
+      <form action="<{ofunc type=url link="/order/shoptotal"}>" method="post" id="chafrom">  
+      <div style="background:#311f16;">
+      <span>年份 :
+      <select name="year" onchange="selectyear();">
+      	<option selected="selected" value="0">所有</option>
+      	<{section name=loop loop=$startyear step=1 max=10}> 
+      	<option value="<{$startyear-$smarty.section.loop.index}>"><{$startyear-$smarty.section.loop.index}></option>
+        <{/section}>
+      	 
+      </select>
+      
+      </span>
+      <span id="showmonth"> 
+      	
+      	<!-- 月份：
+      <select name="month" onchange="selectmonth">
+      	<option selected="selected" value="">全年</option>
+        <option value="">1</option>
+        <option value="">2</option>
+        <option value="">3</option>
+        <option value="">4</option>
+      </select>  -->
+      </span>
+      <span id="showday">
+      	<!--日：
+      <select name="day">
+      	<option selected="selected" value="">全年</option>
+        <option value="">1</option>
+        <option value="">2</option>
+        <option value="">3</option>
+        <option value="">4</option>
+      </select>
+      -->
+      </span>
+      <span>订单数：<span class="ddnum"><{$allnum}>单</span></span>
+       <span>交易额：<span class="ddnum"><{$allsum}>元</span></span>
+       <span class="tingjiSer curbtn" id="dosubmit"></span>
+       
+       </div>
+       </form>  
+      <div class="cl"></div>
+    </div>
+    <div class="cl"></div>
+    <div class="caidanSet"> 
+      	
+      <!---留言管理----->
+    
+        <div class="mes_box" style="display:block;" id="liuyan">        
+            <table cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                 <th width="10%">时  间</th>
+                 <th width="10%">订单数量</th>
+                  <th width="10%">在线付款</th>
+                   <th width="10%">线下支付</th>
+                    <th width="10%">使用优惠券</th>
+                     <th width="10%">店铺优惠</th>
+                      <th width="10%">使用积分</th>
+                       <th width="10%">打包费</th>
+                        <th width="10%">配送费</th>
+                         <th width="10%">商品总价</th>
+                         
+                </tr>
+                <{foreach from=$list item=items}>
+                <tr>
+                  <td><{$items['name']}></td>
+                  <td><{$items['orderNum']|default:'0'}></td>
+                  <td><{$items['online']}></td>
+                  <td><{$items['unline']}></td>
+                  <td><{$items['yhjcost']}></td>
+                  <td><{$items['cxcost']}></td>
+                  <td><{$items['score']}></td>
+                  <td><{$items['bagcost']}></td>
+                  <td><{$items['pscost']}></td>
+                  <td><{$items['goodscost']}></td>
+                </tr>
+                <{/foreach}>
+             
+              </tbody>
+            </table>
+         
+        </div>
+        
+        
+       
+   
+    </div>
+  </div>
+  <div class="cl"></div>
+  
+  <!---content right end---> 
+ 
+ <script>
+ 	var nowyear = '<{$year}>';
+ 	var nowmonth = '<{$month}>'; 
+$(function(){
+ 	 	$('#dosubmit').click(function(){
+ 	 		$('#chafrom').submit();
+    });
+    $("select[name='year']").val(nowyear);//find("option[text='"+nowyear+"']").attr("selected",true);
+    selectyear();
+}); 
+
+function selectyear(){
+   var nowyear = $("select[name='year']").find("option:selected").val(); 
+   if(nowyear == 0){
+      $('#showmonth').html('');
+      $('#showday').html('');
+   }else{
+   	  var htmls='月份: <select name="month" > <option selected="selected" value="0">全年</option>';
+   	  for(var i=1;i< 13;i++){
+   	  	htmls+='<option value="'+i+'">'+i+'</option>';
+   	  } 
+      htmls+='</select>';
+      $('#showmonth').html(htmls);
+       $("select[name='month']").val(nowmonth);
+     //  selectmonth();
+   }
+} 
+function getDays(nowyear,nowmonth){ 
+var y = nowyear;
+var m = nowmonth;
+if(m == 2){
+return y % 4 == 0 ? 29 : 28;
+}else if(m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12){
+return 31;
+}else{
+return 30;
+}
+}
+ 	</script>
+ 
+ 
+ 
+ <{/block}>

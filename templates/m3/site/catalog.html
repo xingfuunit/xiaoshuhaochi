@@ -1,0 +1,40 @@
+
+<ul>
+<{foreach from=$caiplist key=mykey item=items}>    
+<li class="one" id="one_<{$items['id']}>" data="<{$items['id']}>">
+<p class="n_mkname" id="p_01<{$mykey+1}>"><i  style_id="<{$items['id']}>" class="i01"><{$items['name']}></i><i class="i02"></i></p>
+<div class="n_subnav">
+<div class="n_snavbox" id="n_snavbox_1">
+<ul class="n_snavidem">
+
+<!--<{foreach from=$arealist item=itv}>
+	<li class="" id="li_100" style="height:20px;padding-top:5px;" data="<{$itv['id']}>"><p><i><{$itv['name']}></i></p></li>
+<{/foreach}> yanlei 改 -->
+ 
+
+ 
+</ul>
+<div style="clear:both;"></div>
+
+<div class="n_snavcon" id="n_snavcon_1">
+<div class="n_sncon01">
+<ul>
+<div class="hc_shop_list_div">
+				<ul id="shopList" class="shopshowid"></ul>
+			</div>
+
+</ul>
+
+</div>
+ 
+<a href="javascript:closeNev(1)" class="n_shut">关闭</a>
+</div>
+</div>
+</li>
+
+  <{/foreach}>
+<input id="i_shop_num" value=101 class="hide"/>
+</ul>
+<script>
+   var catalogdata = <{$shopdata|json_encode}>;
+</script>

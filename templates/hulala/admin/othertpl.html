@@ -1,0 +1,106 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">支付接口列表</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	
+      	 
+       
+      	
+           <div class="tags">
+
+      	 
+
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr> 
+                        <th align="center">模板标签</th>
+                       <th align="center">模板名称</th>
+                        <th align="center">状态</th>  
+                        <th align="center">操作</th>
+
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list key=myid item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        
+                        <td align="center"><{$myid}></td> 
+                        <td align="center"  width="300px"> <{$items}> </td> 
+                        <td align="center"><{if isset($info[$myid])}>已设置<{else}>未设置<{/if}></td>
+                        
+                        <td align="center"> <a onclick="installlogin('<{$myid}>','<{$items}>');"  href="#"><img src="<{$siteurl}>/templates/<{$tempdir}>/public/images/admin/edit.jpg"></a></td>
+                        	
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div> 
+
+                </form>
+
+                 
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+</div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	 var dialogs ;
+	 function installlogin(taskid,apidname)
+	 {
+	 	 dialogs = art.dialog.open(siteurl+'/index.php?controller=admin&action=edittpl&tplname='+taskid);
+	 	 dialogs.title(apidname);  
+	 }
+	 function uploadsucess(msg){
+	  
+    	dialogs.close(); 
+       window.location.reload();
+  }
+	 	 
+</script>
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

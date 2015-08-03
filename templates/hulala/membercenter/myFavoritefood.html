@@ -1,0 +1,97 @@
+<{include file="<{$tempdir}>/public/top.html"}>
+<div id="content">
+	<div class="hc_content">
+	<div class="hc_userifon">
+		  <{include file="<{$tempdir}>/membercenter/usermenu.html"}>
+			<div class="hc_userinfo_content">
+				<div class="hc_userinfo_head"><span class="hc_userinfo_head_span"><{$sitetitle}></span></div>
+			<div class="hc_userinfo_content_div">
+					<div class="hc_userinfo_content_div_box">
+					<table class="table table-bordered" width=100%>
+		              <thead style="background:#eee;font-weight:600px;">
+		                <tr>
+		                  <th style="width:20%;">美食</th>
+		                  <th style="width:20%;">所属餐厅</th>
+		                  <th style="width:20%;">单价</th>
+		                  <th style="width:20%;">订购</th>
+		                  <th style="width:20%;">删除</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		              	<{foreach from=$list  item=v}> 
+		              	 
+		                <tr id="fav_245611">
+		                  <td><{$v['name']|default:'该商品已被店家删除'}></td>
+		                  <td><{$v['shopname']}></td>
+		                  <td><{$v['cost']}>元</td>
+		                  <td> 
+						              <div onclick="addtocart(<{$v['shopdoid']}>,<{$v['collectid']}>);" class="jia hc_listfoods_menus_foods hcl_food_lists_cont_div_order hcl_food_lists_cont_div_order_margin">来一份</div>		                 
+						          </td>
+		                  <td style="cursor:pointer;"><a style="color:#333;" href="javascript:delfavte(<{$v['collectid']}>,this);">删除</a></td>
+		                </tr>
+		                 
+		                <{/foreach}>
+		                
+		                		              </tbody>
+		            </table>
+		        </div>
+				</div>
+			</div>
+			<div class="clear"></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+ function delfavte(collectid,obj){ 
+	var url = siteurl+'/index.php?controller=site&action=delcollect&collectid='+collectid+'&type=1'+'&@random@'; 
+	$.ajax({
+     type: 'post',
+     async:true, 
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){ 
+           window.location.reload();
+     	}else{
+     		if(content.error == true)
+     		{
+     			diaerror(content.msg); 
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });    
+}
+function addtocart(shopid,goods_id)
+{
+	var url = '<{ofunc type=url link="/site/addcart"}>'; 
+	$.ajax({
+     type: 'post',
+     async:false, 
+     data:{'shopid':shopid,'goods_id':goods_id,'num':1},
+     url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+     dataType: 'json',success: function(content) {   
+     	
+     	if(content == 'ok')
+     	{
+     		window.location.reload();
+     	 
+     	}else{
+     		if(content == 'no')
+     		{
+     			diaerror('购物车内有其他店铺商品');
+     		}else{
+     			diaerror(content); 
+     		}
+     	} 
+		},
+    error: function(content) { 
+    	diaerror('数据获取失败'); 
+	  }
+   });
+}
+</script>
+<{include file="<{$tempdir}>/public/foot.html"}>

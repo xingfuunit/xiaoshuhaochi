@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/map/map.css" />
+ <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=<{$baidumapkey}>&v=1.0"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/html5/js/jquery.js"></script> 
+  <script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	var controllername= '<{$controlname}>';
+</script>
+<title>百度地图的Hello, World</title>
+<style type="text/css">
+body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;} @media (max-device-width: 780px){#golist{display: block!important;}}#golist {display: none;}
+</style>
+</head>
+<body>
+ 
+<div id="allmap"></div>
+<div class="myRichMarkerAlert info-window needPIE"  id="mysetdiv" style="display:none;">
+	<i class="arrow"></i>
+	<a class="close"></a>
+	
+</div>
+</body>
+</html>
+<script type="text/javascript">
+
+// 百度地图API功能
+var map = new BMap.Map("allmap");            // 创建Map实例
+var point = new BMap.Point(116.404, 39.915);    // 创建点坐标
+var myIcon1 = new BMap.Icon(siteurl+"/upload/map/pepole.png", new BMap.Size(75,75),{offset: new BMap.Size(25,25),imageOffset: new BMap.Size(25,25)});  
+var marker = null;  
+var makenow = false; 
+var infoWindow = new BMap.InfoWindow(''); 
+map.centerAndZoom(point,18);                     // 初始化地图,设置中心点坐标和地图级别。
+map.addControl(new BMap.ZoomControl());          //添加地图缩放控件
+var savemapurl = '<{ofunc type=url link="/site/setuserlng/mapname/@mapname@/lat/@lat@/lng/@lng@/random/@random@"}>'; 
+
+
+
+map.addEventListener("click", showInfo);
+function showInfo(e){
+ // alert(e.point.lng + ", " + e.point.lat);
+  if($.browser.msie) { 
+	         	$('#mysetdiv').animate({ top: e.pixel.y-150,left: e.pixel.x-150}, 300); 
+	        }else{
+	        	 	$('#mysetdiv').animate({ top: e.pixel.y-110,left: e.pixel.x-140}, 300); 
+	        }
+   $.getScript('http://api.map.baidu.com/geocoder/v2/?ak=<{$baidumapkey}>&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1');  
+  /*
+   var marker1 = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));  // 创建标注
+  map.addOverlay(marker1);              // 将标注添加到地图中
+  var infoWindow1 = new BMap.InfoWindow("普通标注");
+  map.openInfoWindow(infoWindow1,new BMap.Point(e.point.lng, e.point.lat));  //markerslist.push(infoWindow1);
+  */
+   
+}
+function renderReverse(datas){
+	 if(datas.status == 0){  
+	 	  var  shuliang = 0;
+	 	  
+	    var url = siteurl+'/index.php?contrller=site&action=ajaxlngtlat&lng='+datas.result.location.lng+'&lat='+datas.result.location.lat+'&random=@random@&datatype=json'; 
+	    $.ajax({
+         type: 'post',
+         async:false, 
+         url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+         dataType: 'json',success: function(content) {   
+         	if(content.error == false){ 
+             
+              shuliang = content.msg;
+         	} 
+	    	},
+        error: function(content) {   alert('shiba'); }
+       });  
+ 
+	      var newpoint = new BMap.Point(datas.result.location.lng, datas.result.location.lat);  
+	      //savemapurl  encodeURI
+	      var temp_linksss = savemapurl.replace('@lat@',datas.result.location.lat).replace('@lng@', datas.result.location.lng).replace('@mapname@', encodeURI(datas.result.formatted_address));
+	     
+	       var contentc = '<i class="arrow"></i>	<a class="close"></a>	<p class="name">'+datas.result.formatted_address+'</p><p class="amount">附近有 <strong>'+shuliang+'</strong> 家餐厅</p>';
+	    
+	      if(shuliang > 0){
+	           contentc += '<a class="btn" href="'+temp_linksss+'" >查看餐厅</a>';
+	      }
+	      
+	      contentc = '<div class="myRichMarkerAlert info-window needPIE"  id="mysetdiv" > <i class="arrow"></i> <a class="close"></a> '+contentc+'</div>';
+	      
+	     
+	      if(makenow ==  false){ 
+	   	          marker = new BMap.Marker(newpoint,{icon:myIcon1});
+        }else{
+     	           marker.setPosition(newpoint);  
+	      } 
+	      
+	    //    map.openInfoWindow(NewinfoWindow,newpoint);  
+	    //  $('#cityname').val(datas.result.addressComponent.city); 
+	      if(makenow ==  false){
+	  	            makenow = true;
+	               map.addOverlay(marker);
+	      }
+	      infoWindow = new BMap.InfoWindow(contentc);   
+	     map.openInfoWindow(infoWindow,newpoint);
+	       
+	      
+	 }else{  
+	 } 
+}
+</script>

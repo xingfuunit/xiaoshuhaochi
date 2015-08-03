@@ -1,0 +1,307 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+<{block name=extendcss}>
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/market.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/qqxs.css">   
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/newmarket.css">  
+
+<{/block}>
+ <{block name=navhide}><{/block}>
+<{block name=extendjs}> 
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/marketcart.js" type="text/javascript" language="javascript"></script>
+ 
+<script>
+	var shopid = "<{$shopinfo['id']}>"; 
+	var locationfalse = false;
+	var findtype = '<{$findtype}>';
+		
+		if(findtype == 1){
+			alert('你选择的区域范围内无小卖铺');
+			window.location.href= '<{ofunc type=url link="/site/guide"}>';
+		}
+	</script>
+
+                   
+
+
+
+
+
+<script type="text/javascript">
+
+    var topIsFixed = false;
+
+    $(document).ready(function () {
+
+        $(window).scroll(function () {
+
+            if ($(document).scrollTop() > 190) {
+
+                if (!topIsFixed) {
+
+                    $("#header-menu").removeAttr("style");
+
+                    $("#top").addClass("top-fixed");
+
+                    $("#header-menu").animate({ top: '0px' }, 200);
+
+                    topIsFixed = true;
+
+                }
+
+
+
+            } else {
+
+                $("#header-menu").removeAttr("style");
+
+                if (topIsFixed) {
+
+                    $("#top").removeClass("top-fixed");
+
+                    topIsFixed = false;
+
+                }
+
+            }
+
+        });
+
+    });
+
+
+
+</script> 
+
+ 
+<{/block}>
+   <{block name=bgshow}><div class="mmbg" style="background:url(../upload/shop/page_bg.png)"></div><{/block}>
+ <{block name=shophide}><{/block}>
+<{block name=sitetitle}><{$goodsinfo['name']}><{/block}>
+ <{block name=bodylist}>
+ 
+
+
+<div id="top"  style="height:72px;">
+
+
+    <div id="header-menu">
+
+        <div class="webMainModel">
+
+            <div class="navBox">
+
+                <div class="wmTypeSel">
+
+
+
+                            <h4>快速导航</h4>
+
+                </div>
+
+            </div>
+
+          
+		  
+		  <div class="myCart" id="TopCartInfo">
+<div class="icon_cart " style="left: -75px;"><i></i><span class="mini-cate J_CartNum">0</span></div>
+<div class="cartListBox" style="width: 219px;">
+    <a href="/Order/SubmitOrder" class="titleBar mini-cart-count1">我的菜篮子</a>
+
+        <div class="cartItemList" id="cartinfodet" style="display:none;">
+         
+        </div>
+</div>
+
+
+</div>
+		  
+		  
+<script>
+
+
+$("#TopCartInfo").mouseover(function(){
+
+	$(".icon_cart").css("left","-156px");
+	$(".cartListBox").css("width","300px");
+	$("#cartinfodet").css("width","300px");
+	$("#cartinfodet").show();
+	
+});
+$("#TopCartInfo").mouseout(function(){
+
+	$(".icon_cart").css("left","-75px");
+	$(".cartListBox").css("width","219px");
+	$("#cartinfodet").css("width","219px");
+	$("#cartinfodet").hide();
+	
+});
+</script>
+        </div>
+
+    </div>
+</div>
+    
+</div><!--/pro_box-->
+	
+	<div style="clear:both;"></div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <div class="product"><!--product-->
+ 
+    	
+        <div class="goods_left"><!--goods_left-->
+        	<div class="goods_category" >
+            <div class="goods_cattitle">&nbsp;&nbsp;相关分类</div>
+            <div class="goods_catlist">
+            	<ul>
+            		<{foreach from=$relatcatlist item=items}>
+                	<li><a href="<{ofunc type=url link="/market/cat/id/<{$items['id']}>"}>"><{$items['name']}></a></li>
+                <{/foreach}>
+                  
+                </ul>
+            </div>
+            </div>
+            <div class="goods_category" style="margin-bottom:20px; ">
+            <div class="goods_cattitle">&nbsp;&nbsp;同类热卖商品</div>
+            <div class="goods_cathot">
+            	<ul>
+            		
+            		<{foreach from=$hoptgoods item=items}>
+                	<li>
+                <div class="pro_propic"><a href="<{ofunc type=url link="/market/showgoods/id/<{$items['id']}>"}>"><img src="<{$siteurl}><{$items['img']|default:$defaultgoods}>" ></a></div>
+                
+                <a href="<{ofunc type=url link="/market/showgoods/id/<{$items['id']}>"}>"><{$items['name']}></a><br>
+                <span><font style="color:#cb002b; font-weight:bold;">￥<{$items['cost']}></font></span>
+                </li>
+                <{/foreach}>
+             
+                </ul>
+            </div>
+            </div>
+        </div><!--/goods_left-->
+        <div class="goods_right"><!--goods_right-->
+       	  <div class="goods_top"><!--goods_top-->
+            <div class="goods_position">当前位置：<a href="<{$siteurl}>">首页</a> <code>&gt;</code> <a href="<{ofunc type=url link="/market/cat/id/<{$topcatinfo['id']}>"}>"><{$topcatinfo['name']}></a> <code>&gt;</code> <a href="<{ofunc type=url link="/market/cat/id/<{$catinfo['id']}>"}>"><{$catinfo['name']}></a> <code>&gt;</code><{$goodsinfo['name']}></div>
+            <div class="goods_pic">
+            <table style="width:100%; height:100%;">
+            <tr><td style="vertical-align:central;"><img src="<{$siteurl}><{$goodsinfo['img']|default:$defaultgoods}>" style="width:227px; height:234px;" width="227" height="234">
+            </td></tr></table>
+            </div>
+            <div class="goods_tpright">
+            <span><{$goodsinfo['name']}></span><br>
+            库存：<{$goodsinfo['count']}><br>
+            销量：<{$goodsinfo['sellcount']}><br>
+            用户评价：<{$goodsinfo['point']}><br>
+            价格：￥<{$goodsinfo['cost']}><br>
+           <div style=" float:left; width">
+           	<!-- 
+           	<a href="#"><img src="<{$siteurl}>/upload/images/reduce_gray.jpg" width="21" height="21"></a> 
+            <input name="" type="text">
+            <a href="#"><img src="<{$siteurl}>/upload/images/add_gray.jpg" width="21" height="21"></a></div><br> -->
+            <div style="float:left; width:100%;"><a href="#" onclick="addonedish('<{$goodsinfo['id']}>','<{$goodsinfo['shopid']}>',1,this);"><img src="<{$siteurl}>/upload/images/addcart.gif" width="117" height="41"></a></div>
+             </div>
+          </div><!--/goods_top-->
+            <div class="goods_intro">
+            <div class="goods_introtitle">商品描述</div>
+            <div class="goods_introtxt">  <{$goodsinfo['instro']|htmlspecialchars_decode}> </div>
+            </div>
+        </div><!--/goods_right-->
+        
+
+</div><!--/product-->
+ 
+ 
+</div>
+ 
+ 
+  
+  
+  <!--购物车-->
+ <!-- <div class="mini-container" id="smallcatinfo">
+ 	   <div class="mini-cart-count" style="width: 66px;">
+ 	   	<a class="mini-buy" href="#" target="_self" onclick="ajaxdoorder(<{$shopinfo['id']}>);"></a>
+ 	   	<div class="mini-cart-open" style="display: none;">
+ 	   		<div class="mini-cart-cover">
+ 	   			<div class="cart-tip ks-clear">
+ 	   			   <div class="cart-num"><em class="J_CartNum">0</em></div>
+ 	   		     <div class="cart-price"><em class="J_CartPrice">0</em></div>
+ 	   		   	 <div class="cart-weight"><em class="J_CartWeight">0</em></div>
+ 	   		  </div>
+ 	   		  <div class="warn-msg">
+ 	   				<span href="满69免运费" target="_blank" class="J_CartMsg" title=""></span>
+ 	   			</div>
+ 	   	  </div>
+ 	   	  <s class=""></s>
+ 	   	</div>
+ 	   </div>
+ 	   <div class="mini-cart-close" style="display:block;" onclick="hidedetas();"><div class="mini-cate J_CartNum">0</div></div> 
+ 	   <div class="mini-bd sc-non-empty" style="width: 722px;display:none;">
+ 	   	    <div class="mini-clear ks-clear">
+ 	   	    	<div class="mini-bd-lf">
+ 	   	    		<a href="javascript:hidedeta();" class="mini-tringer" target="_self"></a>
+ 	   	    		<div class="mini-bd-content">
+ 	   	    			<p class="sc-notice J_CartNotice">您推的是空车子，赶快去购物吧！</p>
+ 	   	    			<div class="mini-bor">
+ 	   	    				<div class="mini-prev"><a class="disable" target="_self" href="javascript:goupcart();">上一页</a></div>
+ 	   	    				<div class="mini-next"><a class="disable" target="_self" href="javascript:gonextcart();">下一页</a></div>
+ 	   	    				<div class="mini-switch-container">
+ 	   	    					<div class="mini-switch-content" style="left:0;" id="cartinfodet">
+ 	   	    					    
+ 	   	    				    
+ 	   	    				  </div>
+ 	   	    				</div></div></div></div><s></s></div>
+ 	   </div>
+ 	
+</div><div class="mini-container" id="smallcatinfo">
+ 	   <div class="mini-cart-count" style="width: 66px;">
+ 	   	<a class="mini-buy" href="#" target="_self" onclick="ajaxdoorder(<{$shopinfo['id']}>);"></a>
+ 	   	<div class="mini-cart-open" style="display: none;">
+ 	   		<div class="mini-cart-cover">
+ 	   			<div class="cart-tip ks-clear">
+ 	   			   <div class="cart-num"><em class="J_CartNum">0</em></div>
+ 	   		     <div class="cart-price"><em class="J_CartPrice">0</em></div>
+ 	   		   	 <div class="cart-weight"><em class="J_CartWeight">0</em></div>
+ 	   		  </div>
+ 	   		  <div class="warn-msg">
+ 	   				<span href="满69免运费" target="_blank" class="J_CartMsg" title=""></span>
+ 	   			</div>
+ 	   	  </div>
+ 	   	  <s class=""></s>
+ 	   	</div>
+ 	   </div>
+ 	   <div class="mini-cart-close" style="display:block;" onclick="hidedetas();"><div class="mini-cate J_CartNum">0</div></div> 
+ 	   <div class="mini-bd sc-non-empty" style="width: 722px;display:none;">
+ 	   	    <div class="mini-clear ks-clear">
+ 	   	    	<div class="mini-bd-lf">
+ 	   	    		<a href="javascript:hidedeta();" class="mini-tringer" target="_self"></a>
+ 	   	    		<div class="mini-bd-content">
+ 	   	    			<p class="sc-notice J_CartNotice">您推的是空车子，赶快去购物吧！</p>
+ 	   	    			<div class="mini-bor">
+ 	   	    				<div class="mini-prev"><a class="disable" target="_self" href="javascript:goupcart();">上一页</a></div>
+ 	   	    				<div class="mini-next"><a class="disable" target="_self" href="javascript:gonextcart();">下一页</a></div>
+ 	   	    				<div class="mini-switch-container">
+ 	   	    					<div class="mini-switch-content" style="left:0;" id="cartinfodet">
+ 	   	    					    
+ 	   	    				    
+ 	   	    				  </div>
+ 	   	    				</div></div></div></div><s></s></div>
+ 	   </div>
+ 	
+</div> -->
+<!--购物车结束-->
+  <div style="clear:both;"></div>
+ <script>
+  		var collectlist = '<{$collectlist}>';
+  		var reloadcart = false;
+  	
+  	 
+  		</script>
+<{/block}>

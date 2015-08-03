@@ -1,0 +1,383 @@
+ 
+ 
+
+/***店铺列表页 ****/
+.ico {
+background: url(../images/icos/sear.png) center no-repeat;
+background-size: 40%;
+} 
+header a.cityaa {
+padding-right: 0px;
+background-image: none;
+display: inline;
+padding-left: 0px;
+}
+.return {
+width: 44px;
+height: 44px;
+background: url(../images/icos/return.png) center 10px no-repeat;
+background-size: 12px 22px;
+position: absolute;
+top: 0px;
+left: 0px;
+}
+
+
+
+
+.wm-container {
+padding: 0;
+}
+.wm-container {
+width: 100%;
+position: relative;
+overflow: hidden;
+}
+.wm-container section {
+overflow: hidden;
+padding-top: 1px;
+}
+.wm-container .sortbox {
+position: relative;
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	margin-top: 2px;
+	border:1px solid rgb(37,37,47);
+	background: #fff;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+}
+.wm-container .sortbox ul{
+	width: 100%;
+	height: 100%;
+	display: box;
+	display:-webkit-box;
+	display:-moz-box;
+	color: rgb(37,37,47);
+	overflow: hidden;
+}
+.wm-container .sortbox li {
+	position: relative;
+height: 100%;
+	font-size: 14px;
+	cursor:pointer;
+}
+.wm-container .sortbox li .qipao{
+	display: none;
+}
+.wm-container .sortbox .active {
+color: #fff;
+	background: rgb(37,37,47);
+}
+.wm-container .listbox {
+position:relative; 
+	height: auto;
+	overflow:hidden;
+	text-shadow:none;
+}
+.mVer {
+height: 100%;
+	transform:translate3d(0,0,0);
+	-moz-transform:translate3d(0,0,0);
+	-webkit-transform:translate3d(0,0,0);
+	transition:all 1s ease-in-out;
+	-webkit-transition:all 1s ease-in-out;
+	-moz-transition:all 1s ease-in-out;
+	overflow: hidden;
+}
+.mBxMid {
+position: relative;
+width: 100%;
+cursor:pointer;
+margin: 5px 0;
+box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+}
+.mBxCm{
+	display: none;
+}
+.mFlex1 {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+height: 50%;
+	width: 100%;
+	background:linear-gradient(transparent,#000);
+background:-o-linear-gradient(transparent,#000);
+background:-webkit-linear-gradient(transparent,#000);
+background:-moz-linear-gradient(transparent,#000);
+}
+.mFlex1 h3{
+	position: absolute;
+	left: 0;
+	bottom: 25px;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	color:#fff;
+	padding:0 0 5px 5px;
+font-size: 16px;
+font-weight: normal;
+}
+.mFlex1 div{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 30px;
+	line-height: 30px;
+	padding:0 0 5px 5px;
+font-size: 16px;
+color: #fff;
+text-shadow:none;
+width: 100%;
+box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+}
+.mFlex1 div span{
+	color: #ff6000;
+}
+.wm-container .listbox li img {
+display: block;
+width: 100%;
+height: 150px;
+border-radius: 2px;
+}
+.wm-container .listbox li.clkitm:hover{
+	background-color: #f5f5f5!important;
+}
+
+
+.alertbox, .alertbox2 {
+background: rgba(0, 0, 0, 0.5);
+width: 100%;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+display: none;
+z-index: 3;
+}
+.alertbox.sh, .alertbox2.sh {
+display: block;
+}
+.alertbox > div {
+width: 250px;
+height: 280px;
+margin: 50px auto 0;
+background: #ffffff;
+position: relative;
+border: 5px solid #f5f5f5;
+}
+.alertbox > div img {
+width: 230px;
+height: 160px;
+margin: 3px auto 0px auto;
+margin-top: 10px;
+display: block;
+}
+.alertbox > div div {
+height: 24px;
+line-height: 24px;
+border: 1px solid #ea5413;
+width: 228px;
+margin: 0px auto;
+}
+.alertbox > div div span {
+width: auto;
+padding: 0 5px;
+display: inline-table;
+}
+.alertbox > div img + div span {
+background: #ea5413;
+color: #fff;
+text-align: center;
+}
+.alertbox > div .jiage {
+float: right;
+background: none;
+font-weight: 700;
+color: #323232;
+}
+.alertbox > div p {
+padding: 12px;
+}
+.alertbox > div p + div {
+border: none;
+width: 80px;
+height: 25px;
+float: left;
+text-align: center;
+background: url(../images/icos/jj.png) 1px center no-repeat;
+background-size: 78px;
+margin-left: 12px;
+}
+.alertbox > div p + div a {
+width: 22px;
+height: 20px;
+float: left;
+display: inline-block;
+text-align: center;
+}
+.alertbox > div div a + span {
+padding: 0;
+}
+.alertbox > div p + div span {
+width: 20%;
+height: 24px;
+line-height: 24px;
+display: inline-block;
+}
+.alertbox > div p + div a:last-child {
+float: right;
+}
+.alertbox > div .inputBtn {
+width: 70px;
+height: 28px;
+line-height: 20px;
+float: right;
+margin: 0;
+border-radius: 15px;
+margin-right: 12px;
+}
+
+ footer {
+position: fixed;
+bottom: 0;
+left: 0;
+width:100%;
+height: 40px;
+line-height: 40px;
+background: #ffffff;
+}
+footer div {
+overflow: hidden;
+}
+ 
+footer .pie {
+	width: 80%;
+	height: 100%;
+background: url(/templates/newgreen/public/wxsite/images/wechat_gwc_h.png) 0 0 no-repeat;
+background-size: 40px;
+font-size: 14px;
+text-align: center;
+}
+#buy-DishCaiCount{
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
+	height: 20px;
+	line-height: 20px;
+	width: 20px;
+	color: #fff;
+	background: #ff6000;
+	border-radius: 20px;
+}
+#addShopping{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 30%;
+	height: 100%;
+background: rgb(37,37,47);
+color: #fff;
+cursor: pointer;
+text-align: center;
+}
+
+.banner_bottom {
+background: #ffffff; 
+height: 62px; 
+width: 100%;
+}
+.bannercontant {
+margin-right: 14px;
+}
+.mBxLt {
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-pack: start;
+-moz-box-pack: start;
+-o-box-pack: start;
+box-pack: start;
+}
+.mr20 {
+margin-right: 20px;
+}
+
+.w24 {
+width: 24px;
+}
+.listcontant, .nowraps {
+word-break: keep-all;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.listico {
+width: 14px;
+height: 14px;
+}
+.leftlistico {
+margin-left: 0px;
+margin-right: 10px;
+}
+.liststyle1 li:nth-child(1) a .leftlistico {
+background: url(../images/telico.png) no-repeat top;
+background-size: 14px;
+}
+.liststyle1 li a {
+margin-left: 5px;
+margin-right: 5px;
+padding-left: 10px;
+padding-right: 10px;
+border-bottom: 1px solid #dcdcdc;
+display: -webkit-box;
+display: -moz-box;
+display: -o-box;
+display: box;
+-webkit-box-align: center;
+-moz-box-align: center;
+-o-box-align: center;
+box-align: center;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+.listcontant, .nowraps {
+word-break: keep-all;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.liststyle1 li:nth-child(2) a .leftlistico {
+background: url(../images/positionico.png) no-repeat top;
+background-size: 14px;
+}
+.color3236232 {
+color: #323232;
+}
+.banner_logo {
+width: 96px;
+position: relative;
+}
+.scbox {
+width: 16px;
+height: 14px;
+display: block;
+background: url(../images/scok.png);
+background-size: 16px 14px;
+}
+.scno {
+background: url(../images/scno.png);
+background-size: 16px 14px;
+}
+.liststyle1 {
+background: #ffffff; 
+border-top: 1px solid #dcdcdc!important; 
+}

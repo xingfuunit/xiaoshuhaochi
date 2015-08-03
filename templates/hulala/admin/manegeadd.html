@@ -1,0 +1,89 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname"><{if !empty($info)}>编辑管理<{else}>添加管理员<{/if}></div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+          <div class="tags">
+          
+          <div id="tagscontent">
+            <form method="post" name="form1" action="<{ofunc type=url link="/admin/manegesave"}>" onsubmit="return subform('<{ofunc type=url link="/admin/manegelist"}>',this);">
+              <div>
+                <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+                  <tbody>
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">管理员名称</td>
+                      <td><input type="text" name="username" id="username" value="<{$info['username']}>" class="skey" style="width:150px;" <{if !empty($info)}> readonly<{/if}>></td>
+                    </tr>
+                    
+                    <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left">新密码</td>
+                      <td><input type="password" name="password" id="password" value="" class="skey" style="width:250px;"></td>
+                    </tr>
+                    
+                     <tr onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="ffffff">
+                      <td class="left" valign="top">权限设置<br><a onclick="checkword(true);" href="#">全选</a>/<a onclick="checkword(false);"  href="#">取消</a></td>
+                      <td>  
+                      	<{assign var=find value="0"}> 
+                      	<{assign var=foo value=","|explode:$info['limit']}> 
+                      	<{foreach from=$alllimit key=myid  item=items}>  
+                      	 
+                      	   <div style="width:200px;float:left;"> <input type="checkbox" value="<{$myid}>" name="limit[]" <{if in_array($myid,$foo)}>checked<{/if}> ><{$items}></div>
+                      	   
+                      	   <{$find = $find+1}>
+                      	    <{if $find%4 == 0}>
+                      	      <div style="clear:both;"></div>
+                      	  <{/if}>
+                      	<{/foreach}> 
+                      	</td>
+                    </tr>
+                    <input type="hidden" name="uid" id="uid" value="<{$info['uid']}>" class="skey" style="width:150px;">
+                   
+                  </tbody>
+                </table>
+              </div>
+              <div class="blank20"></div>
+              <input type="hidden" name="tijiao" id="tijiao" value="do" class="skey" style="width:250px;">
+              <input type="hidden" name="saction" id="saction" value="siteset" class="skey" style="width:250px;">
+               <input type="submit" value="确认提交" class="button">  
+            </form>
+          </div>
+        </div>
+        <div class="blank20"></div> 
+      
+      </div>
+      <div class="clear"></div>
+    </div>
+   
+   
+    </div> 
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+	
+<script>	 
+function checkword(flag)
+{ 
+	 
+	$("input[name='limit[]']").attr("checked",flag); 
+}
+</script>
+	
+	
+	
+	
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

@@ -1,0 +1,73 @@
+ <{extends file="<{$tempdir}>/public/site.html"}>  
+ <{block name=extendcss}>
+ <link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/guestorder.css"> 
+ <{/block}> 
+ <{block name=extendjs}>
+  
+ <{/block}>
+   <{block name=bgshow}><div class="mmbg" style="background:url(../upload/shop/page_bg.png)"></div><{/block}>
+  <{block name=shophide}><{/block}>
+ <{block name=bodylist}> 
+ <div style="height:30px;"></div>
+<div class="check-main">
+		<div class="check-order-wrap">
+			<h2 class="check-order-title">
+				根据订单号查看订单
+				<span>(<em>下单时未登录</em>的用户请在此查看订单)</span>
+			</h2>
+			<ul class="order-number-check">
+				 
+				<li>
+					<label class="number-title">下单手机号：</label>
+					<input id="mobile" class="large-check-input" type="text" name="mobile" value="请输入下单时填写的手机号码"  placeholder="请输入下单时填写的手机号码">
+					<span id="mobilemsg" class="c-hint"></span>
+				</li>
+				<li>
+					<label class="number-title">验证码：</label>
+					<input class="mid-check-input" type="text" name="Captcha" value="请输入右侧图形验证码"    placeholder="请输入右侧图形验证码">
+					<span class="c-verification" style="width:117px">
+						 <img style="width: 105px;height: 30px;"  src="<{ofunc type=url link="/site/getCaptcha"}>" id="captchaimg" title="点击刷新">
+					</span>
+					<a class="c-change" href="#" onclick="freshcode();">换一张</a> 
+					<span id="imgcodemsg" class="c-hint"></span>
+					
+				</li>
+					<div class="submit-wrap ml94">
+						<a href="javascript:void(0)" class="submit" id="doSearch" style="color:#fff;">查询订单</a>
+					</div>
+				
+			</ul>
+		</div>
+		<div class="check-login-wrap">
+			<h2 class="login-check-order" style="text-align: center;">
+				登录后查看订单
+			</h2>
+		 	<a class="c-btn yellow" id="loginnowmid" href="<{ofunc type=url link="/member/login"}>" style="color:#fff;">立即登录</a>
+		 	<input type="hidden" id="flag" value="mid">
+		</div>
+	</div>
+ <script>
+ 	$('#doSearch').click(function(){
+ 		 $('#mobilemsg').text('');
+ 		if($('input[name="mobile"]').val() ==  $('input[name="mobile"]').attr('placeholder') || $('input[name="mobile"]').val() == ''){
+ 			$('#mobilemsg').text('请录入手机号');
+ 			return false;
+ 		}
+ 		 $('#imgcodemsg').text('');
+ 		if($('input[name="Captcha"]').val() ==  $('input[name="Captcha"]').attr('placeholder') || $('input[name="Captcha"]').val() == ''){
+ 			$('#imgcodemsg').text('请录入验证码');
+ 			return false;
+ 		}
+ 		var tempurl = '<{ofunc type=url link="/order/guestorderlist/Captcha/@Captcha@/phone/@phone@"}>';
+ 		tempurl = tempurl.replace('@Captcha@', $('input[name="Captcha"]').val()).replace('@phone@', $('input[name="mobile"]').val());
+ 		window.location.href= tempurl;
+ 	});
+ 	$('#mobile').click(function(){
+ 		$(this).val('');
+ 	});
+ 	$('input[name="Captcha"]').click(function(){
+ 		$(this).val('');
+ 	});
+ 
+ 	</script>
+<{/block}>

@@ -1,0 +1,101 @@
+ <{extends file="<{$tempdir}>/public/weixin.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/member.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+
+      <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/regestercode.js"></script> 
+      <script>
+    var regestercode = '0';
+    $(function(){
+//点击发送验证码倒计时 Begin
+var count = 60;
+var timer;
+var reg = /^[0-9]*$/;
+$('#send_code').click(function(){
+  if($('#phone').val().length == 11 && reg.test($('#phone').val()) ){
+    timer = setInterval(countDownaaaa,1000); 
+  }
+});
+//验证码
+function countDownaaaa(){
+  count --;
+  if(count == 0 ){
+    $('#send_code').css({
+      'background':'#ff6000',
+      'color':'#fff'
+    }); 
+   $('#send_code').val('获取验证码').removeAttr('disabled');
+    clearInterval(timer);
+    count = 60;
+    
+  }
+  else{
+    $('#send_code').css({
+      'background':'#ccc',
+      'color':'#999'
+    });
+  $('#send_code').attr('disabled',true);
+  $('#send_code').val('('+count+')'+'重新发送');
+  }
+};
+//点击发送验证码倒计时 End
+
+    });
+      </script>
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+<div id="hallist"> 
+  	<header><div class="return"></div>用户注册</header> 
+  <div class="container" style="padding-top:0px;background:none;margin-top:0px;">
+
+  	 
+
+<section class="muli" style="display: block" id="first">
+	<ul class="w300">
+	<!--   <li>
+		<input type="text" class="inputInp" placeholder="用户名（必填）" id="uname" name="uname" required="required">
+		</li>  -->
+		<li>
+        <input type="text" class="inputInp" placeholder="手机号码（必填）" id="phone" name="phone" required="required">
+        </li>
+<!--<input type="text" class="inputInp" placeholder="输邮箱地址（必填）" id="email" name="email">-->
+        <li>
+        <input type="text" class="inputInp code" placeholder="请输入验证码（必填）" id="code" name="code">
+        <input id="send_code" type="button" value="发送验证码" onclick="clickyanzheng(regestercode);"/>
+        </li>
+        <li>
+		 <input type="password" class="inputInp" placeholder="登陆密码" id="pwd" name="pwd" required="required">
+         </li>
+         <li>
+	 	<input type="password" class="inputInp" placeholder="确认登陆密码" id="spwd" name="spwd" required="required">
+	 	</li>
+	 	<li>
+        <input type="checkbox" checked="checked"/>我已阅读并同意<a href="javascript:;">用户协议</a>
+        </li>
+  </ul>
+  <div class="btnAdd">
+      <input type="BUTTON" class="inputBtn" value="提交注册" id="regSubmit" onclick="savepwd();">
+  </div>
+</section>
+ 	 
+<script> 
+	function savepwd(){  
+
+		   $('#loading').show();
+      var info = {'tname':$('#uname').val(),'phone':$('#phone').val(),'pwd':$('#pwd').val(),'pwd2':$('#spwd').val(),'checklogin':'html5','phoneyan':$('#code').val()};
+		  var url = '<{ofunc type=url link="/member/saveregester/random/@random@/datatype/json"}>'; 
+		  var backdata = ajaxback(url,info); 
+		  if(backdata.flag == false){ 
+		      window.location.href = siteurl+'/index.php?controller=wxsite&action=member';
+		  }else{
+		  	$('#loading').hide();
+		     Tmsg(backdata.content);
+		  }
+		  
+	}
+</script>
+
+<{/block}>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title><{block name=sitetitle}><{/block}>-<{$sitename}></title>
+<{block name="seokey"}><meta name="Keywords" content="<{$keywords}>" /><{/block}>
+<{block name="seodes"}><meta name="description" content="<{$description}>" /><{/block}>
+<{$metadata|stripslashes}>
+<link rel="shortcut icon" href="<{$siteurl}>/templates/<{$tempdir}>/public/images/favicon.ico" /> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/common.css"> 
+<link rel="stylesheet" type="text/css" href="<{$siteurl}>/templates/<{$tempdir}>/public/css/server.css"> 
+<{block name=extendcss}><{/block}>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquerynew.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/allj.js" type="text/javascript" language="javascript"></script>
+ <script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/artDialog.js?skin=blue"></script> 
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/template.min.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/jquery.lazyload.min.js" type="text/javascript" language="javascript"></script>
+ <script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/regestercode.js"></script>
+ <script>
+     var regestercode=0;
+ 	$(function() { 
+  $("img").lazyload({ 
+  effect : "fadeIn" 
+  }); 
+ //Header二维码显示与隐藏  Begin
+ $('.views_main_header ul > li:nth-of-type(5) span:nth-child(1)').on({
+ 	'mouseover':function(){
+ 	$('.views_main_header ul > li:nth-of-type(5) span:nth-child(3)').fadeIn();
+ },
+ 'mouseout':function(){
+ 	$('.views_main_header ul > li:nth-of-type(5) span:nth-child(3)').fadeOut();
+ }
+});
+ //Header二维码显示与隐藏  End  
+
+
+//Header点击添加高亮  Begin
+$('.views_main_header ul > li:nth-of-type(4) ol li:nth-of-type(1)').addClass('active');
+
+ $('.views_main_header ul > li:nth-of-type(2) span').click(function(){
+    $(this).parent().addClass('active');
+    $(this).parent().siblings().children().children().removeClass('active');
+ });
+
+ $('.views_main_header ul > li:nth-of-type(4) ol li').click(function(){
+    $(this).addClass('active').siblings().removeClass('active');
+    $(this).parent().parent().siblings().removeClass('active');
+    $('#cover').fadeOut();
+    $('.views_main_login_sign_wrap').removeClass('views_main_login_sign_one_transition');
+ });
+//Header点击添加高亮  End
+
+//用户登录后，显示当前用户的信息列表 Begin
+ if($('.person_content').children('span').eq(0).text().length != 0){
+    $('.person_content').on({  
+    	'mouseover':function(){
+    		$(this).children('span').eq(1).fadeIn();
+        $('.person_name').text($(this).children('span').eq(0).text());
+          $(this).children('span').eq(2).fadeIn('slow');
+    	},
+    	'mouseleave':function(){
+    		$(this).children('span').eq(1).fadeOut();
+        $(this).children('span').eq(2).fadeOut('fast');
+    	}
+    });
+  }
+//用户登录后，显示当前用户的信息列表 End
+
+//用户未登录，显示登录注册也面 Begin
+  else{
+      var uid = <{$member['uid']}>
+      if (uid > 0) {
+            $('.person_content').children('span').eq(0).text('个人中心');
+            $(".person_content").on("click",function(){
+         window.location.href=siteurl+'/index.php?controller=member&action=base';  
+            })
+      }else{
+          
+           $('.person_content').children('span').eq(0).text('登录 注册');
+        $('.person_content').on( 
+      'click',function(){
+        $('.views_main_login_sign_wrap').addClass('views_main_login_sign_one_transition');
+        $('.views_main_login_sign_one').show();
+        $('.views_main_login_sign_two').hide();
+        $('.views_main_login_sign_three').hide();
+        $('#cover').fadeIn();
+      }
+    );
+    
+      }
+    
+  }
+//用户未登录，显示登录注册也面 End
+
+//用户未登录，登录注册页面切换 Begin
+$('.views_main_header ul > li:nth-child(2) ol li:nth-child(1)').click(function() {
+      var value=$("#mobile_check").val();
+      var order_check=$("#order_check").val();
+      if(value==1||order_check!=="no"){
+         location.href= "http://shop.xiaoshuhaochi.com/member/index";
+      }else{
+        $('.views_main_login_sign_one').fadeIn();
+      $('#cover').fadeIn();
+      }
+    });
+    $('#sign_now,.sign_now').click(function() {
+        $('.views_main_login_sign_two').fadeIn();
+        $('.views_main_login_sign_one').fadeOut();
+        $('.views_main_login_sign_three').fadeOut();
+    });
+    $("#fogot_password").click(function(){
+      
+         $('.views_main_login_sign_one').fadeOut();
+         $(".views_main_login_sign_three").fadeIn();
+    })
+    $('#login_now').click(function() {
+        $('.views_main_login_sign_one').fadeIn();
+        $('.views_main_login_sign_two').fadeOut();
+    });
+    $('#fogetpass').click(function() {
+        $('.views_main_login_sign_three').fadeIn();
+        $('.views_main_login_sign_one').fadeOut();
+    });
+//用户未登录，登录注册页面切换 End
+
+
+//点击❌退出当前页面  Begin
+    $('.delete').click(function() {
+        $('.views_main_detail').fadeOut();
+        $('#cover').fadeOut();
+        $('.views_main_login_sign_wrap').removeClass('views_main_login_sign_one_transition');
+        $('.general_notice').fadeOut();
+    });
+//点击❌退出当前页面  End
+
+
+
+//点击发送验证码倒计时 Begin
+var count = 60;
+var timer;
+var reg = /^[0-9]*$/;
+$('#send_code').click(function(){
+  if($('#phone').val().length == 11 && reg.test($('#phone').val()) ){
+    timer = setInterval(countDownaaaa,1000); 
+  }
+});
+//验证码
+function countDownaaaa(){
+  count --;
+  if(count == 0 ){
+    $('#send_code').css({
+      'background':'#ff6000',
+      'color':'#fff'
+    }); 
+   $('#send_code').val('获取验证码').removeAttr('disabled');
+    clearInterval(timer);
+    count = 60;
+    
+  }
+  else{
+    $('#send_code').css({
+      'background':'#ccc',
+      'color':'#999'
+    });
+  $('#send_code').attr('disabled',true);
+  $('#send_code').val('('+count+')'+'重新发送');
+  }
+};
+//点击发送验证码倒计时 End
+
+
+}); 
+
+//登录
+ function login_btn () {
+         var url = siteurl+'/index.php?controller=member&action=login';
+         var uname = $("#login_cell").val();
+         var pwd = $("#login_password").val();
+         var info = {'uname':uname,'pwd':pwd,'logintype':'html5'}; 
+         var  url = siteurl+'/index.php?controller=member&action=login&datatype=json&random=@random@' 
+        $.ajax({ 
+            url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+            dataType: "json", 
+            data:info, 
+            success:function(content) {  
+            	$('#loading').toggle(); 
+            	if(content.msg ==  false){
+                        alert("登陆成功");
+            		 window.location.href= siteurl+'/index.php?controller=site&action=index&shoid='+shopid;
+            	}else{ 
+            	   alert(content.msg);
+                   $("#cover").hide();
+              }
+            	
+            }, 
+            error:function(){ 
+            	$('#loading').toggle();
+
+            } 
+         });  
+ }
+  //注册
+  function savepwd(){  
+
+		   $('#loading').show();
+      var info = {'tname':$('.mobile_email_reg').val(),'phone':$('.mobile_email_reg').val(),'pwd':$('.password_reg').val(),'pwd2':$('.repassword_reg').val(),'checklogin':'html5','phoneyan':$('.code').val(),'regestercode':'1'};
+               
+		  var url = '<{ofunc type=url link="/member/saveregester/random/@random@/datatype/json"}>'; 
+		  var backdata = ajaxback(url,info); 
+		  if(backdata.flag == false){ 
+		      window.location.href = siteurl+'/index.php?controller=site&action=member';
+		  }else{
+		  	$('#loading').hide();
+		     alert(backdata.content);
+		  }
+		  
+	}
+        //忘记密码
+        function changepwd(){  
+            
+	
+         var phone = $("#mobile_email").val();
+         var code = $("#code").val();
+         var newpwd = $("#password").val();
+         var newpwd2 = $("#repassword").val();
+         var info = {'phone':phone,'code':code,'newpwd':newpwd,'newpwd2':newpwd2}
+  	 	  var  url = siteurl+'/index.php?controller=member&action=saveuser&controlname=repwd&datatype=json&random=@random@' 
+  	 	   $.ajax({ 
+            url: url.replace('@random@', 1+Math.round(Math.random()*1000)), 
+            dataType: "json", 
+            data:info, 
+            success:function(content) {  
+            alert("修改成功");
+             window.location.href= siteurl+'/index.php?controller=site&action=index';
+            	if(content.msg ==  false){
+            		 window.location.href= siteurl+'/index.php?controller=wxsite&action=member&shoid='+shopid;
+            	}else{ 
+            	   alert(content.msg);
+                  // $("#loading").hide();
+              }
+            	
+            }, 
+            error:function(){ 
+            	//$('#loading').toggle();
+
+            } 
+         });
+		  
+	}
+</script>
+<{block name=extendjs}><{/block}>
+
+ <script> 
+	var siteurl = "<{$siteurl}>";
+	var is_static ="<{$is_static}>";
+	var controllername= '<{$controlname}>';
+</script>
+
+<!--[if lte IE 6]>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/DD_belatedPNG_0.0.8a.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        DD_belatedPNG.fix('div, ul, img, li, input , a'); 
+    </script>
+<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/ie6.js" type="text/javascript"></script>
+<![endif]--> 
+</head> 
+<body> 
+<div id="toTop" style="left: 1212.5px; display: none;"></div>
+
+
+
+<!--
+<div class="top">
+	 <div class="top_a">
+	 	  <div class="top_a_show">
+	 	  	<div class="top_a_show_l">
+	 	  		  <a href="<{ofunc type=url link="/site/index"}>" class=""><span class="topmcbck"></span> <div style="padding-left:25px;">欢迎光临<{$sitename}></div></a>
+	 	  	</div>
+	 	  	<div class="top_a_show_r">
+	 	  		<{if empty($member['uid'])}>
+	 	  		 <div class="top_a_show_span"><a href="<{ofunc type=url link="/member/regester"}>">注册</a></div>
+	 	  		 <div class="top_a_show_span">|</div>
+	 	  		 <div class="top_a_show_span"><a href="<{ofunc type=url link="/member/login"}>">登陆</a></div>
+	 	  		 <div class="top_a_show_span">|</div>
+	 	  		 	 <a href="#">  <div class="sina"></div> </a>
+	 	  		 <a href="#">  <div class="qq"></div> </a>
+	 	  		 <{else}>
+	 	  		  <div class="top_a_show_span"><a href="<{ofunc type=url link="/member/loginout"}>">退出登陆</a></div>
+	 	  		 <div class="top_a_show_span">|</div>
+	 	  		  <div class="top_a_show_span"><a href="<{ofunc type=url link="/order/usersorder"}>">个人中心</a></div>
+	 	  		 <div class="top_a_show_span">|</div>
+	 	  		  <div class="top_a_show_span"><{$member['username']}></div> 
+	 	  		 <{/if}>
+	 	  	
+	 	  		
+	 	  		 
+	 	  		 
+	 	  	</div>
+	 	  </div>
+  </div>
+	 <div class="top1">
+	 	 <div class="top1_show">
+	 	 	<{block name=shopmenu}>
+	 	  <div class="top1_logo"><a href="<{$siteurl}>"><img src="<{$sitelogo}>"></a></div>
+	 	  <div class="top1_menu">
+	 	     <ul>
+	 	     	<{if !empty($footlink)}>
+	 	     	<{$footlink = $footlink|unserialize}>
+	 	     		<{foreach from=$footlink key=myid item=items}> 
+			          <li class="active_li" data="<{$items['typeurl']}>"><a href="<{$items['typeurl']}>"><{$items['typename']}></a> </li>
+			      <{/foreach}>
+	 	     <{/if}>
+	 	     	</ul>	
+	 	  	
+	 	  </div>
+	 	   
+	 	   <{/block}>
+	 	   
+	 	 </div>
+	 </div>
+</div> 
+  -->
+<{block name=bgshow}><div class="mmbg" <{if !empty($sitebk)}>style="background:url(<{$sitebk}>) repeat;"<{/if}>></div> <{/block}>
+<{block name=shophide}>
+  <div class="top2">
+	  	 <div class="top2_content">
+	  	 	  <div class="hc_addr">
+					 <!--  <div class="hc_addr_change"><span class="hc_change"><a href="<{ofunc type=url link="/site/guide"}>">[更改地址]</a> </span><span class="hc_address">地址：<a style="color:#000;" href="<{$siteurl}>"><{$mapname|default:''}></a></span></div>-->
+				  </div>
+				  <div class="hc_search">
+					<div class="hc_search_left"></div>
+					<div class="hc_search_midd"><input id="search_input" value="<{$shopsearch|default:'搜索餐厅、美食'}>" text="搜索餐厅、美食" onfocus="cls(this)" onblur="res(this)"   onkeyprese="pre(this)" type="text6" onkeydown="if(event.keyCode==13)search();" style="padding:0;padding-left:30px;;margin-bottom:0;margin-top:1px;width: 280px;height: 47px;line-height:47px; outline:none;border:0;"  ></div>
+					<div class="hc_searching"></div>
+					<div class="clear"></div>
+					<script type="text/javascript">
+						$('.hc_searching').click(function(){
+							search();
+						})
+						
+						function search()
+						{
+							var name = $('#search_input').val();
+							if(name != '' && name != $('#search_input').attr('text')) 
+							{
+								var url = siteurl+'/index.php?controller=site&action=index&shopsearch='+name; 
+								location.href=url;
+							}
+						}
+						function cls(obj)
+						{
+							if($(obj).attr('text') == $(obj).val())
+							{
+								$(obj).val('');
+								$('#search_input').css('color','#000');
+							}  
+						}
+						function res(obj)
+						{
+							if($(obj).val() == '')
+							{
+								$('#search_input').css('color','#666');
+								$(obj).val($(obj).attr('text'));
+							}
+						}
+						$(document).ready(function(){
+							$('#search_input').css('color','#666');
+						});
+					</script>
+				</div>
+				  
+	  	 	</div>
+	 </div>
+<{/block}>
+<{block name=bodylist}><{/block}> 
+
+<div id="footer" style="display:none;">
+	
+<div class="hc_btm_div">
+		<div class="hc_btm_contact">
+		   <{if !empty($toplink)}>
+	 	      <{$toplink = $toplink|unserialize}>
+		  	  <{foreach from=$toplink key=myid item=items}> 
+			         <a href="<{$items['typeurl']}>"><{$items['typename']}></a> | 
+			    <{/foreach}>
+			<{/if}>
+
+		</div>
+		<div class="hc_btm_info">@2008-2012 <{$sitename}> <{$beian}><{$footerdata|stripslashes}></div>
+	</div>	
+	
+	
+ </div> 
+<div style="position: absolute; top: -1970px; left: -1970px;"> 
+</div>  
+</body>
+</html>

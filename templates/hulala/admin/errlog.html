@@ -1,0 +1,174 @@
+<{include file="<{$tempdir}>/public/adminnew_top.html"}>
+<div class="right_content">
+	<div class="show_content_m">
+   	        	 <div class="show_content_m_ti">
+   	        	 	   <div class="showtop_t" id="positionname">数据库还原</div>
+   	        	 </div>
+   	        	 <div class="show_content_m_t2">
+   	        	 	 	<script src="<{$siteurl}>/templates/<{$tempdir}>/public/js/datepicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+      <div style="width:auto;overflow-x:hidden;overflow-y:auto"> 
+      	 
+      	
+           <div class="tags">
+ 
+          <div id="tagscontent">
+
+            <div id="con_one_1">
+
+              <div class="table_td" style="margin-top:10px;">
+
+              <form method="post" action="" onsubmit="return remind();" id="delform">
+
+                  <table border="0" cellspacing="2" cellpadding="4" class="list" name="table" id="table" width="100%">
+
+                    <thead>
+
+                      <tr>
+
+                        <th width="60px"></th>
+
+                        <th align="center">文件夹名称</th> 
+                        
+                        <th align="center">操作</th>
+                      </tr>
+
+                    </thead> 
+
+                     <tbody>
+
+                      <{foreach from=$list item=items}> 
+                      <tr class="s_out" onmouseover="this.bgColor='#F5F5F5';" onmouseout="this.bgColor='ffffff';" bgcolor="#ffffff"> 
+                        <td align="center" ><input type="checkbox" name="<{$items}>" value="<{$items}>" ></td> 
+                        <td align="center">/log/<{$items}></td> 
+                       
+                        <td align="center"><a onclick="return remind(this);" href="<{ofunc type=url link="/admin/delerrlog/dirname/<{$items}>"}>">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<{ofunc type=url link="/admin/download/dirname/<{$items}>"}>">下载</a></td> 
+                      </tr> 
+                       <{/foreach}> 
+
+                    </tbody> 
+
+                  </table>
+
+                <div class="blank20"></div>
+
+                 <input type="hidden" name="stopoutenable" id="stopoutenable" value="4ce2f22509228162cadfc0ca0473ec19"/>
+
+                </form>
+
+                <div class="page_newc">
+                 	     
+                       
+                 </div>
+
+                <div class="blank20"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+  </div>
+ 
+</div> 
+
+
+
+
+
+
+
+
+               <div class="show_content_m_t3">
+   	        	 </div>
+   	        	 
+   	       </div>
+   	       <!-- show_content_m结束-->
+
+
+   	  </div>
+   	  <!-- right_content 结束-->
+   	  
+   </div>
+   <!-- newmain_all 结束-->
+</div>	
+<script type="text/javascript" language="javascript" src="<{$siteurl}>/templates/<{$tempdir}>/public/js/artdialog/plugins/iframeTools.js"></script>
+<script>
+	var tablist=	<{$tablist|@json_encode}>;
+	//空气开始结束
+	//时间间隔
+	
+	function bkbase(dirname){
+		if(confirm('确定操作吗？')){
+		$("input[name='"+dirname+"']").attr('checked',true); 
+		$("input[name='name22']").attr('disabled',true); 
+		trancert(dirname,'<{$deftb}>'); 
+	}
+	}
+	function trancert(dirname,tbname){
+		//tablist
+		var nowtb = tbname;
+		var nexttab = 
+		 $('#showstatus').text('还原'+tbname+'表');
+		 $.ajax({
+     type: 'post',
+     async:false,
+     data:{'tabelname':tbname,'dirname':dirname},
+     url: '<{ofunc type=url link="/admin/savebkdata"}>', 
+     dataType: 'json',success: function(content) {   
+     	if(content.error == false){
+     		 
+     	}else{
+     		if(content.error == true)
+     		{ 
+     			$('#showstatus').text(content,msg); 
+     		}else{
+     			 
+     			$('#showstatus').text(content);
+     			 
+     		}
+     	}
+     	 gettb(dirname,tbname);
+	   },
+     error: function(content) { 
+     	 $('#showstatus').text('数据获取失败');
+      
+        gettb(dirname,tbname);
+	     }
+     });
+		 
+		 
+		 
+		 
+		 
+		
+		 
+	}
+	function gettb(dirname,tbname){
+    	var k=0;
+		 var d=0;
+		 var newxtb = '';
+		$.each(tablist,function(i,field){ 
+			if(field == tbname)
+			{
+				d=k+1; 	
+			}
+			if(d > 0 && d== k){
+				newxtb = field;
+				return false;
+			}
+			k++;
+		
+		}); 
+		if(newxtb == ''){
+			$('#showstatus').text('还原完成');
+		}else{
+			setTimeout("trancert('"+dirname+"','"+newxtb+"')",200); 
+		}
+	}
+</script>
+<!--newmain 结束-->
+<{include file="<{$tempdir}>/public/adminnew_foot.html"}>

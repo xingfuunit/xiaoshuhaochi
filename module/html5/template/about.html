@@ -1,0 +1,39 @@
+ <{extends file="<{$tempdir}>/public/html5.html"}>  
+<{block name=extendcss}> 
+ <link rel="stylesheet"  href="<{$siteurl}>/templates/<{$tempdir}>/public/html5/css/member.css">   
+
+<{/block}>
+ <{block name=extendjs}> 
+ 
+<{/block}>
+<{block name=sitetitle}><{$sitename}><{/block}>
+<{block name=blockcontent}> 
+ <div id="shoppingbox">
+
+  	<header><div class="return"></div><font id="abouttitle">关于我们</font></header>
+
+  
+
+    
+
+  
+
+  
+
+  	 
+
+  	<div class="contantabout">
+
+    
+<{load_data assign="info" table="single" type="one" where="code='about'" fileds="*" }> 
+    
+  	 
+
+  	 <{$info['content']|htmlspecialchars_decode}>
+
+
+  		
+
+   </div> 
+
+<{/block}>
